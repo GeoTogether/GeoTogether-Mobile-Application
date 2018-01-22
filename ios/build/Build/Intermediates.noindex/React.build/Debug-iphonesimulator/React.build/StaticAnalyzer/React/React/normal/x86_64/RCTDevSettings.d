@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Modules/RCTDevSettings.mm \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Modules/RCTDevSettings.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/mahdialharbi/Documents/GeoTogether/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JavaScriptCore.h \
+  /Users/mahdialharbi/Documents/GeoTogether/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Modules/RCTJSCSamplingProfiler.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTJSEnvironment.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
+  /Users/mahdialharbi/Documents/GeoTogether/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h
