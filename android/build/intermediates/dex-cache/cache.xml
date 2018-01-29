@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="56d3e81fee5f47a7a12ab65f4620f580c9c71d1e">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.48.4_c728be771f6e62a0bb51bc849a1038265cd93fd5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_cf95b49f49ed5b95bf2601860861d7681d7e4e35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_bda8bfb2b38bc89338208a1672891201e4b6e5ba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="fe3916317a699975bcce0cba2d13fd2d8cf88922">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-27.0.2_f81e2c49574ece67a5a9c6a1fb0903efbd6df8c1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="6d0d5e86f5b7203834df01ed78ebfdd5cbf74d48">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-10.2.4_0e5fd8f3ea661b8b5cdfaa9a60afa5e0ead63189.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_7ae7b3da8ea3d09e165ffdf8265d8a1a3c11fd45.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_0bece53162b9daf121fef57ed7399f9f31803f62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="ac2ce6027755bcf49442e70597bec0feb9064f68">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-27.0.2_2176e3758396e59c9ab472b21564974ec486b27c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5803db663655ef5cb38c6bcb17ba326fdb9edfbd">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.2.4_307776fc626809c17c65afe593e8b3c8b1c8e606.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9ed08fab37c3a572da1d9ed2bf2e36c8d3e2bc48">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.2.4_e0aa408dcc9b68558444775dcf6d68857d1e55b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.1_42b60f8d7514987f1fd8e1dc0aa2369304ef673c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_b60f85513fb3feed953ade686b619e04473ae798.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.4/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_175fa1ae6173bbf1f5ccdfcd57d7dd2e6fbc3334.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-maps/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5ab151698a7278176c9e6a60b6e18dbb4bebdf9f">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-maps-unspecified_cdd0f34f08860d84f2b447952d03489da13b65b4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9ed08fab37c3a572da1d9ed2bf2e36c8d3e2bc48">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.2.4_210db28025379da9bc5132c30e6eb10f7ffb0533.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_cf95b49f49ed5b95bf2601860861d7681d7e4e35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-linear-gradient/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="10bce3308649051968a5a024ca15a2193838eed4">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-linear-gradient-unspecified_3350fd847b37163d7863c281e4226e66c52e22fc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_21461b78f6158b5937740ce3268931cab8a4cb57.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="56d3e81fee5f47a7a12ab65f4620f580c9c71d1e">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.48.4_c728be771f6e62a0bb51bc849a1038265cd93fd5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_7ae7b3da8ea3d09e165ffdf8265d8a1a3c11fd45.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/support-annotations-24.0.0_bbeed6827ac56acc6eec40150c6b33fb1141d991.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="14bfdbf5594d4d7c320de20831849050788ab1e3">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-27.0.2_7148ce8bf1ec29c4228ae6c078be83e903ca06c7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-common/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="e3b8ecc558c6deeb90eb3934c1c715128ab26dcd">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-common-4.30.0_6faba70815e27bbf380150ca871c76ea12c0efb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_35d35328ec9f149b325919f7da4079cdd19d108d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="04cd0cacbedcb338f64665b88bad64d145325fbd">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-27.0.2_3e3e7ea9a9d8a67e561b531f6883e9dcd9b94d77.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_a3401b0f73ee20e37386cb9d1efea5dce643425f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="618f75fe11febf263e3234c7da7dc892232a5608">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-27.0.2_312e7debf5b37a9f0b80d2678432e62eb8be5eda.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_a2bcd66388eb41b99892155c50afb8ea8994de08.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_1c948d5e7dbc91b737bf5afb20f60daaee27541f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_67f637c1b4258a0ffc5859b38c4db462ef23b946.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-fbsdk/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="f90c7e695e3c486f8a900c0e97eeeaa99a7e2d55">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-fbsdk-unspecified_c30c1bc88d3ff2c3f81cfc5c44b226444dadc59c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-messenger/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2482bfd874e8b3927f4141105674ad392ff83698">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-messenger-4.30.0_5bd81c4ab466c9fdc3d0cb2d721822871f0d5a92.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.4/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_175fa1ae6173bbf1f5ccdfcd57d7dd2e6fbc3334.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5803db663655ef5cb38c6bcb17ba326fdb9edfbd">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.2.4_a2d20aa96f0184aa4ad360ffcc52fd1c8ddf8b61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-share/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="95d97996ec624fca99f6b06ad6004c749259970d">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-share-4.30.0_30c5c16c1efda85ac2ce7f7ae88cee0e1e7885dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_b60f85513fb3feed953ade686b619e04473ae798.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6d0d5e86f5b7203834df01ed78ebfdd5cbf74d48">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-10.2.4_fd9a379f55b22139901347ccd6b788b75e1aabe2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="bcd0bcdef85b31a656af76e39c0c95ce70800772">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-27.0.2_23fb0e85744cd832f096721fbd641cb4070ec280.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="dd1d0d84da2cff18f741c63a9c3af7d9aa89fdd6">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.2.4_6b105b25fdbedf70a0f91eda93b74ba5d8147157.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_a3401b0f73ee20e37386cb9d1efea5dce643425f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_c410fd3891e9b49f82e7a17abcb1f592885bb7a5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="ed6560f31a6a40b5965f5879d8f2eab1f68def05">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-27.0.2_15e81ece2a2458c3c518229e28c0e14b7d14a109.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-geocoder/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="ae91e4c5567a33a1e23ea6514c37b65c589b39ca">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-geocoder-unspecified_45a0f6c0bd7a95da6e896af07a4c8531a026ae55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_0bece53162b9daf121fef57ed7399f9f31803f62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/geotogether/react-native-geocoder/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ae91e4c5567a33a1e23ea6514c37b65c589b39ca">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-geocoder-unspecified_fb463a0594ead197ee114e42656eb73bfff8b3e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_358eca8281e41526a21676a646d296fd2949d8f3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_67f637c1b4258a0ffc5859b38c4db462ef23b946.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-linear-gradient/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="10bce3308649051968a5a024ca15a2193838eed4">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-linear-gradient-unspecified_3350fd847b37163d7863c281e4226e66c52e22fc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/geotogether/react-native-linear-gradient/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="10bce3308649051968a5a024ca15a2193838eed4">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-linear-gradient-unspecified_7ffa3526303ad8667d34a61da947f5dd83787953.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-compat/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b432e82447a3af781e927b9ba0bbb9fe2a496d4a">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-27.0.2_3ef4fe15627f464014a9fe431d6f0f1a9c873993.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-geocoder/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ae91e4c5567a33a1e23ea6514c37b65c589b39ca">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-geocoder-unspecified_45a0f6c0bd7a95da6e896af07a4c8531a026ae55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_0a29b050c046f9c900c3e33df5d0db7c93c003d1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_cec0131a85bf3c02ba2be4d3f209b0981aee146c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="dd1d0d84da2cff18f741c63a9c3af7d9aa89fdd6">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.2.4_e7710775915cb4c20303838bbb36c61843b2fa3a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b1c250352bb7bbd5ea1982ca5165f2a81f36b530">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.30.0_0bc659aac2b52a7fe8b10b622faef135c106675f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_358eca8281e41526a21676a646d296fd2949d8f3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-applinks/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="82ea5a937ab84229fbd2f3fc8cf2a72cbdf0ee0f">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-applinks-4.30.0_1375aedcfff08b16e84ba172457d71e9dae7eaa0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fc4e1daa94f6894cb78a979cec0d0b98c09444a4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="25c8cb628374f9a2d59ff9e1172753751e9a9f84">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-27.0.2_0c5aba15adac5c90b8da654f60cd927b36d5dd83.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.0.0/a2d487452376193fc8c103dd2b9bd5f2b1b44563/common-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/common-1.0.0_97d39307f0ddad71e42eb9cee2c53b7f7e393d09.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.0.0_28010f6b52cad9fdfde0ee0c03607e5f8836147a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_a2bcd66388eb41b99892155c50afb8ea8994de08.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_33db0e2be69d6294d17aedf7d4966d21ef733477.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_1c948d5e7dbc91b737bf5afb20f60daaee27541f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="dd1d0d84da2cff18f741c63a9c3af7d9aa89fdd6">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.2.4_6b105b25fdbedf70a0f91eda93b74ba5d8147157.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_c5f45029b24953fa167668973f477530f09afb8a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fc4e1daa94f6894cb78a979cec0d0b98c09444a4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="caa03787689212c10939f308a55a8dc8a3333ed2">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-27.0.2_37041b316f00e621bc160dcb31d0aaffd47ad125.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.4/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_a6e7d3cb4bbc7d2a0efe4b6bef3057b8be9f75b1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_33db0e2be69d6294d17aedf7d4966d21ef733477.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_cec0131a85bf3c02ba2be4d3f209b0981aee146c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_e70ca17e4c1e0ff1198926810f4ec5252abaefe7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_e5a40627f20b449ac9ae011f6c967753767011e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/geotogether/react-native-maps/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5ab151698a7278176c9e6a60b6e18dbb4bebdf9f">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-maps-unspecified_3f1c2f77e88c4744c06ec37f0fc8df0c8a8e72d1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_1a257b1b185cb7aa5daa036d947b5b3c93116596.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_0a29b050c046f9c900c3e33df5d0db7c93c003d1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/android.arch.lifecycle/runtime/1.0.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d7cc5473b9cf4ea159a263cd477fb3ecb2987b96">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/android.arch.lifecycle-runtime-1.0.3_e2a7027f12c66c48d2dfca3596608757b2edd149.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_203085b5cac289cef43de8b81e186043e0c36133.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-places/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="821200fa3e07f93d0ae66e4a5917db8bac69dfe1">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-places-4.30.0_0f458f1f7f7169cbb0329a540c5e1944b044f8d1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_77b704e8f9b9ddcfa97a63268c9bed307136cd0a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/geotogether/react-native-maps/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5ab151698a7278176c9e6a60b6e18dbb4bebdf9f">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/geotogether-react-native-maps-unspecified_cdd0f34f08860d84f2b447952d03489da13b65b4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_8f53cbe4697a86de75e427316ac7e9193dfed714.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6d0d5e86f5b7203834df01ed78ebfdd5cbf74d48">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-10.2.4_0e5fd8f3ea661b8b5cdfaa9a60afa5e0ead63189.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="56d3e81fee5f47a7a12ab65f4620f580c9c71d1e">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.48.4_74ee0fd6d1b059c9e7db95fedf1eebe792cce451.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-core/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8fb648e3321f9556ac5b36485b0028f455350c4a">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-core-4.30.0_d6049276cc86908feff0b71307ca44ea77178bd6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5803db663655ef5cb38c6bcb17ba326fdb9edfbd">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.2.4_307776fc626809c17c65afe593e8b3c8b1c8e606.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.3.0/73c49077166faa4c3c0059c5f583d1d7bd1475fe/core-3.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="73c49077166faa4c3c0059c5f583d1d7bd1475fe">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/core-3.3.0_ec1270e8a61d6598a295f498bef00ed9dc8bde84.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/27.0.2/b9ef4342c934a1a8b107506273dc8061662a322/support-annotations-27.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="0b9ef4342c934a1a8b107506273dc8061662a322">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/support-annotations-27.0.2_e5e5aebe4d4589e1df2edee26bb6a12d17b45dd1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_49d1a7c71d6828a7d1057446f4d28c354eb6a910.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_35d35328ec9f149b325919f7da4079cdd19d108d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.3/7d7f60c4783872861222166f6164215f8951c7b1/common-1.0.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="7d7f60c4783872861222166f6164215f8951c7b1">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/common-1.0.3_2ded193b10be9a6616a390625364ae855a399cbc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.android.support/customtabs/27.0.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="cdebcd9e0580b35115f655f8dc8ed7a66a8ef0fc">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.android.support-customtabs-27.0.2_8d396a79be81805f8a0dd544a6b551ec5747053e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-login/4.30.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b8b26b28aae0ba8e2db55ad9fe0ebc770530c5ef">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-login-4.30.0_c457f0d2b3ce39106d948deb576844d027b27ba5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9ed08fab37c3a572da1d9ed2bf2e36c8d3e2bc48">
+        <dex dex="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.2.4_e0aa408dcc9b68558444775dcf6d68857d1e55b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mahdialharbi/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/mahdialharbi/Documents/GeoTogether/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_77b704e8f9b9ddcfa97a63268c9bed307136cd0a.jar" />
+    </item>
+
+</items>

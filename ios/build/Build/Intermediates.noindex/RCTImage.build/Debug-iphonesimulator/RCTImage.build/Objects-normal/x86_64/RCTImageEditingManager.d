@@ -1,0 +1,27 @@
+dependencies: \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/node_modules/react-native/Libraries/Image/RCTImageEditingManager.m \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/node_modules/react-native/Libraries/Image/RCTImageEditingManager.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/node_modules/react-native/Libraries/Image/RCTImageLoader.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTResizeMode.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTURLRequestHandler.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTURLRequestDelegate.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/node_modules/react-native/Libraries/Image/RCTImageStoreManager.h \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-TestMac/node_modules/react-native/Libraries/Image/RCTImageUtils.h
