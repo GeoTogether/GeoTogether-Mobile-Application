@@ -16,7 +16,7 @@ import { GoogleSignin} from 'react-native-google-signin';
 import {
     StackNavigator
 } from 'react-navigation';
-
+import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 export default class Login extends React.Component {
 
@@ -24,6 +24,86 @@ export default class Login extends React.Component {
         super(props)
 
     }
+
+
+    _fbAuth() {
+
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function(result) {
+                if (result.isCancelled) {
+                    alert('Login was cancelled');
+                } else {
+                    //This gives use the user ID and all the permissions.
+                    //Push this to firebase! and retrieve later
+                    //console.log(AccessToken.getCurrentAccessToken());
+                    alert('Login was successful with permissions: '
+                        + result.grantedPermissions.toString());
+                }
+            },
+            function(error) {
+                alert('Login failed with error: ' + error);
+            }
+        );
+
+        // LoginManager.logInWithReadPermissions(['public_profile',]).then(function (result) {
+        //     if (result.isCancelled) {
+        //         console.log('Login was cancelled');
+        //     } else {
+        //         console.log('Login was a success' + result.grantedPermissions.toString());
+        //         // AccessToken.getCurrentAccessToken().then((data) => {
+        //         //     const {accessToken} = data;
+        //         //     initUser(accessToken)
+        //         // })
+        //     }
+        // }, function (error) {
+        //     console.log('An error occurred: ' + error);
+        // })
+    }
+
+    // async logIn() {
+    //     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync
+    //     ('155636018424703', {permissions: ['public_profile'],
+    //     });
+    //     if (type === 'success') {
+    //         // Get the user's name using Facebook's Graph API
+    //         const response = await fetch(
+    //             `https://graph.facebook.com/me?access_token=${token}`);
+    //         Alert.alert(
+    //             'Logged in!',
+    //             `Hi ${(await response.json()).name}!`,
+    //         );
+    //     }
+    // }
+
+    // async loginWithFacebook(){
+    //
+    //     const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
+    //     ('155636018424703', { permissions: ['public_profile']});
+    //
+    //     if (type === 'success'){
+    //         const credential = firebase.auth.FacebookAuthProvider.credential(token);
+    //     }
+    //
+    // }
+
+    // initUser(token) {
+    //     fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + token)
+    //         .then((response) => response.json())
+    //         .then((json) => {
+    //             // Some user object has been set up somewhere, build that user here
+    //             user.name = json.name;
+    //             user.id = json.id;
+    //             user.user_friends = json.friends;
+    //             user.email = json.email;
+    //             user.username = json.name;
+    //             user.loading = false;
+    //             user.loggedIn = true;
+    //             //user.avatar = setAvatar(json.id);
+    //         })
+    //         .catch(() => {
+    //             reject('ERROR GETTING DATA FROM FACEBOOK')
+    //         })
+    // }
 
 
     // navigation options to be used to navigate the class from other classes
@@ -200,10 +280,12 @@ export default class Login extends React.Component {
                     <Text>----------------OR----------------</Text>
 
                     <View style={styles.altLoginContainer}>
-                        <Image
-                            style={styles.icon}
-                            source={require('../../images/facebook.png')}
-                        />
+                        <TouchableOpacity onPress={() => this._fbAuth()}>
+                            <Image
+                                style={styles.icon}
+                                source={require('../../images/facebook.png')}
+                            />
+                        </TouchableOpacity>
                         <Text> </Text>
                         <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)}>
                             <Image
