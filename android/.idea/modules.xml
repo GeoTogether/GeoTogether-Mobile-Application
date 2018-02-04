@@ -4,8 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GeoTogetherApplication.iml" filepath="$PROJECT_DIR$/GeoTogetherApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-fbsdk/android/react-native-fbsdk.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-fbsdk/android/react-native-fbsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-google-signin/android/react-native-google-signin.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-google-signin/android/react-native-google-signin.iml" />
+      <module fileurl="file://C:\Users\malharb3\Desktop\Master Repo\GeoTogether-Mobile-Application\node_modules\react-native-google-signin\android\react-native-google-signin.iml" filepath="C:\Users\malharb3\Desktop\Master Repo\GeoTogether-Mobile-Application\node_modules\react-native-google-signin\android\react-native-google-signin.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-linear-gradient/android/react-native-linear-gradient.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-linear-gradient/android/react-native-linear-gradient.iml" />
+      <module fileurl="file://C:\Users\malharb3\Desktop\Master Repo\GeoTogether-Mobile-Application\node_modules\react-native-linear-gradient\android\react-native-linear-gradient.iml" filepath="C:\Users\malharb3\Desktop\Master Repo\GeoTogether-Mobile-Application\node_modules\react-native-linear-gradient\android\react-native-linear-gradient.iml" />
     </modules>
   </component>
 </project>
