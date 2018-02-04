@@ -26,20 +26,37 @@ export default class Login extends React.Component {
     }
 
     _fbAuth() {
-        LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(function (result) {
-            if (result.isCancelled) {
-                console.log('Login was cancelled');
-            } else {
-                console.log('Login was a success' + result.grantedPermissions.toString());
-                console.log(Login)
-                // AccessToken.getCurrentAccessToken().then((data) => {
-                //     const {accessToken} = data;
-                //     initUser(accessToken)
-                // })
+
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function(result) {
+                if (result.isCancelled) {
+                    alert('Login was cancelled');
+                } else {
+                    //This gives use the user ID and all the permissions.
+                    //Push this to firebase! and retrieve later
+                    //console.log(AccessToken.getCurrentAccessToken());
+                    alert('Login was successful with permissions: '
+                        + result.grantedPermissions.toString());
+                }
+            },
+            function(error) {
+                alert('Login failed with error: ' + error);
             }
-        }, function (error) {
-            console.log('An error occurred: ' + error);
-        })
+        );
+
+        // LoginManager.logInWithReadPermissions(['public_profile',]).then(function (result) {
+        //     if (result.isCancelled) {
+        //         console.log('Login was cancelled');
+        //     } else {
+        //         console.log('Login was a success' + result.grantedPermissions.toString());
+        //         // AccessToken.getCurrentAccessToken().then((data) => {
+        //         //     const {accessToken} = data;
+        //         //     initUser(accessToken)
+        //         // })
+        //     }
+        // }, function (error) {
+        //     console.log('An error occurred: ' + error);
+        // })
     }
 
     // async logIn() {
