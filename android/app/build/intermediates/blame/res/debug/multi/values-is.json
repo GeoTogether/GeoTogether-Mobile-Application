@@ -1,17 +1,340 @@
 [
     {
-        "outputFile": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-is/values-is.xml",
+        "outputFile": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-is\\values-is.xml",
         "map": [
             {
                 "to": {
                     "startLine": 2,
                     "startColumn": 4,
                     "startOffset": 105,
-                    "endColumn": 262,
-                    "endOffset": 363
+                    "endColumn": 99,
+                    "endOffset": 200
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 99,
+                        "endOffset": 200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 205,
+                    "endColumn": 96,
+                    "endOffset": 297
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 205,
+                        "endColumn": 96,
+                        "endOffset": 297
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 302,
+                    "endColumn": 111,
+                    "endOffset": 409
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 302,
+                        "endColumn": 111,
+                        "endOffset": 409
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 414,
+                    "endColumn": 84,
+                    "endOffset": 494
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 414,
+                        "endColumn": 84,
+                        "endOffset": 494
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 499,
+                    "endColumn": 100,
+                    "endOffset": 595
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 499,
+                        "endColumn": 100,
+                        "endOffset": 595
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 600,
+                    "endColumn": 113,
+                    "endOffset": 709
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 600,
+                        "endColumn": 113,
+                        "endOffset": 709
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 714,
+                    "endColumn": 79,
+                    "endOffset": 789
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 714,
+                        "endColumn": 79,
+                        "endOffset": 789
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 794,
+                    "endColumn": 79,
+                    "endOffset": 869
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 794,
+                        "endColumn": 79,
+                        "endOffset": 869
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 874,
+                    "endColumn": 80,
+                    "endOffset": 950
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 874,
+                        "endColumn": 80,
+                        "endOffset": 950
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 955,
+                    "endColumn": 109,
+                    "endOffset": 1060
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 955,
+                        "endColumn": 109,
+                        "endOffset": 1060
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1065,
+                    "endColumn": 107,
+                    "endOffset": 1168
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1065,
+                        "endColumn": 107,
+                        "endOffset": 1168
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1173,
+                    "endColumn": 97,
+                    "endOffset": 1266
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1173,
+                        "endColumn": 97,
+                        "endOffset": 1266
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1271,
+                    "endColumn": 108,
+                    "endOffset": 1375
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1271,
+                        "endColumn": 108,
+                        "endOffset": 1375
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1380,
+                    "endColumn": 98,
+                    "endOffset": 1474
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1380,
+                        "endColumn": 98,
+                        "endOffset": 1474
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1479,
+                    "endColumn": 102,
+                    "endOffset": 1577
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1479,
+                        "endColumn": 102,
+                        "endOffset": 1577
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1582,
+                    "endColumn": 154,
+                    "endOffset": 1732
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1582,
+                        "endColumn": 154,
+                        "endOffset": 1732
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1737,
+                    "endColumn": 97,
+                    "endOffset": 1830
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1737,
+                        "endColumn": 97,
+                        "endOffset": 1830
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1835,
+                    "endColumn": 262,
+                    "endOffset": 2093
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -23,14 +346,14 @@
             },
             {
                 "to": {
-                    "startLine": 3,
+                    "startLine": 20,
                     "startColumn": 4,
-                    "startOffset": 368,
+                    "startOffset": 2098,
                     "endColumn": 127,
-                    "endOffset": 491
+                    "endOffset": 2221
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -42,14 +365,14 @@
             },
             {
                 "to": {
-                    "startLine": 4,
+                    "startLine": 21,
                     "startColumn": 4,
-                    "startOffset": 496,
+                    "startOffset": 2226,
                     "endColumn": 185,
-                    "endOffset": 677
+                    "endOffset": 2407
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -61,14 +384,14 @@
             },
             {
                 "to": {
-                    "startLine": 5,
+                    "startLine": 22,
                     "startColumn": 4,
-                    "startOffset": 682,
+                    "startOffset": 2412,
                     "endColumn": 126,
-                    "endOffset": 804
+                    "endOffset": 2534
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -80,14 +403,14 @@
             },
             {
                 "to": {
-                    "startLine": 6,
+                    "startLine": 23,
                     "startColumn": 4,
-                    "startOffset": 809,
+                    "startOffset": 2539,
                     "endColumn": 127,
-                    "endOffset": 932
+                    "endOffset": 2662
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -99,14 +422,14 @@
             },
             {
                 "to": {
-                    "startLine": 7,
+                    "startLine": 24,
                     "startColumn": 4,
-                    "startOffset": 937,
+                    "startOffset": 2667,
                     "endColumn": 206,
-                    "endOffset": 1139
+                    "endOffset": 2869
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -118,14 +441,14 @@
             },
             {
                 "to": {
-                    "startLine": 8,
+                    "startLine": 25,
                     "startColumn": 4,
-                    "startOffset": 1144,
+                    "startOffset": 2874,
                     "endColumn": 214,
-                    "endOffset": 1354
+                    "endOffset": 3084
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -137,14 +460,14 @@
             },
             {
                 "to": {
-                    "startLine": 9,
+                    "startLine": 26,
                     "startColumn": 4,
-                    "startOffset": 1359,
+                    "startOffset": 3089,
                     "endColumn": 126,
-                    "endOffset": 1481
+                    "endOffset": 3211
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -156,14 +479,14 @@
             },
             {
                 "to": {
-                    "startLine": 10,
+                    "startLine": 27,
                     "startColumn": 4,
-                    "startOffset": 1486,
+                    "startOffset": 3216,
                     "endColumn": 183,
-                    "endOffset": 1665
+                    "endOffset": 3395
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -175,14 +498,14 @@
             },
             {
                 "to": {
-                    "startLine": 11,
+                    "startLine": 28,
                     "startColumn": 4,
-                    "startOffset": 1670,
+                    "startOffset": 3400,
                     "endColumn": 126,
-                    "endOffset": 1792
+                    "endOffset": 3522
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -194,14 +517,14 @@
             },
             {
                 "to": {
-                    "startLine": 12,
+                    "startLine": 29,
                     "startColumn": 4,
-                    "startOffset": 1797,
+                    "startOffset": 3527,
                     "endColumn": 168,
-                    "endOffset": 1961
+                    "endOffset": 3691
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -213,14 +536,14 @@
             },
             {
                 "to": {
-                    "startLine": 13,
+                    "startLine": 30,
                     "startColumn": 4,
-                    "startOffset": 1966,
+                    "startOffset": 3696,
                     "endColumn": 114,
-                    "endOffset": 2076
+                    "endOffset": 3806
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -232,14 +555,14 @@
             },
             {
                 "to": {
-                    "startLine": 14,
+                    "startLine": 31,
                     "startColumn": 4,
-                    "startOffset": 2081,
+                    "startOffset": 3811,
                     "endColumn": 133,
-                    "endOffset": 2210
+                    "endOffset": 3940
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -251,14 +574,14 @@
             },
             {
                 "to": {
-                    "startLine": 15,
+                    "startLine": 32,
                     "startColumn": 4,
-                    "startOffset": 2215,
+                    "startOffset": 3945,
                     "endColumn": 181,
-                    "endOffset": 2392
+                    "endOffset": 4122
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -270,14 +593,14 @@
             },
             {
                 "to": {
-                    "startLine": 16,
+                    "startLine": 33,
                     "startColumn": 4,
-                    "startOffset": 2397,
+                    "startOffset": 4127,
                     "endColumn": 148,
-                    "endOffset": 2541
+                    "endOffset": 4271
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -289,14 +612,14 @@
             },
             {
                 "to": {
-                    "startLine": 17,
+                    "startLine": 34,
                     "startColumn": 4,
-                    "startOffset": 2546,
+                    "startOffset": 4276,
                     "endColumn": 174,
-                    "endOffset": 2716
+                    "endOffset": 4446
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -308,14 +631,14 @@
             },
             {
                 "to": {
-                    "startLine": 18,
+                    "startLine": 35,
                     "startColumn": 4,
-                    "startOffset": 2721,
+                    "startOffset": 4451,
                     "endColumn": 125,
-                    "endOffset": 2842
+                    "endOffset": 4572
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -327,14 +650,14 @@
             },
             {
                 "to": {
-                    "startLine": 19,
+                    "startLine": 36,
                     "startColumn": 4,
-                    "startOffset": 2847,
+                    "startOffset": 4577,
                     "endColumn": 171,
-                    "endOffset": 3014
+                    "endOffset": 4744
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -346,14 +669,14 @@
             },
             {
                 "to": {
-                    "startLine": 20,
+                    "startLine": 37,
                     "startColumn": 4,
-                    "startOffset": 3019,
+                    "startOffset": 4749,
                     "endColumn": 127,
-                    "endOffset": 3142
+                    "endOffset": 4872
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -365,14 +688,14 @@
             },
             {
                 "to": {
-                    "startLine": 21,
+                    "startLine": 38,
                     "startColumn": 4,
-                    "startOffset": 3147,
+                    "startOffset": 4877,
                     "endColumn": 257,
-                    "endOffset": 3400
+                    "endOffset": 5130
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -384,14 +707,14 @@
             },
             {
                 "to": {
-                    "startLine": 22,
+                    "startLine": 39,
                     "startColumn": 4,
-                    "startOffset": 3405,
+                    "startOffset": 5135,
                     "endColumn": 255,
-                    "endOffset": 3656
+                    "endOffset": 5386
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -403,14 +726,14 @@
             },
             {
                 "to": {
-                    "startLine": 23,
+                    "startLine": 40,
                     "startColumn": 4,
-                    "startOffset": 3661,
+                    "startOffset": 5391,
                     "endColumn": 123,
-                    "endOffset": 3780
+                    "endOffset": 5510
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -422,14 +745,14 @@
             },
             {
                 "to": {
-                    "startLine": 24,
+                    "startLine": 41,
                     "startColumn": 4,
-                    "startOffset": 3785,
+                    "startOffset": 5515,
                     "endColumn": 107,
-                    "endOffset": 3888
+                    "endOffset": 5618
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -441,14 +764,14 @@
             },
             {
                 "to": {
-                    "startLine": 25,
+                    "startLine": 42,
                     "startColumn": 4,
-                    "startOffset": 3893,
+                    "startOffset": 5623,
                     "endColumn": 187,
-                    "endOffset": 4076
+                    "endOffset": 5806
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -460,14 +783,14 @@
             },
             {
                 "to": {
-                    "startLine": 26,
+                    "startLine": 43,
                     "startColumn": 4,
-                    "startOffset": 4081,
+                    "startOffset": 5811,
                     "endColumn": 127,
-                    "endOffset": 4204
+                    "endOffset": 5934
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -479,14 +802,14 @@
             },
             {
                 "to": {
-                    "startLine": 27,
+                    "startLine": 44,
                     "startColumn": 4,
-                    "startOffset": 4209,
+                    "startOffset": 5939,
                     "endColumn": 200,
-                    "endOffset": 4405
+                    "endOffset": 6135
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -498,14 +821,14 @@
             },
             {
                 "to": {
-                    "startLine": 28,
+                    "startLine": 45,
                     "startColumn": 4,
-                    "startOffset": 4410,
+                    "startOffset": 6140,
                     "endColumn": 141,
-                    "endOffset": 4547
+                    "endOffset": 6277
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -517,14 +840,14 @@
             },
             {
                 "to": {
-                    "startLine": 29,
+                    "startLine": 46,
                     "startColumn": 4,
-                    "startOffset": 4552,
+                    "startOffset": 6282,
                     "endColumn": 183,
-                    "endOffset": 4731
+                    "endOffset": 6461
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -536,14 +859,14 @@
             },
             {
                 "to": {
-                    "startLine": 30,
+                    "startLine": 47,
                     "startColumn": 4,
-                    "startOffset": 4736,
+                    "startOffset": 6466,
                     "endColumn": 93,
-                    "endOffset": 4825
+                    "endOffset": 6555
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -555,14 +878,14 @@
             },
             {
                 "to": {
-                    "startLine": 31,
+                    "startLine": 48,
                     "startColumn": 4,
-                    "startOffset": 4830,
+                    "startOffset": 6560,
                     "endColumn": 92,
-                    "endOffset": 4918
+                    "endOffset": 6648
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -574,20 +897,58 @@
             },
             {
                 "to": {
-                    "startLine": 32,
+                    "startLine": 49,
                     "startColumn": 4,
-                    "startOffset": 4923,
+                    "startOffset": 6653,
                     "endColumn": 107,
-                    "endOffset": 5026
+                    "endOffset": 6756
                 },
                 "from": {
-                    "file": "/Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.1/res/values-is/values.xml",
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.2.1\\res\\values-is\\values.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,
                         "startOffset": 4889,
                         "endColumn": 107,
                         "endOffset": 4992
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 50,
+                    "startColumn": 4,
+                    "startOffset": 6761,
+                    "endColumn": 80,
+                    "endOffset": 6837
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1835,
+                        "endColumn": 80,
+                        "endOffset": 1911
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 51,
+                    "startColumn": 4,
+                    "startOffset": 6842,
+                    "endColumn": 100,
+                    "endOffset": 6938
+                },
+                "from": {
+                    "file": "C:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\27.0.2\\res\\values-is\\values-is.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 100,
+                        "endOffset": 151
                     }
                 }
             }
