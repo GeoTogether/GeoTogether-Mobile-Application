@@ -35,7 +35,17 @@
 			<string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
+				<string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm412</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com</string>
 			</array>
 		</dict>
 		<dict>
@@ -46,6 +56,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>org.reactjs.native.example.GeoTogetherApplication</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.geotogetherapplication.ios</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.geotogetherapplication.ios</string>
 			</array>
 		</dict>
 	</array>
@@ -91,5 +111,35 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb155636018424703</string>
+      </array>
+    </dict>
+    <dict>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleURLName</key>
+      <string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
+      </array>
+    </dict>
+    <dict>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleURLName</key>
+      <string>org.reactjs.native.example.GeoTogetherApplication</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>org.reactjs.native.example.GeoTogetherApplication</string>
+      </array>
+    </dict>
+  </array>
 </dict>
 </plist>

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\malharb3\Desktop\Master Repo\GeoTogether-Mobile-Application\android\app\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\malharb3\Desktop\Master Repo\GeoTogether-Mobile-Application\android\app\src\debug\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-SM_Login_Mahdi_Khalid/android/app/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-SM_Login_Mahdi_Khalid/android/app/src/debug/jniLibs"/></dataSet></merger>

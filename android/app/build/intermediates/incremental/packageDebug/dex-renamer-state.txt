@@ -1,4 +1,4 @@
-#Sat Feb 03 22:46:26 MST 2018
-base.0=C\:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Mon Feb 05 14:45:03 MST 2018
+base.0=/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-SM_Login_Mahdi_Khalid/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
 renamed.0=classes.dex
-file.0=C\:\\Users\\malharb3\\Desktop\\Master Repo\\GeoTogether-Mobile-Application\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=/Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-SM_Login_Mahdi_Khalid/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex

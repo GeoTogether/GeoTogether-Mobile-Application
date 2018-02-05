@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/node_modules/react-native/ReactCommon/jsinspector/InspectorInterfaces.cpp \
-  /Users/khalidalqahtani/Downloads/GeoTogether-Mobile-Application/node_modules/react-native/ReactCommon/jsinspector/InspectorInterfaces.h
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-SM_Login_Mahdi_Khalid/node_modules/react-native/ReactCommon/jsinspector/InspectorInterfaces.cpp \
+  /Users/mahdialharbi/Desktop/GeoTogether-Mobile-Application-SM_Login_Mahdi_Khalid/node_modules/react-native/ReactCommon/jsinspector/InspectorInterfaces.h
