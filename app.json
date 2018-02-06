@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "new-trip",
+    "description": "This is the home page for navigating and adding trips",
+    "slug": "new-trip",
+    "privacy": "public",
+    "sdkVersion": "25.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/images/geotogether.png",
+    "splash": {
+      "image": "./src/images/geotogether.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
