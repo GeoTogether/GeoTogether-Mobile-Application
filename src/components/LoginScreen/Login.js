@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
-import { GoogleSignin} from 'react-native-google-signin';
+import { GoogleSignin } from 'react-native-google-signin';
 import {
     StackNavigator
 } from 'react-navigation';
-import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
+import FBSDK, { LoginManager, AccessToken, GraphRequest,
+    GraphRequestManager } from 'react-native-fbsdk';
 
 export default class Login extends React.Component {
 
@@ -25,86 +26,6 @@ export default class Login extends React.Component {
 
     }
 
-    //Master Fix
-
-    _fbAuth() {
-
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
-            function(result) {
-                if (result.isCancelled) {
-                    alert('Login was cancelled');
-                } else {
-                    //This gives use the user ID and all the permissions.
-                    //Push this to firebase! and retrieve later
-                    //console.log(AccessToken.getCurrentAccessToken());
-                    alert('Login was successful with permissions: '
-                        + result.grantedPermissions.toString());
-                }
-            },
-            function(error) {
-                alert('Login failed with error: ' + error);
-            }
-        );
-
-        // LoginManager.logInWithReadPermissions(['public_profile',]).then(function (result) {
-        //     if (result.isCancelled) {
-        //         console.log('Login was cancelled');
-        //     } else {
-        //         console.log('Login was a success' + result.grantedPermissions.toString());
-        //         // AccessToken.getCurrentAccessToken().then((data) => {
-        //         //     const {accessToken} = data;
-        //         //     initUser(accessToken)
-        //         // })
-        //     }
-        // }, function (error) {
-        //     console.log('An error occurred: ' + error);
-        // })
-    }
-
-    // async logIn() {
-    //     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync
-    //     ('155636018424703', {permissions: ['public_profile'],
-    //     });
-    //     if (type === 'success') {
-    //         // Get the user's name using Facebook's Graph API
-    //         const response = await fetch(
-    //             `https://graph.facebook.com/me?access_token=${token}`);
-    //         Alert.alert(
-    //             'Logged in!',
-    //             `Hi ${(await response.json()).name}!`,
-    //         );
-    //     }
-    // }
-
-    // async loginWithFacebook(){
-    //
-    //     const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
-    //     ('155636018424703', { permissions: ['public_profile']});
-    //
-    //     if (type === 'success'){
-    //         const credential = firebase.auth.FacebookAuthProvider.credential(token);
-    //     }
-    //
-    // }
-
-    // initUser(token) {
-    //     fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + token)
-    //         .then((response) => response.json())
-    //         .then((json) => {
-    //             // Some user object has been set up somewhere, build that user here
-    //             user.name = json.name;
-    //             user.id = json.id;
-    //             user.user_friends = json.friends;
-    //             user.email = json.email;
-    //             user.username = json.name;
-    //             user.loading = false;
-    //             user.loggedIn = true;
-    //             //user.avatar = setAvatar(json.id);
-    //         })
-    //         .catch(() => {
-    //             reject('ERROR GETTING DATA FROM FACEBOOK')
-    //         })
-    // }
 
 
     // navigation options to be used to navigate the class from other classes
@@ -120,8 +41,91 @@ export default class Login extends React.Component {
         authenticating: false,
         user: null,
         error: '',
-        datastor: '',
+        data: null,
+        stored: true,
     }
+
+
+    //Master Fix
+
+    _fbAuth() {
+        const { navigate } = this.props.navigation;
+
+        LoginManager.logInWithReadPermissions(['public_profile', 'email']).then((result) => {
+            if (result.isCancelled) {
+                alert('Login was cancelled');
+            } else {
+                //This gives use the user ID and all the permissions.
+                //Push this to firebase! and retrieve later
+                //console.log(AccessToken.getCurrentAccessToken());
+               // alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
+            }
+
+            // Retrieve the access token
+           return AccessToken.getCurrentAccessToken();
+        }).then((data) => {
+                // Create a new Firebase credential with the token
+                const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+
+                //firebase.database().ref('users/').push(data.getPermissions());
+                
+                // Login with the credential
+                //return
+                 firebase.auth().signInWithCredential(credential);
+
+                 const responseInfoCallback = (error, result) => {
+                    if (error) {
+                        //console.log(error)
+                        alert('Error fetching data: ' + error.toString());
+                    } else {
+
+
+
+                        
+                // get all the users from the firebase database
+                firebase.database().ref("users").orderByChild("email").equalTo(result.email).once("value", snapshot => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                       // alert("exists!");
+                    } else {
+
+                        firebase.database().ref('users/').push({
+                            email: result.email,
+                            last: result.last_name,
+                            first: result.first_name,
+                            photo: result.picture.data.url
+                        });
+
+                    }
+                });
+
+                      this.setState({email : result.email});
+                      
+                    }
+                }
+
+                const infoRequest = new GraphRequest('/me', {
+                    accessToken: data.accessToken,
+                    parameters: {
+                        fields: {
+                            string: 'email,name,first_name,last_name,picture'
+                        }
+                    }
+                }, responseInfoCallback);
+
+                // Start the graph request.
+                new GraphRequestManager().addRequest(infoRequest).start()
+
+                navigate('Trips', { email: this.state.email }) // after login go to trips
+                
+            }).catch((error) => {
+                alert('Login failed with error: ' + error);
+            });
+
+
+    }
+
+
 
 
     componentWillMount() {
@@ -132,36 +136,32 @@ export default class Login extends React.Component {
 
     componentDidMount() {
         this.setupGoogleSignin();
-      }
+    }
 
 
     async setupGoogleSignin() {
         try {
-          await GoogleSignin.hasPlayServices({ autoResolve: true });
-         // iosClientId: settings.iOSClientId,
-        // webClientId: settings.webClientId,
-          await GoogleSignin.configure({
-            scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-            iosClientId:"271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com",
-            webClientId:"271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com",
-            offlineAccess: true,
-            hostedDomain: '',
-            forceConsentPrompt: true,
-            accountName: ''
-          });
+            await GoogleSignin.hasPlayServices({ autoResolve: true });
+            // iosClientId: settings.iOSClientId,
+            // webClientId: settings.webClientId,
+            await GoogleSignin.configure({
+                iosClientId: "271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com",
+                webClientId: "271294585129-068k74k12h5t40oj4k3sesc3ubp1to19.apps.googleusercontent.com"
+            });
 
-          const user = await GoogleSignin.currentUserAsync();
+            const user = await GoogleSignin.currentUserAsync();
 
         }
         catch (err) {
 
         }
-      }
+    }
 
-   async onPressGoogleSignIn(){
+    async onPressGoogleSignIn() {
 
+        const { navigate } = this.props.navigation;
         this.setupGoogleSignin();
-        
+
 
 
         GoogleSignin.signIn()
@@ -172,6 +172,7 @@ export default class Login extends React.Component {
                 // Login with the credential
 
                 firebase.auth().signInWithCredential(credential);
+                this.setState({ data: data });
             })
             .then((user) => {
                 this.setState({
@@ -180,9 +181,36 @@ export default class Login extends React.Component {
                     error: '',
                 });
 
+
+
+                // get all the users from the firebase database
+                firebase.database().ref("users").orderByChild("email").equalTo(this.state.data.email).once("value", snapshot => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        // alert("exists!");
+                    } else {
+
+                        firebase.database().ref('users/').push({
+                            email: this.state.data.email,
+                            last: this.state.data.familyName,
+                            first: this.state.data.givenName,
+                            photo: this.state.data.photo
+                        });
+
+                    }
+                });
+
+
+
+
+
+
+                navigate('Trips', { email: this.state.data.email });
+
+
             })
             .catch((error) => {
-                const { code, message } = error;
+                alert('Login failed with error: ' + error);
 
             });
 
@@ -202,26 +230,27 @@ export default class Login extends React.Component {
         const { email, password } = this.state; // gets the user email and password
 
 
-        // call firebase authentication and checks the email and password
-        firebase.auth().signInWithEmailAndPassword(email, password).then(user => this.setState({ // if the user email and password did  match what firebase
-            authenticating: false,
-            user: user,
-            error: '',
-        })).catch(() => this.setState({ // if the user email and password did not match what firebase have set failure
-            authenticating: false,
-            user: null,
-            error: 'Authentication Failure',
-        }))
+        if (email == '' || password == '') {
+
+            alert('Login failed Please enter a valid email and password');
+
+        } else {
+
+            // call firebase authentication and checks the email and password
+            firebase.auth().signInWithEmailAndPassword(email, password).then(user => this.setState({ // if the user email and password did  match what firebase
+                authenticating: false,
+                user: user,
+                error: '',
+            })).catch((error) => {
+                alert('Login failed with error: ' + error);
+
+            });
+
+        }
 
 
-        var encod = email.replace(".", ",");
 
-        // gets the user name from firebase database
-        firebase.database().ref('users/').child(encod).child('username').on('value', (snapshot) => {
 
-            this.setState({ datastor: snapshot.val() })
-
-        })
 
 
     }
@@ -233,7 +262,7 @@ export default class Login extends React.Component {
 
         if (firebase.auth().currentUser !== null) {
             return (
-                navigate('Trips') // after login go to trips
+                navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
             )
         }
 
@@ -311,7 +340,7 @@ export default class Login extends React.Component {
 
         return (
             <View style={styles.container}>
-            {this.renderCurrentState()}
+                {this.renderCurrentState()}
             </View>
         );
     }
@@ -362,15 +391,8 @@ const styles = StyleSheet.create({
         width: 75,
         height: 75
     },
-
-    linearGradient: {
-        flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 2
-    },
     container2: {
-        padding: -10,
+        padding: 20,
         marginBottom: 20,
         marginTop: 20
     },
