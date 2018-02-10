@@ -32,7 +32,8 @@ export default class SignUp extends React.Component {
         user: null,
         error: '',
         datastor: '',
-        name: '',
+        fname: '',
+        lname: '',
     }
 
     componentWillMount() {
@@ -42,7 +43,7 @@ export default class SignUp extends React.Component {
 
 // function to sign up the user using firebase authentication
     onPressSignUp(){
-        const { email, password, name } = this.state;
+        const { email, password, fname, lname } = this.state;
         const { navigate } = this.props.navigation;
 
         // add the user email and password to firebase 
@@ -57,12 +58,12 @@ export default class SignUp extends React.Component {
               error: 'Sign Up Failure',
             }))
 
-            var encod = email.replace(".", ",");
             // add the user to the database
-            firebase.database().ref('users/').child(encod).set({
-              username: name,
+            firebase.database().ref('users/').push({
+              first: fname,
+              last: lname,
               email: email,
-              pass : password
+              photo: ''
             });
 
 
@@ -87,11 +88,20 @@ export default class SignUp extends React.Component {
             <View style={styles.Container}>
 
             <TextInput
-            placeholder="Name"
+            placeholder="First Name"
             returnKeyType="next"
             autoCapitalize="none"
             autoCorrect={false}
-            onChangeText={name => this.setState({ name })}
+            onChangeText={fname => this.setState({ fname })}
+            style={styles.input}
+          />
+
+<TextInput
+            placeholder="Last Name"
+            returnKeyType="next"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={lname => this.setState({ lname })}
             style={styles.input}
           />
 
@@ -131,38 +141,34 @@ export default class SignUp extends React.Component {
 
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center'
-    },
-    linearGradient: {
-        flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 2
-    },
+  },
+  linearGradient: {
+      flex: 1,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 2
+  },
 
-    altLoginContainer: {
-      alignItems: 'center',
-      flexDirection: 'row',
-    },
-    input: {
-        height: 50,
-        width: 350,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-        marginBottom: 20,
-        paddingHorizontal: 10
-      },
+  buttonText: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700'
+  },
+  buttonContainer: {
+      backgroundColor: 'rgb(0,25,88)',
+      paddingVertical: 15,
+      paddingHorizontal: 1
+  },
+  input: {
+      height: 50,
+      width: 400,
+      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+      marginBottom: 20,
+      paddingHorizontal: 10
+  }
 
-      buttonContainer: {
-        backgroundColor: 'rgb(0,25,88)',
-        paddingVertical: 15
-      },
-
-      buttonText: {
-        textAlign: 'center',
-        color: '#FFFFFF',
-        fontWeight: '700'
-      },
-  });
+});

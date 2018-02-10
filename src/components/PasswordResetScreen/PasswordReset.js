@@ -5,6 +5,8 @@ import {
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
 
+import LinearGradient from 'react-native-linear-gradient';
+
 export default class PasswordReset extends React.Component {
 
     constructor(props) {
@@ -36,6 +38,7 @@ export default class PasswordReset extends React.Component {
 
 
             firebase.auth().sendPasswordResetEmail(email).then(function() {
+              alert('Email sent');
                 // Email sent.
               }).catch(function(error) {
                 // An error happened.
@@ -59,6 +62,8 @@ export default class PasswordReset extends React.Component {
 
         return (
 
+
+  <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.Container}>
          
@@ -80,6 +85,7 @@ export default class PasswordReset extends React.Component {
           </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
+         </LinearGradient>
         )
 
     }
@@ -99,33 +105,34 @@ export default class PasswordReset extends React.Component {
 
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#ffa53f',
-    },
-  
-    altLoginContainer: {
-      alignItems: 'center',
-      flexDirection: 'row',
-    },
-    input: {
-        height: 50,
-        width: 350,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-        marginBottom: 20,
-        paddingHorizontal: 10
-      },
-    
-      buttonContainer: {
-        backgroundColor: 'rgb(0,25,88)',
-        paddingVertical: 15
-      },
-    
-      buttonText: {
-        textAlign: 'center',
-        color: '#FFFFFF',
-        fontWeight: '700'
-      },
-  });
+      alignItems: 'center'
+  },
+  linearGradient: {
+      flex: 1,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 2
+  },
+
+  buttonText: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700'
+  },
+  buttonContainer: {
+      backgroundColor: 'rgb(0,25,88)',
+      paddingVertical: 15,
+      paddingHorizontal: 1
+  },
+  input: {
+      height: 50,
+      width: 400,
+      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+      marginBottom: 20,
+      paddingHorizontal: 10
+  }
+
+});
