@@ -91,7 +91,7 @@ export default class Trips extends React.Component {
 
 
   // function to get all the user trips using firebase database
-  onPressGetTrips() {
+  async onPressGetTrips() {
 
     // get all the user trips from the firebase database
     firebase.database().ref('trips/').on('value', (snapshot) => {
@@ -150,6 +150,10 @@ export default class Trips extends React.Component {
 
               <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('NewTrip', { email: this.state.email })} >
                 <Text style={styles.buttonText}>NEW TRIP</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('ProfileSettings', { email: this.state.email })} >
+                <Text style={styles.buttonText}>Profile</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.buttonContainer} onPress={() =>this.onPressLogOut()} >
