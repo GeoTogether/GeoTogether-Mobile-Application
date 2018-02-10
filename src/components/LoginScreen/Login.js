@@ -73,6 +73,8 @@ export default class Login extends React.Component {
                 //return
                  firebase.auth().signInWithCredential(credential);
 
+                
+
                  const responseInfoCallback = (error, result) => {
                     if (error) {
                         //console.log(error)
@@ -80,7 +82,8 @@ export default class Login extends React.Component {
                     } else {
 
 
-
+                        this.setState({email : result.email});
+                       
                         
                 // get all the users from the firebase database
                 firebase.database().ref("users").orderByChild("email").equalTo(result.email).once("value", snapshot => {
@@ -99,9 +102,12 @@ export default class Login extends React.Component {
                     }
                 });
 
-                      this.setState({email : result.email});
+                     
                       
                     }
+
+                    navigate('Trips', { email: this.state.email }) // after login go to trips
+
                 }
 
                 const infoRequest = new GraphRequest('/me', {
@@ -116,7 +122,7 @@ export default class Login extends React.Component {
                 // Start the graph request.
                 new GraphRequestManager().addRequest(infoRequest).start()
 
-                navigate('Trips', { email: this.state.email }) // after login go to trips
+               
                 
             }).catch((error) => {
                 alert('Login failed with error: ' + error);
