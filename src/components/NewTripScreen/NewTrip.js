@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView
+    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Modal, Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -38,7 +38,22 @@ export default class NewTrip extends React.Component {
         startDate: null,
         endDate : null,
         email : '',
+        UserInvite: '',
+        modalVisible: false,
     }
+
+    openModal() {
+        this.setState({modalVisible:true});
+    }
+
+    closeModal() {
+        this.setState({modalVisible:false});
+    }
+    showAlert = () => {
+      Alert.alert(
+         this.state.UserInvite + ' has been added to the trip'
+      )
+   }
 
     componentWillMount() {
 
@@ -95,6 +110,34 @@ export default class NewTrip extends React.Component {
                 <View style={styles.formContainer}>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                         <View style={styles.container2}>
+
+                            <Modal
+                              visible={this.state.modalVisible}
+                              animationType={'slide'}
+                              onRequestClose={() => this.closeModal()}
+                            >
+
+                            <View style={styles.modalContainer}>
+                              <View style={styles.innerContainer}>
+                                <Text>Please Input Which Users You Want To Add Below</Text>
+                                <TextInput
+                                  style={{height: 40}}
+                                  placeholder="Email Address:"
+                                  onChangeText={(UserInvite) => this.setState({UserInvite})}
+                                />
+
+                                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()} >
+                                <Text style={styles.buttonText}>Invite User</Text>
+                              </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
+                                <Text style={styles.buttonText}>Back To Trip View</Text>
+                              </TouchableOpacity>
+                                
+                                  </View>
+                                </View>
+                            </Modal>
+
 
                             <Text style={styles.splitText}>Name of Trip</Text>
                             <TextInput
@@ -160,7 +203,7 @@ export default class NewTrip extends React.Component {
                                 <Text style={styles.splitText}>+ ADD EVENT</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.openModal()}>
                                 <Text style={styles.splitText}>+ ADD MEMBERS</Text>
                             </TouchableOpacity>
 
@@ -234,4 +277,8 @@ const styles = StyleSheet.create({
         marginTop: -10,
         marginBottom: 10
     },
+    addUsers: {
+    backgroundColor: 'rgb(0,25,88)',
+    paddingVertical: 5
+  },
 });
