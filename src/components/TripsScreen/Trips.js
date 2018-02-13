@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Alert, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   StackNavigator
 } from 'react-navigation';
@@ -32,11 +32,24 @@ export default class Trips extends React.Component {
     name: '',
     trips: [],
     tripsNames: [],
+    modalVisible: false,
+    UserInvite: '',
   }
 
 
+  openModal() {
+    this.setState({modalVisible:true});
+  }
 
+  closeModal() {
+    this.setState({modalVisible:false});
+  }
 
+  showAlert = () => {
+      Alert.alert(
+         this.state.UserInvite + ' has been added to the trip'
+      )
+   }
 
 
   componentWillMount() {
@@ -141,12 +154,22 @@ export default class Trips extends React.Component {
 
         <View style={styles.formContainer}>
 
+
+
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
+          
+
+          
+          
             <View style={styles.container2}>
 
               <Text style={styles.title}>Home</Text>
 
              {Components}
+
+
+
 
               <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('NewTrip', { email: this.state.email })} >
                 <Text style={styles.buttonText}>NEW TRIP</Text>
@@ -197,7 +220,7 @@ const styles = StyleSheet.create({
   tripContainer: {
     backgroundColor: '#fff',
     padding: 5,
-    height: 125,
+    height: 155,
     width: 350,
     borderRadius: 10,
     marginBottom: 20
@@ -206,6 +229,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: 'rgb(0,25,88)',
     paddingVertical: 15
+  },
+
+  addUsers: {
+    backgroundColor: 'rgb(0,25,88)',
+    paddingVertical: 5
   },
 
   buttonText: {

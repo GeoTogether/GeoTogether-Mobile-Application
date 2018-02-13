@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView
+    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -8,8 +8,7 @@ import {
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
 import DatePicker from 'react-native-datepicker';
-
-
+import Modal from "react-native-modal";
 
 
 
@@ -36,14 +35,31 @@ export default class NewTrip extends React.Component {
         members: [],
         member: '',
         startDate: null,
-        endDate : null,
-        email : '',
+        endDate: null,
+        email: '',
+        UserInvite: '',
+        modalVisible: false,
+    }
+
+    openModal() {
+        this.setState({ modalVisible: true });
+    }
+
+    closeModal() {
+        this.setState({ modalVisible: false });
+    }
+    showAlert = () => {
+        this.state.members.push(this.state.UserInvite);
+
+        Alert.alert(
+            this.state.UserInvite + ' has been added to the trip'
+        )
     }
 
     componentWillMount() {
 
         const { state } = this.props.navigation;
-        this.setState({email: state.params.email});
+        this.setState({ email: state.params.email });
 
     }
 
@@ -59,7 +75,7 @@ export default class NewTrip extends React.Component {
         destinations.push(this.state.destination1);
         destinations.push(this.state.destination2);
 
-        
+
         members.push(email);
 
 
@@ -69,7 +85,7 @@ export default class NewTrip extends React.Component {
             tripName: tripname,
             admin: email,
             startDate: startDate,
-            endDate : endDate,
+            endDate: endDate,
             destinations: destinations,
             members: members
         });
@@ -77,7 +93,7 @@ export default class NewTrip extends React.Component {
 
 
         //after adding the trip go back to trips
-        navigate('Trips',{email: this.state.email});
+        navigate('Trips', { email: this.state.email });
 
 
     }
@@ -96,6 +112,34 @@ export default class NewTrip extends React.Component {
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                         <View style={styles.container2}>
 
+                            <Modal
+                                visible={this.state.modalVisible}
+                                animationType={'slide'}
+                                onRequestClose={() => this.closeModal()}
+                            >
+
+                                <View style={styles.modalContainer}>
+                                    <View style={styles.innerContainer}>
+                                        <Text>Please Input Which Users You Want To Add Below</Text>
+                                        <TextInput
+                                            style={{ height: 40 }}
+                                            placeholder="Email Address:"
+                                            onChangeText={(UserInvite) => this.setState({ UserInvite })}
+                                        />
+
+                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()} >
+                                            <Text style={styles.buttonText}>Invite User</Text>
+                                        </TouchableOpacity>
+
+                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
+                                            <Text style={styles.buttonText}>Back To Trip View</Text>
+                                        </TouchableOpacity>
+
+                                    </View>
+                                </View>
+                            </Modal>
+
+
                             <Text style={styles.splitText}>Name of Trip</Text>
                             <TextInput
                                 placeholder="ex. Spring Break 2018"
@@ -109,25 +153,29 @@ export default class NewTrip extends React.Component {
                             <Text style={styles.splitText}>Duration</Text>
 
                             <DatePicker
-                                style={{width: 200,  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                marginBottom: 20,
-                                paddingHorizontal: 10}}
+                                style={{
+                                    width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                    marginBottom: 20,
+                                    paddingHorizontal: 10
+                                }}
                                 date={this.state.startDate}
-                                showIcon ={false}
+                                showIcon={false}
                                 mode="date"
                                 placeholder="Start Date"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
                                 onDateChange={(startdate) => { this.setState({ startDate: startdate }), this.placeholder = startdate }}
                             />
-                           
 
-                           <DatePicker
-                                style={{width: 200,  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                marginBottom: 20,
-                                paddingHorizontal: 10}}
+
+                            <DatePicker
+                                style={{
+                                    width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                    marginBottom: 20,
+                                    paddingHorizontal: 10
+                                }}
                                 date={this.state.endDate}
-                                showIcon ={false}
+                                showIcon={false}
                                 mode="date"
                                 placeholder="End Date"
                                 format="YYYY-MM-DD"
@@ -160,7 +208,7 @@ export default class NewTrip extends React.Component {
                                 <Text style={styles.splitText}>+ ADD EVENT</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.openModal()}>
                                 <Text style={styles.splitText}>+ ADD MEMBERS</Text>
                             </TouchableOpacity>
 
@@ -234,4 +282,22 @@ const styles = StyleSheet.create({
         marginTop: -10,
         marginBottom: 10
     },
+    addUsers: {
+        backgroundColor: 'rgb(0,25,88)',
+        paddingVertical: 5
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 100,
+        width: 350,
+    },
+    innerContainer: {
+        backgroundColor: '#fffaf0',
+        padding: 20,
+        borderRadius: 4,
+        borderColor: "#ffa53f"
+
+    }
 });
