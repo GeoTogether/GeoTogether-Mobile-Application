@@ -17,6 +17,10 @@ export default class InviteView extends React.Component {
         });
     }
 
+    onPressEmailInvite(){
+        SendIntentAndroid.sendMail("Email Address", "Subject Header", "Message");
+    }
+
 
     renderCurrentState() {
 
@@ -46,7 +50,9 @@ export default class InviteView extends React.Component {
                         <Text style={styles.buttonText}>Log Out</Text>
                     </TouchableOpacity>
 
-                    //Need another button for email invite!
+                    <TouchableOpacity onPress={() => this.onPressEmailInvite()} style={styles.buttonContainer} >
+                        <Text style={styles.buttonText}>Log Out</Text>
+                    </TouchableOpacity>
 
                 </View>
             </KeyboardAvoidingView>
