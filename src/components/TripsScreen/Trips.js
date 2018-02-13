@@ -146,9 +146,6 @@ export default class Trips extends React.Component {
     <Text style={styles.tripName}> {type.tripName}</Text>  
     <Text style={styles.status}>(Open)</Text>
      <Text style={styles.date}>{type.startDate} -{type.endDate}</Text> 
-     <TouchableOpacity style={styles.addUsers} onPress={() => this.openModal()} >
-                <Text style={styles.buttonText}>Invite Members To Trip</Text>
-       </TouchableOpacity>
        <Text style={styles.members}>Members: {type.members.length} </Text>
         </TouchableOpacity>)
 
@@ -171,33 +168,6 @@ export default class Trips extends React.Component {
 
              {Components}
 
-
-              <Modal
-              visible={this.state.modalVisible}
-              animationType={'slide'}
-              onRequestClose={() => this.closeModal()}
-          	>
-
-            <View style={styles.modalContainer}>
-              <View style={styles.innerContainer}>
-                <Text>Please Input Which Users You Want To Add Below</Text>
-                <TextInput
-		          style={{height: 40}}
-		          placeholder="Email Address:"
-		          onChangeText={(UserInvite) => this.setState({UserInvite})}
-		        />
-
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()} >
-                <Text style={styles.buttonText}>Invite User</Text>
-              </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
-                <Text style={styles.buttonText}>Back To Trip View</Text>
-              </TouchableOpacity>
-                
-	              </View>
-	            </View>
-	          </Modal>
 
 
 
