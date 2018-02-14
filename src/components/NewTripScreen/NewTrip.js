@@ -11,7 +11,7 @@ import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 
 
-var SendIntentAndroid = require('react-native-send-intent');
+
 
 export default class NewTrip extends React.Component {
 
@@ -47,15 +47,14 @@ export default class NewTrip extends React.Component {
 
     closeModal() {
         this.setState({ modalVisible: false });
-
     }
-    // showAlert = () => {
-    //     this.state.members.push(this.state.UserInvite);
-    //
-    //     Alert.alert(
-    //         this.state.UserInvite + ' has been added to the trip'
-    //     )
-    // }
+    showAlert = () => {
+        this.state.members.push(this.state.UserInvite);
+
+        Alert.alert(
+            this.state.UserInvite + ' has been added to the trip'
+        )
+    }
 
     componentWillMount() {
 
@@ -99,32 +98,6 @@ export default class NewTrip extends React.Component {
 
     }
 
-    sendEmail = () => {
-
-        SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
-            "Hey there! I hope you can accept this invite to join this amazing trip.\n\n"
-            +this.state.tripname+" starts on the "+this.state.startDate);
-
-        this.closeModal();
-
-    };
-
-    sendSMS = () => {
-
-        SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
-            "Hey there! I hope you can accept this invite to join this amazing trip.\n\n"
-            +this.state.tripname+" starts on the "+this.state.startDate);
-
-        SendIntentAndroid.sendText({
-            title: 'Invitation to join ' + this.state.tripname,
-            text: "Hey there! I hope you can accept this invite to join this amazing trip.\n\n"
-            +this.state.tripname+" starts on the "+this.state.startDate+"\n\nPlease be sure to accept soon!",
-            type: SendIntentAndroid.TEXT_PLAIN
-        });
-
-        this.closeModal();
-
-    };
 
 
 
@@ -145,43 +118,24 @@ export default class NewTrip extends React.Component {
                                 onRequestClose={() => this.closeModal()}
                             >
 
-                                {/*<View style={styles.modalContainer}>*/}
-                                    {/*<View style={styles.innerContainer}>*/}
-                                        {/*<Text>Please Input Which Users You Want To Add Below</Text>*/}
-                                        {/*<TextInput*/}
-                                            {/*style={{ height: 40 }}*/}
-                                            {/*placeholder="Email Address:"*/}
-                                            {/*onChangeText={(UserInvite) => this.setState({ UserInvite })}*/}
-                                        {/*/>*/}
+                                <View style={styles.modalContainer}>
+                                    <View style={styles.innerContainer}>
+                                        <Text>Please Input Which Users You Want To Add Below</Text>
+                                        <TextInput
+                                            style={{ height: 40 }}
+                                            placeholder="Email Address:"
+                                            onChangeText={(UserInvite) => this.setState({ UserInvite })}
+                                        />
 
-                                        {/*<TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()} >*/}
-                                            {/*<Text style={styles.buttonText}>Invite User</Text>*/}
-                                        {/*</TouchableOpacity>*/}
+                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()} >
+                                            <Text style={styles.buttonText}>Invite User</Text>
+                                        </TouchableOpacity>
 
-                                        {/*<TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >*/}
-                                            {/*<Text style={styles.buttonText}>Back To Trip View</Text>*/}
-                                        {/*</TouchableOpacity>*/}
+                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
+                                            <Text style={styles.buttonText}>Back To Trip View</Text>
+                                        </TouchableOpacity>
 
-                                    {/*</View>*/}
-
-                                    <View style={styles.modalContainer}>
-                                        <View style={styles.innerContainer}>
-                                            <Text>Please select a method of invitation</Text>
-
-                                            <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()} >
-                                                <Text style={styles.buttonText}>Send SMS Invite</Text>
-                                            </TouchableOpacity>
-
-                                            <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendEmail()} >
-                                                <Text style={styles.buttonText}>Send Email Invite</Text>
-                                            </TouchableOpacity>
-
-                                            <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
-                                                <Text style={styles.buttonText}>Back To Trip View</Text>
-                                            </TouchableOpacity>
-
-                                        </View>
-
+                                    </View>
                                 </View>
                             </Modal>
 
