@@ -1,6 +1,7 @@
-############
-# Node
-############
+###########################################################################
+# This section will clean all of the Node related files that are not needed
+# These files are used for local builds
+###########################################################################
 # Logs
 logs
 *.log
@@ -39,9 +40,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-################
-# JetBrains
-################
+###################################################################################
+# These files are related to IDE based builds, specifically targeting InteliJ IDE's
+###################################################################################
 .idea
 
 ## File-based project format:
@@ -65,9 +66,9 @@ crashlytics-build.properties
 fabric.properties
 
 
-############
-# iOS
-############
+##################################################################################################
+# This gets rid of all the iOS related build files that get built when the project is run on XCode
+##################################################################################################
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
@@ -123,9 +124,9 @@ fastlane/report.xml
 fastlane/screenshots
 
 
-############
-# Android
-############
+################################################################################################################
+# This gets rid of all the Android related build files that get built when the project is run on Android devices
+####################################################################################################################
 # Built application files
 *.apk
 *.ap_
@@ -163,9 +164,9 @@ android/captures/
 # Keystore files
 *.jks
 
-##################
-# React-Native
-##################
+########################################################################################################
+# All the React-Native files that built in the process of building the project and testing it on devices.
+########################################################################################################
 # OSX
 #
 .DS_Store
