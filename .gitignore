@@ -199,7 +199,6 @@ build/
 #
 .idea
 .gradle
-local.properties
 
 # node.js
 #
