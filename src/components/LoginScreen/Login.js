@@ -10,6 +10,7 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
@@ -278,6 +279,8 @@ export default class Login extends React.Component {
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
 
+
+
                 <View style={styles.logoContainer}>
                     <Image
                         style={styles.logo}
@@ -286,7 +289,11 @@ export default class Login extends React.Component {
                 </View>
 
                 <View style={styles.loginFieldContainer}>
-
+                    <KeyboardAwareScrollView
+                        resetScrollToCoords={{ x: 0, y: 0 }}
+                        contentContainerStyle={styles.loginFieldContainer}
+                        scrollEnabled={false}
+                    >
                     <TextInput
                         placeholder="Email"
                         returnKeyType="next"
@@ -300,11 +307,14 @@ export default class Login extends React.Component {
 
                     <TextInput
                         placeholder="Password"
+                        autoCapitalize="none"
                         returnKeyType="go"
                         secureTextEntry
                         style={styles.input}
                         onChangeText={password => this.setState({ password })}
                     />
+                    </KeyboardAwareScrollView>
+
 
                     <Text style={styles.forgotPasswordTxt} onPress={() => navigate('PasswordReset')}>Forgot Your
                         Password?</Text>
@@ -331,7 +341,6 @@ export default class Login extends React.Component {
                             source={require('../../images/google.png')} />
                     </TouchableOpacity>
                 </View>
-
             </LinearGradient>
 
         )
@@ -360,14 +369,17 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input: {
-        height: 50,
-        width: 300,
+        width: '85%',
+        height: '30%',
         alignItems: 'stretch',
         justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10
     },
     forgotPasswordTxt: {
         textAlign: 'center',
-        color: 'rgb(0,25,88)'
+        color: 'rgb(0,25,88)',
+        fontWeight: '100'
     },
     loginBContainer:{
         flex: 1,
@@ -377,13 +389,15 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        width: 300,
-        height: 50,
+        width: '85%',
+        height: '60%',
         justifyContent: 'center',
+        borderRadius: 10
     },
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
+        fontWeight: '100'
     },
     altLoginContainer: {
         flex: 1,
