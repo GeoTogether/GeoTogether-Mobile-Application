@@ -16,7 +16,7 @@ import ProfileSettings from './components/ProfileSettingsScreen/ProfileSettings'
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
-        SplashScreen: {screen: SplashScreen},
+        //SplashScreen: {screen: SplashScreen},
         Login: { screen: Login },
         SignUp:{screen: SignUp},
         Trips:{screen: Trips},
