@@ -278,9 +278,6 @@ export default class Login extends React.Component {
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-
-
-
                 <View style={styles.logoContainer}>
                     <Image
                         style={styles.logo}
@@ -289,13 +286,10 @@ export default class Login extends React.Component {
                 </View>
 
                 <View style={styles.loginFieldContainer}>
-                    <KeyboardAwareScrollView
-                        resetScrollToCoords={{ x: 0, y: 0 }}
-                        contentContainerStyle={styles.loginFieldContainer}
-                        scrollEnabled={false}
-                    >
+
                     <TextInput
                         placeholder="Email"
+                        underlineColorAndroid="transparent"
                         returnKeyType="next"
                         onSubmitEditing={() => this.passwordInput.focus()}
                         keyboardType="email-address"
@@ -307,14 +301,13 @@ export default class Login extends React.Component {
 
                     <TextInput
                         placeholder="Password"
+                        underlineColorAndroid="transparent"
                         autoCapitalize="none"
                         returnKeyType="go"
                         secureTextEntry
                         style={styles.input}
                         onChangeText={password => this.setState({ password })}
                     />
-                    </KeyboardAwareScrollView>
-
 
                     <Text style={styles.forgotPasswordTxt} onPress={() => navigate('PasswordReset')}>Forgot Your
                         Password?</Text>
@@ -350,7 +343,14 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
     linearGradient: {
-        flex: 1
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    container:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     logoContainer: {
         flex: 3,
@@ -369,8 +369,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input: {
-        width: '85%',
-        height: '30%',
+        width: 300,
+        height: 50,
         alignItems: 'stretch',
         justifyContent: 'space-between',
         backgroundColor: 'white',
@@ -386,11 +386,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        shadowColor: 'red',
+        shadowOffset: {width: 10, height: 10},
+        shadowOpacity: 100,
+        shadowRadius: 50,
+        elevation: 1
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        width: '85%',
-        height: '60%',
+        width: 300,
+        height: 45,
         justifyContent: 'center',
         borderRadius: 10
     },
