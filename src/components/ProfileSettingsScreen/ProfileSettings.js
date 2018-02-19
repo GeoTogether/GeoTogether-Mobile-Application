@@ -169,15 +169,15 @@ export default class ProfileSettings extends Component {
 
 
         return (
-            <View style={styles.container}>
+            <View>
 
                 <Image
                     style={{ width: 100, height: 100, marginLeft: 155 }}
                     source={this.state.photoS}
                 />
-                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
 
-                    <View>
+                    <View style={styles.ImageContainer}>
 
                         { this.state.ImageSource === null ? <Text>Select a Photo</Text> :
                             <Image style={styles.ImageContainer} source={this.state.ImageSource} />
@@ -238,7 +238,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 15,
-
         backgroundColor: '#F5FCFF',
     },
     welcome: {
@@ -252,14 +251,14 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     ImageContainer: {
-        borderRadius: 10,
-        width: 250,
-        height: 250,
+        borderRadius: 75,
+        width: 150,
+        height: 150,
         borderColor: '#9B9B9B',
         borderWidth: 1 / PixelRatio.get(),
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#CDDC39',
+        backgroundColor: 'transparent',
 
     },
 });
