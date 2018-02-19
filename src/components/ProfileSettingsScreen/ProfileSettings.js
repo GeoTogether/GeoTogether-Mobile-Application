@@ -57,7 +57,7 @@ export default class ProfileSettings extends Component {
                     if (this.state.photo == '') {
 
 
-                        this.setState({ photoS: require('../../images/face.png') })
+                       // this.setState({ photoS: require('../../images/face.png') })
 
                     } else {
 
@@ -102,10 +102,10 @@ export default class ProfileSettings extends Component {
         if (this.state.photo == '') {
             
             
-                        this.setState({ photoS: require('../../images/face.png') })
+                        //this.setState({ photoS: require('../../images/face.png') })
             
                     } else {
-            
+
                         this.setState({ photoS: { uri: this.state.photo } })
                     }
             
@@ -167,25 +167,29 @@ export default class ProfileSettings extends Component {
 
     render() {
 
-
         return (
             <View>
+                {this.state.photoS == null ? (
+                    <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
 
-                <Image
-                    style={{ width: 100, height: 100, marginLeft: 155 }}
-                    source={this.state.photoS}
-                />
-                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
+                        <View style={styles.ImageContainer}>
 
-                    <View style={styles.ImageContainer}>
+                            {
+                                this.state.ImageSource === null ? <Text>Select a Photo</Text> :
+                                <Image style={styles.ImageContainer} source={this.state.ImageSource} />
+                            }
 
-                        { this.state.ImageSource === null ? <Text>Select a Photo</Text> :
-                            <Image style={styles.ImageContainer} source={this.state.ImageSource} />
-                        }
+                        </View>
 
-                    </View>
+                    </TouchableOpacity>
+                ) : (
+                    <Image
+                        style={{ width: 100, height: 100, marginLeft: 155 }}
+                        source={this.state.photoS}
+                    />
+                )}
 
-                </TouchableOpacity>
+
                 <Text style={styles.labels}>Name</Text>
                 <TextInput style={styles.input}>
                     {this.state.fname} {this.state.lname}
