@@ -138,6 +138,7 @@ android {
 
 dependencies {
     compile project(':react-native-fbsdk')
+    compile project(':react-native-image-picker')
     compile project(':RNSendIntentModule')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.0.1"
