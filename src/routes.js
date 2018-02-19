@@ -13,9 +13,11 @@ import PasswordReset from './components/PasswordResetScreen/PasswordReset';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import NewTrip from './components/NewTripScreen/NewTrip';
 import ProfileSettings from './components/ProfileSettingsScreen/ProfileSettings';
+import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
+        TimeLineScreen: {screen: TimeLineScreen},
         SplashScreen: {screen: SplashScreen},
         Login: { screen: Login },
         SignUp:{screen: SignUp},
