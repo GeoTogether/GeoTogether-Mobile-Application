@@ -63,6 +63,7 @@ export default class SplashScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column'
     },
     logoContainer: {
         height: '45%',
@@ -106,35 +107,5 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingVertical: 10,
     }
-
-    // logoStyle: {
-    //     flex: 1,
-    //     width: 300,
-    //     height: 300,
-    // },
-    // container2: {
-    //     flex: 1,
-    //     flexDirection: 'row',
-    //     justifyContent: 'center',
-    //     alignItems: 'center'
-    // },
-    // buttonContainer: {
-    //     flex: 1,
-    //     alignItems: 'center',
-    //     backgroundColor: 'rgb(0,25,88)',
-    //     paddingVertical: 10,
-    //     borderRadius: 5,
-    //     width: 130,
-    //     margin: 5,
-    //     //marginBottom: 400
-    // },
-    // buttonTextStyle: {
-    //     fontSize: 14,
-    //     textAlign: 'center',
-    //     color: 'white',
-    //     fontWeight: '500',
-    //     //margin: 10
-    // }
-    //
 
 });

@@ -88,7 +88,7 @@ export default class Trips extends React.Component {
             authenticating: false,
             user: null,
           })
-          navigate('Login') // after login go to trips
+          navigate('SplashScreen') // after login go to trips
 
         }, error => {
           console.error('Sign Out Error', error);

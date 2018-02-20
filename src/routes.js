@@ -6,6 +6,7 @@ import {
 } from 'react-navigation';
 
 //importing the the classes
+import Intro from './components/IntroScreen/Intro';
 import Login from './components/LoginScreen/Login';
 import SignUp from './components/SignUpScreen/SignUp';
 import Trips from './components/TripsScreen/Trips';
@@ -17,15 +18,18 @@ import GMapView from './components/MapViewScreen/GMapView';
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
-        SplashScreen: {screen: SplashScreen},
-        Login: { screen: Login },
-        SignUp:{screen: SignUp},
-        Trips:{screen: Trips},
-        PasswordReset:{screen: PasswordReset},
-        NewTrip:{screen: NewTrip},
-        ProfileSettings:{screen: ProfileSettings},
-        GMapView:{screen: GMapView},
-    },
-    {headerMode: 'screen'});
+
+    SplashScreen: { screen: SplashScreen },
+    Login: { screen: Login },
+    SignUp: { screen: SignUp },
+    Trips: { screen: Trips },
+    PasswordReset: { screen: PasswordReset },
+    NewTrip: { screen: NewTrip },
+    ProfileSettings: { screen: ProfileSettings },
+    Intro: { screen: Intro },
+      GMapView:{screen: GMapView},
+},
+    { headerMode: 'screen' });
+
 
 export default Home;

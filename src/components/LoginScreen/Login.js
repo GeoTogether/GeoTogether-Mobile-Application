@@ -10,14 +10,17 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
     StackNavigator
 } from 'react-navigation';
-import FBSDK, { LoginManager, AccessToken, GraphRequest,
-    GraphRequestManager } from 'react-native-fbsdk';
+import FBSDK, {
+    LoginManager, AccessToken, GraphRequest,
+    GraphRequestManager
+} from 'react-native-fbsdk';
 
 export default class Login extends React.Component {
 
@@ -43,6 +46,7 @@ export default class Login extends React.Component {
         error: '',
         data: null,
         stored: true,
+        newUser: 'false',
     }
 
 
@@ -58,75 +62,82 @@ export default class Login extends React.Component {
                 //This gives use the user ID and all the permissions.
                 //Push this to firebase! and retrieve later
                 //console.log(AccessToken.getCurrentAccessToken());
-               // alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
+                // alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
             }
 
             // Retrieve the access token
-           return AccessToken.getCurrentAccessToken();
+            return AccessToken.getCurrentAccessToken();
         }).then((data) => {
-                // Create a new Firebase credential with the token
-                const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+            // Create a new Firebase credential with the token
+            const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
 
-                //firebase.database().ref('users/').push(data.getPermissions());
-                
-                // Login with the credential
-                //return
-                 firebase.auth().signInWithCredential(credential);
+            //firebase.database().ref('users/').push(data.getPermissions());
 
-                
-
-                 const responseInfoCallback = (error, result) => {
-                    if (error) {
-                        //console.log(error)
-                        alert('Error fetching data: ' + error.toString());
-                    } else {
+            // Login with the credential
+            //return
+            firebase.auth().signInWithCredential(credential);
 
 
-                        this.setState({email : result.email});
-                       
-                        
-                // get all the users from the firebase database
-                firebase.database().ref("users").orderByChild("email").equalTo(result.email).once("value", snapshot => {
-                    const userData = snapshot.val();
-                    if (userData) {
-                       // alert("exists!");
-                    } else {
 
-                        firebase.database().ref('users/').push({
-                            email: result.email,
-                            last: result.last_name,
-                            first: result.first_name,
-                            photo: result.picture.data.url
-                        });
+            const responseInfoCallback = (error, result) => {
+                if (error) {
+                    //console.log(error)
+                    alert('Error fetching data: ' + error.toString());
+                } else {
 
-                    }
-                });
 
-                     
-                      
-                    }
+                    this.setState({ email: result.email });
 
-                    navigate('Trips', { email: this.state.email }) // after login go to trips
+
+                    // get all the users from the firebase database
+                    firebase.database().ref("users").orderByChild("email").equalTo(result.email).once("value", snapshot => {
+                        const userData = snapshot.val();
+                        if (userData) {
+                            // alert("exists!");
+                        } else {
+
+                            firebase.database().ref('users/').push({
+                                email: result.email,
+                                last: result.last_name,
+                                first: result.first_name,
+                                photo: result.picture.data.url,
+                                newUser: 'false',
+                            });
+
+                            this.setState({ newUser: 'true' })
+                        }
+                    });
+
+
 
                 }
 
-                const infoRequest = new GraphRequest('/me', {
-                    accessToken: data.accessToken,
-                    parameters: {
-                        fields: {
-                            string: 'email,name,first_name,last_name,picture'
-                        }
+
+                if (this.state.newUser == 'true') {
+                    navigate('Intro', { email: this.state.data.email });
+
+                } else {
+                    navigate('Trips', { email: this.state.data.email });
+                }
+            }
+
+            const infoRequest = new GraphRequest('/me', {
+                accessToken: data.accessToken,
+                parameters: {
+                    fields: {
+                        string: 'email,name,first_name,last_name,picture'
                     }
-                }, responseInfoCallback);
+                }
+            }, responseInfoCallback);
 
-                // Start the graph request.
-                new GraphRequestManager().addRequest(infoRequest).start()
+            // Start the graph request.
+            new GraphRequestManager().addRequest(infoRequest).start()
 
-               
-                
-            }).catch((error) => {
-                alert('Login failed with error: ' + error);
-            });
+
+
+        }).catch((error) => {
+            alert('Login failed with error: ' + error);
+        });
 
 
     }
@@ -200,18 +211,25 @@ export default class Login extends React.Component {
                             email: this.state.data.email,
                             last: this.state.data.familyName,
                             first: this.state.data.givenName,
-                            photo: this.state.data.photo
+                            photo: this.state.data.photo,
+                            newUser: 'false',
                         });
 
+                        this.setState({ newUser: 'true' })
                     }
                 });
 
 
 
 
+                if (this.state.newUser == true) {
+                    navigate('Intro', { email: this.state.data.email });
+
+                } else {
+                    navigate('Trips', { email: this.state.data.email });
+                }
 
 
-                navigate('Trips', { email: this.state.data.email });
 
 
             })
@@ -243,15 +261,58 @@ export default class Login extends React.Component {
         } else {
 
             // call firebase authentication and checks the email and password
-            firebase.auth().signInWithEmailAndPassword(email, password).then(user => this.setState({ // if the user email and password did  match what firebase
-                authenticating: false,
-                user: user,
-                error: '',
-            })).catch((error) => {
+            firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+
+                this.setState({
+                    authenticating: false,
+                    user: user,
+                    error: '',
+                });
+
+                firebase.database().ref('users/').on('value', (snapshot) => {
+                    snapshot.forEach((userSnapshot) => {
+
+
+                        const val = userSnapshot.val();
+                       
+
+
+                        if (val.email == email) {
+
+
+                           if(val.newUser == 'true'){
+
+                            this.setState({newUser : 'true'});
+
+                            firebase.database().ref('users/').child(userSnapshot.key).set(
+                               { first: val.first,
+                                last: val.last,
+                                email: val.email,
+                                photo: val.photo,
+                                newUser: 'false',
+                                   }
+                            )
+
+                           }
+
+
+
+
+
+                        }
+
+                    })
+                })
+
+               
+
+            }).catch((error) => {
                 alert('Login failed with error: ' + error);
 
             });
 
+
+
         }
 
 
@@ -261,165 +322,168 @@ export default class Login extends React.Component {
 
     }
 
-    renderCurrentState() {
-
-
-        const { navigate } = this.props.navigation;
-
-        if (firebase.auth().currentUser !== null) {
-            return (
-                navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
-            )
-        }
-
-        return (
-
-            <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                <KeyboardAvoidingView behavior="padding" style={styles.container}>
-
-                    <View style={styles.logoContainer}>
-                        <Image
-                            style={styles.logo}
-                            source={require('../../images/geotogether.png')} />
-                    </View>
-
-                    <View style={styles.container2}>
-
-                        <TextInput
-                            placeholder="email"
-                            returnKeyType="next"
-                            onSubmitEditing={() => this.passwordInput.focus()}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onChangeText={email => this.setState({ email })}
-                            style={styles.input}
-                        />
-
-                        <TextInput
-                            placeholder="password"
-                            returnKeyType="go"
-                            secureTextEntry
-                            style={styles.input}
-                            onChangeText={password => this.setState({ password })}
-                        />
-
-                        <Text style={styles.splitText} onPress={() => navigate('PasswordReset')}>Forgot Your
-                        Password?</Text>
-
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressSignIn()}>
-                            <Text style={styles.buttonText}>LOGIN</Text>
-                        </TouchableOpacity>
-
-                    </View>
-
-                    <Text>----------------OR----------------</Text>
-
-                    <View style={styles.altLoginContainer}>
-                        <TouchableOpacity onPress={() => this._fbAuth()}>
-                            <Image
-                                style={styles.icon}
-                                source={require('../../images/facebook.png')}
-                            />
-                        </TouchableOpacity>
-                        <Text> </Text>
-                        <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)}>
-                            <Image
-                                style={styles.icon}
-                                source={require('../../images/google.png')} />
-                        </TouchableOpacity>
-                    </View>
-
-
-                </KeyboardAvoidingView>
-
-            </LinearGradient>
-
-        )
-
-
-    }
 
 
     render() {
 
 
+        const { navigate } = this.props.navigation;
+
+        if (firebase.auth().currentUser !== null) {
+            if(this.state.newUser =='true'){
+                return (
+                    navigate('Intro', { email: firebase.auth().currentUser.email }) // after login go to trips
+                )
+            } else{
+                return (
+                    navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
+                )
+            }
+           
+        }
+
         return (
-            <View style={styles.container}>
-                {this.renderCurrentState()}
-            </View>
-        );
+
+            <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../images/geotogether.png')}
+                    />
+                </View>
+
+                <View style={styles.loginFieldContainer}>
+
+                    <TextInput
+                        placeholder="Email"
+                        underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        onSubmitEditing={() => this.passwordInput.focus()}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={email => this.setState({ email })}
+                        style={styles.input}
+                    />
+
+                    <TextInput
+                        placeholder="Password"
+                        underlineColorAndroid="transparent"
+                        autoCapitalize="none"
+                        returnKeyType="go"
+                        secureTextEntry
+                        style={styles.input}
+                        onChangeText={password => this.setState({ password })}
+                    />
+
+                    <Text style={styles.forgotPasswordTxt} onPress={() => navigate('PasswordReset')}>Forgot Your
+                        Password?</Text>
+
+                </View>
+
+                <View style={styles.loginBContainer}>
+                    <TouchableOpacity style={styles.buttonStyle} onPress={() => this.onPressSignIn()}>
+                        <Text style={styles.buttonText}>LOGIN</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.altLoginContainer}>
+                    <TouchableOpacity onPress={() => this._fbAuth()} style={styles.altBStyle}>
+                        <Image
+                            style={styles.icon}
+                            source={require('../../images/facebook.png')}
+                        />
+                    </TouchableOpacity>
+                    <Text> </Text>
+                    <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)} style={styles.altBStyle}>
+                        <Image
+                            style={styles.icon}
+                            source={require('../../images/google.png')} />
+                    </TouchableOpacity>
+                </View>
+            </LinearGradient>
+
+        )
     }
 
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     linearGradient: {
         flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 2
-    },
-    altLoginContainer: {
         alignItems: 'center',
-        flexDirection: 'row',
-        marginBottom: 50
-    },
-
-    splitContainer: {
-        marginBottom: 20,
-    },
-
-    splitText: {
-        textAlign: 'center',
-        color: 'rgb(0,25,88)',
-        fontWeight: '700'
-    },
-
-    logoContainer: {
-        alignItems: 'center',
-        flexGrow: 1,
         justifyContent: 'center'
     },
-
+    container:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    logoContainer: {
+        flex: 3,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
     logo: {
-        marginTop: 20,
-        width: 300,
-        height: 300
+        width: 250,
+        height: 250
     },
-
-    icon: {
-        width: 75,
-        height: 75
+    loginFieldContainer:{
+        flex: 2,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
-    container2: {
-        padding: 20,
-        marginBottom: 20,
-        marginTop: 20
-    },
-
     input: {
+        width: 300,
         height: 50,
-        width: 350,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-        marginBottom: 20,
-        paddingHorizontal: 10
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10
     },
-
-    buttonContainer: {
+    forgotPasswordTxt: {
+        textAlign: 'center',
+        color: 'rgb(0,25,88)',
+        fontWeight: '100'
+    },
+    loginBContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: 'red',
+        shadowOffset: {width: 10, height: 10},
+        shadowOpacity: 100,
+        shadowRadius: 50,
+        elevation: 1
+    },
+    buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        paddingVertical: 15
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
     },
-
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '700'
+        fontWeight: '100'
     },
+    altLoginContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    altBStyle:{
+        margin: '8%'
+    },
+    icon: {
+        width: 50,
+        height: 50
+    }
+
 
 });
