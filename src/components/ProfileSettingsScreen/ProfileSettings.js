@@ -30,7 +30,8 @@ export default class ProfileSettings extends Component {
 	updateInfo = () => {
 		var userData;
         var tempEmail = this.state.email;
-
+        var tempFname = this.state.fname;
+        var tempLname = this.state.lname;
 
 		var leadsRef = firebase.database().ref('users');
 
@@ -40,8 +41,6 @@ export default class ProfileSettings extends Component {
 
               if(childSnapshot.child("email").val() == tempEmail){
                 userData = childSnapshot.key;
-                console.log(childSnapshot.child("last").val());
-                
               }
               else{
                 
@@ -52,14 +51,20 @@ export default class ProfileSettings extends Component {
 
     	    });
 	});		
-        console.log(this.state.fname);
+        //console.log(this.state.fname);
+        //console.log(this.state.lname);
+        //console.log(this.state.email);
 
         
-      
+            
         
-//var db = firebase.database();
-//db.ref("-Users/-KUanJA9egwmPsJCxXpv/displayName").set("New trainer");
+            //var db = firebase.database();
+            //db.ref("users/"+userData+"/first").set("brandons");
    }
+
+   _handlePress(event) {
+    let fname=this.state.fname;
+    }
 
 
     
@@ -173,22 +178,24 @@ export default class ProfileSettings extends Component {
                 />
                 <Text style={styles.change}>Change Photo </Text>
 
-                <Text style={styles.labels}>Name</Text>
-                <TextInput style={styles.input}>
-                    {this.state.fname} {this.state.lname}
-                </TextInput>
-                <Text style={styles.labels}>Username</Text>
+                <Text style={styles.labels}>First Name</Text>
                 <TextInput style={styles.input}>
                     {this.state.fname}
                 </TextInput>
+
+                 <Text style={styles.labels}>Last Name</Text>
+                <TextInput style={styles.input}>
+                    {this.state.lname}
+                </TextInput>
+
                 <Text style={styles.labels}>Email</Text>
                 <TextInput style={styles.input2}>
                     {this.state.email}
                 </TextInput>
+
                 <TouchableOpacity onPress={() => this.updateInfo()} style={styles.buttonContainer} >
 		            <Text style={styles.buttonText}>Update Profile Info</Text>
 		        </TouchableOpacity>
-		        
 
             </View>
 
