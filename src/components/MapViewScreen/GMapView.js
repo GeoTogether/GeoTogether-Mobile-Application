@@ -5,6 +5,8 @@ import {
 } from 'react-navigation';
 import MapView from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
+import MapViewDirections from 'react-native-maps-directions';
+import ActionBar from 'react-native-action-bar';
 
 
 
@@ -50,13 +52,27 @@ export default class GMapView extends React.Component {
     componentWillMount() {
 
         this.showAddress();
-     
+        this.showDirections();
 
 
     }
 
 
+    showDirections() {
 
+        const { state } = this.props.navigation;
+
+        for (var i = 0; i < state.params.trip.destinations.length - 1; i++) {
+
+
+            var obj = { d1: state.params.trip.destinations[i], d2: state.params.trip.destinations[i + 1] };
+            this.state.coords.push(obj);
+
+        }
+
+
+
+    }
 
 
     showAddress() {
@@ -96,7 +112,25 @@ export default class GMapView extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
- 
+        // adding buttom components for all the user trips 
+        var MarkersComponents = this.state.destinations.map((type) => <MapView.Marker coordinate={{
+            latitude: type["0"].position.lat,
+            longitude: type["0"].position.lng
+        }} title={'marker'}
+            description={this.state.destination1} />)
+
+
+        var origin1 = state.params.trip.destinations[0];
+        var destination1 = state.params.trip.destinations[1];
+        var apikey1 = 'AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8';
+
+        var dirComponents = this.state.coords.map((type) => <MapViewDirections
+            origin={type.d1}
+            destination={type.d2}
+            apikey={apikey1}
+            strokeWidth={3}
+            strokeColor="blue"
+        />)
 
 
 
@@ -108,7 +142,26 @@ export default class GMapView extends React.Component {
 
             <View style={styles.form}>
 
-  
+                <ActionBar
+                    containerStyle={styles.bar}
+                    title={state.params.trip.tripName}
+                    titleStyle ={styles.title}
+                    backgroundColor= {'#ffffff'}
+                    leftIconImage={require('../../images/face.png')}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
+                    rightIcons={[
+                        {
+                            name: 'star',
+                            badge: '1',
+                            onPress: () => console.log('Right Star !'),
+                        },
+                        // {
+                        //     image: require('my-custom-image.png'), // To use a custom image
+                        //     badge: '1',
+                        //     onPress: () => console.log('Right Custom image !'),
+                        // },
+                    ]}
+                />
 
 
 
@@ -119,7 +172,9 @@ export default class GMapView extends React.Component {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421
                 }}>
-                   
+                    {MarkersComponents}
+
+                    {dirComponents}
 
 
 
