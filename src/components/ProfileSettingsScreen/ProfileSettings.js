@@ -41,6 +41,7 @@ export default class ProfileSettings extends Component {
               if(childSnapshot.child("email").val() == tempEmail){
                 userData = childSnapshot.key;
                 console.log(childSnapshot.child("last").val());
+                
               }
               else{
                 
@@ -51,13 +52,13 @@ export default class ProfileSettings extends Component {
 
     	    });
 	});		
-        
+        console.log(this.state.fname);
 
         
       
-        var db = firebase.database();
-        db.ref("users/-L5lcL9mih33OvTNcPQ_/last").set("leidds");
-
+        
+//var db = firebase.database();
+//db.ref("-Users/-KUanJA9egwmPsJCxXpv/displayName").set("New trainer");
    }
 
 
