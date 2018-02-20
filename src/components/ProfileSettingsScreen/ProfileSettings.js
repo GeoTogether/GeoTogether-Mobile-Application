@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View } from 'react-native';
+import { AppRegistry, Text, TextInput, ToolbarAndroid, TouchableOpacity, StyleSheet, Image, Modal, View, Alert } from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
-import ImagePicker from 'react-native-image-picker';
 
 
 export default class ProfileSettings extends Component {
@@ -25,11 +24,59 @@ export default class ProfileSettings extends Component {
         photo: '',
         fname: '',
         lname: '',
-        ImageSource: null,
         photoS: null,
+        modalVisible: false,
+    }
+
+    openModal() {
+        this.setState({modalVisible:true});
+    }
+
+    closeModal() {
+        this.setState({modalVisible:false});
+    }
+
+    updateInfo = () => {
+        var userData;
+        var tempEmail = this.state.email;
+        var tempFname = this.state.fname;
+        var tempLname = this.state.lname;
+
+        var leadsRef = firebase.database().ref('users');
+
+        leadsRef.on('value', function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+
+              if(childSnapshot.child("email").val() == tempEmail){
+                userData = childSnapshot.key;
+              }
+              else{
+                
+              }
+              //userData = childSnapshot.val();
+              //userData2 = childSnapshot.child("email").val();
+              
+
+            });
+    });     
+        //console.log(this.state.fname);
+        //console.log(this.state.lname);
+        //console.log(this.state.email);
+
+        
+            
+        
+            //var db = firebase.database();
+            //db.ref("users/"+userData+"/first").set("brandons");
+   }
+
+   _handlePress(event) {
+    let fname=this.state.fname;
     }
 
 
+    
     componentWillMount() {
 
         const { state } = this.props.navigation;
@@ -57,7 +104,7 @@ export default class ProfileSettings extends Component {
                     if (this.state.photo == '') {
 
 
-                       // this.setState({ photoS: require('../../images/face.png') })
+                        this.setState({ photoS: require('../../images/face.png') })
 
                     } else {
 
@@ -78,6 +125,7 @@ export default class ProfileSettings extends Component {
 
 
     componentDidMount() {
+
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         // get all the users from the firebase database
@@ -102,10 +150,10 @@ export default class ProfileSettings extends Component {
         if (this.state.photo == '') {
             
             
-                        //this.setState({ photoS: require('../../images/face.png') })
+                        this.setState({ photoS: require('../../images/face.png') })
             
                     } else {
-
+            
                         this.setState({ photoS: { uri: this.state.photo } })
                     }
             
@@ -126,82 +174,62 @@ export default class ProfileSettings extends Component {
     }
 
 
-    selectPhotoTapped() {
-        const options = {
-            quality: 1.0,
-            maxWidth: 500,
-            maxHeight: 500,
-            storageOptions: {
-                skipBackup: true
-            }
-        };
-
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled photo picker');
-            }
-            else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-                let source = { uri: response.uri };
-
-                // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                this.setState({
-
-                    ImageSource: source
-
-                });
-            }
-        });
-    }
-
-
 
     render() {
 
+
         return (
-            <View>
-                {this.state.photoS == null ? (
-                    <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
+            <View style={styles.container}>
 
-                        <View style={styles.ImageContainer}>
+                <Modal
+                  visible={this.state.modalVisible}
+                  animationType={'slide'}
+                  onRequestClose={() => this.closeModal()}
+                >
 
-                            {
-                                this.state.ImageSource === null ? <Text>Select a Photo</Text> :
-                                <Image style={styles.ImageContainer} source={this.state.ImageSource} />
-                            }
-
-                        </View>
-
-                    </TouchableOpacity>
-                ) : (
-                    <Image
-                        style={{ width: 100, height: 100, marginLeft: 155 }}
-                        source={this.state.photoS}
+                <View style={styles.modalContainer}>
+                  <View style={styles.innerContainer}>
+                    <Text>Please Input Which Users You Want To Add Below</Text>
+                    <TextInput
+                      style={{height: 40}}
+                      defaultValue={this.state.email}
+                      placeholder="Email Address:"
+                      onChangeText={(UserInvite) => this.setState({UserInvite})}
                     />
-                )}
+
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()}>
+                    <Text style={styles.buttonText}>Invite User</Text>
+                  </TouchableOpacity>
+                    
+                      </View>
+                    </View>
+                </Modal>
 
 
-                <Text style={styles.labels}>Name</Text>
-                <TextInput style={styles.input}>
-                    {this.state.fname} {this.state.lname}
-                </TextInput>
-                <Text style={styles.labels}>Username</Text>
+                <Image
+                    style={{ width: 100, height: 100, marginLeft: 155 }}
+                    source={this.state.photoS}
+                />
+                <Text style={styles.change}>Change Photo </Text>
+
+                <Text style={styles.labels}>First Name</Text>
                 <TextInput style={styles.input}>
                     {this.state.fname}
                 </TextInput>
+
+                 <Text style={styles.labels}>Last Name</Text>
+                <TextInput style={styles.input}>
+                    {this.state.lname}
+                </TextInput>
+
                 <Text style={styles.labels}>Email</Text>
                 <TextInput style={styles.input2}>
                     {this.state.email}
                 </TextInput>
+
+                <TouchableOpacity onPress={() => this.openModal()} style={styles.buttonContainer} >
+                    <Text style={styles.buttonText}>Update Profile Info</Text>
+                </TouchableOpacity>
 
             </View>
 
@@ -224,6 +252,16 @@ const styles = StyleSheet.create({
 
 
     },
+    buttonText: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700'
+      },
+      buttonContainer: {
+          backgroundColor: 'rgb(0,25,88)',
+          paddingVertical: 15,
+          paddingHorizontal: 1
+      },
     change: {
         color: 'blue',
         textAlign: 'center',
@@ -242,6 +280,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 15,
+
         backgroundColor: '#F5FCFF',
     },
     welcome: {
@@ -253,16 +292,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
-    },
-    ImageContainer: {
-        borderRadius: 75,
-        width: 150,
-        height: 150,
-        borderColor: '#9B9B9B',
-        borderWidth: 1 / PixelRatio.get(),
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-
     },
 });
