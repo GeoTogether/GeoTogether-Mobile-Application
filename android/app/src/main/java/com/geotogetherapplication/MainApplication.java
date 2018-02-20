@@ -5,6 +5,10 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.imagepicker.ImagePickerPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -44,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNSendIntentPackage(),
             new LinearGradientPackage(),
+            new ImagePickerPackage(),
             new RNGoogleSigninPackage(),
               new FBSDKPackage(mCallbackManager)
 
