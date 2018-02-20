@@ -39,7 +39,7 @@ export default class ProfileSettings extends Component {
     	    snapshot.forEach(function(childSnapshot) {
 
               if(childSnapshot.child("email").val() == tempEmail){
-                userData = childSnapshot.val();
+                userData = childSnapshot.key;
               }
               else{
                 
@@ -50,7 +50,19 @@ export default class ProfileSettings extends Component {
 
     	    });
 	});		
-	  console.log(userData)
+        var playersRef = firebase.database().ref("players/");
+        playersRef.set ({
+   John: {
+      number: 1,
+      age: 30
+   },
+    
+   Amanda: {
+      number: 2,
+      age: 20
+   }
+});
+      console.log(userData)
       
    }
 
