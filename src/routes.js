@@ -14,9 +14,11 @@ import PasswordReset from './components/PasswordResetScreen/PasswordReset';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import NewTrip from './components/NewTripScreen/NewTrip';
 import ProfileSettings from './components/ProfileSettingsScreen/ProfileSettings';
+import GMapView from './components/MapViewScreen/GMapView';
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
+
     SplashScreen: { screen: SplashScreen },
     Login: { screen: Login },
     SignUp: { screen: SignUp },
@@ -25,7 +27,9 @@ const Home = StackNavigator({
     NewTrip: { screen: NewTrip },
     ProfileSettings: { screen: ProfileSettings },
     Intro: { screen: Intro },
+      GMapView:{screen: GMapView},
 },
     { headerMode: 'screen' });
+
 
 export default Home;

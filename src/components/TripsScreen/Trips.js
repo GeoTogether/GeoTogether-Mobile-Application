@@ -142,7 +142,7 @@ export default class Trips extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     // adding components for all the user trips 
-    var Components = this.state.trips.map((type) => <TouchableOpacity style={styles.tripContainer}>  
+    var Components = this.state.trips.map((type) => <TouchableOpacity style={styles.tripContainer} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>  
     <Text style={styles.tripName}> {type.tripName}</Text>  
     <Text style={styles.status}>(Open)</Text>
      <Text style={styles.date}>{type.startDate} -{type.endDate}</Text> 
