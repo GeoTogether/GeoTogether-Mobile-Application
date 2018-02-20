@@ -27,7 +27,7 @@ const Home = StackNavigator({
     NewTrip: { screen: NewTrip },
     ProfileSettings: { screen: ProfileSettings },
     Intro: { screen: Intro },
-      GMapView:{screen: GMapView},
+    GMapView:{screen: GMapView},
 },
     { headerMode: 'screen' });
 

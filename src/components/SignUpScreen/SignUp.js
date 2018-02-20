@@ -64,7 +64,7 @@ export default class SignUp extends React.Component {
               last: lname,
               email: email,
               photo: '',
-              newUser: 'true',
+              newUser: 1,
             });
 
 

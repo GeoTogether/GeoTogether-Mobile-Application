@@ -35,6 +35,7 @@ export default class Trips extends React.Component {
     tripsNames: [],
     modalVisible: false,
     UserInvite: '',
+    newUser: 2,
   }
 
 
@@ -54,9 +55,11 @@ export default class Trips extends React.Component {
 
 
   componentWillMount() {
-
+    const { navigate } = this.props.navigation;
     const { state } = this.props.navigation;
     this.setState({ email: state.params.email });
+    this.checkNewUser();
+   
     // gets all the user trips 
      this.onPressGetTrips();
 
@@ -65,8 +68,13 @@ export default class Trips extends React.Component {
   }
 
   componentDidMount(){
+    const { navigate } = this.props.navigation;
     const { state } = this.props.navigation;
     this.setState({ email: state.params.email });
+    this.checkNewUser();
+    
+        
+
     // gets all the user trips 
      this.onPressGetTrips();
 
@@ -102,6 +110,44 @@ export default class Trips extends React.Component {
 
   }
 
+  async checkNewUser(){
+    const { navigate } = this.props.navigation;
+    
+    firebase.database().ref('users/').on('value', (snapshot) => {
+        snapshot.forEach((userSnapshot) => {
+
+
+            const val = userSnapshot.val();
+           
+
+
+            if (val.email == this.state.email) {
+
+
+               if(val.newUser == 1){
+
+                this.setState({newUser : 1});
+
+                firebase.database().ref('users/').child(userSnapshot.key).set({ first: val.first,
+                    last: val.last,
+                    email: val.email,
+                    photo: val.photo,
+                    newUser: 2,
+                       }
+                )
+
+                navigate('Intro', { email: this.state.email });
+
+            }
+
+
+            }
+
+        })
+    })
+
+
+  }
 
 
   // function to get all the user trips using firebase database
@@ -144,6 +190,7 @@ export default class Trips extends React.Component {
     const { navigate } = this.props.navigation;
     // adding components for all the user trips 
 
+
     var components = this.state.trips.map((type) =>
         <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
             <View style={styles.textRow}>
@@ -165,6 +212,7 @@ export default class Trips extends React.Component {
                         {components}
                     </View>
                 </ScrollView>
+                
             </View>
             <View style={styles.addButtonContainer}>
                 <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
@@ -172,7 +220,13 @@ export default class Trips extends React.Component {
                         source={require('../../images/addbutton.png')}
                     />
                 </TouchableOpacity>
+
+                
             </View>
+
+     
+
+            
 
 
         </LinearGradient>
