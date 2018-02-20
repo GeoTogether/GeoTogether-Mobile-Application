@@ -56,7 +56,7 @@ export default class ProfileSettings extends Component {
         
       
         var db = firebase.database();
-        db.ref("users/-L5jdXLCO-w1go1LJyK3/last").set("lebidds");
+        db.ref("users/-L5lcL9mih33OvTNcPQ_/last").set("leidds");
 
    }
 
@@ -110,6 +110,7 @@ export default class ProfileSettings extends Component {
 
 
     componentDidMount() {
+
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         // get all the users from the firebase database
