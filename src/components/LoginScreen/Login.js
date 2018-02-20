@@ -16,8 +16,10 @@ import { GoogleSignin } from 'react-native-google-signin';
 import {
     StackNavigator
 } from 'react-navigation';
-import FBSDK, { LoginManager, AccessToken, GraphRequest,
-    GraphRequestManager } from 'react-native-fbsdk';
+import FBSDK, {
+    LoginManager, AccessToken, GraphRequest,
+    GraphRequestManager
+} from 'react-native-fbsdk';
 
 export default class Login extends React.Component {
 
@@ -43,6 +45,7 @@ export default class Login extends React.Component {
         error: '',
         data: null,
         stored: true,
+        newUser: 'false',
     }
 
 
@@ -58,75 +61,82 @@ export default class Login extends React.Component {
                 //This gives use the user ID and all the permissions.
                 //Push this to firebase! and retrieve later
                 //console.log(AccessToken.getCurrentAccessToken());
-               // alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
+                // alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
             }
 
             // Retrieve the access token
-           return AccessToken.getCurrentAccessToken();
+            return AccessToken.getCurrentAccessToken();
         }).then((data) => {
-                // Create a new Firebase credential with the token
-                const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+            // Create a new Firebase credential with the token
+            const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
 
-                //firebase.database().ref('users/').push(data.getPermissions());
-                
-                // Login with the credential
-                //return
-                 firebase.auth().signInWithCredential(credential);
+            //firebase.database().ref('users/').push(data.getPermissions());
 
-                
-
-                 const responseInfoCallback = (error, result) => {
-                    if (error) {
-                        //console.log(error)
-                        alert('Error fetching data: ' + error.toString());
-                    } else {
+            // Login with the credential
+            //return
+            firebase.auth().signInWithCredential(credential);
 
 
-                        this.setState({email : result.email});
-                       
-                        
-                // get all the users from the firebase database
-                firebase.database().ref("users").orderByChild("email").equalTo(result.email).once("value", snapshot => {
-                    const userData = snapshot.val();
-                    if (userData) {
-                       // alert("exists!");
-                    } else {
 
-                        firebase.database().ref('users/').push({
-                            email: result.email,
-                            last: result.last_name,
-                            first: result.first_name,
-                            photo: result.picture.data.url
-                        });
+            const responseInfoCallback = (error, result) => {
+                if (error) {
+                    //console.log(error)
+                    alert('Error fetching data: ' + error.toString());
+                } else {
 
-                    }
-                });
 
-                     
-                      
-                    }
+                    this.setState({ email: result.email });
 
-                    navigate('Trips', { email: this.state.email }) // after login go to trips
+
+                    // get all the users from the firebase database
+                    firebase.database().ref("users").orderByChild("email").equalTo(result.email).once("value", snapshot => {
+                        const userData = snapshot.val();
+                        if (userData) {
+                            // alert("exists!");
+                        } else {
+
+                            firebase.database().ref('users/').push({
+                                email: result.email,
+                                last: result.last_name,
+                                first: result.first_name,
+                                photo: result.picture.data.url,
+                                newUser: 'false',
+                            });
+
+                            this.setState({ newUser: 'true' })
+                        }
+                    });
+
+
 
                 }
 
-                const infoRequest = new GraphRequest('/me', {
-                    accessToken: data.accessToken,
-                    parameters: {
-                        fields: {
-                            string: 'email,name,first_name,last_name,picture'
-                        }
+
+                if (this.state.newUser == 'true') {
+                    navigate('Intro', { email: this.state.data.email });
+
+                } else {
+                    navigate('Trips', { email: this.state.data.email });
+                }
+            }
+
+            const infoRequest = new GraphRequest('/me', {
+                accessToken: data.accessToken,
+                parameters: {
+                    fields: {
+                        string: 'email,name,first_name,last_name,picture'
                     }
-                }, responseInfoCallback);
+                }
+            }, responseInfoCallback);
 
-                // Start the graph request.
-                new GraphRequestManager().addRequest(infoRequest).start()
+            // Start the graph request.
+            new GraphRequestManager().addRequest(infoRequest).start()
 
-               
-                
-            }).catch((error) => {
-                alert('Login failed with error: ' + error);
-            });
+
+
+        }).catch((error) => {
+            alert('Login failed with error: ' + error);
+        });
 
 
     }
@@ -200,18 +210,25 @@ export default class Login extends React.Component {
                             email: this.state.data.email,
                             last: this.state.data.familyName,
                             first: this.state.data.givenName,
-                            photo: this.state.data.photo
+                            photo: this.state.data.photo,
+                            newUser: 'false',
                         });
 
+                        this.setState({ newUser: 'true' })
                     }
                 });
 
 
 
 
+                if (this.state.newUser == true) {
+                    navigate('Intro', { email: this.state.data.email });
+
+                } else {
+                    navigate('Trips', { email: this.state.data.email });
+                }
 
 
-                navigate('Trips', { email: this.state.data.email });
 
 
             })
@@ -243,14 +260,57 @@ export default class Login extends React.Component {
         } else {
 
             // call firebase authentication and checks the email and password
-            firebase.auth().signInWithEmailAndPassword(email, password).then(user => this.setState({ // if the user email and password did  match what firebase
-                authenticating: false,
-                user: user,
-                error: '',
-            })).catch((error) => {
+            firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+
+                this.setState({
+                    authenticating: false,
+                    user: user,
+                    error: '',
+                });
+
+                firebase.database().ref('users/').on('value', (snapshot) => {
+                    snapshot.forEach((userSnapshot) => {
+
+
+                        const val = userSnapshot.val();
+                       
+
+
+                        if (val.email == email) {
+
+
+                           if(val.newUser == 'true'){
+
+                            this.setState({newUser : 'true'});
+
+                            firebase.database().ref('users/').child(userSnapshot.key).set(
+                               { first: val.first,
+                                last: val.last,
+                                email: val.email,
+                                photo: val.photo,
+                                newUser: 'false',
+                                   }
+                            )
+
+                           }
+
+
+
+
+
+                        }
+
+                    })
+                })
+
+               
+
+            }).catch((error) => {
                 alert('Login failed with error: ' + error);
 
             });
+
+
 
         }
 
@@ -267,9 +327,16 @@ export default class Login extends React.Component {
         const { navigate } = this.props.navigation;
 
         if (firebase.auth().currentUser !== null) {
-            return (
-                navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
-            )
+            if(this.state.newUser =='true'){
+                return (
+                    navigate('Intro', { email: firebase.auth().currentUser.email }) // after login go to trips
+                )
+            } else{
+                return (
+                    navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
+                )
+            }
+           
         }
 
         return (

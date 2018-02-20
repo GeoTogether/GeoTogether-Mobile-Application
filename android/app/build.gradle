@@ -147,7 +147,7 @@ dependencies {
         exclude group: "com.google.android.gms" // very important
     }
     compile 'com.google.android.gms:play-services-auth:9.2.1' // should be at least 9.0.0
-    compile project(':react-native-vector-icons')
+   
 }
 
 apply plugin: 'com.google.gms.google-services' // <--- this should be the last line

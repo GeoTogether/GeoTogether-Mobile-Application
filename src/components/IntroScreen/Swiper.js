@@ -240,6 +240,8 @@ export default class OnboardingScreens extends Component {
        * Render Continue or Done button
        */
   renderButton = () => {
+    const { state } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     const lastScreen = this.state.index === this.state.total - 1;
     return (
       <View
@@ -251,7 +253,7 @@ export default class OnboardingScreens extends Component {
           // TODO: Add a handler that would send a user to your app after onboarding is complete
           <Button
             text="Start Now"
-            onPress={() => this.props.navigation.navigate("Boiler")}
+            onPress={() =>  navigate('Trips', { email: state.params.email })}
           />
         ) : (
           // Or this one otherwise
@@ -314,7 +316,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 3
+    marginBottom: 30
   },
   // Active dot
   activeDot: {
@@ -325,7 +327,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     flexDirection: "column",
     position: "absolute",
-    bottom: 0,
+    bottom: 45,
     left: 0,
     flex: 1,
     paddingHorizontal: 10,
