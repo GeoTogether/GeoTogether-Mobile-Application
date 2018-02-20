@@ -40,6 +40,7 @@ export default class ProfileSettings extends Component {
 
               if(childSnapshot.child("email").val() == tempEmail){
                 userData = childSnapshot.key;
+                console.log(childSnapshot.child("last").val());
               }
               else{
                 
@@ -50,20 +51,13 @@ export default class ProfileSettings extends Component {
 
     	    });
 	});		
-        var playersRef = firebase.database().ref("players/");
-        playersRef.set ({
-   John: {
-      number: 1,
-      age: 30
-   },
-    
-   Amanda: {
-      number: 2,
-      age: 20
-   }
-});
-      console.log(userData)
+        
+
+        
       
+        var db = firebase.database();
+        db.ref("users/-L5jdXLCO-w1go1LJyK3/last").set("lebidds");
+
    }
 
 
