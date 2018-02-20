@@ -146,20 +146,15 @@ export default class GMapView extends React.Component {
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle ={styles.title}
-                    backgroundColor= {'#ffffff'}
-                    leftIconImage={require('../../images/face.png')}
+                    backgroundColor= {'black'}
+                    leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                     rightIcons={[
                         {
-                            name: 'star',
+                            image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => console.log('Right Star !'),
+                            onPress: () => console.log('Right Custom image !'),
                         },
-                        // {
-                        //     image: require('my-custom-image.png'), // To use a custom image
-                        //     badge: '1',
-                        //     onPress: () => console.log('Right Custom image !'),
-                        // },
                     ]}
                 />
 
@@ -225,7 +220,7 @@ const styles = StyleSheet.create({
     }, 
     title:{
         textAlign: 'center',
-        color: 'black',
+        color: 'white',
         fontWeight: '700'
     }
 });
