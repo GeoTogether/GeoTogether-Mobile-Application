@@ -28,25 +28,30 @@ export default class ProfileSettings extends Component {
     }
 
 	updateInfo = () => {
-		//var userData;
-	//var leadsRef = firebase.database().ref('users');
-	//leadsRef.on('value', function(snapshot) {
-    //snapshot.forEach(function(childSnapshot) {
+		var userData;
+        var tempEmail = this.state.email;
 
-     // userData = childSnapshot.val();
+
+		var leadsRef = firebase.database().ref('users');
+
+		leadsRef.on('value', function(snapshot) {
+
+    	    snapshot.forEach(function(childSnapshot) {
+
+              if(childSnapshot.child("email").val() == tempEmail){
+                userData = childSnapshot.val();
+              }
+              else{
+                
+              }
+              //userData = childSnapshot.val();
+              //userData2 = childSnapshot.child("email").val();
+              
+
+    	    });
+	});		
+	  console.log(userData)
       
-
-   // });
-//});		
-	var uid = "simplelogin:1";
-	var todosRef = new Firebase("https://yourdb.firebaseio.com/users/" + uid);
-	var privateTodosRef = todosRef.orderByChild("private").equalTo(true);
-	var privateTodos;
-
-	privateTodosRef.on("value", function(response) {
-	  privateTodos = response.val();
-	});
-      //console.log(userData);
    }
 
 
