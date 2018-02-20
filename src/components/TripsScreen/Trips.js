@@ -89,7 +89,7 @@ export default class Trips extends React.Component {
             authenticating: false,
             user: null,
           })
-          navigate('Login') // after login go to trips
+          navigate('SplashScreen') // after login go to trips
 
         }, error => {
           console.error('Sign Out Error', error);
@@ -143,8 +143,9 @@ export default class Trips extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     // adding components for all the user trips 
+
     var components = this.state.trips.map((type) =>
-        <TouchableOpacity style={styles.tripComponent}>
+        <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
             <View style={styles.textRow}>
                 <Text style={styles.tripName}>{type.tripName}</Text>
                 <Text style={styles.status}>(Open)</Text>
@@ -154,6 +155,7 @@ export default class Trips extends React.Component {
                 <Text style={styles.date}>{type.startDate} - {type.endDate}</Text>
             </View>
         </TouchableOpacity>);
+
 
     return (
         <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>

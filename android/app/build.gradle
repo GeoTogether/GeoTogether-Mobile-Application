@@ -96,7 +96,9 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
-
+dexOptions {
+    javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "com.geotogetherapplication"
         minSdkVersion 16
@@ -138,6 +140,8 @@ android {
 
 dependencies {
     compile project(':react-native-fbsdk')
+    compile project(':react-native-geocoder')
+    compile project(':react-native-image-picker')
     compile project(':RNSendIntentModule')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.0.1"
@@ -146,7 +150,13 @@ dependencies {
     compile(project(":react-native-google-signin")){
         exclude group: "com.google.android.gms" // very important
     }
-    compile 'com.google.android.gms:play-services-auth:9.2.1' // should be at least 9.0.0
+    compile 'com.google.android.gms:play-services-auth:10.0.1' // should be at least 9.0.0
+    compile(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+     compile 'com.google.android.gms:play-services-base:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services' // <--- this should be the last line
