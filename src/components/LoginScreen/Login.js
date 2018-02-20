@@ -46,7 +46,7 @@ export default class Login extends React.Component {
         error: '',
         data: null,
         stored: true,
-        newUser: 'false',
+        
     }
 
 
@@ -101,10 +101,10 @@ export default class Login extends React.Component {
                                 last: result.last_name,
                                 first: result.first_name,
                                 photo: result.picture.data.url,
-                                newUser: 'false',
+                                newUser: 1,
                             });
 
-                            this.setState({ newUser: 'true' })
+                           
                         }
                     });
 
@@ -113,12 +113,9 @@ export default class Login extends React.Component {
                 }
 
 
-                if (this.state.newUser == 'true') {
-                    navigate('Intro', { email: this.state.data.email });
-
-                } else {
+              
                     navigate('Trips', { email: this.state.data.email });
-                }
+                
             }
 
             const infoRequest = new GraphRequest('/me', {
@@ -212,22 +209,18 @@ export default class Login extends React.Component {
                             last: this.state.data.familyName,
                             first: this.state.data.givenName,
                             photo: this.state.data.photo,
-                            newUser: 'false',
+                            newUser: 1,
                         });
 
-                        this.setState({ newUser: 'true' })
+                       
                     }
                 });
 
 
 
 
-                if (this.state.newUser == true) {
-                    navigate('Intro', { email: this.state.data.email });
-
-                } else {
                     navigate('Trips', { email: this.state.data.email });
-                }
+                
 
 
 
@@ -263,48 +256,14 @@ export default class Login extends React.Component {
             // call firebase authentication and checks the email and password
             firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
 
+
                 this.setState({
                     authenticating: false,
                     user: user,
                     error: '',
                 });
 
-                firebase.database().ref('users/').on('value', (snapshot) => {
-                    snapshot.forEach((userSnapshot) => {
-
-
-                        const val = userSnapshot.val();
-                       
-
-
-                        if (val.email == email) {
-
-
-                           if(val.newUser == 'true'){
-
-                            this.setState({newUser : 'true'});
-
-                            firebase.database().ref('users/').child(userSnapshot.key).set(
-                               { first: val.first,
-                                last: val.last,
-                                email: val.email,
-                                photo: val.photo,
-                                newUser: 'false',
-                                   }
-                            )
-
-                           }
-
-
-
-
-
-                        }
-
-                    })
-                })
-
-               
+                navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
 
             }).catch((error) => {
                 alert('Login failed with error: ' + error);
@@ -329,18 +288,6 @@ export default class Login extends React.Component {
 
         const { navigate } = this.props.navigation;
 
-        if (firebase.auth().currentUser !== null) {
-            if(this.state.newUser =='true'){
-                return (
-                    navigate('Intro', { email: firebase.auth().currentUser.email }) // after login go to trips
-                )
-            } else{
-                return (
-                    navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
-                )
-            }
-           
-        }
 
         return (
 
