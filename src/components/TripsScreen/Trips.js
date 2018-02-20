@@ -1,10 +1,11 @@
 import React from 'react';
-import { Alert, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   StackNavigator
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -142,148 +143,116 @@ export default class Trips extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     // adding components for all the user trips 
-    var Components = this.state.trips.map((type) => <TouchableOpacity style={styles.tripContainer} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>  
-    <Text style={styles.tripName}> {type.tripName}</Text>  
-    <Text style={styles.status}>(Open)</Text>
-     <Text style={styles.date}>{type.startDate} -{type.endDate}</Text> 
-       <Text style={styles.members}>Members: {type.members.length} </Text>
-        </TouchableOpacity>)
+
+    var components = this.state.trips.map((type) =>
+        <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
+            <View style={styles.textRow}>
+                <Text style={styles.tripName}>{type.tripName}</Text>
+                <Text style={styles.status}>(Open)</Text>
+            </View>
+            <View style={styles.textRow}>
+                <Text style={styles.members}>Members: {type.members.length} </Text>
+                <Text style={styles.date}>{type.startDate} - {type.endDate}</Text>
+            </View>
+        </TouchableOpacity>);
+
 
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-
-        <View style={styles.formContainer}>
-
-
-
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
-          
-
-          
-          
-            <View style={styles.container2}>
-
-              <Text style={styles.title}>Home</Text>
-
-             {Components}
-
-
-
-
-              <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('NewTrip', { email: this.state.email })} >
-                <Text style={styles.buttonText}>NEW TRIP</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('ProfileSettings', { email: this.state.email })} >
-                <Text style={styles.buttonText}>Profile</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.buttonContainer} onPress={() =>this.onPressLogOut()} >
-                <Text style={styles.buttonText}>Log Out</Text>
-              </TouchableOpacity>
-
+        <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
+            <View style={styles.tripContainer}>
+                <ScrollView>
+                    <View style={styles.tripView}>
+                        {components}
+                    </View>
+                </ScrollView>
             </View>
-          </TouchableWithoutFeedback>
+            <View style={styles.addButtonContainer}>
+                <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
+                    <Image
+                        source={require('../../images/addbutton.png')}
+                    />
+                </TouchableOpacity>
+            </View>
 
-        </View>
 
-      </KeyboardAvoidingView>
+        </LinearGradient>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#87c7ff',
-  },
-  container2: {
-    paddingTop: 50
-  },
-
-  input: {
-    height: 50,
-    width: 350,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    marginBottom: 20,
-    paddingHorizontal: 10
-  },
-
-  altLoginContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 50
-  },
-
-  tripContainer: {
-    backgroundColor: '#fff',
-    padding: 5,
-    height: 155,
-    width: 350,
-    borderRadius: 10,
-    marginBottom: 20
-  },
-
-  buttonContainer: {
-    backgroundColor: 'rgb(0,25,88)',
-    paddingVertical: 15
-  },
-
-  addUsers: {
-    backgroundColor: 'rgb(0,25,88)',
-    paddingVertical: 5
-  },
-
-  buttonText: {
-    textAlign: 'center',
-    color: '#FFFFFF',
-    fontWeight: '700'
-  },
-
-  splitContainer: {
-    marginBottom: 20,
-  },
-
-  tripName: {
-    textAlign: 'left',
-    padding: 5,
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-
-  status: {
-    padding: 5,
-    textAlign: 'right',
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-
-  date: {
-    padding: 5,
-    textAlign: 'right',
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 12
-  },
-
-  members: {
-    padding: 5,
-    textAlign: 'left',
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 12
-  },
-
-  title: {
-    textAlign: 'center',
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 26,
-    marginTop: -10,
-    marginBottom: 20
-  },
+    linearGradient: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    tripContainer: {
+        height: '75%',
+        width: '95%',
+        // backgroundColor: 'black',
+    },
+    tripView:{
+        flex: 1,
+        //backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    tripComponent: {
+        backgroundColor: '#fff',
+        height: 100,
+        width: 340,
+        borderRadius: 10,
+        marginBottom: 20,
+        justifyContent: 'space-between'
+    },
+    tripName: {
+        textAlign: 'left',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 20,
+        paddingLeft: 15,
+        paddingTop: 10,
+    },
+    status: {
+        textAlign: 'right',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 20,
+        paddingRight: 15,
+        paddingTop: 35
+    },
+    textRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    date: {
+        textAlign: 'right',
+        color: '#ffc400',
+        fontWeight: 'normal',
+        fontSize: 12,
+        paddingRight: 15,
+        paddingBottom: 10
+    },
+    members: {
+        textAlign: 'left',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 12,
+        paddingLeft: 15,
+        paddingBottom: 10
+    },
+    addButtonContainer: {
+        //backgroundColor: 'rgb(0,25,88)',
+        //flexDirection: 'row'
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        paddingRight: 10,
+        paddingBottom: 10
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '700'
+    },
 });
