@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, TextInput, ToolbarAndroid, StyleSheet, Image, View } from 'react-native';
+import { AppRegistry, Text, TextInput, ToolbarAndroid, TouchableOpacity, StyleSheet, Image, View, Alert } from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 
@@ -27,7 +27,30 @@ export default class ProfileSettings extends Component {
         photoS: null,
     }
 
+	updateInfo = () => {
+		//var userData;
+	//var leadsRef = firebase.database().ref('users');
+	//leadsRef.on('value', function(snapshot) {
+    //snapshot.forEach(function(childSnapshot) {
 
+     // userData = childSnapshot.val();
+      
+
+   // });
+//});		
+	var uid = "simplelogin:1";
+	var todosRef = new Firebase("https://yourdb.firebaseio.com/users/" + uid);
+	var privateTodosRef = todosRef.orderByChild("private").equalTo(true);
+	var privateTodos;
+
+	privateTodosRef.on("value", function(response) {
+	  privateTodos = response.val();
+	});
+      //console.log(userData);
+   }
+
+
+    
     componentWillMount() {
 
         const { state } = this.props.navigation;
@@ -149,6 +172,10 @@ export default class ProfileSettings extends Component {
                 <TextInput style={styles.input2}>
                     {this.state.email}
                 </TextInput>
+                <TouchableOpacity onPress={() => this.updateInfo()} style={styles.buttonContainer} >
+		            <Text style={styles.buttonText}>Update Profile Info</Text>
+		        </TouchableOpacity>
+		        
 
             </View>
 
@@ -171,6 +198,16 @@ const styles = StyleSheet.create({
 
 
     },
+    buttonText: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700'
+	  },
+	  buttonContainer: {
+	      backgroundColor: 'rgb(0,25,88)',
+	      paddingVertical: 15,
+	      paddingHorizontal: 1
+	  },
     change: {
         color: 'blue',
         textAlign: 'center',
