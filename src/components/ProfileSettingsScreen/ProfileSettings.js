@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, TextInput, ToolbarAndroid, TouchableOpacity, StyleSheet, Image, View, Alert } from 'react-native';
+import { AppRegistry, Text, TextInput, ToolbarAndroid, TouchableOpacity, StyleSheet, Image, Modal, View, Alert } from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 
@@ -25,6 +25,15 @@ export default class ProfileSettings extends Component {
         fname: '',
         lname: '',
         photoS: null,
+        modalVisible: false,
+    }
+
+    openModal() {
+        this.setState({modalVisible:true});
+    }
+
+    closeModal() {
+        this.setState({modalVisible:false});
     }
 
 	updateInfo = () => {
@@ -172,6 +181,31 @@ export default class ProfileSettings extends Component {
         return (
             <View style={styles.container}>
 
+                <Modal
+                  visible={this.state.modalVisible}
+                  animationType={'slide'}
+                  onRequestClose={() => this.closeModal()}
+                >
+
+                <View style={styles.modalContainer}>
+                  <View style={styles.innerContainer}>
+                    <Text>Please Input Which Users You Want To Add Below</Text>
+                    <TextInput
+                      style={{height: 40}}
+                      defaultValue={this.state.email}
+                      placeholder="Email Address:"
+                      onChangeText={(UserInvite) => this.setState({UserInvite})}
+                    />
+
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.showAlert()}>
+                    <Text style={styles.buttonText}>Invite User</Text>
+                  </TouchableOpacity>
+                    
+                      </View>
+                    </View>
+                </Modal>
+
+
                 <Image
                     style={{ width: 100, height: 100, marginLeft: 155 }}
                     source={this.state.photoS}
@@ -193,7 +227,7 @@ export default class ProfileSettings extends Component {
                     {this.state.email}
                 </TextInput>
 
-                <TouchableOpacity onPress={() => this.updateInfo()} style={styles.buttonContainer} >
+                <TouchableOpacity onPress={() => this.openModal()} style={styles.buttonContainer} >
 		            <Text style={styles.buttonText}>Update Profile Info</Text>
 		        </TouchableOpacity>
 
