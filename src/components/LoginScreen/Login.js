@@ -10,6 +10,7 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
@@ -261,7 +262,9 @@ export default class Login extends React.Component {
 
     }
 
-    renderCurrentState() {
+
+
+    render() {
 
 
         const { navigate } = this.props.navigation;
@@ -275,151 +278,145 @@ export default class Login extends React.Component {
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../images/geotogether.png')}
+                    />
+                </View>
 
-                    <View style={styles.logoContainer}>
-                        <Image
-                            style={styles.logo}
-                            source={require('../../images/geotogether.png')} />
-                    </View>
+                <View style={styles.loginFieldContainer}>
 
-                    <View style={styles.container2}>
+                    <TextInput
+                        placeholder="Email"
+                        underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        onSubmitEditing={() => this.passwordInput.focus()}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={email => this.setState({ email })}
+                        style={styles.input}
+                    />
 
-                        <TextInput
-                            placeholder="email"
-                            returnKeyType="next"
-                            onSubmitEditing={() => this.passwordInput.focus()}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onChangeText={email => this.setState({ email })}
-                            style={styles.input}
-                        />
+                    <TextInput
+                        placeholder="Password"
+                        underlineColorAndroid="transparent"
+                        autoCapitalize="none"
+                        returnKeyType="go"
+                        secureTextEntry
+                        style={styles.input}
+                        onChangeText={password => this.setState({ password })}
+                    />
 
-                        <TextInput
-                            placeholder="password"
-                            returnKeyType="go"
-                            secureTextEntry
-                            style={styles.input}
-                            onChangeText={password => this.setState({ password })}
-                        />
-
-                        <Text style={styles.splitText} onPress={() => navigate('PasswordReset')}>Forgot Your
+                    <Text style={styles.forgotPasswordTxt} onPress={() => navigate('PasswordReset')}>Forgot Your
                         Password?</Text>
 
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressSignIn()}>
-                            <Text style={styles.buttonText}>LOGIN</Text>
-                        </TouchableOpacity>
+                </View>
 
-                    </View>
+                <View style={styles.loginBContainer}>
+                    <TouchableOpacity style={styles.buttonStyle} onPress={() => this.onPressSignIn()}>
+                        <Text style={styles.buttonText}>LOGIN</Text>
+                    </TouchableOpacity>
+                </View>
 
-                    <Text>----------------OR----------------</Text>
-
-                    <View style={styles.altLoginContainer}>
-                        <TouchableOpacity onPress={() => this._fbAuth()}>
-                            <Image
-                                style={styles.icon}
-                                source={require('../../images/facebook.png')}
-                            />
-                        </TouchableOpacity>
-                        <Text> </Text>
-                        <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)}>
-                            <Image
-                                style={styles.icon}
-                                source={require('../../images/google.png')} />
-                        </TouchableOpacity>
-                    </View>
-
-
-                </KeyboardAvoidingView>
-
+                <View style={styles.altLoginContainer}>
+                    <TouchableOpacity onPress={() => this._fbAuth()} style={styles.altBStyle}>
+                        <Image
+                            style={styles.icon}
+                            source={require('../../images/facebook.png')}
+                        />
+                    </TouchableOpacity>
+                    <Text> </Text>
+                    <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)} style={styles.altBStyle}>
+                        <Image
+                            style={styles.icon}
+                            source={require('../../images/google.png')} />
+                    </TouchableOpacity>
+                </View>
             </LinearGradient>
 
         )
-
-
-    }
-
-
-    render() {
-
-
-        return (
-            <View style={styles.container}>
-                {this.renderCurrentState()}
-            </View>
-        );
     }
 
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     linearGradient: {
         flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 2
-    },
-    altLoginContainer: {
         alignItems: 'center',
-        flexDirection: 'row',
-        marginBottom: 50
-    },
-
-    splitContainer: {
-        marginBottom: 20,
-    },
-
-    splitText: {
-        textAlign: 'center',
-        color: 'rgb(0,25,88)',
-        fontWeight: '700'
-    },
-
-    logoContainer: {
-        alignItems: 'center',
-        flexGrow: 1,
         justifyContent: 'center'
     },
-
+    container:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    logoContainer: {
+        flex: 3,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
     logo: {
-        marginTop: 20,
-        width: 300,
-        height: 300
+        width: 250,
+        height: 250
     },
-
-    icon: {
-        width: 75,
-        height: 75
+    loginFieldContainer:{
+        flex: 2,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
-    container2: {
-        padding: 20,
-        marginBottom: 20,
-        marginTop: 20
-    },
-
     input: {
+        width: 300,
         height: 50,
-        width: 350,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-        marginBottom: 20,
-        paddingHorizontal: 10
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10
     },
-
-    buttonContainer: {
+    forgotPasswordTxt: {
+        textAlign: 'center',
+        color: 'rgb(0,25,88)',
+        fontWeight: '100'
+    },
+    loginBContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: 'red',
+        shadowOffset: {width: 10, height: 10},
+        shadowOpacity: 100,
+        shadowRadius: 50,
+        elevation: 1
+    },
+    buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        paddingVertical: 15
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
     },
-
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '700'
+        fontWeight: '100'
     },
+    altLoginContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    altBStyle:{
+        margin: '8%'
+    },
+    icon: {
+        width: 50,
+        height: 50
+    }
+
 
 });
