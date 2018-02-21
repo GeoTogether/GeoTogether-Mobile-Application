@@ -22,6 +22,7 @@ export default class ProfileSettings extends Component {
 
     state = {
         email: '',
+        previousEmail: '',
         photo: '',
         fname: '',
         lname: '',
@@ -31,7 +32,7 @@ export default class ProfileSettings extends Component {
 
     updateInfo = () => {
         var userData;
-        tempEmail = this.state.email;
+        tempEmail = this.state.previousEmail;
 
         var leadsRef = firebase.database().ref('users');
 
@@ -53,21 +54,33 @@ export default class ProfileSettings extends Component {
     });     
 
 
-            console.log(userData);
-            var db = firebase.database();
 
-            db.ref("users/"+userData+"/first").set(this.state.fname);
-            db.ref("users/"+userData+"/last").set(this.state.lname);
+                var db = firebase.database();
+                
+                if(this.state.email == this.state.previousEmail){
+                    db.ref("users/"+userData+"/first").set(this.state.fname);
+                    db.ref("users/"+userData+"/last").set(this.state.lname);
+                }
+                else{
+                    var user = firebase.auth().currentUser;
+                    console.log("here");
+                    db.ref("users/"+userData+"/email").set(this.state.email);
+                    db.ref("users/"+userData+"/first").set(this.state.fname);
+                    db.ref("users/"+userData+"/last").set(this.state.lname);
+                    user.updateEmail(this.state.email).then(function() {
 
+                    }).catch(function(error) {
+                       
+                    });
+                }
 
-            db.ref("users/"+userData+"/email").set(this.state.email);
+                this.setState({ previousEmail: this.state.email });
 
-            //var user = firebase.auth().currentUser;
-            //user.updateEmail(this.state.email).then(function() {
-              // Update successful.
-            //}).catch(function(error) {
-              // An error happened.
-            //});
+            
+
+            
+
+            
             
    }
 
@@ -76,6 +89,7 @@ export default class ProfileSettings extends Component {
 
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
+        this.setState({ previousEmail: state.params.email });
 
 
         // get all the users from the firebase database
@@ -122,6 +136,7 @@ export default class ProfileSettings extends Component {
     componentDidMount() {
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
+        this.setState({ previousEmail: state.params.email });
         // get all the users from the firebase database
         // get all the users from the firebase database
         firebase.database().ref("users").on('value', (snapshot) => {
