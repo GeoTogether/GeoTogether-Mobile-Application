@@ -28,9 +28,13 @@ export default class ProfileSettings extends Component {
         lname: '',
         ImageSource: null,
         photoS: null,
+        SourcePicture: null,
     }
 
     updateInfo = () => {
+
+        console.log(this.state.SourcePicture);
+        
         var userData;
         var db = firebase.database();
         tempEmail = this.state.previousEmail;
@@ -60,6 +64,10 @@ export default class ProfileSettings extends Component {
                     //changing names
                     db.ref("users/"+userData+"/first").set(this.state.fname);
                     db.ref("users/"+userData+"/last").set(this.state.lname);
+                    if(this.state.SourcePicture == null || this.state.SourcePicture == ""){}
+                    else{
+                        db.ref("users/"+userData+"/photo").set(this.state.SourcePicture);
+                    }
                 }
                 else{
                     //chaning authorization and names and trips
@@ -68,6 +76,10 @@ export default class ProfileSettings extends Component {
                     db.ref("users/"+userData+"/email").set(this.state.email);
                     db.ref("users/"+userData+"/first").set(this.state.fname);
                     db.ref("users/"+userData+"/last").set(this.state.lname);
+                    if(this.state.SourcePicture == null || this.state.SourcePicture == ""){}
+                    else{
+                        db.ref("users/"+userData+"/photo").set(this.state.SourcePicture);
+                    }
                     user.updateEmail(this.state.email).then(function() {
 
                     }).catch(function(error) {
@@ -122,7 +134,6 @@ export default class ProfileSettings extends Component {
         this.setState({ email: state.params.email });
         this.setState({ previousEmail: state.params.email });
 
-
         // get all the users from the firebase database
         firebase.database().ref("users").on('value', (snapshot) => {
             snapshot.forEach((userSnapshot) => {
@@ -137,6 +148,9 @@ export default class ProfileSettings extends Component {
                     this.setState({ fname: val.first });
                     this.setState({ lname: val.last });
                     this.setState({ photo: val.photo })
+                    this.setState({ ImageSource: { uri: userSnapshot.child("photo").val()}});
+                    
+
 
 
 
@@ -149,11 +163,11 @@ export default class ProfileSettings extends Component {
                     } else {
 
                         this.setState({ photoS: { uri: this.state.photo } })
+
                     }
 
 
-
-                }
+              }
 
             })
         })
@@ -168,6 +182,7 @@ export default class ProfileSettings extends Component {
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.setState({ previousEmail: state.params.email });
+
         // get all the users from the firebase database
         // get all the users from the firebase database
         firebase.database().ref("users").on('value', (snapshot) => {
@@ -183,6 +198,7 @@ export default class ProfileSettings extends Component {
                     this.setState({ fname: val.first });
                     this.setState({ lname: val.last });
                     this.setState({ photo: val.photo })
+                    this.setState({ ImageSource: { uri: userSnapshot.child("photo").val()}});
 
 
 
@@ -238,10 +254,11 @@ export default class ProfileSettings extends Component {
             }
             else {
                 let source = { uri: response.uri };
+                this.setState({ SourcePicture: response.uri })
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
+                
                 this.setState({
 
                     ImageSource: source
