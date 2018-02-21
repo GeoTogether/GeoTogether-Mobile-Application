@@ -168,14 +168,14 @@ export default class ProfileSettings extends Component {
     render() {
 
         return (
-            <View>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
                 {this.state.photoS == null ? (
                     <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
 
                         <View style={styles.ImageContainer}>
 
                             {
-                                this.state.ImageSource === null ? <Text>Select a Photo</Text> :
+                                this.state.ImageSource === null ? <Text style={{color: 'blue'}}>Select a Photo</Text> :
                                 <Image style={styles.ImageContainer} source={this.state.ImageSource} />
                             }
 
@@ -199,7 +199,7 @@ export default class ProfileSettings extends Component {
                     {this.state.fname}
                 </TextInput>
                 <Text style={styles.labels}>Email</Text>
-                <TextInput style={styles.input2}>
+                <TextInput style={styles.input}>
                     {this.state.email}
                 </TextInput>
 
@@ -229,15 +229,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     input: {
-        marginRight: 260,
-
-    },
-    input2: {
-        marginRight: 200,
+        marginLeft: 20,
     },
     labels: {
         color: 'grey',
         marginLeft: 20,
+        fontSize: 18,
     },
     container: {
         flex: 1,
