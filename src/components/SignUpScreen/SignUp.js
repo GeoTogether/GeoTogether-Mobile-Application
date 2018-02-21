@@ -89,7 +89,8 @@ export default class SignUp extends React.Component {
             <View style={styles.Container}>
 
             <TextInput
-            placeholder="First Name"
+            placeholder="Full name"
+            underlineColorAndroid="transparent"
             returnKeyType="next"
             autoCapitalize="none"
             autoCorrect={false}
@@ -97,17 +98,10 @@ export default class SignUp extends React.Component {
             style={styles.input}
           />
 
-<TextInput
-            placeholder="Last Name"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={lname => this.setState({ lname })}
-            style={styles.input}
-          />
+
 
           <TextInput
-            placeholder="email"
+            placeholder="Email Address"
             returnKeyType="next"
             onSubmitEditing={() => this.passwordInput.focus()}
             autoCapitalize="none"
@@ -117,7 +111,7 @@ export default class SignUp extends React.Component {
           />
 
           <TextInput
-            placeholder="password"
+            placeholder="Password"
             secureTextEntry
             style={styles.input}
             onChangeText={password => this.setState({ password })}
@@ -166,10 +160,13 @@ const styles = StyleSheet.create({
   },
   input: {
       height: 50,
-      width: 400,
-      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+      width: 350,
       marginBottom: 20,
-      paddingHorizontal: 10
+      paddingHorizontal: 10,
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      borderRadius: 10,
   }
 
 });
