@@ -168,7 +168,7 @@ export default class ProfileSettings extends Component {
     render() {
 
         return (
-            <View>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
                 {this.state.photoS == null ? (
                     <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
 
@@ -230,10 +230,6 @@ const styles = StyleSheet.create({
     },
     input: {
         marginLeft: 20,
-
-    },
-    input2: {
-        marginRight: 200,
     },
     labels: {
         color: 'grey',
