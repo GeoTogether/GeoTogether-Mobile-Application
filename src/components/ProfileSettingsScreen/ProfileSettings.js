@@ -32,8 +32,8 @@ export default class ProfileSettings extends Component {
     }
 
     updateInfo = () => {
+        console.log("1");
 
-        console.log(this.state.SourcePicture);
         
         var userData;
         var db = firebase.database();
@@ -72,7 +72,7 @@ export default class ProfileSettings extends Component {
                 else{
                     //chaning authorization and names and trips
                     var user = firebase.auth().currentUser;
-                    console.log("here");
+
                     db.ref("users/"+userData+"/email").set(this.state.email);
                     db.ref("users/"+userData+"/first").set(this.state.fname);
                     db.ref("users/"+userData+"/last").set(this.state.lname);
@@ -96,8 +96,6 @@ export default class ProfileSettings extends Component {
                                 var index = childSnapshot.val().members.indexOf(tempEmail);
                                 db.ref("trips/"+childSnapshot.key+"/members/"+index+"").set(currentEmail);
 
-                                console.log(childSnapshot.key);
-                                console.log(index);
                            }
 
                           if(childSnapshot.child("admin").val() == tempEmail){
@@ -129,7 +127,7 @@ export default class ProfileSettings extends Component {
 
 
     componentWillMount() {
-
+        console.log("2");
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.setState({ previousEmail: state.params.email });
@@ -150,7 +148,7 @@ export default class ProfileSettings extends Component {
                     this.setState({ photo: val.photo })
                     this.setState({ ImageSource: { uri: userSnapshot.child("photo").val()}});
                     
-
+                    
 
 
 
@@ -179,6 +177,7 @@ export default class ProfileSettings extends Component {
 
 
     componentDidMount() {
+        console.log("3");
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.setState({ previousEmail: state.params.email });
@@ -199,7 +198,7 @@ export default class ProfileSettings extends Component {
                     this.setState({ lname: val.last });
                     this.setState({ photo: val.photo })
                     this.setState({ ImageSource: { uri: userSnapshot.child("photo").val()}});
-
+                    
 
 
 
@@ -231,6 +230,7 @@ export default class ProfileSettings extends Component {
 
 
     selectPhotoTapped() {
+        console.log("4");
         const options = {
             quality: 1.0,
             maxWidth: 500,
@@ -241,7 +241,6 @@ export default class ProfileSettings extends Component {
         };
 
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
 
             if (response.didCancel) {
                 console.log('User cancelled photo picker');
@@ -258,7 +257,7 @@ export default class ProfileSettings extends Component {
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                
+
                 this.setState({
 
                     ImageSource: source
@@ -271,6 +270,8 @@ export default class ProfileSettings extends Component {
 
 
     render() {
+        console.log("render");
+        console.log(this.state.ImageSource);
 
         return (
             <View>
@@ -288,10 +289,14 @@ export default class ProfileSettings extends Component {
 
                     </TouchableOpacity>
                 ) : (
+                 <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
+                 <View style={styles.ImageContainer}>
                     <Image
-                        style={{ width: 100, height: 100, marginLeft: 155 }}
-                        source={this.state.photoS}
+                        style={styles.ImageContainer}
+                        source={this.state.ImageSource}
                     />
+                    </View>
+                    </TouchableOpacity>
                 )}
 
 
