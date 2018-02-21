@@ -29,6 +29,41 @@ export default class ProfileSettings extends Component {
         photoS: null,
     }
 
+    updateInfo = () => {
+        var userData;
+        var tempEmail = this.state.email;
+        var tempFname = this.state.fname;
+        var tempLname = this.state.lname;
+
+        var leadsRef = firebase.database().ref('users');
+
+        leadsRef.on('value', function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+
+              if(childSnapshot.child("email").val() == tempEmail){
+                userData = childSnapshot.key;
+              }
+              else{
+                
+              }
+              //userData = childSnapshot.val();
+              //userData2 = childSnapshot.child("email").val();
+              
+
+            });
+    });     
+        console.log(this.state.fname);
+        console.log(this.state.lname);
+        console.log(this.state.email);
+
+        
+            
+        
+            //var db = firebase.database();
+            //db.ref("users/"+userData+"/first").set("brandons");
+   }
+
 
     componentWillMount() {
 
@@ -190,17 +225,16 @@ export default class ProfileSettings extends Component {
                 )}
 
 
-                <Text style={styles.labels}>Name</Text>
-                <TextInput style={styles.input}>
-                    {this.state.fname} {this.state.lname}
+                <Text style={styles.labels}>First Name</Text>
+                <TextInput style={styles.input} defaultValue={this.state.fname}>
                 </TextInput>
-                <Text style={styles.labels}>Username</Text>
-                <TextInput style={styles.input}>
-                    {this.state.fname}
+
+                <Text style={styles.labels}>Last Name</Text>
+                <TextInput style={styles.input} defaultValue={this.state.lname}>
                 </TextInput>
+
                 <Text style={styles.labels}>Email</Text>
-                <TextInput style={styles.input2}>
-                    {this.state.email}
+                <TextInput style={styles.input2} defaultValue={this.state.email}>
                 </TextInput>
 
             </View>
