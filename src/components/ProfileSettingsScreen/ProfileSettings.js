@@ -32,7 +32,9 @@ export default class ProfileSettings extends Component {
 
     updateInfo = () => {
         var userData;
+        var db = firebase.database();
         tempEmail = this.state.previousEmail;
+        currentEmail = this.state.email;
 
         var leadsRef = firebase.database().ref('users');
 
@@ -52,16 +54,14 @@ export default class ProfileSettings extends Component {
 
             });
     });     
-
-
-
-                var db = firebase.database();
-                
+            
                 if(this.state.email == this.state.previousEmail){
+                    //changing names
                     db.ref("users/"+userData+"/first").set(this.state.fname);
                     db.ref("users/"+userData+"/last").set(this.state.lname);
                 }
                 else{
+                    //chaning authorization and names and trips
                     var user = firebase.auth().currentUser;
                     console.log("here");
                     db.ref("users/"+userData+"/email").set(this.state.email);
@@ -72,12 +72,34 @@ export default class ProfileSettings extends Component {
                     }).catch(function(error) {
                        
                     });
+
+                    var leadsRef2 = firebase.database().ref('trips');
+
+                    leadsRef2.on('value', function(snapshot) {
+
+                        snapshot.forEach(function(childSnapshot) {
+
+                          if(childSnapshot.child("admin").val() == tempEmail){
+                            db.ref("trips/"+childSnapshot.key+"/admin").set(currentEmail);
+
+                          }
+                          else{
+                            
+                          }
+                          
+                          
+
+                        });
+                });
+
                 }
+
+
 
                 this.setState({ previousEmail: this.state.email });
 
             
-
+    
             
 
             
