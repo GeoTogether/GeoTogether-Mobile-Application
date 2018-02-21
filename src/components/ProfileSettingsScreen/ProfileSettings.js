@@ -54,7 +54,8 @@ export default class ProfileSettings extends Component {
 
             });
     });     
-            
+
+        
                 if(this.state.email == this.state.previousEmail){
                     //changing names
                     db.ref("users/"+userData+"/first").set(this.state.fname);
@@ -78,6 +79,14 @@ export default class ProfileSettings extends Component {
                     leadsRef2.on('value', function(snapshot) {
 
                         snapshot.forEach(function(childSnapshot) {
+
+                            if(childSnapshot.val().members.indexOf(tempEmail) != -1){
+                                var index = childSnapshot.val().members.indexOf(tempEmail);
+                                db.ref("trips/"+childSnapshot.key+"/members/"+index+"").set(currentEmail);
+
+                                console.log(childSnapshot.key);
+                                console.log(index);
+                           }
 
                           if(childSnapshot.child("admin").val() == tempEmail){
                             db.ref("trips/"+childSnapshot.key+"/admin").set(currentEmail);
