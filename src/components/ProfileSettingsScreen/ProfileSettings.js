@@ -175,7 +175,7 @@ export default class ProfileSettings extends Component {
                         <View style={styles.ImageContainer}>
 
                             {
-                                this.state.ImageSource === null ? <Text>Select a Photo</Text> :
+                                this.state.ImageSource === null ? <Text style={{color: 'blue'}}>Select a Photo</Text> :
                                 <Image style={styles.ImageContainer} source={this.state.ImageSource} />
                             }
 
@@ -199,7 +199,7 @@ export default class ProfileSettings extends Component {
                     {this.state.fname}
                 </TextInput>
                 <Text style={styles.labels}>Email</Text>
-                <TextInput style={styles.input2}>
+                <TextInput style={styles.input}>
                     {this.state.email}
                 </TextInput>
 
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     input: {
-        marginRight: 260,
+        marginLeft: 20,
 
     },
     input2: {
@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
     labels: {
         color: 'grey',
         marginLeft: 20,
+        fontSize: 18,
     },
     container: {
         flex: 1,
