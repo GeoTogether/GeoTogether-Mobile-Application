@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, Image, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -87,7 +87,17 @@ export default class SignUp extends React.Component {
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.Container}>
-
+                <View>
+                <TouchableOpacity onPress={() => navigate('Login')} style={styles.back} >
+                    <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
+                </View>
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../images/geotogether.png')}
+                    />
+                </View>
             <TextInput
             placeholder="Full name"
             underlineColorAndroid="transparent"
@@ -117,12 +127,12 @@ export default class SignUp extends React.Component {
             onChangeText={password => this.setState({ password })}
           />
 
-          <TouchableOpacity onPress={() => this.onPressSignUp()} style={styles.buttonContainer} >
-            <Text style={styles.buttonText}>Submit</Text>
+          <TouchableOpacity onPress={() => this.onPressSignUp()} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
+              borderRadius: 10
+             }} >
+            <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigate('Login')} style={styles.buttonContainer} >
-            <Text style={styles.buttonText}>Cancel</Text>
-          </TouchableOpacity>
+
         </View>
         </KeyboardAvoidingView>
             </LinearGradient>
@@ -141,6 +151,21 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center'
   },
+  logo: {
+      width: 250,
+      height: 250
+  },
+  logoContainer: {
+      marginBottom: 150,
+      flex: 3,
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center'
+  },
+  back: {
+    marginRight: 300,
+    marginTop: 5,
+  },
   linearGradient: {
       flex: 1,
       paddingLeft: 15,
@@ -151,12 +176,24 @@ const styles = StyleSheet.create({
   buttonText: {
       textAlign: 'center',
       color: '#FFFFFF',
-      fontWeight: '700'
+      fontWeight: '700',
+      paddingTop: 10,
+      paddingBottom: 10,
   },
   buttonContainer: {
       backgroundColor: 'rgb(0,25,88)',
-      paddingVertical: 15,
-      paddingHorizontal: 1
+      borderRadius: 10,
+      width: 300,
+      height: 45,
+      marginBottom: 20,
+
+
+      paddingHorizontal: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+
+
+
   },
   input: {
       height: 50,
