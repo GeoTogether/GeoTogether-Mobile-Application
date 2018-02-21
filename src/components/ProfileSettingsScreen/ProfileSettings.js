@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View } from 'react-native';
+import { AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View, Alert } from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
@@ -32,13 +32,14 @@ export default class ProfileSettings extends Component {
     }
 
     updateInfo = () => {
-        console.log("1");
+
 
         
         var userData;
         var db = firebase.database();
         tempEmail = this.state.previousEmail;
         currentEmail = this.state.email;
+        var UserExists = false;
 
         var leadsRef = firebase.database().ref('users');
 
@@ -48,6 +49,9 @@ export default class ProfileSettings extends Component {
 
               if(childSnapshot.child("email").val() == tempEmail){
                 userData = childSnapshot.key;
+              }
+              if(childSnapshot.child("email").val() == currentEmail){     
+                UserExists = true;
               }
               else{
                 
@@ -59,8 +63,12 @@ export default class ProfileSettings extends Component {
             });
     });     
 
-        
-                if(this.state.email == this.state.previousEmail){
+                
+               
+                if(this.state.email == '' || this.state.fname == '' || this.state.lname == ''){
+                    alert('Leave No Fields Blank');
+                }
+                else if(this.state.email == this.state.previousEmail){
                     //changing names
                     db.ref("users/"+userData+"/first").set(this.state.fname);
                     db.ref("users/"+userData+"/last").set(this.state.lname);
@@ -70,52 +78,56 @@ export default class ProfileSettings extends Component {
                     }
                 }
                 else{
-                    //chaning authorization and names and trips
-                    var user = firebase.auth().currentUser;
-
-                    db.ref("users/"+userData+"/email").set(this.state.email);
-                    db.ref("users/"+userData+"/first").set(this.state.fname);
-                    db.ref("users/"+userData+"/last").set(this.state.lname);
-                    if(this.state.SourcePicture == null || this.state.SourcePicture == ""){}
-                    else{
-                        db.ref("users/"+userData+"/photo").set(this.state.SourcePicture);
+                    if(UserExists == true){
+                        alert('Error User Already Exists');
                     }
-                    user.updateEmail(this.state.email).then(function() {
+                    else{
+                            //chaning authorization and names and trips
+                            var user = firebase.auth().currentUser;
+                            this.setState({ previousEmail: this.state.email });
+                            db.ref("users/"+userData+"/email").set(this.state.email);
+                            db.ref("users/"+userData+"/first").set(this.state.fname);
+                            db.ref("users/"+userData+"/last").set(this.state.lname);
+                            if(this.state.SourcePicture == null || this.state.SourcePicture == ""){}
+                            else{
+                                db.ref("users/"+userData+"/photo").set(this.state.SourcePicture);
+                            }
+                            user.updateEmail(this.state.email).then(function() {
 
-                    }).catch(function(error) {
-                       
-                    });
+                            }).catch(function(error) {
+                               
+                            });
 
-                    var leadsRef2 = firebase.database().ref('trips');
+                            var leadsRef2 = firebase.database().ref('trips');
 
-                    leadsRef2.on('value', function(snapshot) {
+                            leadsRef2.on('value', function(snapshot) {
 
-                        snapshot.forEach(function(childSnapshot) {
+                                snapshot.forEach(function(childSnapshot) {
 
-                            if(childSnapshot.val().members.indexOf(tempEmail) != -1){
-                                var index = childSnapshot.val().members.indexOf(tempEmail);
-                                db.ref("trips/"+childSnapshot.key+"/members/"+index+"").set(currentEmail);
+                                    if(childSnapshot.val().members.indexOf(tempEmail) != -1){
+                                        var index = childSnapshot.val().members.indexOf(tempEmail);
+                                        db.ref("trips/"+childSnapshot.key+"/members/"+index+"").set(currentEmail);
 
-                           }
+                                   }
 
-                          if(childSnapshot.child("admin").val() == tempEmail){
-                            db.ref("trips/"+childSnapshot.key+"/admin").set(currentEmail);
+                                  if(childSnapshot.child("admin").val() == tempEmail){
+                                    db.ref("trips/"+childSnapshot.key+"/admin").set(currentEmail);
 
-                          }
-                          else{
-                            
-                          }
-                          
-                          
+                                  }
+                                  else{
+                                    
+                                  }
+                                  
+                                  
 
+                                });
                         });
-                });
-
+                }
                 }
 
 
 
-                this.setState({ previousEmail: this.state.email });
+                
 
             
     
@@ -127,7 +139,7 @@ export default class ProfileSettings extends Component {
 
 
     componentWillMount() {
-        console.log("2");
+
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.setState({ previousEmail: state.params.email });
@@ -180,7 +192,7 @@ export default class ProfileSettings extends Component {
 
 
     componentDidMount() {
-        console.log("3");
+        
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.setState({ previousEmail: state.params.email });
@@ -239,7 +251,7 @@ export default class ProfileSettings extends Component {
 
 
     selectPhotoTapped() {
-        console.log("4");
+        
         const options = {
             quality: 1.0,
             maxWidth: 500,
@@ -282,8 +294,7 @@ export default class ProfileSettings extends Component {
 
 
     render() {
-        console.log("render");
-        console.log(this.state.ImageSource);
+        
 
         return (
             <View>
