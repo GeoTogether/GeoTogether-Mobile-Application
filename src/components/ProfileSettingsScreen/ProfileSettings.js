@@ -31,9 +31,7 @@ export default class ProfileSettings extends Component {
 
     updateInfo = () => {
         var userData;
-        var tempEmail = this.state.email;
-        var tempFname = this.state.fname;
-        var tempLname = this.state.lname;
+        tempEmail = this.state.email;
 
         var leadsRef = firebase.database().ref('users');
 
@@ -53,15 +51,24 @@ export default class ProfileSettings extends Component {
 
             });
     });     
-        console.log(this.state.fname);
-        console.log(this.state.lname);
-        console.log(this.state.email);
 
-        
+
+            console.log(userData);
+            var db = firebase.database();
+
+            db.ref("users/"+userData+"/first").set(this.state.fname);
+            db.ref("users/"+userData+"/last").set(this.state.lname);
+
+
+            db.ref("users/"+userData+"/email").set(this.state.email);
+
+            //var user = firebase.auth().currentUser;
+            //user.updateEmail(this.state.email).then(function() {
+              // Update successful.
+            //}).catch(function(error) {
+              // An error happened.
+            //});
             
-        
-            //var db = firebase.database();
-            //db.ref("users/"+userData+"/first").set("brandons");
    }
 
 
@@ -226,16 +233,29 @@ export default class ProfileSettings extends Component {
 
 
                 <Text style={styles.labels}>First Name</Text>
-                <TextInput style={styles.input} defaultValue={this.state.fname}>
+                <TextInput style={styles.input} defaultValue={this.state.fname}
+                ref= {(el) => { this.fname = el; }}
+                onChangeText={(fname) => this.setState({fname})}
+                value={this.state.fname}>
                 </TextInput>
 
                 <Text style={styles.labels}>Last Name</Text>
-                <TextInput style={styles.input} defaultValue={this.state.lname}>
+                <TextInput style={styles.input} defaultValue={this.state.lname}
+                ref= {(el) => { this.lname = el; }}
+                onChangeText={(lname) => this.setState({lname})}
+                value={this.state.lname}>
                 </TextInput>
 
                 <Text style={styles.labels}>Email</Text>
-                <TextInput style={styles.input2} defaultValue={this.state.email}>
+                <TextInput style={styles.input2} defaultValue={this.state.email}
+                ref= {(el) => { this.email = el; }}
+                onChangeText={(email) => this.setState({email})}
+                value={this.state.email}>
                 </TextInput>
+
+                <TouchableOpacity onPress={() => this.updateInfo()} style={styles.buttonContainer} >
+                    <Text style={styles.buttonText}>Update Profile Info</Text>
+                </TouchableOpacity>
 
             </View>
 
@@ -299,4 +319,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
 
     },
+    buttonText: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700'
+      },
+  buttonContainer: {
+      backgroundColor: 'rgb(0,25,88)',
+      paddingVertical: 15,
+      paddingHorizontal: 1
+  },
 });
