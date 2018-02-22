@@ -117,18 +117,19 @@ export default class SignUp extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={email => this.setState({ email })}
-            style={styles.input}
+            style={styles.input2}
           />
 
           <TextInput
             placeholder="Password"
             secureTextEntry
-            style={styles.input}
+            style={styles.input3}
             onChangeText={password => this.setState({ password })}
           />
 
           <TouchableOpacity onPress={() => this.onPressSignUp()} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
-              borderRadius: 10
+              borderRadius: 10,
+              marginBottom: 125
              }} >
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
       height: 250
   },
   logoContainer: {
-      marginBottom: 150,
+      marginTop: 5,
       flex: 3,
       alignItems: 'center',
       flexDirection: 'row',
@@ -198,12 +199,34 @@ const styles = StyleSheet.create({
   input: {
       height: 50,
       width: 350,
-      marginBottom: 20,
+      marginBottom: 10,
+
+
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      borderRadius: 10,
+  },
+  input2: {
+      height: 50,
+      width: 350,
+      marginBottom: 10,
+
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      borderRadius: 10,
+  },
+  input3: {
+      height: 50,
+      width: 350,
+      marginBottom: 40,
       paddingHorizontal: 10,
       alignItems: 'stretch',
       justifyContent: 'space-between',
       backgroundColor: 'white',
       borderRadius: 10,
   }
+
 
 });
