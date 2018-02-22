@@ -4,6 +4,7 @@ import {
     StackNavigator
 } from 'react-navigation';
 import Login from '../LoginScreen/Login';
+import SplashScreen from '../SplashScreen/SplashScreen';
 import firebase from '../Firebase/firebaseStorage';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -88,8 +89,8 @@ export default class SignUp extends React.Component {
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.Container}>
                 <View>
-                <TouchableOpacity onPress={() => navigate('Login')} style={styles.back} >
-                    <Text style={styles.buttonText}>Cancel</Text>
+                <TouchableOpacity onPress={() => navigate('SplashScreen')} style={styles.back} >
+                    <Image source={require('../../images/backarrow.png')}/>
                 </TouchableOpacity>
                 </View>
                 <View style={styles.logoContainer}>
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
       height: 250
   },
   logoContainer: {
-      marginTop: 5,
+      marginBottom: 75,
       flex: 3,
       alignItems: 'center',
       flexDirection: 'row',
