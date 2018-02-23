@@ -113,6 +113,7 @@ export default class SignUp extends React.Component {
 
           <TextInput
             placeholder="Email Address"
+            underlineColorAndroid="transparent"
             returnKeyType="next"
             onSubmitEditing={() => this.passwordInput.focus()}
             autoCapitalize="none"
@@ -123,6 +124,7 @@ export default class SignUp extends React.Component {
 
           <TextInput
             placeholder="Password"
+            underlineColorAndroid="transparent"
             secureTextEntry
             style={styles.input3}
             onChangeText={password => this.setState({ password })}
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
   },
   back: {
-    marginRight: 300,
+    marginLeft: -20,
     marginTop: 5,
   },
   linearGradient: {
