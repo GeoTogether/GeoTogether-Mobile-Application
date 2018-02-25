@@ -1,19 +1,22 @@
 import React from 'react';
 import Timeline from 'react-native-timeline-listview';
-import {StyleSheet} from "react-native";
+import {StyleSheet, View} from "react-native";
 import firebase from "../Firebase/firebaseStorage";
 
 export default class TimeLineScreen extends React.Component {
 
+    static navigationOptions = {
+        header: null
+    };
+
     constructor(props) {
-        super(props)
+        super(props);
 
         this.data = [
-            {time: '1PM', title: 'TEST 1', description: 'THIS IS TEST 1'},
-            {time: '2PM', title: 'TEST 2', description: 'THIS IS TEST 2'},
-            {time: '3PM', title: 'TEST 3', description: 'THIS IS TEST 3'},
-            {time: '4PM', title: 'TEST 4', description: 'THIS IS TEST 4'},
-            {time: '5PM', title: 'TEST 5', description: 'THIS IS TEST 5'}
+            {time: '9:00 AM', title: "Breakfast", description: "Eating at Denny's with the Pied Piper team", circleColor: 'yellow',lineColor: 'yellow'},
+            {time: '11:00 AM', title: "Museum", description: "Visit the State Museum with the team", circleColor: 'white', lineColor:'white'},
+            {time: '1:15 PM', title: "Lunch", circleColor: 'white', lineColor:'white'},
+            {time: '3:00 PM', title: "Bus Tour", description: "Adress to the Bus: 423 E. Cale St. Somewhere, Land", circleColor: 'white', lineColor:'white'},
         ]
 
 
@@ -24,18 +27,24 @@ export default class TimeLineScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         return (
+            <View style={styles.container}>
             <Timeline
+                style={styles.list}
                 data={this.data}
-                circleSize={30}
-                circleColor='red'
-                lineColor='black'
-                timeContainerStyle={{minWidth:52, marginTop: -5}}
-                timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-                descriptionStyle={{color:'gray'}}
+                circleSize={20}
+                separator={false}
+                circleColor='rgb(45,156,219)'
+                //lineColor='rgb(45,156,219)'
+                timeContainerStyle={{minWidth:125, marginTop: -5}}
+                timeStyle={{fontSize: 20, textAlign: 'center', color:'white'}}
+                titleStyle={{fontSize: 24, color:'#fff'}}
+                descriptionStyle={{color:'white'}}
                 options={{
-                    style:{paddingTop:5}
+                    style:{paddingTop:100, paddingRight: 20},
+                    backgroundColor: '#001c7d'
                 }}
             />
+            </View>
         )
 
     }
@@ -46,7 +55,15 @@ export default class TimeLineScreen extends React.Component {
 
 
 const styles = StyleSheet.create({
-
+    container:{
+        flex: 1,
+        //alignItems: 'center',
+        //justifyContent: 'center'
+    },
+    list:{
+        //paddingTop: 30,
+        //backgroundColor:'#118bff'
+    }
 
 });
 

@@ -17,7 +17,7 @@ import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
-        TimeLineScreen: {screen: TimeLineScreen},
+        //TimeLineScreen: {screen: TimeLineScreen},
         SplashScreen: {screen: SplashScreen},
         Login: { screen: Login },
         SignUp:{screen: SignUp},
