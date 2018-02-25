@@ -5,13 +5,12 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.imagepicker.ImagePickerPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -20,6 +19,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
+import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
+import com.airbnb.android.react.maps.MapsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,10 +45,11 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNSendIntentPackage(),
             new LinearGradientPackage(),
+            new ImagePickerPackage(),
             new RNGoogleSigninPackage(),
-              new FBSDKPackage(mCallbackManager)
-
-      );
+              new FBSDKPackage(mCallbackManager),
+              new RNGeocoderPackage(),
+              new MapsPackage());
     }
 
     @Override
