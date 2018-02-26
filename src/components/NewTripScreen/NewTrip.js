@@ -168,16 +168,16 @@ export default class NewTrip extends React.Component {
                                     <View style={styles.innerContainer}>
                                         <Text>Please select a method of invitation</Text>
 
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
+                                        <TouchableOpacity  onPress={() => this.sendSMS()}>
                                             <Text style={styles.buttonText}>Send SMS Invite</Text>
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity style={styles.buttonContainer}
+                                        <TouchableOpacity
                                                           onPress={() => this.sendEmail()}>
                                             <Text style={styles.buttonText}>Send Email Invite</Text>
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
+                                        <TouchableOpacity  onPress={() => this.closeModal()} >
                                         <Text style={styles.buttonText}>Back To Trip View</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -273,6 +273,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#ffa53f',
     },
     container2: {
