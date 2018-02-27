@@ -198,20 +198,61 @@ export default class GMapView extends React.Component {
 					  >
 					    <View style={styles.infoContainer}>
 
-					      <Text style={styles.infoText}>Hello</Text>
+					      <Text style={styles.infoText1}>Trip Info</Text>
 
-					      <View
+					      	<View
 							  style={{
-							    borderWidth: 2,
-							    borderHeight: 3,
-        borderColor:'black',
-        margin:10,
+							    borderBottomColor: 'black',
+							    borderBottomWidth: 1,
+							    paddingBottom: 10,
 							  }}
 							/>
 
+					      <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+							 <Text style={styles.infoText1}>Group Total: </Text> 
+							 <Text style={styles.infoText2}> $300.12 </Text>
+						  </View>
+
+						  <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+							 <Text style={styles.infoText1}>My Total: </Text> 
+							 <Text style={styles.infoText2}> $300.12 </Text>
+						  </View>
+
+						  <Text style={styles.infoText3}> details </Text>
+
+						  <View
+							  style={{
+							    borderBottomColor: 'black',
+							    borderBottomWidth: 1,
+							    paddingBottom: 10,
+							  }}
+							/>
+
+						  <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+							 <Text style={styles.infoText1}># Trip Members: </Text> 
+							 <Text style={styles.infoText2}> 3 </Text>
+						  </View>
+
+						  <Text style={styles.infoText3}> details </Text>
+
+						  <View
+							  style={{
+							    borderBottomColor: 'black',
+							    borderBottomWidth: 1,
+							    paddingBottom: 10,
+							  }}
+							/>
+
+							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
+							 <Text style={styles.infoText1}>Duration: </Text> 
+							 <Text style={styles.infoText2}> 3:23:10 </Text>
+						  </View>
+
+						  <View style={styles.centerView}>
 					      <TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeInfo()}>
 	                      		<Text style={styles.buttonText}>Close</Text>
 	                      </TouchableOpacity>
+	                      </View>
 
 					    </View>
 					  </PopupDialog>
@@ -249,11 +290,6 @@ export default class GMapView extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingRight: 30,
-        paddingLeft: 30,
-        paddingTop: 30,
-        paddingBottom: 30,
-
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
@@ -277,8 +313,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(0,25,88)',
         width: 150,
         height: 45,
-        justifyContent: 'center',
         borderRadius: 10
+    },
+    centerView: {
+        alignItems: 'center',
     },
     buttonText: {
         textAlign: 'center',
@@ -286,13 +324,29 @@ const styles = StyleSheet.create({
         fontWeight: '100'
     },
     infoContainer:{
-    	alignItems: 'center',
+    	paddingRight: 40,
+    	paddingLeft:40,
+
     },
-    infoText:{
+    infoText1:{
     	textAlign: 'center',
+        color: 'rgb(128,128,128)',
+        fontWeight: 'normal',
+        fontSize: 16,
+        lineHeight: 30,
+    },
+    infoText2:{
         color: '#000',
         fontWeight: 'normal',
-        fontSize: 12,
+        fontSize: 16,
+        lineHeight: 30,
+    },
+    infoText3:{
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 14,
+        lineHeight: 30,
+        textAlign: 'center',
     }
 });
 
