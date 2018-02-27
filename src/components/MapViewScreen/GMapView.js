@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal} from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -24,10 +24,16 @@ export default class GMapView extends React.Component {
     }
 
     getTripInfo(){
-    	console.log("here");
+    	this.openModal();
     }
 
-    
+    openModal() {
+	  	this.setState({modalVisible:true});
+	}
+
+	closeModal() {
+	  	this.setState({modalVisible:false});
+	}
 
     // navigation options to be used to navigate the class from other classes
 
@@ -49,6 +55,7 @@ export default class GMapView extends React.Component {
         longitude: 0.1,
         selectedcity: '',
         coords: [],
+        modalVisible: false,
     };
 
 
@@ -111,14 +118,7 @@ export default class GMapView extends React.Component {
 
 
     }
-    /*
-    <TouchableHighlight onPress={this.showAlert()}>
-				      <Image
-				        style={styles.button}
-				        source={require('../../images/infobutton.png')}
-				      />
-			    </TouchableHighlight>
-			    */
+
 
     render() {
         const { navigate } = this.props.navigation;
@@ -184,16 +184,30 @@ export default class GMapView extends React.Component {
 
                     {dirComponents}
 
-
+                
                 </MapView>
 
-               	
-				    <Image style={{position: "absolute", bottom: 10, right: 10, width: 30, height: 30,}} source={require('../../images/infobutton.png')} />
-				
-                 <TouchableOpacity onPress={()=>this.moveToAddNewCustomer()}>
-				    <Image style={styles.imagestyle} source={require('./ic_action_name.png')} />
-				</TouchableOpacity>
+
                 
+                <Modal
+	              visible={this.state.modalVisible}
+	              animationType={'slide'}
+	              onRequestClose={() => this.closeModal()}
+	          	>
+	            <View style={styles.infoContainer}>
+	                <Text style={styles.infoText}>This is content inside of modal component</Text>
+	            </View>
+	          </Modal>
+				
+
+				<TouchableHighlight onPress={()=>this.getTripInfo()} style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}}>
+				    <Image style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}} source={require('../../images/infobutton.png')} />
+				</TouchableHighlight>
+
+               	
+				    
+				
+                 
 
 
             </View>
@@ -232,13 +246,19 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0
     }, 
-    info: {
-        
-    }, 
     title:{
         textAlign: 'center',
         color: 'white',
         fontWeight: '700'
+    },
+    infoContainer:{
+
+    },
+    infoText:{
+    	textAlign: 'center',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 12,
     }
 });
 
