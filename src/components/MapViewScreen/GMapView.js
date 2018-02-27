@@ -8,6 +8,7 @@ import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
 import PopupDialog from 'react-native-popup-dialog';
+import firebase from '../Firebase/firebaseStorage';
 
 
 
@@ -25,18 +26,90 @@ export default class GMapView extends React.Component {
     }
 
     getTripInfo(){
+
     	this.popupDialog.show(() => {
-		  console.log('callback - will be called immediately')
+		  
 		});
     }
 
     closeInfo(){
     	this.popupDialog.dismiss(() => {
-		  console.log('callback - will be called immediately')
+		 
 		});
     }
 
+	updateInfo = () => {
+        var userData;
+        var db = firebase.database();
 
+        var leadsRef = firebase.database().ref('users');
+
+        leadsRef.on('value', function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+
+              if(childSnapshot.child("email").val() == tempEmail){
+                userData = childSnapshot.key;
+              }
+              else{
+                
+              }
+              //userData = childSnapshot.val();
+              //userData2 = childSnapshot.child("email").val();
+              
+
+            });
+    });     
+
+        
+                if(this.state.email == this.state.previousEmail){
+                    //changing names
+                    db.ref("users/"+userData+"/first").set(this.state.fname);
+                    db.ref("users/"+userData+"/last").set(this.state.lname);
+                }
+                else{
+                    //chaning authorization and names and trips
+                    var user = firebase.auth().currentUser;
+                    console.log("here");
+                    db.ref("users/"+userData+"/email").set(this.state.email);
+                    db.ref("users/"+userData+"/first").set(this.state.fname);
+                    db.ref("users/"+userData+"/last").set(this.state.lname);
+                    user.updateEmail(this.state.email).then(function() {
+
+                    }).catch(function(error) {
+                       
+                    });
+
+                    var leadsRef2 = firebase.database().ref('trips');
+
+                    leadsRef2.on('value', function(snapshot) {
+
+                        snapshot.forEach(function(childSnapshot) {
+
+                            if(childSnapshot.val().members.indexOf(tempEmail) != -1){
+                                var index = childSnapshot.val().members.indexOf(tempEmail);
+                                db.ref("trips/"+childSnapshot.key+"/members/"+index+"").set(currentEmail);
+
+                                console.log(childSnapshot.key);
+                                console.log(index);
+                           }
+
+                          if(childSnapshot.child("admin").val() == tempEmail){
+                            db.ref("trips/"+childSnapshot.key+"/admin").set(currentEmail);
+
+                          }
+                          else{
+                            
+                          }
+                          
+                          
+
+                        });
+                });
+
+                }
+       
+   }
 
     // navigation options to be used to navigate the class from other classes
 
@@ -59,6 +132,8 @@ export default class GMapView extends React.Component {
         selectedcity: '',
         coords: [],
         modalVisible: false,
+        email: "nope",
+        trip: "",
     };
 
 
@@ -117,7 +192,8 @@ export default class GMapView extends React.Component {
         }
 
 
-
+        this.setState({ email: state.params.email });
+        this.setState({ trip: state.params.trip });
 
 
     }
@@ -149,7 +225,7 @@ export default class GMapView extends React.Component {
 
 
 
-
+        
 
 
         return (
@@ -230,7 +306,7 @@ export default class GMapView extends React.Component {
 
 						  <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
 							 <Text style={styles.infoText1}># Trip Members: </Text> 
-							 <Text style={styles.infoText2}> 3 </Text>
+							 <Text style={styles.infoText2}> {this.state.trip.members.length} </Text>
 						  </View>
 
 						  <Text style={styles.infoText3}> details </Text>
