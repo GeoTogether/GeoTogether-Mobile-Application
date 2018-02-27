@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image} from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -23,6 +23,11 @@ export default class GMapView extends React.Component {
 
     }
 
+    getTripInfo(){
+    	console.log("here");
+    }
+
+    
 
     // navigation options to be used to navigate the class from other classes
 
@@ -106,7 +111,14 @@ export default class GMapView extends React.Component {
 
 
     }
-
+    /*
+    <TouchableHighlight onPress={this.showAlert()}>
+				      <Image
+				        style={styles.button}
+				        source={require('../../images/infobutton.png')}
+				      />
+			    </TouchableHighlight>
+			    */
 
     render() {
         const { navigate } = this.props.navigation;
@@ -160,6 +172,7 @@ export default class GMapView extends React.Component {
 
 
 
+
                 <MapView style={styles.map} region={{
 
                     latitude: this.state.latitude,
@@ -172,14 +185,15 @@ export default class GMapView extends React.Component {
                     {dirComponents}
 
 
-
-
-
-
-
-
-
                 </MapView>
+
+               	
+				    <Image style={{position: "absolute", bottom: 10, right: 10, width: 30, height: 30,}} source={require('../../images/infobutton.png')} />
+				
+                 <TouchableOpacity onPress={()=>this.moveToAddNewCustomer()}>
+				    <Image style={styles.imagestyle} source={require('./ic_action_name.png')} />
+				</TouchableOpacity>
+                
 
 
             </View>
@@ -217,6 +231,9 @@ const styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0
+    }, 
+    info: {
+        
     }, 
     title:{
         textAlign: 'center',
