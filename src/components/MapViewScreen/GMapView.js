@@ -25,16 +25,18 @@ export default class GMapView extends React.Component {
     }
 
     getTripInfo(){
-    	this.openModal();
+    	this.popupDialog.show(() => {
+		  console.log('callback - will be called immediately')
+		});
     }
 
-    openModal() {
-	  	this.setState({modalVisible:true});
-	}
+    closeInfo(){
+    	this.popupDialog.dismiss(() => {
+		  console.log('callback - will be called immediately')
+		});
+    }
 
-	closeModal() {
-	  	this.setState({modalVisible:false});
-	}
+
 
     // navigation options to be used to navigate the class from other classes
 
@@ -190,13 +192,30 @@ export default class GMapView extends React.Component {
 
 
                 
-	                <Modal visible={this.state.modalVisible} animationType={'slide'} onRequestClose={() => this.closeModal()} style={styles.infoContainer}>
+	                <View style={styles.container}>
+					  <PopupDialog 
+					    ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+					  >
+					    <View style={styles.infoContainer}>
 
-		          	
-		                <Text style={styles.infoText}>This is content inside of modal component</Text>
+					      <Text style={styles.infoText}>Hello</Text>
 
-			        </Modal>
-		        
+					      <View
+							  style={{
+							    borderWidth: 2,
+							    borderHeight: 3,
+        borderColor:'black',
+        margin:10,
+							  }}
+							/>
+
+					      <TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeInfo()}>
+	                      		<Text style={styles.buttonText}>Close</Text>
+	                      </TouchableOpacity>
+
+					    </View>
+					  </PopupDialog>
+					</View>
 				
 
 				<TouchableHighlight onPress={()=>this.getTripInfo()} style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}}>
@@ -230,7 +249,11 @@ export default class GMapView extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        paddingRight: 30,
+        paddingLeft: 30,
+        paddingTop: 30,
+        paddingBottom: 30,
+
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
@@ -250,9 +273,20 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '700'
     },
+    buttonStyle: {
+        backgroundColor: 'rgb(0,25,88)',
+        width: 150,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100'
+    },
     infoContainer:{
-    	height: 100,
-    	width: 100
+    	alignItems: 'center',
     },
     infoText:{
     	textAlign: 'center',
