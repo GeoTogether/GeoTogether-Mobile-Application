@@ -7,6 +7,7 @@ import MapView from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
+import PopupDialog from 'react-native-popup-dialog';
 
 
 
@@ -189,15 +190,13 @@ export default class GMapView extends React.Component {
 
 
                 
-                <Modal
-	              visible={this.state.modalVisible}
-	              animationType={'slide'}
-	              onRequestClose={() => this.closeModal()}
-	          	>
-	            <View style={styles.infoContainer}>
-	                <Text style={styles.infoText}>This is content inside of modal component</Text>
-	            </View>
-	          </Modal>
+	                <Modal visible={this.state.modalVisible} animationType={'slide'} onRequestClose={() => this.closeModal()} style={styles.infoContainer}>
+
+		          	
+		                <Text style={styles.infoText}>This is content inside of modal component</Text>
+
+			        </Modal>
+		        
 				
 
 				<TouchableHighlight onPress={()=>this.getTripInfo()} style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}}>
@@ -252,7 +251,8 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
     infoContainer:{
-
+    	height: 100,
+    	width: 100
     },
     infoText:{
     	textAlign: 'center',
