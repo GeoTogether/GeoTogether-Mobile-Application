@@ -298,7 +298,7 @@ export default class ProfileSettings extends Component {
                 ref= {(el) => { this.email = el; }}
                 onChangeText={(email) => this.setState({email})}
                 value={this.state.email}>
-
+ </TextInput>
               
 
                 <TouchableOpacity onPress={() => this.updateInfo()} style={styles.buttonContainer} >
