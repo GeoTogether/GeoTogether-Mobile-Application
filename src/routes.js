@@ -18,7 +18,6 @@ import GMapView from './components/MapViewScreen/GMapView';
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
-
     SplashScreen: { screen: SplashScreen },
     Login: { screen: Login },
     SignUp: { screen: SignUp },
