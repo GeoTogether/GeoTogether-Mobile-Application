@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View } from 'react-native';
+import React, {Component} from 'react';
+import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View} from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
@@ -8,18 +8,12 @@ import ImagePicker from 'react-native-image-picker';
 export default class ProfileSettings extends Component {
 
 
-
-    constructor(props) {
-        super(props)
-    }
-
-    // navigation options to be used to navigate the class from other classes
-
     static navigationOptions = {
         title: 'ProfileSettings',
         header: null
     }
 
+    // navigation options to be used to navigate the class from other classes
     state = {
         email: '',
         previousEmail: '',
@@ -29,7 +23,6 @@ export default class ProfileSettings extends Component {
         ImageSource: null,
         photoS: null,
     }
-
     updateInfo = () => {
         var userData;
         var db = firebase.database();
@@ -38,89 +31,85 @@ export default class ProfileSettings extends Component {
 
         var leadsRef = firebase.database().ref('users');
 
-        leadsRef.on('value', function(snapshot) {
+        leadsRef.on('value', function (snapshot) {
 
-            snapshot.forEach(function(childSnapshot) {
+            snapshot.forEach(function (childSnapshot) {
 
-              if(childSnapshot.child("email").val() == tempEmail){
-                userData = childSnapshot.key;
-              }
-              else{
-                
-              }
-              //userData = childSnapshot.val();
-              //userData2 = childSnapshot.child("email").val();
-              
+                if (childSnapshot.child("email").val() == tempEmail) {
+                    userData = childSnapshot.key;
+                }
+                else {
+
+                }
+                //userData = childSnapshot.val();
+                //userData2 = childSnapshot.child("email").val();
+
 
             });
-    });     
+        });
 
-        
-                if(this.state.email == this.state.previousEmail){
-                    //changing names
-                    db.ref("users/"+userData+"/first").set(this.state.fname);
-                    db.ref("users/"+userData+"/last").set(this.state.lname);
-                }
-                else{
-                    //chaning authorization and names and trips
-                    var user = firebase.auth().currentUser;
-                    console.log("here");
-                    db.ref("users/"+userData+"/email").set(this.state.email);
-                    db.ref("users/"+userData+"/first").set(this.state.fname);
-                    db.ref("users/"+userData+"/last").set(this.state.lname);
-                    user.updateEmail(this.state.email).then(function() {
 
-                    }).catch(function(error) {
-                       
-                    });
+        if (this.state.email == this.state.previousEmail) {
+            //changing names
+            db.ref("users/" + userData + "/first").set(this.state.fname);
+            db.ref("users/" + userData + "/last").set(this.state.lname);
+        }
+        else {
+            //chaning authorization and names and trips
+            var user = firebase.auth().currentUser;
+            console.log("here");
+            db.ref("users/" + userData + "/email").set(this.state.email);
+            db.ref("users/" + userData + "/first").set(this.state.fname);
+            db.ref("users/" + userData + "/last").set(this.state.lname);
+            user.updateEmail(this.state.email).then(function () {
 
-                    var leadsRef2 = firebase.database().ref('trips');
+            }).catch(function (error) {
 
-                    leadsRef2.on('value', function(snapshot) {
+            });
 
-                        snapshot.forEach(function(childSnapshot) {
+            var leadsRef2 = firebase.database().ref('trips');
 
-                            if(childSnapshot.val().members.indexOf(tempEmail) != -1){
-                                var index = childSnapshot.val().members.indexOf(tempEmail);
-                                db.ref("trips/"+childSnapshot.key+"/members/"+index+"").set(currentEmail);
+            leadsRef2.on('value', function (snapshot) {
 
-                                console.log(childSnapshot.key);
-                                console.log(index);
-                           }
+                snapshot.forEach(function (childSnapshot) {
 
-                          if(childSnapshot.child("admin").val() == tempEmail){
-                            db.ref("trips/"+childSnapshot.key+"/admin").set(currentEmail);
+                    if (childSnapshot.val().members.indexOf(tempEmail) != -1) {
+                        var index = childSnapshot.val().members.indexOf(tempEmail);
+                        db.ref("trips/" + childSnapshot.key + "/members/" + index + "").set(currentEmail);
 
-                          }
-                          else{
-                            
-                          }
-                          
-                          
+                        console.log(childSnapshot.key);
+                        console.log(index);
+                    }
 
-                        });
+                    if (childSnapshot.child("admin").val() == tempEmail) {
+                        db.ref("trips/" + childSnapshot.key + "/admin").set(currentEmail);
+
+                    }
+                    else {
+
+                    }
+
+
                 });
+            });
 
-                }
+        }
 
 
+        this.setState({previousEmail: this.state.email});
 
-                this.setState({ previousEmail: this.state.email });
 
-            
-    
-            
+    }
 
-            
-            
-   }
-
+    constructor(props) {
+        super(props)
+    }
 
     componentWillMount() {
 
-        const { state } = this.props.navigation;
-        this.setState({ email: state.params.email });
-        this.setState({ previousEmail: state.params.email });
+        const {state} = this.props.navigation;
+        this.setState({email: state.params.email});
+        this.setState({previousEmail: state.params.email});
 
 
         // get all the users from the firebase database
@@ -134,23 +123,20 @@ export default class ProfileSettings extends Component {
                 if (val.email == this.state.email) {
 
 
-                    this.setState({ fname: val.first });
-                    this.setState({ lname: val.last });
-                    this.setState({ photo: val.photo })
-
-
+                    this.setState({fname: val.first});
+                    this.setState({lname: val.last});
+                    this.setState({photo: val.photo})
 
 
                     if (this.state.photo == '') {
 
 
-                       // this.setState({ photoS: require('../../images/face.png') })
+                        // this.setState({ photoS: require('../../images/face.png') })
 
                     } else {
 
-                        this.setState({ photoS: { uri: this.state.photo } })
+                        this.setState({photoS: {uri: this.state.photo}})
                     }
-
 
 
                 }
@@ -159,15 +145,13 @@ export default class ProfileSettings extends Component {
         })
 
 
-
     }
 
 
-
     componentDidMount() {
-        const { state } = this.props.navigation;
-        this.setState({ email: state.params.email });
-        this.setState({ previousEmail: state.params.email });
+        const {state} = this.props.navigation;
+        this.setState({email: state.params.email});
+        this.setState({previousEmail: state.params.email});
         // get all the users from the firebase database
         // get all the users from the firebase database
         firebase.database().ref("users").on('value', (snapshot) => {
@@ -180,36 +164,26 @@ export default class ProfileSettings extends Component {
                 if (val.email == this.state.email) {
 
 
-                    this.setState({ fname: val.first });
-                    this.setState({ lname: val.last });
-                    this.setState({ photo: val.photo })
+                    this.setState({fname: val.first});
+                    this.setState({lname: val.last});
+                    this.setState({photo: val.photo})
 
 
+                    if (this.state.photo == '') {
 
 
-        if (this.state.photo == '') {
-            
-            
                         //this.setState({ photoS: require('../../images/face.png') })
-            
+
                     } else {
 
-                        this.setState({ photoS: { uri: this.state.photo } })
+                        this.setState({photoS: {uri: this.state.photo}})
                     }
-            
 
 
                 }
 
             })
         })
-
-
-
-
-
-
-
 
     }
 
@@ -237,7 +211,7 @@ export default class ProfileSettings extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                let source = { uri: response.uri };
+                let source = {uri: response.uri};
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -251,59 +225,73 @@ export default class ProfileSettings extends Component {
         });
     }
 
-
+    // onPress={() => this.updateInfo()}
 
     render() {
 
         return (
-            <View style={{flex: 1, backgroundColor: 'white'}}>
-                {this.state.photoS == null ? (
-                    <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent: 'center', alignItems: 'center', marginTop: 15}}>
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    {this.state.photoS == null ? (
+                        <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
 
-                        <View style={styles.ImageContainer}>
+                            <View style={styles.imageComponent}>
 
-                            {
-                                this.state.ImageSource === null ? <Text style={{color: 'blue'}}>Select a Photo</Text> :
-                                <Image style={styles.ImageContainer} source={this.state.ImageSource} />
-                            }
+                                {
+                                    this.state.ImageSource === null ?
+                                        <Text style={{color: 'blue'}}>Select a Photo</Text> :
+                                        <Image source={this.state.ImageSource}/>
+                                }
 
-                        </View>
+                            </View>
 
+                        </TouchableOpacity>
+                    ) : (
+                        <Image
+                            style={{width: 100, height: 100, marginLeft: 155}}
+                            source={this.state.photoS}
+                        />
+                    )}
+                </View>
+
+
+                <View style={styles.profileInfoContainer}>
+
+                    <View style={styles.displayHeader}>
+                        <Text style={styles.labels}>Name</Text>
+                    </View>
+                    <TextInput style={styles.input}>
+                        {this.state.fname} {this.state.lname}
+                    </TextInput>
+
+                    <View style={styles.displayHeader}>
+                        <Text style={styles.labels}>Username</Text>
+                    </View>
+                    <TextInput style={styles.input}>
+                        {this.state.fname}
+                    </TextInput>
+
+                    <View style={styles.displayHeader}>
+                        <Text style={styles.labels}>Email</Text>
+                    </View>
+                    <TextInput style={styles.input2}>
+                        {this.state.email}
+                    </TextInput>
+
+                    <View style={styles.displayHeader}>
+                        <Text style={styles.labels}>Gender</Text>
+                    </View>
+                    <TextInput style={styles.input2}>
+                        Male
+                    </TextInput>
+
+                </View>
+
+                <View style={styles.updateBContainer}>
+                    <TouchableOpacity  style={styles.buttonContainer} >
+                        <Text style={styles.buttonText}>Update Profile Info</Text>
                     </TouchableOpacity>
-                ) : (
-                    <Image
-                        style={{ width: 100, height: 100, marginLeft: 155 }}
-                        source={this.state.photoS}
-                    />
-                )}
-
-
-                <Text style={styles.labels}>First Name</Text>
-                <TextInput style={styles.input} defaultValue={this.state.fname}
-                ref= {(el) => { this.fname = el; }}
-                onChangeText={(fname) => this.setState({fname})}
-                value={this.state.fname}>
-                </TextInput>
-
-                <Text style={styles.labels}>Last Name</Text>
-                <TextInput style={styles.input} defaultValue={this.state.lname}
-                ref= {(el) => { this.lname = el; }}
-                onChangeText={(lname) => this.setState({lname})}
-                value={this.state.lname}>
-                </TextInput>
-
-                <Text style={styles.labels}>Email</Text>
-
-                <TextInput style={styles.input2} defaultValue={this.state.email}
-                ref= {(el) => { this.email = el; }}
-                onChangeText={(email) => this.setState({email})}
-                value={this.state.email}>
- </TextInput>
-              
-
-                <TouchableOpacity onPress={() => this.updateInfo()} style={styles.buttonContainer} >
-                    <Text style={styles.buttonText}>Update Profile Info</Text>
-                </TouchableOpacity>
+                </View>
 
             </View>
 
@@ -311,49 +299,22 @@ export default class ProfileSettings extends Component {
         );
 
 
-
     }
 }
 
 const styles = StyleSheet.create({
-
-    toolbar: {
-        height: 50,
-        backgroundColor: 'white',
-    },
-    image: {
-        marginLeft: 160,
-
-
-    },
-    change: {
-        color: 'blue',
-        textAlign: 'center',
-    },
-    input: {
-        marginLeft: 20,
-    },
-    labels: {
-        color: 'grey',
-        marginLeft: 20,
-        fontSize: 18,
-    },
     container: {
         flex: 1,
-        marginTop: 15,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'white',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    imageContainer: {
+        //backgroundColor: 'black',
+        flex: 2,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    ImageContainer: {
+    imageComponent: {
         borderRadius: 75,
         width: 150,
         height: 150,
@@ -362,16 +323,37 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
-
+    },
+    profileInfoContainer: {
+        flex: 3,
+        //height: '50%',
+        width: '80%',
+        justifyContent: 'space-between',
+        paddingLeft: 40,
+        paddingBottom: 100,
+    },
+    displayHeader: {
+        paddingTop: 15
+    },
+    labels: {
+        fontSize: 15
+    },
+    updateBContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        backgroundColor: 'rgb(0,25,88)',
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
     },
     buttonText: {
-      textAlign: 'center',
-      color: '#FFFFFF',
-      fontWeight: '700'
-      },
-  buttonContainer: {
-      backgroundColor: 'rgb(0,25,88)',
-      paddingVertical: 15,
-      paddingHorizontal: 1
-  },
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100'
+    }
 });
