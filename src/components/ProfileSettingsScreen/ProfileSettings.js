@@ -16,112 +16,177 @@ export default class ProfileSettings extends Component {
     // navigation options to be used to navigate the class from other classes
     state = {
         email: '',
+        previousEmail: '',
         photo: '',
         fname: '',
         lname: '',
         ImageSource: null,
         photoS: null,
     }
+    updateInfo = () => {
+        var userData;
+        var db = firebase.database();
+        tempEmail = this.state.previousEmail;
+        currentEmail = this.state.email;
+
+        var leadsRef = firebase.database().ref('users');
+
+        leadsRef.on('value', function (snapshot) {
+
+            snapshot.forEach(function (childSnapshot) {
+
+                if (childSnapshot.child("email").val() == tempEmail) {
+                    userData = childSnapshot.key;
+                }
+                else {
+
+                }
+                //userData = childSnapshot.val();
+                //userData2 = childSnapshot.child("email").val();
+
+
+            });
+        });
+
+
+        if (this.state.email == this.state.previousEmail) {
+            //changing names
+            db.ref("users/" + userData + "/first").set(this.state.fname);
+            db.ref("users/" + userData + "/last").set(this.state.lname);
+        }
+        else {
+            //chaning authorization and names and trips
+            var user = firebase.auth().currentUser;
+            console.log("here");
+            db.ref("users/" + userData + "/email").set(this.state.email);
+            db.ref("users/" + userData + "/first").set(this.state.fname);
+            db.ref("users/" + userData + "/last").set(this.state.lname);
+            user.updateEmail(this.state.email).then(function () {
+
+            }).catch(function (error) {
+
+            });
+
+            var leadsRef2 = firebase.database().ref('trips');
+
+            leadsRef2.on('value', function (snapshot) {
+
+                snapshot.forEach(function (childSnapshot) {
+
+                    if (childSnapshot.val().members.indexOf(tempEmail) != -1) {
+                        var index = childSnapshot.val().members.indexOf(tempEmail);
+                        db.ref("trips/" + childSnapshot.key + "/members/" + index + "").set(currentEmail);
+
+                        console.log(childSnapshot.key);
+                        console.log(index);
+                    }
+
+                    if (childSnapshot.child("admin").val() == tempEmail) {
+                        db.ref("trips/" + childSnapshot.key + "/admin").set(currentEmail);
+
+                    }
+                    else {
+
+                    }
+
+
+                });
+            });
+
+        }
+
+
+        this.setState({previousEmail: this.state.email});
+
+
+    }
 
     constructor(props) {
         super(props)
     }
 
+    componentWillMount() {
 
-    // componentWillMount() {
-    //
-    //     const { state } = this.props.navigation;
-    //     this.setState({ email: state.params.email });
-    //
-    //
-    //     // get all the users from the firebase database
-    //     firebase.database().ref("users").on('value', (snapshot) => {
-    //         snapshot.forEach((userSnapshot) => {
-    //
-    //
-    //             const val = userSnapshot.val();
-    //
-    //
-    //             if (val.email == this.state.email) {
-    //
-    //
-    //                 this.setState({ fname: val.first });
-    //                 this.setState({ lname: val.last });
-    //                 this.setState({ photo: val.photo })
-    //
-    //
-    //
-    //
-    //                 if (this.state.photo == '') {
-    //
-    //
-    //                    // this.setState({ photoS: require('../../images/face.png') })
-    //
-    //                 } else {
-    //
-    //                     this.setState({ photoS: { uri: this.state.photo } })
-    //                 }
-    //
-    //
-    //
-    //             }
-    //
-    //         })
-    //     })
-    //
-    //
-    //
-    // }
-    //
-    //
-    //
-    // componentDidMount() {
-    //     const { state } = this.props.navigation;
-    //     this.setState({ email: state.params.email });
-    //     // get all the users from the firebase database
-    //     // get all the users from the firebase database
-    //     firebase.database().ref("users").on('value', (snapshot) => {
-    //         snapshot.forEach((userSnapshot) => {
-    //
-    //
-    //             const val = userSnapshot.val();
-    //
-    //
-    //             if (val.email == this.state.email) {
-    //
-    //
-    //                 this.setState({ fname: val.first });
-    //                 this.setState({ lname: val.last });
-    //                 this.setState({ photo: val.photo })
-    //
-    //
-    //
-    //
-    //     if (this.state.photo == '') {
-    //
-    //
-    //                     //this.setState({ photoS: require('../../images/face.png') })
-    //
-    //                 } else {
-    //
-    //                     this.setState({ photoS: { uri: this.state.photo } })
-    //                 }
-    //
-    //
-    //
-    //             }
-    //
-    //         })
-    //     })
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    // }
+        const {state} = this.props.navigation;
+        this.setState({email: state.params.email});
+        this.setState({previousEmail: state.params.email});
+
+
+        // get all the users from the firebase database
+        firebase.database().ref("users").on('value', (snapshot) => {
+            snapshot.forEach((userSnapshot) => {
+
+
+                const val = userSnapshot.val();
+
+
+                if (val.email == this.state.email) {
+
+
+                    this.setState({fname: val.first});
+                    this.setState({lname: val.last});
+                    this.setState({photo: val.photo})
+
+
+                    if (this.state.photo == '') {
+
+
+                        // this.setState({ photoS: require('../../images/face.png') })
+
+                    } else {
+
+                        this.setState({photoS: {uri: this.state.photo}})
+                    }
+
+
+                }
+
+            })
+        })
+
+
+    }
+
+
+    componentDidMount() {
+        const {state} = this.props.navigation;
+        this.setState({email: state.params.email});
+        this.setState({previousEmail: state.params.email});
+        // get all the users from the firebase database
+        // get all the users from the firebase database
+        firebase.database().ref("users").on('value', (snapshot) => {
+            snapshot.forEach((userSnapshot) => {
+
+
+                const val = userSnapshot.val();
+
+
+                if (val.email == this.state.email) {
+
+
+                    this.setState({fname: val.first});
+                    this.setState({lname: val.last});
+                    this.setState({photo: val.photo})
+
+
+                    if (this.state.photo == '') {
+
+
+                        //this.setState({ photoS: require('../../images/face.png') })
+
+                    } else {
+
+                        this.setState({photoS: {uri: this.state.photo}})
+                    }
+
+
+                }
+
+            })
+        })
+
+    }
+
 
     selectPhotoTapped() {
         const options = {
@@ -160,6 +225,7 @@ export default class ProfileSettings extends Component {
         });
     }
 
+    // onPress={() => this.updateInfo()}
 
     render() {
 
@@ -192,33 +258,39 @@ export default class ProfileSettings extends Component {
                 <View style={styles.profileInfoContainer}>
 
                     <View style={styles.displayHeader}>
-                    <Text style={styles.labels}>Name</Text>
+                        <Text style={styles.labels}>Name</Text>
                     </View>
                     <TextInput style={styles.input}>
                         {this.state.fname} {this.state.lname}
                     </TextInput>
 
                     <View style={styles.displayHeader}>
-                    <Text style={styles.labels}>Username</Text>
+                        <Text style={styles.labels}>Username</Text>
                     </View>
                     <TextInput style={styles.input}>
                         {this.state.fname}
                     </TextInput>
 
                     <View style={styles.displayHeader}>
-                    <Text style={styles.labels}>Email</Text>
+                        <Text style={styles.labels}>Email</Text>
                     </View>
                     <TextInput style={styles.input2}>
                         {this.state.email}
                     </TextInput>
 
                     <View style={styles.displayHeader}>
-                    <Text style={styles.labels}>Gender</Text>
+                        <Text style={styles.labels}>Gender</Text>
                     </View>
                     <TextInput style={styles.input2}>
-                        {this.state.email}
+                        Male
                     </TextInput>
 
+                </View>
+
+                <View style={styles.updateBContainer}>
+                    <TouchableOpacity  style={styles.buttonContainer} >
+                        <Text style={styles.buttonText}>Update Profile Info</Text>
+                    </TouchableOpacity>
                 </View>
 
             </View>
@@ -260,10 +332,28 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
         paddingBottom: 100,
     },
-    displayHeader:{
+    displayHeader: {
         paddingTop: 15
     },
-    labels:{
+    labels: {
         fontSize: 15
+    },
+    updateBContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        backgroundColor: 'rgb(0,25,88)',
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100'
     }
 });
