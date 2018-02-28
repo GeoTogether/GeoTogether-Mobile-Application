@@ -218,4 +218,3 @@ jsconfig.json
 example/yarn.lock
 example/package-lock.json
 /package-lock.json
-android/local.properties
