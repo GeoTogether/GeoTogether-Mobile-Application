@@ -25,10 +25,41 @@ export default class GMapView extends React.Component {
     }
 
     getTripInfo(){
-
+        this.getTime();
     	this.popupDialog.show(() => {
 		  
 		});
+    }
+
+    getTime(){
+        if(this.state.trip == "null"){
+
+        }
+        else{
+            var TripDateEnd = this.state.trip.endDate.split('-');
+            var UnixTripDateEnd = new Date(TripDateEnd[0]+'/'+TripDateEnd[1]+'/'+TripDateEnd[2]);
+            var UnixTripDateStart = new Date();
+            var x = new Date().toLocaleString();
+            var diffMs = (UnixTripDateEnd - UnixTripDateStart); // milliseconds between now & Christmas
+            
+            var Days = Math.floor(diffMs / 86400000); // days
+            var Hours = Math.floor((diffMs % 86400000) / 3600000); // hours
+            var Mins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+
+
+            if(diffMs <= 0){
+                    this.setState({ time: ("0:0:0")});
+
+                }
+                else{
+                    this.setState({ time: (Days+":"+Hours+":"+Mins)});
+                }
+
+                
+            
+
+        
+        }
     }
 
     closeInfo(){
@@ -60,8 +91,8 @@ export default class GMapView extends React.Component {
         selectedcity: '',
         coords: [],
         modalVisible: false,
-        email: "nope",
-        trip: "",
+        trip: "null",
+        time: "0:0:0"
     };
 
 
@@ -71,6 +102,7 @@ export default class GMapView extends React.Component {
 
         this.showAddress();
         this.showDirections();
+
 
 
     }
@@ -120,7 +152,6 @@ export default class GMapView extends React.Component {
         }
 
 
-        this.setState({ email: state.params.email });
         this.setState({ trip: state.params.trip });
 
 
@@ -150,10 +181,6 @@ export default class GMapView extends React.Component {
             strokeWidth={3}
             strokeColor="blue"
         />)
-
-
-
-        
 
 
         return (
@@ -199,6 +226,8 @@ export default class GMapView extends React.Component {
 	                <View style={styles.container}>
 					  <PopupDialog 
 					    ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+                        width={.7}
+                        height={.5}
 					  >
 					    <View style={styles.infoContainer}>
 
@@ -249,7 +278,7 @@ export default class GMapView extends React.Component {
 
 							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
 							 <Text style={styles.infoText1}>Duration: </Text> 
-							 <Text style={styles.infoText2}> 3:23:10 </Text>
+							 <Text style={styles.infoText2}> {this.state.time} </Text>
 						  </View>
 
 						  <View style={styles.centerView}>
@@ -349,6 +378,13 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'normal',
         fontSize: 14,
+        lineHeight: 30,
+        textAlign: 'center',
+    },
+    timeText:{
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20,
         lineHeight: 30,
         textAlign: 'center',
     }
