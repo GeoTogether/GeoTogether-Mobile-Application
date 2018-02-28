@@ -16,6 +16,7 @@ import NewTrip from './components/NewTripScreen/NewTrip';
 import ProfileSettings from './components/ProfileSettingsScreen/ProfileSettings';
 import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 import GMapView from './components/MapViewScreen/GMapView';
+import Chat from './components/ChatScreen/Chat';
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
@@ -23,6 +24,7 @@ const Home = StackNavigator({
     Login: { screen: Login },
     SignUp: { screen: SignUp },
     Trips: { screen: Trips },
+    Chat: { screen: Chat },
     PasswordReset: { screen: PasswordReset },
     NewTrip: { screen: NewTrip },
     ProfileSettings: { screen: ProfileSettings },

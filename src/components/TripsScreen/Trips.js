@@ -8,7 +8,7 @@ import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
 import LinearGradient from 'react-native-linear-gradient';
 
-import NewTrip from "../NewTripScreen/NewTrip";
+import Chat from "../ChatScreen/Chat";
 
 
 class Trips extends React.Component {
@@ -19,10 +19,10 @@ class Trips extends React.Component {
 
   // navigation options to be used to navigate the class from other classes
 
-  static navigationOptions = {
-    title: 'Trips',
-    header: null
-  }
+    static navigationOptions = {
+        title: 'Home',
+        header: null
+    }
   
   state = {
     email: '',
@@ -234,12 +234,11 @@ class Trips extends React.Component {
   }
 }
 
-export default TabNavigator({
-    Home: {screen: Trips},
-    AddTrip: {screen: NewTrip}
+// main bottom navigation tab
+export default TabNavigator ({
+    Chat: { screen: Chat },
+    Home: { screen: Trips },
 });
-
-
 
 const styles = StyleSheet.create({
     linearGradient: {
