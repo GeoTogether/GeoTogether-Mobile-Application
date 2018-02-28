@@ -114,7 +114,7 @@ export default class Login extends React.Component {
 
 
               
-                    navigate('Trips', { email: this.state.data.email });
+                    navigate('Trips', { email: this.state.email });
                 
             }
 
