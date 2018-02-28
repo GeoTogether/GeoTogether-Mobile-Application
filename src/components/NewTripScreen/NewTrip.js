@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet, View, TextInput, TouchableOpacity, Text, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -166,19 +166,18 @@ export default class NewTrip extends React.Component {
                                     {/*</View>*/}
                                 <View style={styles.modalContainer}>
                                     <View style={styles.innerContainer}>
-                                        <Text>Please select a method of invitation</Text>
 
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
-                                            <Text style={styles.buttonText}>Send SMS Invite</Text>
+                                        <TouchableOpacity  onPress={() => this.sendSMS()}>
+                                            <Image source={require('../../images/sms.png')} />
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity style={styles.buttonContainer}
+                                        <TouchableOpacity
                                                           onPress={() => this.sendEmail()}>
-                                            <Text style={styles.buttonText}>Send Email Invite</Text>
+                                            <Image source={require('../../images/email.png')} />
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.closeModal()} >
-                                        <Text style={styles.buttonText}>Back To Trip View</Text>
+                                        <TouchableOpacity  onPress={() => this.closeModal()} >
+                                            <Image source={require('../../images/cancel.png')} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -273,6 +272,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#ffa53f',
     },
     container2: {
@@ -332,12 +332,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 100,
-        width: 350,
+        height: 300,
+        width: 375,
     },
     innerContainer: {
         backgroundColor: '#fffaf0',
-        padding: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 10,
         borderRadius: 4,
         borderColor: "#ffa53f"
 
