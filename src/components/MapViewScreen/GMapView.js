@@ -48,11 +48,16 @@ export default class GMapView extends React.Component {
 
 
             if(diffMs <= 0){
-                    this.setState({ time: ("0:0:0")});
+                    this.setState({ days: ("0")});
+                    this.setState({ hours: ("0")});
+                    this.setState({ mins: ("0")});
+
 
                 }
                 else{
-                    this.setState({ time: (Days+":"+Hours+":"+Mins)});
+                    this.setState({ days: (Days)});
+                    this.setState({ hours: (Hours)});
+                    this.setState({ mins: (Mins)});
                 }
 
                 
@@ -92,7 +97,9 @@ export default class GMapView extends React.Component {
         coords: [],
         modalVisible: false,
         trip: "null",
-        time: "0:0:0"
+        days: "0",
+        hours: "0",
+        mins: "0",
     };
 
 
@@ -227,11 +234,11 @@ export default class GMapView extends React.Component {
 					  <PopupDialog 
 					    ref={(popupDialog) => { this.popupDialog = popupDialog; }}
                         width={.7}
-                        height={.5}
+                        height={.55}
 					  >
 					    <View style={styles.infoContainer}>
 
-					      <Text style={styles.infoText1}>Trip Info</Text>
+					      <Text style={styles.titleInfoText}>Trip Info</Text>
 
 					      	<View
 							  style={{
@@ -248,7 +255,7 @@ export default class GMapView extends React.Component {
 
 						  <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 							 <Text style={styles.infoText1}>My Total: </Text> 
-							 <Text style={styles.infoText2}> $300.12 </Text>
+							 <Text style={styles.infoText2}> $101.66 </Text>
 						  </View>
 
 						  <Text style={styles.infoText3}> details </Text>
@@ -278,7 +285,21 @@ export default class GMapView extends React.Component {
 
 							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
 							 <Text style={styles.infoText1}>Duration: </Text> 
-							 <Text style={styles.infoText2}> {this.state.time} </Text>
+
+                             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                                    <Text style={styles.timeText}> {this.state.days} </Text>
+                                    <Text style={styles.infoText1}> days </Text>
+                              </View>
+                              
+                              <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                                    <Text style={styles.timeText}> {this.state.hours} </Text>
+                                    <Text style={styles.infoText1}> hours </Text>
+                              </View>
+
+                              <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                                    <Text style={styles.timeText}> {this.state.mins} </Text>
+                                    <Text style={styles.infoText1}> mins </Text>
+                              </View>
 						  </View>
 
 						  <View style={styles.centerView}>
@@ -306,14 +327,6 @@ export default class GMapView extends React.Component {
         )
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -360,6 +373,14 @@ const styles = StyleSheet.create({
     	paddingRight: 40,
     	paddingLeft:40,
 
+    },
+    titleInfoText:{
+        textAlign: 'center',
+        color: 'rgb(128,128,128)',
+        fontWeight: 'normal',
+        fontSize: 16,
+        lineHeight: 30,
+        paddingTop: 10,
     },
     infoText1:{
     	textAlign: 'center',
