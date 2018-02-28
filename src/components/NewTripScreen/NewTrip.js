@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet, View, TextInput, TouchableOpacity, Text, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -169,16 +169,16 @@ export default class NewTrip extends React.Component {
                                         <Text>Please select a method of invitation</Text>
 
                                         <TouchableOpacity  onPress={() => this.sendSMS()}>
-                                            <Text style={styles.buttonText}>Send SMS Invite</Text>
+                                            <Image source={require('../../images/sms.png')} />
                                         </TouchableOpacity>
 
                                         <TouchableOpacity
                                                           onPress={() => this.sendEmail()}>
-                                            <Text style={styles.buttonText}>Send Email Invite</Text>
+                                            <Image source={require('../../images/email.png')} />
                                         </TouchableOpacity>
 
                                         <TouchableOpacity  onPress={() => this.closeModal()} >
-                                        <Text style={styles.buttonText}>Back To Trip View</Text>
+                                            <Image source={require('../../images/cancel.png')} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -333,8 +333,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 100,
-        width: 350,
+        height: 200,
+        width: 450,
     },
     innerContainer: {
         backgroundColor: '#fffaf0',
