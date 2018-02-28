@@ -1,17 +1,17 @@
 import React from 'react';
 import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
-  StackNavigator
+  StackNavigator,
+    TabNavigator
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
 import LinearGradient from 'react-native-linear-gradient';
 
+import NewTrip from "../NewTripScreen/NewTrip";
 
 
-export default class Trips extends React.Component {
-
-
+class Trips extends React.Component {
 
   constructor(props) {
     super(props)
@@ -233,6 +233,13 @@ export default class Trips extends React.Component {
     );
   }
 }
+
+export default TabNavigator({
+    Home: {screen: Trips},
+    AddTrip: {screen: NewTrip}
+});
+
+
 
 const styles = StyleSheet.create({
     linearGradient: {
