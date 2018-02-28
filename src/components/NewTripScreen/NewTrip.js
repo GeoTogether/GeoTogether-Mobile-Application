@@ -166,7 +166,6 @@ export default class NewTrip extends React.Component {
                                     {/*</View>*/}
                                 <View style={styles.modalContainer}>
                                     <View style={styles.innerContainer}>
-                                        <Text>Please select a method of invitation</Text>
 
                                         <TouchableOpacity  onPress={() => this.sendSMS()}>
                                             <Image source={require('../../images/sms.png')} />
@@ -333,12 +332,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 200,
-        width: 450,
+        height: 300,
+        width: 375,
     },
     innerContainer: {
         backgroundColor: '#fffaf0',
-        padding: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 10,
         borderRadius: 4,
         borderColor: "#ffa53f"
 
