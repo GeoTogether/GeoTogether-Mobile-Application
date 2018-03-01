@@ -157,6 +157,7 @@ dependencies {
     }
      compile 'com.google.android.gms:play-services-base:10.0.1'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
+    apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 }
 
 apply plugin: 'com.google.gms.google-services' // <--- this should be the last line

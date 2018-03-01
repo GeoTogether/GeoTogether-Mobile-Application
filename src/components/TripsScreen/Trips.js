@@ -2,14 +2,15 @@ import React from 'react';
 import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   StackNavigator,
-    TabNavigator
+    TabNavigator,
+    TabBarBottom
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
 import LinearGradient from 'react-native-linear-gradient';
 
 import Chat from "../ChatScreen/Chat";
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class Trips extends React.Component {
 
@@ -38,7 +39,6 @@ class Trips extends React.Component {
     newUser: 2,
   }
 
-
   openModal() {
     this.setState({modalVisible:true});
   }
@@ -53,7 +53,6 @@ class Trips extends React.Component {
       )
    }
 
-
   componentWillMount() {
     const { navigate } = this.props.navigation;
     const { state } = this.props.navigation;
@@ -62,9 +61,6 @@ class Trips extends React.Component {
    
     // gets all the user trips 
      this.onPressGetTrips();
-
-
-
   }
 
   componentDidMount(){
@@ -72,20 +68,15 @@ class Trips extends React.Component {
     const { state } = this.props.navigation;
     this.setState({ email: state.params.email });
     this.checkNewUser();
-    
-        
 
     // gets all the user trips 
      this.onPressGetTrips();
-
   }
 
   // funcation to sign out using firebase authentication.
 
   onPressLogOut() {
     const { navigate } = this.props.navigation;
-
-
 
     if (firebase.auth().currentUser !== null) {
 
@@ -102,12 +93,7 @@ class Trips extends React.Component {
         }, error => {
           console.error('Sign Out Error', error);
         });
-
     }
-
-
-
-
   }
 
   async checkNewUser(){
@@ -116,18 +102,11 @@ class Trips extends React.Component {
     firebase.database().ref('users/').on('value', (snapshot) => {
         snapshot.forEach((userSnapshot) => {
 
-
             const val = userSnapshot.val();
-           
-
 
             if (val.email == this.state.email) {
-
-
                if(val.newUser == 1){
-
                 this.setState({newUser : 1});
-
                 firebase.database().ref('users/').child(userSnapshot.key).set({ first: val.first,
                     last: val.last,
                     email: val.email,
@@ -135,20 +114,12 @@ class Trips extends React.Component {
                     newUser: 2,
                        }
                 )
-
                 navigate('Intro', { email: this.state.email });
-
             }
-
-
             }
-
         })
     })
-
-
   }
-
 
   // function to get all the user trips using firebase database
   async onPressGetTrips() {
@@ -156,35 +127,16 @@ class Trips extends React.Component {
     // get all the user trips from the firebase database
     firebase.database().ref('trips/').on('value', (snapshot) => {
       snapshot.forEach((tripSnapshot) => {
-
-
         const val = tripSnapshot.val();
-
-
         if (val.members.indexOf(this.state.email) != -1) {
-
-
-
-
           if (this.state.tripsNames.indexOf(val.tripName) == -1) {
-
             this.state.trips.push(val);
-
-
             this.setState({ tripsNames: this.state.tripsNames.concat(val.tripName) })
-
           }
-
-
-
         }
-
       })
     })
-
-
   }
-
 
   render() {
     const { navigate } = this.props.navigation;
@@ -203,7 +155,6 @@ class Trips extends React.Component {
             </View>
         </TouchableOpacity>);
 
-
     return (
         <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
             <View style={styles.tripContainer}>
@@ -220,25 +171,42 @@ class Trips extends React.Component {
                         source={require('../../images/addbutton.png')}
                     />
                 </TouchableOpacity>
-
-                
             </View>
-
-     
-
-            
-
-
         </LinearGradient>
     );
   }
 }
 
 // main bottom navigation tab
-export default TabNavigator ({
-    Chat: { screen: Chat },
-    Home: { screen: Trips },
-});
+export default TabNavigator (
+    {
+        Chat: { screen: Chat },
+        Home: { screen: Trips },
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = `ios-home${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Chat') {
+                    iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
+                }
+
+                return <Ionicons name={iconName} size={25} color={tintColor} />;
+            }
+        }),
+        tabBarOptions: {
+          activeTintColor: 'gray',
+          inactiveTintColor: 'gray',
+        },
+        tabBarComponent: TabBarBottom,
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+    }
+);
 
 const styles = StyleSheet.create({
     linearGradient: {
