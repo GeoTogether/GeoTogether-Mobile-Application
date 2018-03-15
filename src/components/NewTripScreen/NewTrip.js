@@ -292,6 +292,45 @@ export default class NewTrip extends React.Component {
                                         />
                                     </View>
 
+                                    <View style={styles.durationContainer}>
+                                        <DatePicker
+                                            style={{
+                                                width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                                marginBottom: 20,
+                                                paddingHorizontal: 10
+                                            }}
+                                            date={this.state.startDate}
+                                            showIcon={false}
+                                            mode="date"
+                                            placeholder="Start Date"
+                                            format="YYYY-MM-DD"
+                                            customStyles={styles.durationInput}
+                                            onDateChange={(startdate) => {
+                                                this.setState({ startDate: startdate }), this.placeholder = startdate
+                                            }}
+                                        />
+                                        <DatePicker
+                                            style={{
+                                                width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                                marginBottom: 20,
+                                                paddingHorizontal: 10
+                                            }}
+                                            date={this.state.endDate}
+                                            showIcon={false}
+                                            mode="date"
+                                            placeholder="End Date"
+                                            format="YYYY-MM-DD"
+                                            customStyles={styles.durationInput}
+                                            onDateChange={(enddate) => {
+                                                this.setState({ endDate: enddate }), this.placeholder = enddate
+                                            }}
+                                        />
+                                    </View>
+
+                                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
+                                        <Text style={styles.buttonText}>Add Event</Text>
+                                    </TouchableOpacity>
+
   <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewEvent()}>
                             <Text style={styles.buttonText}>CREATE Event</Text>
                         </TouchableOpacity>
