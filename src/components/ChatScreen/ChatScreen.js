@@ -8,7 +8,7 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
-    }
+    }chat
     componentWillMount() {
         this.setState({
             messages: [
@@ -19,7 +19,7 @@ export default class ChatScreen extends React.Component {
                     user: {
                         _id: 2,
                         name: 'React Native',
-                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                        avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                     },
                 },
             ],
@@ -40,6 +40,7 @@ export default class ChatScreen extends React.Component {
                 onSend={this.onSend}
                 user={{
                     _id: 1,
+                    name: 'Benji',
                 }}
             />
 
