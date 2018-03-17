@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 
-class ChatScreen extends React.Component {
+export default class ChatScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {messages: []};
@@ -34,7 +34,7 @@ class ChatScreen extends React.Component {
     }
     render() {
         return (
-            <View>
+
             <GiftedChat
                 messages={this.state.messages}
                 onSend={this.onSend}
@@ -42,7 +42,7 @@ class ChatScreen extends React.Component {
                     _id: 1,
                 }}
             />
-            </View>
+
         );
     }
 }
