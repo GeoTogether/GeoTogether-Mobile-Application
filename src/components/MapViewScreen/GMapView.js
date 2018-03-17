@@ -102,6 +102,8 @@ export default class GMapView extends React.Component {
         hours: "0",
         mins: "0",
         eventsMarkers: [],
+        userlatitude: null,
+        userlongitude: null,
     };
 
 
@@ -112,11 +114,18 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         this.state.destinations.push(state.params.trip.destination1);
-        for (var i = 0; i < state.params.trip.events.length; i++) {
 
-            this.state.events.push(state.params.trip.events[i]);
+        if((state.params.trip.events !== undefined)){
 
+            for (var i = 0; i < state.params.trip.events.length; i++) {
+
+                this.state.events.push(state.params.trip.events[i]);
+    
+            }
+
+            this.getEventAddress();
         }
+        
         this.state.destinations.push(state.params.trip.destination2);
 
         this.showAddress();
@@ -131,7 +140,7 @@ export default class GMapView extends React.Component {
 
         const { state } = this.props.navigation;
 
-        if (this.state.events.length != null) {
+        if ((this.state.events.length !== 0)) {
 
             var obj = { d1: state.params.trip.destination1, d2: this.state.events[0].address };
             this.state.coords.push(obj);
@@ -144,14 +153,14 @@ export default class GMapView extends React.Component {
 
             }
 
-            var obj2 = { d1: this.state.events[this.state.events.length-1].address, d2: state.params.trip.destination2 };
+            var obj2 = { d1: this.state.events[this.state.events.length - 1].address, d2: state.params.trip.destination2 };
             this.state.coords.push(obj2);
 
 
         } else {
 
             var obj2 = { d1: state.params.trip.destination1, d2: state.params.trip.destination2 };
-            this.state.coords.push(obj);
+            this.state.coords.push(obj2);
 
 
         }
@@ -159,6 +168,26 @@ export default class GMapView extends React.Component {
 
 
 
+
+    }
+
+
+    getEventAddress(){
+
+        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
+
+        for (var i = 0; i < this.state.events.length; i++) {
+
+            // Address Geocoding
+            Geocoder.geocodeAddress(this.state.events[i].address.toUpperCase()).then(res => {
+                // res is an Array of geocoding object (see below)
+
+                this.state.eventsMarkers.push(res);
+
+
+            }).catch(err => console.log(err))
+
+        }
 
     }
 
@@ -190,20 +219,7 @@ export default class GMapView extends React.Component {
         }
 
 
-
-        for (var i = 0; i < this.state.events.length; i++) {
-
-            // Address Geocoding
-            Geocoder.geocodeAddress(this.state.events[i].address.toUpperCase()).then(res => {
-                // res is an Array of geocoding object (see below)
-
-                this.state.eventsMarkers.push(res);
-
-
-            }).catch(err => console.log(err))
-
-        }
-
+      
 
         this.setState({ trip: state.params.trip });
 
@@ -226,7 +242,7 @@ export default class GMapView extends React.Component {
             latitude: type["0"].position.lat,
             longitude: type["0"].position.lng
         }} title={'marker'}
-        pinColor= "blue"
+            pinColor="blue"
         />)
 
 
