@@ -9,6 +9,7 @@ import {
 import firebase from '../Firebase/firebaseStorage';
 import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -38,6 +39,16 @@ export default class NewTrip extends React.Component {
         eventTitle: '',
         eventAddress: '',
     }
+
+    _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+    _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+    _handleDatePicked = (date) => {
+        console.log('A date has been picked: ', date);
+        this._hideDateTimePicker();
+    };
+
     sendEmail = () => {
 
         SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
@@ -324,6 +335,26 @@ export default class NewTrip extends React.Component {
                                             onDateChange={(enddate) => {
                                                 this.setState({ endDate: enddate }), this.placeholder = enddate
                                             }}
+                                        />
+                                        <TouchableOpacity onPress={this._showDateTimePicker}>
+                                            <Text>Start Time</Text>
+                                        </TouchableOpacity>
+                                        <DateTimePicker
+                                            isVisible={this.state.isDateTimePickerVisible}
+                                            onConfirm={this._handleDatePicked}
+                                            onCancel={this._hideDateTimePicker}
+                                            mode="time"
+                                            is24Hour={false}
+                                        />
+                                        <TouchableOpacity onPress={this._showDateTimePicker}>
+                                            <Text>End Time</Text>
+                                        </TouchableOpacity>
+                                        <DateTimePicker
+                                            isVisible={this.state.isDateTimePickerVisible}
+                                            onConfirm={this._handleDatePicked}
+                                            onCancel={this._hideDateTimePicker}
+                                            mode="time"
+                                            is24Hour={false}
                                         />
                                     </View>
 
