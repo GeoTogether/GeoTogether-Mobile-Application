@@ -40,9 +40,9 @@ export default class NewTrip extends React.Component {
         eventAddress: '',
     }
 
-    _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+    _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
 
-    _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+    _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
 
     _handleDatePicked = (date) => {
         console.log('A date has been picked: ', date);
@@ -67,7 +67,7 @@ export default class NewTrip extends React.Component {
         SendIntentAndroid.sendText({
             title: 'Invitation to join ' + this.state.tripname,
             text: "Hey there! I hope you can accept this invite to join this amazing trip.\n\n" +
-                this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
+            this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
             type: SendIntentAndroid.TEXT_PLAIN
         });
 
@@ -87,48 +87,44 @@ export default class NewTrip extends React.Component {
     //     )
     // }
 
-    componentWillMount() {
-
-        const { state } = this.props.navigation;
-        this.setState({ email: state.params.email });
-
-    }
-
+    // componentWillMount() {
+    //
+    //     const { state } = this.props.navigation;
+    //     this.setState({ email: state.params.email });
+    //
+    // }
+    //
     openModal() {
-        this.setState({ modalVisible: true });
+        this.setState({modalVisible: true});
     }
 
     closeModal() {
-        this.setState({ modalVisible: false });
+        this.setState({modalVisible: false});
     }
 
     openEvent() {
-        this.setState({ modalEvent: true });
+        this.setState({modalEvent: true});
     }
 
     closeEvent() {
-        this.setState({ modalEvent: false });
+        this.setState({modalEvent: false});
     }
 
-    onPressNewEvent(){
-        const { eventTitle, eventAddress } = this.state;
+    onPressNewEvent() {
+        const {eventTitle, eventAddress} = this.state;
 
-        var obj = { title: eventTitle, address: eventAddress };
-            this.state.events.push(obj);
+        var obj = {title: eventTitle, address: eventAddress};
+        this.state.events.push(obj);
 
-            this.closeEvent();
+        this.closeEvent();
 
     }
-
 
 
     // function to create a new trip using firebase database
     onPressNewTrip() {
-        const { navigate } = this.props.navigation;
-        const { tripname, destination1, destination2, members, email, startDate, endDate, events } = this.state;
-
-
-
+        const {navigate} = this.props.navigation;
+        const {tripname, destination1, destination2, members, email, startDate, endDate, events} = this.state;
 
 
         members.push(email);
@@ -148,11 +144,97 @@ export default class NewTrip extends React.Component {
 
 
         //after adding the trip go back to trips
-        navigate('Trips', { email: this.state.email });
+        navigate('Trips', {email: this.state.email});
     }
 
     render() {
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
+
+        var newEventDisplay =
+
+            <LinearGradient colors={['#00B4AB', '#FE7C00']}>
+                <View style={styles.newEContainer}>
+                <View style={styles.newTitleContainer}>
+                    <Text style={styles.textHeader}>Title of the event</Text>
+                    <TextInput
+                        placeholder="ex. Breakfast"
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.newEInput}
+                        onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
+                    />
+                {/*</View>*/}
+
+                {/*<View style={styles.tripNameContainer}>*/}
+                    <Text style={styles.textHeader}>Address of the event</Text>
+                    <TextInput
+                        placeholder="ex. ASU"
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.newEInput}
+                        onChangeText={eventAddress => this.setState({eventAddress})} // gets the trip name
+                    />
+                </View>
+
+                {/*<View style={styles.durationContainer}>*/}
+                    {/*<DatePicker*/}
+                        {/*style={{*/}
+                            {/*width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',*/}
+                            {/*marginBottom: 20,*/}
+                            {/*paddingHorizontal: 10*/}
+                        {/*}}*/}
+                        {/*date={this.state.startDate}*/}
+                        {/*showIcon={false}*/}
+                        {/*mode="date"*/}
+                        {/*placeholder="Start Date"*/}
+                        {/*format="YYYY-MM-DD"*/}
+                        {/*customStyles={styles.durationInput}*/}
+                        {/*onDateChange={(startdate) => {*/}
+                            {/*this.setState({startDate: startdate}), this.placeholder = startdate*/}
+                        {/*}}*/}
+                    {/*/>*/}
+                    {/*<DatePicker*/}
+                        {/*style={{*/}
+                            {/*width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',*/}
+                            {/*marginBottom: 20,*/}
+                            {/*paddingHorizontal: 10*/}
+                        {/*}}*/}
+                        {/*date={this.state.endDate}*/}
+                        {/*showIcon={false}*/}
+                        {/*mode="date"*/}
+                        {/*placeholder="End Date"*/}
+                        {/*format="YYYY-MM-DD"*/}
+                        {/*customStyles={styles.durationInput}*/}
+                        {/*onDateChange={(enddate) => {*/}
+                            {/*this.setState({endDate: enddate}), this.placeholder = enddate*/}
+                        {/*}}*/}
+                    {/*/>*/}
+                    {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
+                        {/*<Text>Start Time</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<DateTimePicker*/}
+                        {/*isVisible={this.state.isDateTimePickerVisible}*/}
+                        {/*onConfirm={this._handleDatePicked}*/}
+                        {/*onCancel={this._hideDateTimePicker}*/}
+                        {/*mode="time"*/}
+                        {/*is24Hour={false}*/}
+                    {/*/>*/}
+                    {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
+                        {/*<Text>End Time</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<DateTimePicker*/}
+                        {/*isVisible={this.state.isDateTimePickerVisible}*/}
+                        {/*onConfirm={this._handleDatePicked}*/}
+                        {/*onCancel={this._hideDateTimePicker}*/}
+                        {/*mode="time"*/}
+                        {/*is24Hour={false}*/}
+                    {/*/>*/}
+                {/*</View>*/}
+                </View>
+            </LinearGradient>
+
 
         return (
             <View style={styles.container}>
@@ -165,7 +247,7 @@ export default class NewTrip extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.input}
-                        onChangeText={tripname => this.setState({ tripname })} // gets the trip name
+                        onChangeText={tripname => this.setState({tripname})} // gets the trip name
                     />
                 </View>
 
@@ -184,7 +266,7 @@ export default class NewTrip extends React.Component {
                         format="YYYY-MM-DD"
                         customStyles={styles.durationInput}
                         onDateChange={(startdate) => {
-                            this.setState({ startDate: startdate }), this.placeholder = startdate
+                            this.setState({startDate: startdate}), this.placeholder = startdate
                         }}
                     />
                     <DatePicker
@@ -200,7 +282,7 @@ export default class NewTrip extends React.Component {
                         format="YYYY-MM-DD"
                         customStyles={styles.durationInput}
                         onDateChange={(enddate) => {
-                            this.setState({ endDate: enddate }), this.placeholder = enddate
+                            this.setState({endDate: enddate}), this.placeholder = enddate
                         }}
                     />
                 </View>
@@ -213,7 +295,7 @@ export default class NewTrip extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.input}
-                        onChangeText={destination1 => this.setState({ destination1 })}
+                        onChangeText={destination1 => this.setState({destination1})}
                     />
                 </View>
 
@@ -225,12 +307,12 @@ export default class NewTrip extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.input}
-                        onChangeText={destination2 => this.setState({ destination2 })}
+                        onChangeText={destination2 => this.setState({destination2})}
                     />
                 </View>
 
                 <View style={styles.addFuncContainer}>
-                    <TouchableOpacity  onPress={() => this.openEvent()}>
+                    <TouchableOpacity onPress={() => this.openEvent()}>
                         <Text style={styles.splitText}>+ ADD EVENT</Text>
                     </TouchableOpacity>
 
@@ -256,12 +338,12 @@ export default class NewTrip extends React.Component {
                                     </TouchableOpacity>
 
                                     <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => this.sendEmail()}>
+                                                      onPress={() => this.sendEmail()}>
                                         <Text style={styles.buttonText}>Send Email Invite</Text>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => this.closeModal()}>
+                                                      onPress={() => this.closeModal()}>
                                         <Text style={styles.buttonText}>Back To Trip View</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -269,106 +351,32 @@ export default class NewTrip extends React.Component {
                         </Modal>
 
 
-
-
                         <Modal
                             visible={this.state.modalEvent}
                             animationType={'slide'}
                             onRequestClose={() => this.closeEvent()}
                         >
-                            <View style={styles.modalContainer}>
-                                <View style={styles.innerContainer}>
+                            {/*<View style={styles.modalContainer}>*/}
+                                {/*<View style={styles.innerContainer}>*/}
 
-                                    <View style={styles.tripNameContainer}>
-                                        <Text style={styles.textHeader}>Title of the event</Text>
-                                        <TextInput
-                                            placeholder="ex. Breakfast"
-                                            returnKeyType="done"
-                                            autoCapitalize="words"
-                                            autoCorrect={true}
-                                            style={styles.input}
-                                            onChangeText={eventTitle => this.setState({ eventTitle })} // gets the trip name
-                                        />
-                                    </View>
+                                    <View style={styles.newEContainer}>
+                                        {newEventDisplay}
 
-                                       <View style={styles.tripNameContainer}>
-                                        <Text style={styles.textHeader}>Address of the event</Text>
-                                        <TextInput
-                                            placeholder="ex. ASU"
-                                            returnKeyType="done"
-                                            autoCapitalize="words"
-                                            autoCorrect={true}
-                                            style={styles.input}
-                                            onChangeText={eventAddress => this.setState({ eventAddress })} // gets the trip name
-                                        />
-                                    </View>
 
-                                    <View style={styles.durationContainer}>
-                                        <DatePicker
-                                            style={{
-                                                width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                                marginBottom: 20,
-                                                paddingHorizontal: 10
-                                            }}
-                                            date={this.state.startDate}
-                                            showIcon={false}
-                                            mode="date"
-                                            placeholder="Start Date"
-                                            format="YYYY-MM-DD"
-                                            customStyles={styles.durationInput}
-                                            onDateChange={(startdate) => {
-                                                this.setState({ startDate: startdate }), this.placeholder = startdate
-                                            }}
-                                        />
-                                        <DatePicker
-                                            style={{
-                                                width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                                marginBottom: 20,
-                                                paddingHorizontal: 10
-                                            }}
-                                            date={this.state.endDate}
-                                            showIcon={false}
-                                            mode="date"
-                                            placeholder="End Date"
-                                            format="YYYY-MM-DD"
-                                            customStyles={styles.durationInput}
-                                            onDateChange={(enddate) => {
-                                                this.setState({ endDate: enddate }), this.placeholder = enddate
-                                            }}
-                                        />
-                                        <TouchableOpacity onPress={this._showDateTimePicker}>
-                                            <Text>Start Time</Text>
-                                        </TouchableOpacity>
-                                        <DateTimePicker
-                                            isVisible={this.state.isDateTimePickerVisible}
-                                            onConfirm={this._handleDatePicked}
-                                            onCancel={this._hideDateTimePicker}
-                                            mode="time"
-                                            is24Hour={false}
-                                        />
-                                        <TouchableOpacity onPress={this._showDateTimePicker}>
-                                            <Text>End Time</Text>
-                                        </TouchableOpacity>
-                                        <DateTimePicker
-                                            isVisible={this.state.isDateTimePickerVisible}
-                                            onConfirm={this._handleDatePicked}
-                                            onCancel={this._hideDateTimePicker}
-                                            mode="time"
-                                            is24Hour={false}
-                                        />
-                                    </View>
-
-                                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                                      onPress={() => this.onPressNewTrip()}>
                                         <Text style={styles.buttonText}>Add Event</Text>
                                     </TouchableOpacity>
 
-  <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewEvent()}>
-                            <Text style={styles.buttonText}>CREATE Event</Text>
-                        </TouchableOpacity>
-                                </View>
-                            </View>
-                        </Modal>
 
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                                      onPress={() => this.onPressNewEvent()}>
+                                        <Text style={styles.buttonText}>CREATE Event</Text>
+                                    </TouchableOpacity>
+                                    </View>
+                                {/*</View>*/}
+                            {/*</View>*/}
+                        </Modal>
 
 
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
@@ -378,6 +386,7 @@ export default class NewTrip extends React.Component {
                     </View>
                 </TouchableWithoutFeedback>
             </View>
+
         );
     }
 }
@@ -454,5 +463,23 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: "#ffa53f"
 
+    },
+    newTitleContainer:{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch'
+    },
+    newEInput: {
+        //width: '100%',
+        height: 50,
+        //alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+       // borderRadius: 10
+    },
+    newEContainer: {
+        flex: 1,
+        //width:
     }
 });
