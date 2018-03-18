@@ -102,8 +102,8 @@ export default class GMapView extends React.Component {
         hours: "0",
         mins: "0",
         eventsMarkers: [],
-        userlatitude: null,
-        userlongitude: null,
+        userlatitude: 0.1,
+        userlongitude: 0.1,
     };
 
 
@@ -115,26 +115,30 @@ export default class GMapView extends React.Component {
 
         this.state.destinations.push(state.params.trip.destination1);
 
-        if((state.params.trip.events !== undefined)){
+        if ((state.params.trip.events !== undefined)) {
 
             for (var i = 0; i < state.params.trip.events.length; i++) {
 
                 this.state.events.push(state.params.trip.events[i]);
-    
+
             }
 
             this.getEventAddress();
         }
-        
+
         this.state.destinations.push(state.params.trip.destination2);
 
         this.showAddress();
         this.showDirections();
+        this.getCurrentPosition();
 
 
 
     }
 
+    componentDidMount() {
+        this.getCurrentPosition();
+    }
 
     showDirections() {
 
@@ -172,7 +176,7 @@ export default class GMapView extends React.Component {
     }
 
 
-    getEventAddress(){
+    getEventAddress() {
 
         Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
 
@@ -209,8 +213,8 @@ export default class GMapView extends React.Component {
                 // res is an Array of geocoding object (see below)
 
                 this.state.markers.push(res);
-                this.setState({ latitude: res["0"].position.lat });
-                this.setState({ longitude: res["0"].position.lng });
+                // this.setState({ latitude: res["0"].position.lat });
+                // this.setState({ longitude: res["0"].position.lng });
 
 
 
@@ -219,11 +223,30 @@ export default class GMapView extends React.Component {
         }
 
 
-      
+
 
         this.setState({ trip: state.params.trip });
 
 
+    }
+
+
+    getCurrentPosition() {
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+
+                this.setState({
+                    userlatitude: position.coords.latitude,
+                    userlongitude: position.coords.longitude,
+                    error: null,
+                });
+                 this.setState({ latitude:  position.coords.latitude });
+                this.setState({ longitude: position.coords.longitude});
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+        );
     }
 
 
@@ -257,6 +280,13 @@ export default class GMapView extends React.Component {
         />)
 
 
+        var userloc = <MapView.Marker coordinate={{
+            latitude: this.state.userlatitude,
+            longitude: this.state.userlongitude
+        }} title={"Your Location"}
+        image = {require('../../images/userlocation.png')}
+      
+       />
         return (
 
 
@@ -294,6 +324,8 @@ export default class GMapView extends React.Component {
 
                     {dirComponents}
 
+           {userloc}
+                   
 
                 </MapView>
 
