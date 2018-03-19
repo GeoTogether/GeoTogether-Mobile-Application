@@ -5,6 +5,12 @@ import firebase from '../Firebase/firebaseStorage';
 
 
 export default class ChatScreen extends React.Component {
+
+    static navigationOptions = {
+        title: 'ChatScreen',
+        header: null
+    }
+
     constructor(props) {
         super(props);
         this.state = {messages: []};
@@ -17,6 +23,7 @@ export default class ChatScreen extends React.Component {
     };
 
     componentWillMount() {
+        const {state} = this.props.navigation;
         
 
         this.setState({
@@ -24,7 +31,7 @@ export default class ChatScreen extends React.Component {
                 {
                     
                     _id: 1,
-                    text: this.props.navigation,
+                    text: state.params.trip.members,
                     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
                     user: {
                         _id: 2,
