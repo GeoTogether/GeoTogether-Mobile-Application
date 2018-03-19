@@ -1,6 +1,7 @@
 import { GiftedChat } from 'react-native-gifted-chat';
 import React from 'react';
 import { View } from 'react-native';
+import firebase from '../Firebase/firebaseStorage';
 
 
 export default class ChatScreen extends React.Component {
@@ -8,13 +9,22 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
+
     }chat
+
+    state = {
+        x: '',
+    };
+
     componentWillMount() {
+        
+
         this.setState({
             messages: [
                 {
+                    
                     _id: 1,
-                    text: 'Hello developer',
+                    text: this.props.navigation,
                     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
                     user: {
                         _id: 2,
@@ -26,12 +36,19 @@ export default class ChatScreen extends React.Component {
         });
     }
     onSend(messages = []) {
+
+            firebase.database().ref('messages/').push({
+              user: "d",
+            });
+
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
     }
+
+
     render() {
         return (
 
@@ -47,3 +64,6 @@ export default class ChatScreen extends React.Component {
         );
     }
 }
+
+//firebase.auth().currentUser.email user
+//state.params.trip
