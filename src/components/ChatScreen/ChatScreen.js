@@ -15,16 +15,35 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
+        
 
     }chat
 
     state = {
-        x: '',
+        tripDatabase: this.getTripSnapshot(),
     };
 
-    componentWillMount() {
+    grabMessages(){
+
+    }
+    sendTripMessages(){
+        firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/-L7yYPJFjToQ-_IrP1Ut/messages').push({
+                  user: "hellos@gmail.com",
+                  content: "sup",
+                  timestamp: "7:02",
+
+        });
+    }
+    getTripSnapshot(){
         const {state} = this.props.navigation;
-        
+        console.log(state.params.trip);
+        return "d";
+
+    }
+
+    componentWillMount() {
+       
+         const {state} = this.props.navigation;
 
         this.setState({
             messages: [
@@ -43,10 +62,7 @@ export default class ChatScreen extends React.Component {
         });
     }
     onSend(messages = []) {
-
-            firebase.database().ref('messages/').push({
-              user: "d",
-            });
+        this.sendTripMessages();
 
         this.setState((previousState) => {
             return {
@@ -72,5 +88,15 @@ export default class ChatScreen extends React.Component {
     }
 }
 
+
+
 //firebase.auth().currentUser.email user
 //state.params.trip
+/*
+firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/-L7yYPJFjToQ-_IrP1Ut/messages').push({
+                  user: "hellos@gmail.com",
+                  content: "sup",
+                  timestamp: "7:02",
+
+        });
+        */
