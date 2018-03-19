@@ -20,6 +20,9 @@ export default class NewEvent extends React.Component {
         header: null
     };
 
+    startTimeChosen = '00:00';
+    endTimeChosen = '00:00';
+
     state = {
         destination1: '',
         destination2: '',
@@ -62,84 +65,164 @@ export default class NewEvent extends React.Component {
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                    <View style={styles.newTitleContainer}>
-                        <Text style={styles.textHeader}>Title of the event</Text>
-                        <TextInput
-                            placeholder="ex. Breakfast"
-                            returnKeyType="done"
-                            autoCapitalize="words"
-                            autoCorrect={true}
-                            style={styles.newEInput}
-                            onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
-                        />
-                        {/*</View>*/}
+                <View style={styles.newTitleContainer}>
+                    <Text style={styles.textHeader}>Title of the event:</Text>
+                    <TextInput
+                        placeholder="ex. Breakfast"
+                        underlineColorAndroid="transparent"
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.newEInput}
+                        onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
+                    />
+                    {/*</View>*/}
 
-                        {/*<View style={styles.tripNameContainer}>*/}
-                        <Text style={styles.textHeader}>Address of the event</Text>
-                        <TextInput
-                            placeholder="ex. ASU"
-                            returnKeyType="done"
-                            autoCapitalize="words"
-                            autoCorrect={true}
-                            style={styles.newEInput}
-                            onChangeText={eventAddress => this.setState({eventAddress})} // gets the trip name
-                        />
+                    {/*<View style={styles.tripNameContainer}>*/}
+                    <Text style={styles.textHeader}>Address of the event:</Text>
+                    <TextInput
+                        placeholder="ex. ASU"
+                        underlineColorAndroid="transparent"
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.newEInput}
+                        onChangeText={eventAddress => this.setState({eventAddress})} // gets the trip name
+                    />
+                </View>
+
+                {/*<View style={styles.dateHeaderContainer}>*/}
+                {/*<Text style={styles.textHeader}>Start Date:</Text>*/}
+                {/*<Text style={styles.textHeader}>End Date:</Text>*/}
+                {/*</View>*/}
+
+
+                <View style={styles.durationContainer}>
+                    <View style={styles.dateStartContainer}>
+                        <View style={styles.dateStartStyle}>
+                            <Text style={styles.textHeader}>Start Date:</Text>
+                            <DatePicker
+                                date={this.state.startDate}
+                                style={{backgroundColor: 'white'}}
+                                showIcon={false}
+                                mode="date"
+                                placeholder="YYYY-MM-DD"
+                                format="YYYY-MM-DD"
+                                customStyles={styles.durationInput}
+                                onDateChange={(startdate) => {
+                                    this.setState({startDate: startdate}), this.placeholder = startdate
+                                }}
+                            />
+                        </View>
                     </View>
 
-                    {/*<View style={styles.durationContainer}>*/}
-                    {/*<DatePicker*/}
-                    {/*style={{*/}
-                    {/*width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',*/}
-                    {/*marginBottom: 20,*/}
-                    {/*paddingHorizontal: 10*/}
-                    {/*}}*/}
-                    {/*date={this.state.startDate}*/}
-                    {/*showIcon={false}*/}
-                    {/*mode="date"*/}
-                    {/*placeholder="Start Date"*/}
-                    {/*format="YYYY-MM-DD"*/}
-                    {/*customStyles={styles.durationInput}*/}
-                    {/*onDateChange={(startdate) => {*/}
-                    {/*this.setState({startDate: startdate}), this.placeholder = startdate*/}
-                    {/*}}*/}
-                    {/*/>*/}
-                    {/*<DatePicker*/}
-                    {/*style={{*/}
-                    {/*width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',*/}
-                    {/*marginBottom: 20,*/}
-                    {/*paddingHorizontal: 10*/}
-                    {/*}}*/}
-                    {/*date={this.state.endDate}*/}
-                    {/*showIcon={false}*/}
-                    {/*mode="date"*/}
-                    {/*placeholder="End Date"*/}
-                    {/*format="YYYY-MM-DD"*/}
-                    {/*customStyles={styles.durationInput}*/}
-                    {/*onDateChange={(enddate) => {*/}
-                    {/*this.setState({endDate: enddate}), this.placeholder = enddate*/}
-                    {/*}}*/}
-                    {/*/>*/}
-                    {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                    {/*<Text>Start Time</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<DateTimePicker*/}
-                    {/*isVisible={this.state.isDateTimePickerVisible}*/}
-                    {/*onConfirm={this._handleDatePicked}*/}
-                    {/*onCancel={this._hideDateTimePicker}*/}
-                    {/*mode="time"*/}
-                    {/*is24Hour={false}*/}
-                    {/*/>*/}
-                    {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                    {/*<Text>End Time</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<DateTimePicker*/}
-                    {/*isVisible={this.state.isDateTimePickerVisible}*/}
-                    {/*onConfirm={this._handleDatePicked}*/}
-                    {/*onCancel={this._hideDateTimePicker}*/}
-                    {/*mode="time"*/}
-                    {/*is24Hour={false}*/}
-                    {/*/>*/}
-                    {/*</View>*/}
+                    <View style={styles.dateStartContainer}>
+                        <View style={styles.dateStartStyle}>
+                            <Text style={styles.textHeader}>End Date:</Text>
+                            <DatePicker
+                                date={this.state.endDate}
+                                style={{backgroundColor: 'white'}}
+                                showIcon={false}
+                                mode="date"
+                                placeholder="YYYY-MM-DD"
+                                format="YYYY-MM-DD"
+                                customStyles={styles.durationInput}
+                                onDateChange={(enddate) => {
+                                    this.setState({endDate: enddate}), this.placeholder = enddate
+                                }}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.timeContainer}>
+                        <View style={styles.timeStyle}>
+                            <Text style={styles.textHeader}>Start Time:</Text>
+                            <TouchableOpacity onPress={this._showDateTimePicker}>
+                                <View style={styles.timeSlot}>
+                                    <Text style={styles.timeDisplay}>{this.startTimeChosen}</Text>
+                                </View>
+                                <DateTimePicker
+                                    isVisible={this.state.isDateTimePickerVisible}
+                                    onConfirm={this._handleDatePicked}
+                                    onCancel={this._hideDateTimePicker}
+                                    mode="time"
+                                    is24Hour={false}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <View style={styles.timeContainer}>
+                        <View style={styles.timeStyle}>
+                            <Text style={styles.textHeader}>End Time:</Text>
+                            <TouchableOpacity onPress={this._showDateTimePicker}>
+                                <View style={styles.timeSlot}>
+                                    <Text style={styles.timeDisplay}>{this.endTimeChosen}</Text>
+                                </View>
+                                <DateTimePicker
+                                    isVisible={this.state.isDateTimePickerVisible}
+                                    onConfirm={this._handleDatePicked}
+                                    onCancel={this._hideDateTimePicker}
+                                    mode="time"
+                                    is24Hour={false}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+
+                </View>
+
+
+                {/*<View style={styles.durationContainer}>*/}
+                {/*<View style={styles.dateInputStyle}>*/}
+                {/*<DatePicker*/}
+                {/*date={this.state.startDate}*/}
+                {/*showIcon={false}*/}
+                {/*mode="date"*/}
+                {/*placeholder="YYYY-MM-DD"*/}
+                {/*format="YYYY-MM-DD"*/}
+                {/*customStyles={styles.durationInput}*/}
+                {/*onDateChange={(startdate) => {*/}
+                {/*this.setState({startDate: startdate}), this.placeholder = startdate*/}
+                {/*}}*/}
+                {/*/>*/}
+                {/*</View>*/}
+                {/*<View style={styles.dateInputStyle}>*/}
+                {/*<DatePicker*/}
+                {/*date={this.state.endDate}*/}
+                {/*showIcon={false}*/}
+                {/*mode="date"*/}
+                {/*placeholder="YYYY-MM-DD"*/}
+                {/*format="YYYY-MM-DD"*/}
+                {/*customStyles={styles.durationInput}*/}
+                {/*onDateChange={(enddate) => {*/}
+                {/*this.setState({endDate: enddate}), this.placeholder = enddate*/}
+                {/*}}*/}
+                {/*/>*/}
+                {/*</View>*/}
+                {/*</View>*/}
+                {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
+                {/*<Text>Start Time</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<DateTimePicker*/}
+                {/*isVisible={this.state.isDateTimePickerVisible}*/}
+                {/*onConfirm={this._handleDatePicked}*/}
+                {/*onCancel={this._hideDateTimePicker}*/}
+                {/*mode="time"*/}
+                {/*is24Hour={false}*/}
+                {/*/>*/}
+                {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
+                {/*<Text>End Time</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<DateTimePicker*/}
+                {/*isVisible={this.state.isDateTimePickerVisible}*/}
+                {/*onConfirm={this._handleDatePicked}*/}
+                {/*onCancel={this._hideDateTimePicker}*/}
+                {/*mode="time"*/}
+                {/*is24Hour={false}*/}
+                {/*/>*/}
+                {/*</View>*/}
                 {/*</View>*/}
             </LinearGradient>
 
@@ -150,7 +233,7 @@ export default class NewEvent extends React.Component {
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
-       // alignItems: 'center',
+        // alignItems: 'center',
         //justifyContent: 'center'
     },
     textHeader: {
@@ -160,7 +243,16 @@ const styles = StyleSheet.create({
         //alignItems: 'flex-start'
     },
     durationContainer: {
-        flex: 2
+        // flex: 2,
+        height: '45%',
+        //backgroundColor: 'black',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        // justifyContent: 'space-between',
+        // alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20
+
     },
     startLocationContainer: {
         flex: 1
@@ -214,8 +306,9 @@ const styles = StyleSheet.create({
         height: 100,
         width: 350,
     },
-    newTitleContainer:{
-        flex: 1,
+    newTitleContainer: {
+        // flex: 1,
+        height: '40%',
         flexDirection: 'column',
         //justifyContent: 'space-between',
         alignItems: 'flex-start',
@@ -223,10 +316,55 @@ const styles = StyleSheet.create({
     },
     newEInput: {
         width: '90%',
-        height: 50,
-        ///alignItems: 'stretch',
-        justifyContent: 'space-between',
         backgroundColor: 'white',
-        // borderRadius: 10
+        borderRadius: 3
+    },
+    dateInputStyle: {
+        backgroundColor: 'white',
+    },
+    dateHeaderContainer: {
+        // flex: 3,
+        flexDirection: 'row',
+        paddingTop: 100,
+        justifyContent: 'space-between',
+        // alignItems: 'flex-start',
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    durationStartContainer: {
+        flex: 2,
+        paddingTop: 50,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        paddingLeft: 20
+    },
+    dateStartContainer: {
+        width: '50%',
+        height: '50%',
+        padding: 2,
+
+    },
+    dateStartStyle: {
+        flex: 1,
+
+    },
+    timeContainer: {
+        width: '50%',
+        height: '50%',
+        padding: 2,
+
+    },
+    timeStyle: {
+        flex: 1,
+    },
+    timeSlot:{
+        backgroundColor: 'white',
+        color: 'black',
+        height: 40,
+        width: 140
+    },
+    timeDisplay:{
+        paddingTop: 10,
+        textAlign: 'center'
     }
 });
