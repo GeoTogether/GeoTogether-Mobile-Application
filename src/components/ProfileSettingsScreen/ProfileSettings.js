@@ -3,6 +3,8 @@ import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, 
 
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
+import GMapView from '../MapViewScreen/GMapView';
+
 
 
 export default class ProfileSettings extends Component {
@@ -228,9 +230,14 @@ export default class ProfileSettings extends Component {
     // onPress={() => this.updateInfo()}
 
     render() {
-
+        const {goBack} = this.props.navigation;
         return (
             <View style={styles.container}>
+                <View>
+                <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                    <Image source={require('../../images/backarrow.png')}/>
+                </TouchableOpacity>
+                </View>
                 <View style={styles.imageContainer}>
                     {this.state.photoS == null ? (
                         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
@@ -350,6 +357,10 @@ const styles = StyleSheet.create({
         height: 45,
         justifyContent: 'center',
         borderRadius: 10
+    },
+    back: {
+        marginLeft: -20,
+        marginTop: 5,
     },
     buttonText: {
         textAlign: 'center',
