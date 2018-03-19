@@ -1,15 +1,12 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {
-    StackNavigator
+    StackNavigator, TabBarBottom, TabNavigator
 } from 'react-navigation';
 import MapView from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
-
-
-
 
 
 
@@ -151,9 +148,13 @@ export default class GMapView extends React.Component {
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                     rightIcons={[
                         {
+                            image: require('../../images/timeline.png'), // To use a custom image
+                            onPress: () => navigate('TimeLineScreen', {email: this.state.email}),
+                        },
+                        {
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => console.log('Right Custom image !'),
+                            onPress: () => console.log('settings feature'),
                         },
                     ]}
                 />
@@ -186,17 +187,6 @@ export default class GMapView extends React.Component {
         )
 
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -220,7 +210,7 @@ const styles = StyleSheet.create({
     }, 
     title:{
         textAlign: 'center',
-        color: 'white',
+        color: 'black',
         fontWeight: '700'
     }
 });

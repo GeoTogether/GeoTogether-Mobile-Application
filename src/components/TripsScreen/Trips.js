@@ -10,7 +10,10 @@ import { GoogleSignin } from 'react-native-google-signin';
 import LinearGradient from 'react-native-linear-gradient';
 
 import Chat from "../ChatScreen/Chat";
+import MapView from "../MapViewScreen/GMapView";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ActionBar from 'react-native-action-bar';
+
 
 class Trips extends React.Component {
 
@@ -140,6 +143,7 @@ class Trips extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    const { state } = this.props.navigation;
     // adding components for all the user trips 
 
 
@@ -157,6 +161,27 @@ class Trips extends React.Component {
 
     return (
         <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
+
+            <View style={styles.actionBar}>
+
+                <ActionBar
+                    containerStyle={styles.bar}
+                    title={'Home'}
+                    titleStyle ={styles.title}
+                    backgroundColor= {'black'}
+                    badgeColor={'red'}
+                    leftIconImage={require('../../images/profile.png')}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
+                    rightIcons={[
+                        {
+                            image: require('../../images/settings.png'), // To use a custom image
+                            badge: '1',
+                            onPress: () => console.log('settings feature'),
+                        },
+                    ]}
+                />
+            </View>
+
             <View style={styles.tripContainer}>
                 <ScrollView>
                     <View style={styles.tripView}>
@@ -182,6 +207,7 @@ export default TabNavigator (
     {
         Chat: { screen: Chat },
         Home: { screen: Trips },
+        MapView: { screen: MapView }
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -192,7 +218,10 @@ export default TabNavigator (
                     iconName = `ios-home${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Chat') {
                     iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
+                } else if (routeName === 'MapView') {
+                    showLabel = false;
                 }
+
 
                 return <Ionicons name={iconName} size={25} color={tintColor} />;
             }
@@ -209,6 +238,12 @@ export default TabNavigator (
 );
 
 const styles = StyleSheet.create({
+    actionBar: {
+        flex: 1,
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
+        width: '100%',
+    },
     linearGradient: {
         flex: 1,
         alignItems: 'center',
