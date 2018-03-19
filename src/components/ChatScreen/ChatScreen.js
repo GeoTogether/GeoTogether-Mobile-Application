@@ -26,11 +26,19 @@ export default class ChatScreen extends React.Component {
     grabMessages(){
 
     }
-    sendTripMessages(){
-        firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/-L7yYPJFjToQ-_IrP1Ut/messages').push({
-                  user: "hellos@gmail.com",
-                  content: "sup",
-                  timestamp: "7:02",
+    createGroupChat(){
+
+        firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/').push({
+     
+                    users:[
+                    'hellos@gmail.com', 
+                    'x@gmail.com'
+                    ],
+                    messages:[
+                    "GeoTogether",
+                    "Welcome To The Beginning Of Your Chat",
+                    "7:02",
+                    ]
 
         });
     }
@@ -62,7 +70,7 @@ export default class ChatScreen extends React.Component {
         });
     }
     onSend(messages = []) {
-        this.sendTripMessages();
+        this.createGroupChat();
 
         this.setState((previousState) => {
             return {
