@@ -108,7 +108,19 @@ export default class NewTrip extends React.Component {
             startDate: startDate,
             endDate: endDate,
             destinations: destinations,
-            members: members
+            members: members,
+            "chats":{
+                "groupChat":{
+                    users: members,
+                    "messages":{
+                    firstMessage:[
+                    "GeoTogether",
+                    "Welcome To The Beginning Of Your Chat",
+                    "7:02",
+                    ]
+                    }
+                }
+            },
         });
 
 
