@@ -15,13 +15,17 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
+        this.initialMessagesSetUp();
         
 
     }chat
 
     state = {
         tripDatabase: "",
-        initialMessages:  this.initialMessagesSetUp(),
+        initialMessages:  ["wef"],
+        initialUsers:["wef"],
+        initialTimeStamps:["wef"],
+
     };
 
     grabMessages(){
@@ -33,15 +37,27 @@ export default class ChatScreen extends React.Component {
     }
     
     initialMessagesSetUp(){
-        
         const {state} = this.props.navigation;
+        var TotalArray = state.params.trip.chats.groupChat.messages;
+        var MessageArray =[];
+        var UserArray=[];
+        var TimeStampArray=[];
+        
 
-        for (var key in state.params.trip.chats.groupChat.messages) {
-            console.log(key);
+        for (var key in TotalArray) {
+            UserArray.push(TotalArray[key][0]);
+            MessageArray.push(TotalArray[key][1]);    
+            TimeStampArray.push(TotalArray[key][2]);
+
             
         }
+        console.log(this.state.initialMessages[0]);
+        this.setState({initialMessages: MessageArray});
+        this.setState({initialUsers: UserArray});
+        this.setState({initialTimeStamps: TimeStampArray})
+        console.log("sup");
+        
 
-        return "ds";
     }
 
     componentWillMount() {
@@ -64,7 +80,10 @@ export default class ChatScreen extends React.Component {
         });
     }
     onSend(messages = []) {
-        this.createGroupChat();
+        console.log("here");
+        console.log(this.state.initialUsers);
+        console.log(this.state.initialMessages);
+        console.log(this.state.initialTimeStamps);
 
         this.setState((previousState) => {
             return {
