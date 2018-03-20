@@ -20,33 +20,28 @@ export default class ChatScreen extends React.Component {
     }chat
 
     state = {
-        tripDatabase: this.getTripSnapshot(),
+        tripDatabase: "",
+        initialMessages:  this.initialMessagesSetUp(),
     };
 
     grabMessages(){
 
     }
-    createGroupChat(){
 
-        firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/').push({
-     
-                    users:[
-                    'hellos@gmail.com', 
-                    'x@gmail.com'
-                    ],
-                    messages:[
-                    "GeoTogether",
-                    "Welcome To The Beginning Of Your Chat",
-                    "7:02",
-                    ]
+    addUserToChat(name){
 
-        });
     }
-    getTripSnapshot(){
+    
+    initialMessagesSetUp(){
+        
         const {state} = this.props.navigation;
-        console.log(state.params.trip);
-        return "d";
 
+        for (var key in state.params.trip.chats.groupChat.messages) {
+            console.log(key);
+            
+        }
+
+        return "ds";
     }
 
     componentWillMount() {
@@ -56,7 +51,6 @@ export default class ChatScreen extends React.Component {
         this.setState({
             messages: [
                 {
-                    
                     _id: 1,
                     text: state.params.trip.members,
                     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
@@ -101,10 +95,22 @@ export default class ChatScreen extends React.Component {
 //firebase.auth().currentUser.email user
 //state.params.trip
 /*
-firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/-L7yYPJFjToQ-_IrP1Ut/messages').push({
-                  user: "hellos@gmail.com",
-                  content: "sup",
-                  timestamp: "7:02",
+
+this is on the new trips screen now
+        createGroupChat(){
+
+        firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/').push({
+     
+                    users:[
+                    'hellos@gmail.com', 
+                    'x@gmail.com'
+                    ],
+                    messages:[
+                    "GeoTogether",
+                    "Welcome To The Beginning Of Your Chat",
+                    "7:02",
+                    ]
 
         });
+    }
         */
