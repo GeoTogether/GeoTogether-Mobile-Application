@@ -76,9 +76,6 @@ export default class NewEvent extends React.Component {
                         style={styles.newEInput}
                         onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
                     />
-                    {/*</View>*/}
-
-                    {/*<View style={styles.tripNameContainer}>*/}
                     <Text style={styles.textHeader}>Address of the event:</Text>
                     <TextInput
                         placeholder="ex. ASU"
@@ -90,12 +87,6 @@ export default class NewEvent extends React.Component {
                         onChangeText={eventAddress => this.setState({eventAddress})} // gets the trip name
                     />
                 </View>
-
-                {/*<View style={styles.dateHeaderContainer}>*/}
-                {/*<Text style={styles.textHeader}>Start Date:</Text>*/}
-                {/*<Text style={styles.textHeader}>End Date:</Text>*/}
-                {/*</View>*/}
-
 
                 <View style={styles.durationContainer}>
                     <View style={styles.dateStartContainer}>
@@ -169,61 +160,14 @@ export default class NewEvent extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-
-
                 </View>
-
-
-                {/*<View style={styles.durationContainer}>*/}
-                {/*<View style={styles.dateInputStyle}>*/}
-                {/*<DatePicker*/}
-                {/*date={this.state.startDate}*/}
-                {/*showIcon={false}*/}
-                {/*mode="date"*/}
-                {/*placeholder="YYYY-MM-DD"*/}
-                {/*format="YYYY-MM-DD"*/}
-                {/*customStyles={styles.durationInput}*/}
-                {/*onDateChange={(startdate) => {*/}
-                {/*this.setState({startDate: startdate}), this.placeholder = startdate*/}
-                {/*}}*/}
-                {/*/>*/}
-                {/*</View>*/}
-                {/*<View style={styles.dateInputStyle}>*/}
-                {/*<DatePicker*/}
-                {/*date={this.state.endDate}*/}
-                {/*showIcon={false}*/}
-                {/*mode="date"*/}
-                {/*placeholder="YYYY-MM-DD"*/}
-                {/*format="YYYY-MM-DD"*/}
-                {/*customStyles={styles.durationInput}*/}
-                {/*onDateChange={(enddate) => {*/}
-                {/*this.setState({endDate: enddate}), this.placeholder = enddate*/}
-                {/*}}*/}
-                {/*/>*/}
-                {/*</View>*/}
-                {/*</View>*/}
-                {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                {/*<Text>Start Time</Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<DateTimePicker*/}
-                {/*isVisible={this.state.isDateTimePickerVisible}*/}
-                {/*onConfirm={this._handleDatePicked}*/}
-                {/*onCancel={this._hideDateTimePicker}*/}
-                {/*mode="time"*/}
-                {/*is24Hour={false}*/}
-                {/*/>*/}
-                {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                {/*<Text>End Time</Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<DateTimePicker*/}
-                {/*isVisible={this.state.isDateTimePickerVisible}*/}
-                {/*onConfirm={this._handleDatePicked}*/}
-                {/*onCancel={this._hideDateTimePicker}*/}
-                {/*mode="time"*/}
-                {/*is24Hour={false}*/}
-                {/*/>*/}
-                {/*</View>*/}
-                {/*</View>*/}
+                <View style={styles.buttonContainer}>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity onPress={() => this.onPressSignUp()}>
+                            <Text style={styles.buttonText}>Add Event</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </LinearGradient>
 
         );
@@ -233,23 +177,16 @@ export default class NewEvent extends React.Component {
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
-        // alignItems: 'center',
-        //justifyContent: 'center'
     },
     textHeader: {
         color: 'white',
         paddingTop: 20,
         paddingBottom: 20,
-        //alignItems: 'flex-start'
     },
     durationContainer: {
-        // flex: 2,
         height: '45%',
-        //backgroundColor: 'black',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        // justifyContent: 'space-between',
-        // alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20
 
@@ -281,17 +218,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         flexDirection: 'row'
     },
-    buttonContainer: {
-        backgroundColor: 'rgb(0,25,88)',
-        paddingVertical: 15
-    },
     splitContainer: {
         marginBottom: 20,
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: '#FFFFFF',
-        fontWeight: 'bold'
     },
     splitText: {
         textAlign: 'left',
@@ -307,10 +235,8 @@ const styles = StyleSheet.create({
         width: 350,
     },
     newTitleContainer: {
-        // flex: 1,
         height: '40%',
         flexDirection: 'column',
-        //justifyContent: 'space-between',
         alignItems: 'flex-start',
         paddingLeft: 20
     },
@@ -323,11 +249,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     dateHeaderContainer: {
-        // flex: 3,
         flexDirection: 'row',
         paddingTop: 100,
         justifyContent: 'space-between',
-        // alignItems: 'flex-start',
         paddingLeft: 20,
         paddingRight: 20
     },
@@ -342,29 +266,46 @@ const styles = StyleSheet.create({
         width: '50%',
         height: '50%',
         padding: 2,
-
     },
     dateStartStyle: {
         flex: 1,
-
     },
     timeContainer: {
         width: '50%',
         height: '50%',
         padding: 2,
-
     },
     timeStyle: {
         flex: 1,
     },
-    timeSlot:{
+    timeSlot: {
         backgroundColor: 'white',
         color: 'black',
         height: 40,
         width: 140
     },
-    timeDisplay:{
+    timeDisplay: {
         paddingTop: 10,
         textAlign: 'center'
+    },
+    buttonContainer: {
+        height: '15%',
+        flexDirection: 'row',
+        paddingTop: 5,
+        paddingLeft: '25%',
+        paddingRight: '25%'
+    },
+    buttonStyle: {
+        width: '50%',
+        height: '70%',
+        flex:1,
+        backgroundColor: 'rgb(0,25,88)',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: 'normal'
     }
 });
