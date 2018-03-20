@@ -301,7 +301,8 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor: 'rgb(0,25,88)',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: 10
     },
     buttonText: {
         textAlign: 'center',
