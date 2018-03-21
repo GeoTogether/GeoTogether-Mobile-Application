@@ -10,6 +10,7 @@ import firebase from '../Firebase/firebaseStorage';
 import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import CheckBox from 'react-native-check-box'
 
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -38,7 +39,9 @@ export default class NewTrip extends React.Component {
         modalEvent: false,
         eventTitle: '',
         eventAddress: '',
-    }
+    };
+
+    isChecked = false;
 
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
 
@@ -150,243 +153,116 @@ export default class NewTrip extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
 
-        var newEventDisplay =
-
-            <LinearGradient colors={['#00B4AB', '#FE7C00']}>
-                <View style={styles.newEContainer}>
-                <View style={styles.newTitleContainer}>
-                    <Text style={styles.textHeader}>Title of the event</Text>
-                    <TextInput
-                        placeholder="ex. Breakfast"
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.newEInput}
-                        onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
-                    />
-                {/*</View>*/}
-
-                {/*<View style={styles.tripNameContainer}>*/}
-                    <Text style={styles.textHeader}>Address of the event</Text>
-                    <TextInput
-                        placeholder="ex. ASU"
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.newEInput}
-                        onChangeText={eventAddress => this.setState({eventAddress})} // gets the trip name
-                    />
-                </View>
-
-                {/*<View style={styles.durationContainer}>*/}
-                    {/*<DatePicker*/}
-                        {/*style={{*/}
-                            {/*width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',*/}
-                            {/*marginBottom: 20,*/}
-                            {/*paddingHorizontal: 10*/}
-                        {/*}}*/}
-                        {/*date={this.state.startDate}*/}
-                        {/*showIcon={false}*/}
-                        {/*mode="date"*/}
-                        {/*placeholder="Start Date"*/}
-                        {/*format="YYYY-MM-DD"*/}
-                        {/*customStyles={styles.durationInput}*/}
-                        {/*onDateChange={(startdate) => {*/}
-                            {/*this.setState({startDate: startdate}), this.placeholder = startdate*/}
-                        {/*}}*/}
-                    {/*/>*/}
-                    {/*<DatePicker*/}
-                        {/*style={{*/}
-                            {/*width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',*/}
-                            {/*marginBottom: 20,*/}
-                            {/*paddingHorizontal: 10*/}
-                        {/*}}*/}
-                        {/*date={this.state.endDate}*/}
-                        {/*showIcon={false}*/}
-                        {/*mode="date"*/}
-                        {/*placeholder="End Date"*/}
-                        {/*format="YYYY-MM-DD"*/}
-                        {/*customStyles={styles.durationInput}*/}
-                        {/*onDateChange={(enddate) => {*/}
-                            {/*this.setState({endDate: enddate}), this.placeholder = enddate*/}
-                        {/*}}*/}
-                    {/*/>*/}
-                    {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                        {/*<Text>Start Time</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<DateTimePicker*/}
-                        {/*isVisible={this.state.isDateTimePickerVisible}*/}
-                        {/*onConfirm={this._handleDatePicked}*/}
-                        {/*onCancel={this._hideDateTimePicker}*/}
-                        {/*mode="time"*/}
-                        {/*is24Hour={false}*/}
-                    {/*/>*/}
-                    {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                        {/*<Text>End Time</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<DateTimePicker*/}
-                        {/*isVisible={this.state.isDateTimePickerVisible}*/}
-                        {/*onConfirm={this._handleDatePicked}*/}
-                        {/*onCancel={this._hideDateTimePicker}*/}
-                        {/*mode="time"*/}
-                        {/*is24Hour={false}*/}
-                    {/*/>*/}
-                {/*</View>*/}
-                </View>
-            </LinearGradient>
-
-
         return (
             <View style={styles.container}>
+                <View style={styles.childContainer}>
 
-                <View style={styles.tripNameContainer}>
-                    <Text style={styles.textHeader}>Name of Trip</Text>
-                    <TextInput
-                        placeholder="ex. Spring Break 2018"
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.input}
-                        onChangeText={tripname => this.setState({tripname})} // gets the trip name
-                    />
-                </View>
+                    <View style={styles.tripNameInputContainer}>
+                        <View style={styles.tripNameContainer}>
+                            <Text style={styles.textHeader}>Name of Trip</Text>
+                            <TextInput
+                                placeholder="ex. Spring Break 2018"
+                                returnKeyType="done"
+                                autoCapitalize="words"
+                                autoCorrect={true}
+                                style={styles.input}
+                                onChangeText={tripname => this.setState({tripname})} // gets the trip name
+                            />
+                        </View>
+                    </View>
 
-                <View style={styles.durationContainer}>
-                    <Text style={styles.textHeader}>Duration</Text>
-                    <DatePicker
-                        style={{
-                            width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                            marginBottom: 20,
-                            paddingHorizontal: 10
-                        }}
-                        date={this.state.startDate}
-                        showIcon={false}
-                        mode="date"
-                        placeholder="Start Date"
-                        format="YYYY-MM-DD"
-                        customStyles={styles.durationInput}
-                        onDateChange={(startdate) => {
-                            this.setState({startDate: startdate}), this.placeholder = startdate
-                        }}
-                    />
-                    <DatePicker
-                        style={{
-                            width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                            marginBottom: 20,
-                            paddingHorizontal: 10
-                        }}
-                        date={this.state.endDate}
-                        showIcon={false}
-                        mode="date"
-                        placeholder="End Date"
-                        format="YYYY-MM-DD"
-                        customStyles={styles.durationInput}
-                        onDateChange={(enddate) => {
-                            this.setState({endDate: enddate}), this.placeholder = enddate
-                        }}
-                    />
-                </View>
+                    <View style={styles.durationChoseContainer}>
+                        <Text style={styles.textHeader}>Duration</Text>
+                        <View style={styles.durationContainer}>
+                            <DatePicker
+                                style={{
+                                    width: '30%',
+                                    height: '60%',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                    paddingBottom: 10
+                                }}
+                                date={this.state.startDate}
+                                showIcon={false}
+                                mode="date"
+                                placeholder="Start Date"
+                                format="YYYY-MM-DD"
+                                customStyles={styles.durationInput}
+                                onDateChange={(startdate) => {
+                                    this.setState({startDate: startdate}), this.placeholder = startdate
+                                }}
+                            />
+                            <Text style={styles.middleText}>to</Text>
+                            <DatePicker
+                                style={{
+                                    width: '30%',
+                                    height: '60%',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                    paddingBottom: 10
+                                }}
+                                date={this.state.endDate}
+                                showIcon={false}
+                                mode="date"
+                                placeholder="End Date"
+                                format="YYYY-MM-DD"
+                                customStyles={styles.durationInput}
+                                onDateChange={(enddate) => {
+                                    this.setState({endDate: enddate}), this.placeholder = enddate
+                                }}
+                            />
+                        </View>
+                    </View>
 
-                <View style={styles.startLocationContainer}>
-                    <Text style={styles.textHeader}>Start Location</Text>
-                    <TextInput
-                        placeholder="ex. Tempe, AZ"
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.input}
-                        onChangeText={destination1 => this.setState({destination1})}
-                    />
-                </View>
+                    <View style={styles.startLContainment}>
+                        <View style={styles.startLocationContainer}>
+                            <Text style={styles.textHeader}>Start Location</Text>
+                            <TextInput
+                                placeholder="ex. Tempe, AZ"
+                                returnKeyType="done"
+                                autoCapitalize="words"
+                                autoCorrect={true}
+                                style={styles.input}
+                                onChangeText={destination1 => this.setState({destination1})}
+                            />
+                        </View>
+                    </View>
 
-                <View style={styles.endLocationContainer}>
-                    <Text style={styles.textHeader}>End Location</Text>
-                    <TextInput
-                        placeholder="ex. Tempe, AZ"
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.input}
-                        onChangeText={destination2 => this.setState({destination2})}
-                    />
-                </View>
+                    <View style={styles.endLContainment}>
+                        <View style={styles.endLocationContainer}>
+                            <Text style={styles.textHeader}>End Location</Text>
+                            <TextInput
+                                placeholder="ex. Tempe, AZ"
+                                returnKeyType="done"
+                                autoCapitalize="words"
+                                autoCorrect={true}
+                                style={styles.input}
+                                onChangeText={destination2 => this.setState({destination2})}
+                            />
+                        </View>
+                    </View>
 
-                <View style={styles.addFuncContainer}>
+                    <View style={styles.addContiner}>
+                    <View style={styles.addFuncContainer}>
                     <TouchableOpacity onPress={() => this.openEvent()}>
-                        <Text style={styles.splitText}>+ ADD EVENT</Text>
+                    <Text style={styles.splitText}>+ ADD EVENT</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => this.openModal()}>
-                        <Text style={styles.splitText}>+ ADD MEMBERS</Text>
+                    <Text style={styles.splitText}>+ ADD MEMBERS</Text>
                     </TouchableOpacity>
-                </View>
-
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <View style={styles.container2}>
-
-                        <Modal
-                            visible={this.state.modalVisible}
-                            animationType={'slide'}
-                            onRequestClose={() => this.closeModal()}
-                        >
-                            <View style={styles.modalContainer}>
-                                <View style={styles.innerContainer}>
-                                    <Text>Please select a method of invitation</Text>
-
-                                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
-                                        <Text style={styles.buttonText}>Send SMS Invite</Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                                      onPress={() => this.sendEmail()}>
-                                        <Text style={styles.buttonText}>Send Email Invite</Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                                      onPress={() => this.closeModal()}>
-                                        <Text style={styles.buttonText}>Back To Trip View</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </Modal>
-
-
-                        <Modal
-                            visible={this.state.modalEvent}
-                            animationType={'slide'}
-                            onRequestClose={() => this.closeEvent()}
-                        >
-                            {/*<View style={styles.modalContainer}>*/}
-                                {/*<View style={styles.innerContainer}>*/}
-
-                                    <View style={styles.newEContainer}>
-                                        {newEventDisplay}
-
-
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                                      onPress={() => this.onPressNewTrip()}>
-                                        <Text style={styles.buttonText}>Add Event</Text>
-                                    </TouchableOpacity>
-
-
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                                      onPress={() => this.onPressNewEvent()}>
-                                        <Text style={styles.buttonText}>CREATE Event</Text>
-                                    </TouchableOpacity>
-                                    </View>
-                                {/*</View>*/}
-                            {/*</View>*/}
-                        </Modal>
-
-
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
-                            <Text style={styles.buttonText}>CREATE TRIP</Text>
-                        </TouchableOpacity>
-
                     </View>
-                </TouchableWithoutFeedback>
-            </View>
+                    </View>
 
+                    <View style={styles.createBContainer}>
+                        <View style={styles.createBStyle}>
+                            <TouchableOpacity  onPress={() => this.onPressNewTrip()}>
+                                <Text style={styles.buttonText}>CREATE TRIP</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                </View>
+            </View>
+        // style={styles.buttonContainer}
         );
     }
 }
@@ -396,33 +272,28 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    tripNameContainer: {
+    childContainer: {
         flex: 1,
+        marginTop: '15%',
+        marginBottom: '15%',
+        marginLeft: '5%',
+        marginRight: '5%'
     },
     textHeader: {
-        color: '#000eff'
+        color: '#7a7a7a',
+        fontWeight: 'bold'
     },
-    durationContainer: {
-        flex: 2
-    },
-    startLocationContainer: {
-        flex: 1
-    },
-    endLocationContainer: {
-        flex: 1
-    },
-    addFuncContainer: {
-        flex: 1
-    },
+
+
+
     container2: {
-        paddingTop: 10
+        // paddingTop: 10
     },
     input: {
-        height: 50,
-        width: 350,
+        height: '100%',
+        width: '70%',
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
         marginBottom: 10,
-        paddingHorizontal: 10
     },
     durationInput: {
         height: 50,
@@ -430,7 +301,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
         marginBottom: 20,
         paddingHorizontal: 10,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     buttonContainer: {
         backgroundColor: 'rgb(0,25,88)',
@@ -442,13 +313,16 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: 'bold'
+        fontWeight: '100',
+        fontSize: 20
+
     },
     splitText: {
         textAlign: 'left',
         color: 'rgb(0,25,88)',
-        fontWeight: 'bold',
+        fontWeight: 'normal',
         fontSize: 20,
+        paddingBottom: 10
     },
     modalContainer: {
         flex: 1,
@@ -464,7 +338,7 @@ const styles = StyleSheet.create({
         borderColor: "#ffa53f"
 
     },
-    newTitleContainer:{
+    newTitleContainer: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
@@ -476,10 +350,83 @@ const styles = StyleSheet.create({
         //alignItems: 'stretch',
         justifyContent: 'space-between',
         backgroundColor: 'white',
-       // borderRadius: 10
+        // borderRadius: 10
     },
     newEContainer: {
         flex: 1,
         //width:
+    },
+    tripNameInputContainer: {
+        height: '10%',
+        // paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    tripNameContainer: {
+        flex: 1
+    },
+    durationChoseContainer: {
+        height: '25%',
+        paddingTop: 30,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    durationContainer: {
+        flex: 2,
+        flexDirection: 'row',
+        // paddingTop: 10
+    },
+    middleText: {
+        textAlign: 'center',
+        color: 'grey',
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginTop: 15,
+        fontSize: 20
+    },
+    startLContainment: {
+        height: '10%',
+        paddingLeft: 20,
+        paddingRight: 20,
+
+    },
+    startLocationContainer: {
+        flex: 1
+    },
+    endLContainment: {
+        height: '10%',
+        marginTop: 40,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    endLocationContainer: {
+        flex: 1
+    },
+    addContiner:{
+        height: '10%',
+        marginTop: 25,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    addFuncContainer: {
+        flex: 1
+    },
+    createBContainer:{
+        height: '10%',
+        marginTop: 35,
+        paddingLeft: 20,
+        paddingRight: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
+
+    },
+    createBStyle:{
+        flex: 1,
+        backgroundColor: 'rgb(0,25,88)',
+        height: '90%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 6
     }
 });
