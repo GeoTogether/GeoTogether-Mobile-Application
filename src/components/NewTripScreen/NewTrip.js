@@ -89,13 +89,11 @@ export default class NewTrip extends React.Component {
     //     )
     // }
 
-    // componentWillMount() {
-    //
-    //     const { state } = this.props.navigation;
-    //     this.setState({ email: state.params.email });
-    //
-    // }
-    //
+    componentWillMount() {
+        const { state } = this.props.navigation;
+        this.setState({ email: state.params.email });
+    }
+    
     openModal() {
         this.setState({modalVisible: true});
     }
