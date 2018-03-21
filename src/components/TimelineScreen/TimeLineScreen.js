@@ -40,7 +40,7 @@ export default class TimeLineScreen extends React.Component {
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                     rightIcons={[
                         {
-                            image: require('../../images/timeline.png'), // To use a custom image
+                            image: require('../../images/map.png'), // To use a custom image
                             onPress: () => navigate('GMapView', { email: state.params.email }),
                         },
                         {

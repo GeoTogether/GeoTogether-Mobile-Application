@@ -207,7 +207,6 @@ export default TabNavigator (
     {
         Chat: { screen: Chat },
         Home: { screen: Trips },
-        MapView: { screen: MapView }
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -218,11 +217,7 @@ export default TabNavigator (
                     iconName = `ios-home${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Chat') {
                     iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
-                } else if (routeName === 'MapView') {
-                    showLabel = false;
                 }
-
-
                 return <Ionicons name={iconName} size={25} color={tintColor} />;
             }
         }),
