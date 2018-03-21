@@ -20,8 +20,7 @@ export default class NewEvent extends React.Component {
         header: null
     };
 
-    startTimeChosen = '00:00';
-    endTimeChosen = '00:00';
+   
 
     state = {
         destination1: '',
@@ -41,6 +40,8 @@ export default class NewEvent extends React.Component {
         modalEvent: false,
         eventTitle: '',
         eventAddress: '',
+        startTimeChosen:'00:00',
+        endTimeChosen: '00:00',
     };
 
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
@@ -48,7 +49,12 @@ export default class NewEvent extends React.Component {
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
 
     _handleDatePicked = (date) => {
-        console.log('A date has been picked: ', date);
+        this.setState({startTimeChosen: date.toString()});
+        this._hideDateTimePicker();
+    };
+
+    _handleDatePicked2 = (date) => {
+        this.setState({endTimeChosen: date.toString()});
         this._hideDateTimePicker();
     };
 
@@ -57,6 +63,15 @@ export default class NewEvent extends React.Component {
         super(props)
     }
 
+    onPressNewEvent(){
+        const { navigate } = this.props.navigation;
+        const { state } = this.props.navigation;
+        var newEvent = {eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen}
+   
+        state.params.trip.events.push(newEvent);
+        navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+   
+    }
 
     render() {
 
@@ -130,7 +145,7 @@ export default class NewEvent extends React.Component {
                             <Text style={styles.textHeader}>Start Time:</Text>
                             <TouchableOpacity onPress={this._showDateTimePicker}>
                                 <View style={styles.timeSlot}>
-                                    <Text style={styles.timeDisplay}>{this.startTimeChosen}</Text>
+                                    <Text style={styles.timeDisplay}>{this.state.startTimeChosen}</Text>
                                 </View>
                                 <DateTimePicker
                                     isVisible={this.state.isDateTimePickerVisible}
@@ -148,11 +163,11 @@ export default class NewEvent extends React.Component {
                             <Text style={styles.textHeader}>End Time:</Text>
                             <TouchableOpacity onPress={this._showDateTimePicker}>
                                 <View style={styles.timeSlot}>
-                                    <Text style={styles.timeDisplay}>{this.endTimeChosen}</Text>
+                                    <Text style={styles.timeDisplay}>{this.state.endTimeChosen}</Text>
                                 </View>
                                 <DateTimePicker
                                     isVisible={this.state.isDateTimePickerVisible}
-                                    onConfirm={this._handleDatePicked}
+                                    onConfirm={this._handleDatePicked2}
                                     onCancel={this._hideDateTimePicker}
                                     mode="time"
                                     is24Hour={false}
@@ -163,7 +178,7 @@ export default class NewEvent extends React.Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={() => this.onPressSignUp()}>
+                        <TouchableOpacity onPress={() => this.onPressNewEvent()}>
                             <Text style={styles.buttonText}>Add Event</Text>
                         </TouchableOpacity>
                     </View>
