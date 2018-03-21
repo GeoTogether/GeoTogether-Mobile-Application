@@ -3,9 +3,10 @@ import React from 'react';
 import { View } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 
-
 export default class ChatScreen extends React.Component {
 
+
+    
     static navigationOptions = {
         title: 'ChatScreen',
         header: null
@@ -26,14 +27,19 @@ export default class ChatScreen extends React.Component {
         initialTimeStamps:[],
 
     };
-
+    
 
 
     async grabMessages(){
+       
+    var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/{id}';
+
+       
+        
 
         const {state} = this.props.navigation;
         
-        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
+        
           // Now simply find the parent and return the name.
 
 
@@ -43,8 +49,6 @@ export default class ChatScreen extends React.Component {
             TotalArray = snapshot.val();
             
         })
-
-        
 
         
 
@@ -60,6 +64,8 @@ export default class ChatScreen extends React.Component {
 
             
         }
+
+        console.log(MessageArray);
 
 
         /*
