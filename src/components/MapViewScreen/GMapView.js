@@ -213,8 +213,8 @@ export default class GMapView extends React.Component {
                 // res is an Array of geocoding object (see below)
 
                 this.state.markers.push(res);
-                // this.setState({ latitude: res["0"].position.lat });
-                // this.setState({ longitude: res["0"].position.lng });
+                this.setState({ latitude: res["0"].position.lat });
+                this.setState({ longitude: res["0"].position.lng });
 
 
 
@@ -241,8 +241,8 @@ export default class GMapView extends React.Component {
                     userlongitude: position.coords.longitude,
                     error: null,
                 });
-                 this.setState({ latitude:  position.coords.latitude });
-                this.setState({ longitude: position.coords.longitude});
+                //  this.setState({ latitude:  position.coords.latitude });
+                // this.setState({ longitude: position.coords.longitude});
             },
             (error) => this.setState({ error: error.message }),
             { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
@@ -298,9 +298,13 @@ export default class GMapView extends React.Component {
                     titleStyle={styles.title}
                     backgroundColor={'black'}
                     leftIconImage={require('../../images/profile.png')}
-                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip:state.params.trip })}
                     rightIcons={[
                         {
+                            image: require('../../images/timeline.png'), // To use a custom image
+                            badge: '1',
+                            onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip:state.params.trip}),
+                        },{
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
                             onPress: () => console.log('Right Custom image !'),

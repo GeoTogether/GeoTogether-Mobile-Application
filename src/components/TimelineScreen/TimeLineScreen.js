@@ -2,6 +2,7 @@ import React from 'react';
 import Timeline from 'react-native-timeline-listview';
 import {StyleSheet, View} from "react-native";
 import firebase from "../Firebase/firebaseStorage";
+import ActionBar from 'react-native-action-bar';
 
 export default class TimeLineScreen extends React.Component {
 
@@ -25,9 +26,29 @@ export default class TimeLineScreen extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation;
-
+        const { state } = this.props.navigation;
         return (
             <View style={styles.container}>
+                 <ActionBar
+                    containerStyle={styles.bar}
+                    title={state.params.trip.tripName}
+                    titleStyle={styles.title}
+                    backgroundColor={'black'}
+                    leftIconImage={require('../../images/profile.png')}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip:state.params.trip })}
+                    rightIcons={[
+                        {
+                            image: require('../../images/map.png'), // To use a custom image
+                            badge: '1',
+                            onPress: () => navigate('GMapView', { email: state.params.email, trip:state.params.trip }),
+                        },{
+                            image: require('../../images/settings.png'), // To use a custom image
+                            badge: '1',
+                            onPress: () => console.log('Right Custom image !'),
+                        },
+                    ]}
+                />
+
             <Timeline
                 style={styles.list}
                 data={this.data}
