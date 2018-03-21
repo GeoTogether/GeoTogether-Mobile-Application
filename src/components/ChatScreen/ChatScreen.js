@@ -15,9 +15,7 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
-        this.initialMessagesSetUp();
-        this.check();
-        
+        this.grabMessages();
 
     }chat
 
@@ -29,6 +27,8 @@ export default class ChatScreen extends React.Component {
 
     };
 
+
+
     async grabMessages(){
 
         const {state} = this.props.navigation;
@@ -36,9 +36,35 @@ export default class ChatScreen extends React.Component {
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/';
           // Now simply find the parent and return the name.
 
+
+        var TotalArray;
         firebase.database().ref(Path).on('value', (snapshot) => {
+
+            TotalArray = snapshot.val();
             
         })
+
+        console.log(TotalArray);
+
+        /*
+
+        var MessageArray =[];
+        var UserArray=[];
+        var TimeStampArray=[];
+        
+
+        for (var key in TotalArray) {
+            UserArray.push(TotalArray[key][0]);
+            MessageArray.push(TotalArray[key][1]);    
+            TimeStampArray.push(TotalArray[key][2]);
+
+            
+        }
+
+        this.setState({initialMessages: MessageArray});
+        this.setState({initialUsers: UserArray});
+        this.setState({initialTimeStamps: TimeStampArray});
+        */
 
     }
 
@@ -59,15 +85,7 @@ export default class ChatScreen extends React.Component {
             
         });
     }
-    //okay so what im doing here is super dumb
-    //im checking to see if the trip snapshot matches with another in the database
-    //for everything but messages because i cant grab a parent 
-    //from snapshot.val which is what is sent through the params currently
-    //so it will break if there is a trip with the same everything 
-    check(){
-
-    }
-
+    
     addUserToChat(name){
 
     }
@@ -77,28 +95,6 @@ export default class ChatScreen extends React.Component {
         return currentdate.getTime();
     }
     
-    initialMessagesSetUp(){
-        
-        const {state} = this.props.navigation;
-        var TotalArray = state.params.trip.chats.groupChat.messages;
-        var MessageArray =[];
-        var UserArray=[];
-        var TimeStampArray=[];
-        
-
-        for (var key in TotalArray) {
-            UserArray.push(TotalArray[key][0]);
-            MessageArray.push(TotalArray[key][1]);    
-            TimeStampArray.push(TotalArray[key][2]);
-
-            
-        }
-
-        this.setState({initialMessages: MessageArray});
-        this.setState({initialUsers: UserArray});
-        this.setState({initialTimeStamps: TimeStampArray})
-        
-    }
 
     componentWillMount() {
        
