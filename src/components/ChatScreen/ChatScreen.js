@@ -33,7 +33,7 @@ export default class ChatScreen extends React.Component {
 
         const {state} = this.props.navigation;
         
-        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/';
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
           // Now simply find the parent and return the name.
 
 
@@ -44,9 +44,9 @@ export default class ChatScreen extends React.Component {
             
         })
 
-        console.log(TotalArray);
+        
 
-        /*
+        
 
         var MessageArray =[];
         var UserArray=[];
@@ -61,6 +61,8 @@ export default class ChatScreen extends React.Component {
             
         }
 
+
+        /*
         this.setState({initialMessages: MessageArray});
         this.setState({initialUsers: UserArray});
         this.setState({initialTimeStamps: TimeStampArray});
