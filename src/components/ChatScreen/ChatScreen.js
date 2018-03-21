@@ -16,19 +16,43 @@ export default class ChatScreen extends React.Component {
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
         this.initialMessagesSetUp();
+        this.check();
         
 
     }chat
 
     state = {
         tripDatabase: "",
-        initialMessages:  ["wef"],
-        initialUsers:["wef"],
-        initialTimeStamps:["wef"],
+        initialMessages:  [],
+        initialUsers:[],
+        initialTimeStamps:[],
 
     };
 
-    grabMessages(){
+    async grabMessages(){
+
+    }
+
+    //okay so what im doing here is super dumb
+    //im checking to see if the trip snapshot matches with another in the database
+    //for everything but messages because i cant grab a parent 
+    //from snapshot.val which is what is sent through the params currently
+    //so it will break if there is a trip with the same everything 
+    check(){
+        
+        const {state} = this.props.navigation;
+        
+        
+          // Now simply find the parent and return the name.
+        console.log(state.params.tripKey.key);
+
+        firebase.database().ref('trips/').on('value', (snapshot) => {
+      snapshot.forEach((tripSnapshot) => {
+
+            
+
+      })
+    })
 
     }
 
@@ -51,13 +75,11 @@ export default class ChatScreen extends React.Component {
 
             
         }
-        console.log(this.state.initialMessages[0]);
+
         this.setState({initialMessages: MessageArray});
         this.setState({initialUsers: UserArray});
         this.setState({initialTimeStamps: TimeStampArray})
-        console.log("sup");
         
-
     }
 
     componentWillMount() {

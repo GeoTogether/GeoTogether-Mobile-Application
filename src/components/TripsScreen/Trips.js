@@ -160,7 +160,6 @@ export default class Trips extends React.Component {
 
         const val = tripSnapshot.val();
 
-
         if (val.members.indexOf(this.state.email) != -1) {
 
 
@@ -168,7 +167,7 @@ export default class Trips extends React.Component {
 
           if (this.state.tripsNames.indexOf(val.tripName) == -1) {
 
-            this.state.trips.push(val);
+            this.state.trips.push(tripSnapshot);
 
 
             this.setState({ tripsNames: this.state.tripsNames.concat(val.tripName) })
@@ -192,14 +191,16 @@ export default class Trips extends React.Component {
 
 
     var components = this.state.trips.map((type) =>
-        <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
+      
+
+        <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('ChatScreen',{tripKey: type, trip: type.val(), email: this.state.email})}>
             <View style={styles.textRow}>
-                <Text style={styles.tripName}>{type.tripName}</Text>
+                <Text style={styles.tripName}>{type.val().tripName}</Text>
                 <Text style={styles.status}>(Open)</Text>
             </View>
             <View style={styles.textRow}>
-                <Text style={styles.members}>Members: {type.members.length} </Text>
-                <Text style={styles.date}>{type.startDate} - {type.endDate}</Text>
+                <Text style={styles.members}>Members: {type.val().members.length} </Text>
+                <Text style={styles.date}>{type.val().startDate} - {type.val().endDate}</Text>
             </View>
         </TouchableOpacity>);
 
