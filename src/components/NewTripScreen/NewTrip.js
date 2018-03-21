@@ -12,6 +12,7 @@ import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 
+
 var SendIntentAndroid = require('react-native-send-intent');
 
 export default class NewTrip extends React.Component {
@@ -90,8 +91,12 @@ export default class NewTrip extends React.Component {
     // }
 
     componentWillMount() {
+
+    
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
+    
+
     }
     
     openModal() {
@@ -103,7 +108,8 @@ export default class NewTrip extends React.Component {
     }
 
     openEvent() {
-        this.setState({modalEvent: true});
+        const {navigate} = this.props.navigation;
+        navigate('NewEvent', { email: this.state.email})
     }
 
     closeEvent() {
