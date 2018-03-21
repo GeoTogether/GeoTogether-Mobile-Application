@@ -31,36 +31,54 @@ export default class ChatScreen extends React.Component {
 
     async grabMessages(){
 
+        const {state} = this.props.navigation;
+        
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/';
+          // Now simply find the parent and return the name.
+
+        firebase.database().ref(Path).on('value', (snapshot) => {
+            
+        })
+
     }
 
+
+    sendMessage(message){
+        const {state} = this.props.navigation;
+        
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
+
+        firebase.database().ref(Path).push({
+            
+                    
+                    0: state.params.email,
+                    1: message,
+                    2: this.getCurrentTime(),
+                    
+                
+            
+        });
+    }
     //okay so what im doing here is super dumb
     //im checking to see if the trip snapshot matches with another in the database
     //for everything but messages because i cant grab a parent 
     //from snapshot.val which is what is sent through the params currently
     //so it will break if there is a trip with the same everything 
     check(){
-        
-        const {state} = this.props.navigation;
-        
-        
-          // Now simply find the parent and return the name.
-        console.log(state.params.tripKey.key);
-
-        firebase.database().ref('trips/').on('value', (snapshot) => {
-      snapshot.forEach((tripSnapshot) => {
-
-            
-
-      })
-    })
 
     }
 
     addUserToChat(name){
 
     }
+
+    getCurrentTime(){
+        var currentdate = new Date(); 
+        return currentdate.getTime();
+    }
     
     initialMessagesSetUp(){
+        
         const {state} = this.props.navigation;
         var TotalArray = state.params.trip.chats.groupChat.messages;
         var MessageArray =[];
@@ -90,8 +108,8 @@ export default class ChatScreen extends React.Component {
             messages: [
                 {
                     _id: 1,
-                    text: state.params.trip.members,
-                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    text: state.params.email,
+                    createdAt: 1521622981696,
                     user: {
                         _id: 2,
                         name: 'React Native',
@@ -102,10 +120,7 @@ export default class ChatScreen extends React.Component {
         });
     }
     onSend(messages = []) {
-        console.log("here");
-        console.log(this.state.initialUsers);
-        console.log(this.state.initialMessages);
-        console.log(this.state.initialTimeStamps);
+        this.sendMessage(messages[0].text);
 
         this.setState((previousState) => {
             return {

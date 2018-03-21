@@ -116,7 +116,7 @@ export default class NewTrip extends React.Component {
                     firstMessage:[
                     "GeoTogether",
                     "Welcome To The Beginning Of Your Chat",
-                    "7:02",
+                    this.getCurrentTime(),
                     ]
                     }
                 }
@@ -126,6 +126,11 @@ export default class NewTrip extends React.Component {
 
         //after adding the trip go back to trips
         navigate('Trips', {email: this.state.email});
+    }
+
+     getCurrentTime(){
+        var currentdate = new Date(); 
+        return currentdate.getTime();
     }
 
     render() {
