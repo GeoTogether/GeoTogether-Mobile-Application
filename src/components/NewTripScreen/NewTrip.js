@@ -10,7 +10,6 @@ import firebase from '../Firebase/firebaseStorage';
 import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import CheckBox from 'react-native-check-box'
 
 
 var SendIntentAndroid = require('react-native-send-intent');
