@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -24,56 +24,56 @@ export default class GMapView extends React.Component {
 
     }
 
-    getTripInfo(){
+    getTripInfo() {
         this.getTime();
-    	this.popupDialog.show(() => {
-		  
-		});
+        this.popupDialog.show(() => {
+
+        });
     }
 
-    getTime(){
-        if(this.state.trip == "null"){
+    getTime() {
+        if (this.state.trip == "null") {
 
         }
-        else{
+        else {
             var TripDateEnd = this.state.trip.endDate.split('-');
-            var UnixTripDateEnd = new Date(TripDateEnd[0]+'/'+TripDateEnd[1]+'/'+TripDateEnd[2]);
+            var UnixTripDateEnd = new Date(TripDateEnd[0] + '/' + TripDateEnd[1] + '/' + TripDateEnd[2]);
             var UnixTripDateStart = new Date();
             var x = new Date().toLocaleString();
             var diffMs = (UnixTripDateEnd - UnixTripDateStart); // milliseconds between now & Christmas
-            
+
             var Days = Math.floor(diffMs / 86400000); // days
             var Hours = Math.floor((diffMs % 86400000) / 3600000); // hours
             var Mins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
 
 
-            if(diffMs <= 0){
-                    this.setState({ days: ("0")});
-                    this.setState({ hours: ("0")});
-                    this.setState({ mins: ("0")});
+            if (diffMs <= 0) {
+                this.setState({ days: ("0") });
+                this.setState({ hours: ("0") });
+                this.setState({ mins: ("0") });
 
 
-                }
-                else{
-                    this.setState({ days: (Days)});
-                    this.setState({ hours: (Hours)});
-                    this.setState({ mins: (Mins)});
-                }
+            }
+            else {
+                this.setState({ days: (Days) });
+                this.setState({ hours: (Hours) });
+                this.setState({ mins: (Mins) });
+            }
 
-                
-            
 
-        
+
+
+
         }
     }
 
-    closeInfo(){
-    	this.popupDialog.dismiss(() => {
-		 
-		});
+    closeInfo() {
+        this.popupDialog.dismiss(() => {
+
+        });
     }
 
-	
+
 
     // navigation options to be used to navigate the class from other classes
 
@@ -84,7 +84,8 @@ export default class GMapView extends React.Component {
     // the user state with all of the user and the trip information 
     state = {
         destinations: [],
-        destination2: '',
+        markers: [],
+        events: [],
         authenticating: this.props.authenticating,
         user: this.props.user,
         error: '',
@@ -100,6 +101,9 @@ export default class GMapView extends React.Component {
         days: "0",
         hours: "0",
         mins: "0",
+        eventsMarkers: [],
+        userlatitude: 0.1,
+        userlongitude: 0.1,
     };
 
 
@@ -107,27 +111,87 @@ export default class GMapView extends React.Component {
 
     componentWillMount() {
 
+        const { state } = this.props.navigation;
+
+        this.state.destinations.push(state.params.trip.destination1);
+
+        if ((state.params.trip.events !== undefined)) {
+
+            for (var i = 0; i < state.params.trip.events.length; i++) {
+
+                this.state.events.push(state.params.trip.events[i]);
+
+            }
+
+            this.getEventAddress();
+        }
+
+        this.state.destinations.push(state.params.trip.destination2);
+
         this.showAddress();
         this.showDirections();
+        this.getCurrentPosition();
+
+
+
+    }
+
+    componentDidMount() {
+        this.getCurrentPosition();
+    }
+
+    showDirections() {
+
+        const { state } = this.props.navigation;
+
+        if ((this.state.events.length !== 0)) {
+
+            var obj = { d1: state.params.trip.destination1, d2: this.state.events[0].address };
+            this.state.coords.push(obj);
+
+            for (var i = 0; i < this.state.events.length - 1; i++) {
+
+
+                var obj = { d1: this.state.events[i].address, d2: this.state.events[i + 1].address };
+                this.state.coords.push(obj);
+
+            }
+
+            var obj2 = { d1: this.state.events[this.state.events.length - 1].address, d2: state.params.trip.destination2 };
+            this.state.coords.push(obj2);
+
+
+        } else {
+
+            var obj2 = { d1: state.params.trip.destination1, d2: state.params.trip.destination2 };
+            this.state.coords.push(obj2);
+
+
+        }
+
+
 
 
 
     }
 
 
-    showDirections() {
+    getEventAddress() {
 
-        const { state } = this.props.navigation;
+        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
 
-        for (var i = 0; i < state.params.trip.destinations.length - 1; i++) {
+        for (var i = 0; i < this.state.events.length; i++) {
+
+            // Address Geocoding
+            Geocoder.geocodeAddress(this.state.events[i].address.toUpperCase()).then(res => {
+                // res is an Array of geocoding object (see below)
+
+                this.state.eventsMarkers.push(res);
 
 
-            var obj = { d1: state.params.trip.destinations[i], d2: state.params.trip.destinations[i + 1] };
-            this.state.coords.push(obj);
+            }).catch(err => console.log(err))
 
         }
-
-
 
     }
 
@@ -142,13 +206,13 @@ export default class GMapView extends React.Component {
 
         Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
 
-        for (var i = 0; i < state.params.trip.destinations.length; i++) {
+        for (var i = 0; i < this.state.destinations.length; i++) {
 
             // Address Geocoding
-            Geocoder.geocodeAddress(state.params.trip.destinations[i].toUpperCase()).then(res => {
+            Geocoder.geocodeAddress(this.state.destinations[i].toUpperCase()).then(res => {
                 // res is an Array of geocoding object (see below)
 
-                this.state.destinations.push(res);
+                this.state.markers.push(res);
                 this.setState({ latitude: res["0"].position.lat });
                 this.setState({ longitude: res["0"].position.lng });
 
@@ -159,9 +223,30 @@ export default class GMapView extends React.Component {
         }
 
 
+
+
         this.setState({ trip: state.params.trip });
 
 
+    }
+
+
+    getCurrentPosition() {
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+
+                this.setState({
+                    userlatitude: position.coords.latitude,
+                    userlongitude: position.coords.longitude,
+                    error: null,
+                });
+                //  this.setState({ latitude:  position.coords.latitude });
+                // this.setState({ longitude: position.coords.longitude});
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+        );
     }
 
 
@@ -170,15 +255,20 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         // adding buttom components for all the user trips 
-        var MarkersComponents = this.state.destinations.map((type) => <MapView.Marker coordinate={{
+        var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
             latitude: type["0"].position.lat,
             longitude: type["0"].position.lng
         }} title={'marker'}
-            description={this.state.destination1} />)
+        />)
+
+        var eventsMComponents = this.state.eventsMarkers.map((type) => <MapView.Marker coordinate={{
+            latitude: type["0"].position.lat,
+            longitude: type["0"].position.lng
+        }} title={'marker'}
+            pinColor="blue"
+        />)
 
 
-        var origin1 = state.params.trip.destinations[0];
-        var destination1 = state.params.trip.destinations[1];
         var apikey1 = 'AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8';
 
         var dirComponents = this.state.coords.map((type) => <MapViewDirections
@@ -190,6 +280,13 @@ export default class GMapView extends React.Component {
         />)
 
 
+        var userloc = <MapView.Marker coordinate={{
+            latitude: this.state.userlatitude,
+            longitude: this.state.userlongitude
+        }} title={"Your Location"}
+        image = {require('../../images/userlocation.png')}
+      
+       />
         return (
 
 
@@ -198,12 +295,16 @@ export default class GMapView extends React.Component {
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
-                    titleStyle ={styles.title}
-                    backgroundColor= {'black'}
+                    titleStyle={styles.title}
+                    backgroundColor={'black'}
                     leftIconImage={require('../../images/profile.png')}
-                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip:state.params.trip })}
                     rightIcons={[
                         {
+                            image: require('../../images/timeline.png'), // To use a custom image
+                            badge: '1',
+                            onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip:state.params.trip}),
+                        },{
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
                             onPress: () => console.log('Right Custom image !'),
@@ -223,104 +324,108 @@ export default class GMapView extends React.Component {
                 }}>
                     {MarkersComponents}
 
+                    {eventsMComponents}
+
                     {dirComponents}
 
-                
+           {userloc}
+                   
+
                 </MapView>
 
 
-                
-	                <View style={styles.container}>
-					  <PopupDialog 
-					    ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+
+                <View style={styles.container}>
+                    <PopupDialog
+                        ref={(popupDialog) => { this.popupDialog = popupDialog; }}
                         width={.7}
                         height={.55}
-					  >
-					    <View style={styles.infoContainer}>
+                    >
+                        <View style={styles.infoContainer}>
 
-					      <Text style={styles.titleInfoText}>Trip Info</Text>
+                            <Text style={styles.titleInfoText}>Trip Info</Text>
 
-					      	<View
-							  style={{
-							    borderBottomColor: 'black',
-							    borderBottomWidth: 1,
-							    paddingBottom: 10,
-							  }}
-							/>
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
 
-					      <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
-							 <Text style={styles.infoText1}>Group Total: </Text> 
-							 <Text style={styles.infoText2}> $300.12 </Text>
-						  </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+                                <Text style={styles.infoText1}>Group Total: </Text>
+                                <Text style={styles.infoText2}> $300.12 </Text>
+                            </View>
 
-						  <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-							 <Text style={styles.infoText1}>My Total: </Text> 
-							 <Text style={styles.infoText2}> $101.66 </Text>
-						  </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={styles.infoText1}>My Total: </Text>
+                                <Text style={styles.infoText2}> $101.66 </Text>
+                            </View>
 
-						  <Text style={styles.infoText3}> details </Text>
+                            <Text style={styles.infoText3}> details </Text>
 
-						  <View
-							  style={{
-							    borderBottomColor: 'black',
-							    borderBottomWidth: 1,
-							    paddingBottom: 10,
-							  }}
-							/>
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
 
-						  <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
-							 <Text style={styles.infoText1}># Trip Members: </Text> 
-							 <Text style={styles.infoText2}> {this.state.trip.members.length} </Text>
-						  </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+                                <Text style={styles.infoText1}># Trip Members: </Text>
+                                <Text style={styles.infoText2}> {this.state.trip.members.length} </Text>
+                            </View>
 
-						  <Text style={styles.infoText3}> details </Text>
+                            <Text style={styles.infoText3}> details </Text>
 
-						  <View
-							  style={{
-							    borderBottomColor: 'black',
-							    borderBottomWidth: 1,
-							    paddingBottom: 10,
-							  }}
-							/>
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
 
-							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
-							 <Text style={styles.infoText1}>Duration: </Text> 
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10 }}>
+                                <Text style={styles.infoText1}>Duration: </Text>
 
-                             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
                                     <Text style={styles.timeText}> {this.state.days} </Text>
                                     <Text style={styles.infoText1}> days </Text>
-                              </View>
-                              
-                              <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
                                     <Text style={styles.timeText}> {this.state.hours} </Text>
                                     <Text style={styles.infoText1}> hours </Text>
-                              </View>
+                                </View>
 
-                              <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
                                     <Text style={styles.timeText}> {this.state.mins} </Text>
                                     <Text style={styles.infoText1}> mins </Text>
-                              </View>
-						  </View>
+                                </View>
+                            </View>
 
-						  <View style={styles.centerView}>
-					      <TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeInfo()}>
-	                      		<Text style={styles.buttonText}>Close</Text>
-	                      </TouchableOpacity>
-	                      </View>
+                            <View style={styles.centerView}>
+                                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeInfo()}>
+                                    <Text style={styles.buttonText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
 
-					    </View>
-					  </PopupDialog>
-					</View>
-				
+                        </View>
+                    </PopupDialog>
+                </View>
 
-				<TouchableHighlight onPress={()=>this.getTripInfo()} style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}}>
-				    <Image style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}} source={require('../../images/infobutton.png')} />
-				</TouchableHighlight>
 
-               	
-				    
-				
-                 
+                <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
+                    <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
+                </TouchableHighlight>
+
+
+
+
+
 
 
             </View>
@@ -349,8 +454,8 @@ const styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0
-    }, 
-    title:{
+    },
+    title: {
         textAlign: 'center',
         color: 'white',
         fontWeight: '700'
@@ -369,12 +474,12 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '100'
     },
-    infoContainer:{
-    	paddingRight: 40,
-    	paddingLeft:40,
+    infoContainer: {
+        paddingRight: 40,
+        paddingLeft: 40,
 
     },
-    titleInfoText:{
+    titleInfoText: {
         textAlign: 'center',
         color: 'rgb(128,128,128)',
         fontWeight: 'normal',
@@ -382,27 +487,27 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         paddingTop: 10,
     },
-    infoText1:{
-    	textAlign: 'center',
+    infoText1: {
+        textAlign: 'center',
         color: 'rgb(128,128,128)',
         fontWeight: 'normal',
         fontSize: 16,
         lineHeight: 30,
     },
-    infoText2:{
+    infoText2: {
         color: '#000',
         fontWeight: 'normal',
         fontSize: 16,
         lineHeight: 30,
     },
-    infoText3:{
+    infoText3: {
         color: '#000',
         fontWeight: 'normal',
         fontSize: 14,
         lineHeight: 30,
         textAlign: 'center',
     },
-    timeText:{
+    timeText: {
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20,

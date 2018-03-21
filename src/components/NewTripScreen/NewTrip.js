@@ -20,7 +20,6 @@ export default class NewTrip extends React.Component {
     }
     // the user state with all of the user information
     state = {
-        destinations: [],
         destination1: '',
         destination2: '',
         authenticating: false,
@@ -28,12 +27,16 @@ export default class NewTrip extends React.Component {
         error: '',
         tripname: '',
         members: [],
+        events: [],
         member: '',
         startDate: null,
         endDate: null,
         email: '',
         UserInvite: '',
         modalVisible: false,
+        modalEvent: false,
+        eventTitle: '',
+        eventAddress: '',
     }
     sendEmail = () => {
 
@@ -53,7 +56,7 @@ export default class NewTrip extends React.Component {
         SendIntentAndroid.sendText({
             title: 'Invitation to join ' + this.state.tripname,
             text: "Hey there! I hope you can accept this invite to join this amazing trip.\n\n" +
-            this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
+                this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
             type: SendIntentAndroid.TEXT_PLAIN
         });
 
@@ -81,21 +84,40 @@ export default class NewTrip extends React.Component {
     }
 
     openModal() {
-        this.setState({modalVisible: true});
+        this.setState({ modalVisible: true });
     }
 
     closeModal() {
-        this.setState({modalVisible: false});
+        this.setState({ modalVisible: false });
     }
+
+    openEvent() {
+        this.setState({ modalEvent: true });
+    }
+
+    closeEvent() {
+        this.setState({ modalEvent: false });
+    }
+
+    onPressNewEvent(){
+        const { eventTitle, eventAddress } = this.state;
+
+        var obj = { title: eventTitle, address: eventAddress };
+            this.state.events.push(obj);
+
+            this.closeEvent();
+
+    }
+
+
 
     // function to create a new trip using firebase database
     onPressNewTrip() {
-        const {navigate} = this.props.navigation;
-        const {tripname, destinations, members, email, startDate, endDate} = this.state;
+        const { navigate } = this.props.navigation;
+        const { tripname, destination1, destination2, members, email, startDate, endDate, events } = this.state;
 
 
-        destinations.push(this.state.destination1);
-        destinations.push(this.state.destination2);
+
 
 
         members.push(email);
@@ -107,17 +129,19 @@ export default class NewTrip extends React.Component {
             admin: email,
             startDate: startDate,
             endDate: endDate,
-            destinations: destinations,
-            members: members
+            destination1: destination1,
+            destination2: destination2,
+            members: members,
+            events: events
         });
 
 
         //after adding the trip go back to trips
-        navigate('Trips', {email: this.state.email});
+        navigate('Trips', { email: this.state.email });
     }
 
     render() {
-        const {navigate} = this.props.navigation;
+        const { navigate } = this.props.navigation;
 
         return (
             <View style={styles.container}>
@@ -130,7 +154,7 @@ export default class NewTrip extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.input}
-                        onChangeText={tripname => this.setState({tripname})} // gets the trip name
+                        onChangeText={tripname => this.setState({ tripname })} // gets the trip name
                     />
                 </View>
 
@@ -149,7 +173,7 @@ export default class NewTrip extends React.Component {
                         format="YYYY-MM-DD"
                         customStyles={styles.durationInput}
                         onDateChange={(startdate) => {
-                            this.setState({startDate: startdate}), this.placeholder = startdate
+                            this.setState({ startDate: startdate }), this.placeholder = startdate
                         }}
                     />
                     <DatePicker
@@ -165,7 +189,7 @@ export default class NewTrip extends React.Component {
                         format="YYYY-MM-DD"
                         customStyles={styles.durationInput}
                         onDateChange={(enddate) => {
-                            this.setState({endDate: enddate}), this.placeholder = enddate
+                            this.setState({ endDate: enddate }), this.placeholder = enddate
                         }}
                     />
                 </View>
@@ -178,7 +202,7 @@ export default class NewTrip extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.input}
-                        onChangeText={destination1 => this.setState({destination1})}
+                        onChangeText={destination1 => this.setState({ destination1 })}
                     />
                 </View>
 
@@ -190,12 +214,12 @@ export default class NewTrip extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.input}
-                        onChangeText={destination2 => this.setState({destination2})}
+                        onChangeText={destination2 => this.setState({ destination2 })}
                     />
                 </View>
 
                 <View style={styles.addFuncContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity  onPress={() => this.openEvent()}>
                         <Text style={styles.splitText}>+ ADD EVENT</Text>
                     </TouchableOpacity>
 
@@ -204,41 +228,85 @@ export default class NewTrip extends React.Component {
                     </TouchableOpacity>
                 </View>
 
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                        <View style={styles.container2}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <View style={styles.container2}>
 
-                            <Modal
-                                visible={this.state.modalVisible}
-                                animationType={'slide'}
-                                onRequestClose={() => this.closeModal()}
-                            >
-                                <View style={styles.modalContainer}>
-                                    <View style={styles.innerContainer}>
-                                        <Text>Please select a method of invitation</Text>
+                        <Modal
+                            visible={this.state.modalVisible}
+                            animationType={'slide'}
+                            onRequestClose={() => this.closeModal()}
+                        >
+                            <View style={styles.modalContainer}>
+                                <View style={styles.innerContainer}>
+                                    <Text>Please select a method of invitation</Text>
 
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
-                                            <Text style={styles.buttonText}>Send SMS Invite</Text>
-                                        </TouchableOpacity>
+                                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
+                                        <Text style={styles.buttonText}>Send SMS Invite</Text>
+                                    </TouchableOpacity>
 
-                                        <TouchableOpacity style={styles.buttonContainer}
-                                                          onPress={() => this.sendEmail()}>
-                                            <Text style={styles.buttonText}>Send Email Invite</Text>
-                                        </TouchableOpacity>
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                        onPress={() => this.sendEmail()}>
+                                        <Text style={styles.buttonText}>Send Email Invite</Text>
+                                    </TouchableOpacity>
 
-                                        <TouchableOpacity style={styles.buttonContainer}
-                                                          onPress={() => this.closeModal()}>
-                                            <Text style={styles.buttonText}>Back To Trip View</Text>
-                                        </TouchableOpacity>
-                                    </View>
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                        onPress={() => this.closeModal()}>
+                                        <Text style={styles.buttonText}>Back To Trip View</Text>
+                                    </TouchableOpacity>
                                 </View>
-                            </Modal>
+                            </View>
+                        </Modal>
 
-                            <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
-                                <Text style={styles.buttonText}>CREATE TRIP</Text>
-                            </TouchableOpacity>
 
-                        </View>
-                    </TouchableWithoutFeedback>
+
+
+                        <Modal
+                            visible={this.state.modalEvent}
+                            animationType={'slide'}
+                            onRequestClose={() => this.closeEvent()}
+                        >
+                            <View style={styles.modalContainer}>
+                                <View style={styles.innerContainer}>
+
+                                    <View style={styles.tripNameContainer}>
+                                        <Text style={styles.textHeader}>Title of the event</Text>
+                                        <TextInput
+                                            placeholder="ex. Breakfast"
+                                            returnKeyType="done"
+                                            autoCapitalize="words"
+                                            autoCorrect={true}
+                                            style={styles.input}
+                                            onChangeText={eventTitle => this.setState({ eventTitle })} // gets the trip name
+                                        />
+                                    </View>
+
+                                       <View style={styles.tripNameContainer}>
+                                        <Text style={styles.textHeader}>Address of the event</Text>
+                                        <TextInput
+                                            placeholder="ex. ASU"
+                                            returnKeyType="done"
+                                            autoCapitalize="words"
+                                            autoCorrect={true}
+                                            style={styles.input}
+                                            onChangeText={eventAddress => this.setState({ eventAddress })} // gets the trip name
+                                        />
+                                    </View>
+
+  <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewEvent()}>
+                            <Text style={styles.buttonText}>CREATE Event</Text>
+                        </TouchableOpacity>
+                                </View>
+                            </View>
+                        </Modal>
+
+
+
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
+                            <Text style={styles.buttonText}>CREATE TRIP</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         );
     }
@@ -249,23 +317,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    tripNameContainer:{
-      flex: 1,
+    tripNameContainer: {
+        flex: 1,
     },
-    textHeader:{
+    textHeader: {
         color: '#000eff'
     },
-    durationContainer:{
-      flex: 2
+    durationContainer: {
+        flex: 2
     },
-    startLocationContainer:{
+    startLocationContainer: {
         flex: 1
     },
-    endLocationContainer:{
-        flex:1
+    endLocationContainer: {
+        flex: 1
     },
-    addFuncContainer:{
-      flex: 1
+    addFuncContainer: {
+        flex: 1
     },
     container2: {
         paddingTop: 10
