@@ -88,7 +88,17 @@ export default class ChatScreen extends React.Component {
         });
     }
     
-    addUserToChat(name){
+    addUserToGroupChat(name){
+
+        const {state} = this.props.navigation;
+        
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/users/';
+
+        firebase.database().ref(Path).push({
+                      
+                    name,
+            
+        });
 
     }
 
