@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert, Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -243,6 +243,30 @@ export default class NewTrip extends React.Component {
                         </View>
                     </View>
 
+                    <Modal
+                        visible={this.state.modalVisible}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeModal()}>
+
+                        <View style={styles.modalContainer}>
+                            <View style={styles.innerContainer}>
+
+                                <TouchableOpacity  onPress={() => this.sendSMS()}>
+                                    <Image source={require('../../images/sms.png')} />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    onPress={() => this.sendEmail()}>
+                                    <Image source={require('../../images/email.png')} />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity  onPress={() => this.closeModal()} >
+                                    <Image source={require('../../images/cancel.png')} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
                     <View style={styles.addContiner}>
                     <View style={styles.addFuncContainer}>
                     <TouchableOpacity onPress={() => this.openEvent()}>
@@ -331,12 +355,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 100,
-        width: 350,
+        height: 300,
+        width: 375,
     },
     innerContainer: {
-        backgroundColor: '#fffaf0',
-        padding: 20,
+        backgroundColor: '#ffffff',
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 10,
         borderRadius: 4,
         borderColor: "#ffa53f"
 
