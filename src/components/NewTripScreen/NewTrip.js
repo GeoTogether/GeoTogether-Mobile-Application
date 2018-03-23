@@ -10,6 +10,7 @@ import firebase from '../Firebase/firebaseStorage';
 import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -41,21 +42,21 @@ export default class NewTrip extends React.Component {
     }
 
 
-    
+
     componentWillMount() {
 
         const { state } = this.props.navigation;
 
-       this.setState({email: state.params.email});
+        this.setState({ email: state.params.email });
 
         if ((state.params.trip !== undefined)) {
 
-            this.setState({tripname: state.params.trip.tripname })
-            this.setState({destination1: state.params.trip.destination1 })
-            this.setState({destination2: state.params.trip.destination2 })
-            this.setState({startDate: state.params.trip.startDate })
-            this.setState({endDate: state.params.trip.endDate })
-            for(var i =0; i<state.params.trip.members.length; i++){
+            this.setState({ tripname: state.params.trip.tripname })
+            this.setState({ destination1: state.params.trip.destination1 })
+            this.setState({ destination2: state.params.trip.destination2 })
+            this.setState({ startDate: state.params.trip.startDate })
+            this.setState({ endDate: state.params.trip.endDate })
+            for (var i = 0; i < state.params.trip.members.length; i++) {
 
 
                 this.state.members.push(state.params.trip.members[i])
@@ -67,7 +68,7 @@ export default class NewTrip extends React.Component {
 
             }
 
-           
+
         }
 
 
@@ -130,7 +131,7 @@ export default class NewTrip extends React.Component {
         navigate('NewEvent', { email: this.state.email, trip: tripinfo });
     }
 
-   
+
 
     // function to create a new trip using firebase database
     onPressNewTrip() {
@@ -217,27 +218,75 @@ export default class NewTrip extends React.Component {
 
                 <View style={styles.startLocationContainer}>
                     <Text style={styles.textHeader}>Start Location</Text>
-                    <TextInput
-                        placeholder="ex. Tempe, AZ"
-                        value={this.state.destination1}
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.input}
-                        onChangeText={destination1 => this.setState({ destination1 })}
+                    <GooglePlacesAutocomplete
+                        placeholder='ex. Tempe, AZ'
+                        minLength={2}
+                        autoFocus={false}
+                        returnKeyType={'default'}
+                        fetchDetails={true}
+                        styles={{
+                            textInputContainer: {
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                borderTopWidth: 0,
+                                borderBottomWidth: 0
+                            },
+                            textInput: {
+                                marginLeft: 0,
+                                marginRight: 0,
+                                height: 38,
+                                color: '#5d5d5d',
+                                fontSize: 16
+                            },
+                            predefinedPlacesDescription: {
+                                color: '#1faadb'
+                            },
+                        }}
+                        currentLocation={false}
+                        query={{
+                            key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
+                            language: 'en', // language of the results
+                        }}
+                        onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                       
+                        this.setState({ destination1: data.description })
+                    }}
                     />
                 </View>
 
                 <View style={styles.endLocationContainer}>
                     <Text style={styles.textHeader}>End Location</Text>
-                    <TextInput
-                        placeholder="ex. Tempe, AZ"
-                        value={this.state.destination2}
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.input}
-                        onChangeText={destination2 => this.setState({ destination2 })}
+                    <GooglePlacesAutocomplete
+                        placeholder='ex. Tempe, AZ'
+                        minLength={2}
+                        autoFocus={false}
+                        returnKeyType={'default'}
+                        fetchDetails={true}
+                        styles={{
+                            textInputContainer: {
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                borderTopWidth: 0,
+                                borderBottomWidth: 0
+                            },
+                            textInput: {
+                                marginLeft: 0,
+                                marginRight: 0,
+                                height: 38,
+                                color: '#5d5d5d',
+                                fontSize: 16
+                            },
+                            predefinedPlacesDescription: {
+                                color: '#1faadb'
+                            },
+                        }}
+                        currentLocation={false}
+                        query={{
+                            key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
+                            language: 'en', // language of the results
+                        }}
+                        onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                          
+                            this.setState({ destination2: data.description })
+                        }}
                     />
                 </View>
 
