@@ -18,6 +18,7 @@ import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 import GMapView from './components/MapViewScreen/GMapView';
 import NewEvent from './components/NewEventScreen/NewEvent';
 
+
 // adding all the classes ti navigator
 const Home = StackNavigator({
     SplashScreen: { screen: SplashScreen },
@@ -31,6 +32,7 @@ const Home = StackNavigator({
     GMapView:{screen: GMapView},
     TimeLineScreen: {screen: TimeLineScreen},
     NewEvent:{screen: NewEvent},
+
 },
     { headerMode: 'screen' });
 
