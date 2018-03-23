@@ -49,12 +49,43 @@ export default class NewEvent extends React.Component {
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
 
     _handleDatePicked = (date) => {
-        this.setState({startTimeChosen: date.toString()});
+       
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var period = ' PM';
+
+    if (hours > 12) {
+        hours -= 12;
+        period = ' AM'
+    } else if (hours === 0) {
+        hours = 12;
+        period = ' AM'
+    }
+
+    var todisplay = hours.toString() + ':' + minutes.toString()+ period;
+
+        this.setState({startTimeChosen: todisplay});
         this._hideDateTimePicker();
     };
 
     _handleDatePicked2 = (date) => {
-        this.setState({endTimeChosen: date.toString()});
+        
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var period = ' PM';
+
+    if (hours > 12) {
+        hours -= 12;
+        period = ' AM'
+    } else if (hours === 0) {
+        hours = 12;
+        period = ' AM'
+    }
+
+    var todisplay = hours.toString() + ':' + minutes.toString()+ period;
+
+        this.setState({endTimeChosen: todisplay});
         this._hideDateTimePicker();
     };
 

@@ -46,7 +46,7 @@ export default class NewTrip extends React.Component {
 
         const { state } = this.props.navigation;
 
-       
+       this.setState({email: state.params.email});
 
         if ((state.params.trip !== undefined)) {
 
@@ -55,8 +55,18 @@ export default class NewTrip extends React.Component {
             this.setState({destination2: state.params.trip.destination2 })
             this.setState({startDate: state.params.trip.startDate })
             this.setState({endDate: state.params.trip.endDate })
-            this.setState({members: state.params.trip.members })
-            this.setState({events: state.params.trip.events })
+            for(var i =0; i<state.params.trip.members.length; i++){
+
+
+                this.state.members.push(state.params.trip.members[i])
+            }
+
+            for (var j = 0; j < state.params.trip.events.length; j++) {
+
+                this.state.events.push(state.params.trip.events[j]);
+
+            }
+
            
         }
 
@@ -116,7 +126,7 @@ export default class NewTrip extends React.Component {
     openEvent() {
         const { navigate } = this.props.navigation;
 
-        var tripinfo = { tripname: this.state.tripname, destination1: this.state.destination1, destination2: this.state.destination2, email: this.state.email, startDate: this.state.startDate, endDate: this.state.endDate, events: this.state.events }
+        var tripinfo = { tripname: this.state.tripname, destination1: this.state.destination1, destination2: this.state.destination2, email: this.state.email, startDate: this.state.startDate, endDate: this.state.endDate, events: this.state.events, members: this.state.members }
         navigate('NewEvent', { email: this.state.email, trip: tripinfo });
     }
 
