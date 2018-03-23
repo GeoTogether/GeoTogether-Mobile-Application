@@ -146,18 +146,18 @@ export default class GMapView extends React.Component {
 
         if ((this.state.events.length !== 0)) {
 
-            var obj = { d1: state.params.trip.destination1, d2: this.state.events[0].address };
+            var obj = { d1: state.params.trip.destination1, d2: this.state.events[0].eventAddress };
             this.state.coords.push(obj);
 
             for (var i = 0; i < this.state.events.length - 1; i++) {
 
 
-                var obj = { d1: this.state.events[i].address, d2: this.state.events[i + 1].address };
+                var obj = { d1: this.state.events[i].eventAddress, d2: this.state.events[i + 1].eventAddress };
                 this.state.coords.push(obj);
 
             }
 
-            var obj2 = { d1: this.state.events[this.state.events.length - 1].address, d2: state.params.trip.destination2 };
+            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress, d2: state.params.trip.destination2 };
             this.state.coords.push(obj2);
 
 
@@ -183,7 +183,7 @@ export default class GMapView extends React.Component {
         for (var i = 0; i < this.state.events.length; i++) {
 
             // Address Geocoding
-            Geocoder.geocodeAddress(this.state.events[i].address.toUpperCase()).then(res => {
+            Geocoder.geocodeAddress(this.state.events[i].eventAddress.toUpperCase()).then(res => {
                 // res is an Array of geocoding object (see below)
 
                 this.state.eventsMarkers.push(res);

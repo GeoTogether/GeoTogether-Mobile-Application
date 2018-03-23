@@ -12,7 +12,6 @@ import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 
-
 var SendIntentAndroid = require('react-native-send-intent');
 
 export default class NewTrip extends React.Component {
@@ -39,13 +38,46 @@ export default class NewTrip extends React.Component {
         modalEvent: false,
         eventTitle: '',
         eventAddress: '',
-    };
+    }
 
-    isChecked = false;
 
-    _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
+    
+    componentWillMount() {
 
-    _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
+        const { state } = this.props.navigation;
+
+       this.setState({email: state.params.email});
+
+        if ((state.params.trip !== undefined)) {
+
+            this.setState({tripname: state.params.trip.tripname })
+            this.setState({destination1: state.params.trip.destination1 })
+            this.setState({destination2: state.params.trip.destination2 })
+            this.setState({startDate: state.params.trip.startDate })
+            this.setState({endDate: state.params.trip.endDate })
+            for(var i =0; i<state.params.trip.members.length; i++){
+
+
+                this.state.members.push(state.params.trip.members[i])
+            }
+
+            for (var j = 0; j < state.params.trip.events.length; j++) {
+
+                this.state.events.push(state.params.trip.events[j]);
+
+            }
+
+           
+        }
+
+
+
+
+    }
+
+    _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+    _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     _handleDatePicked = (date) => {
         console.log('A date has been picked: ', date);
@@ -70,7 +102,7 @@ export default class NewTrip extends React.Component {
         SendIntentAndroid.sendText({
             title: 'Invitation to join ' + this.state.tripname,
             text: "Hey there! I hope you can accept this invite to join this amazing trip.\n\n" +
-            this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
+                this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
             type: SendIntentAndroid.TEXT_PLAIN
         });
 
@@ -82,55 +114,28 @@ export default class NewTrip extends React.Component {
         super(props)
     }
 
-    // showAlert = () => {
-    //     this.state.members.push(this.state.UserInvite);
-    //
-    //     Alert.alert(
-    //         this.state.UserInvite + ' has been added to the trip'
-    //     )
-    // }
 
-    componentWillMount() {
-
-    
-        const { state } = this.props.navigation;
-        this.setState({ email: state.params.email });
-    
-
-    }
-    
     openModal() {
-        this.setState({modalVisible: true});
+        this.setState({ modalVisible: true });
     }
 
     closeModal() {
-        this.setState({modalVisible: false});
+        this.setState({ modalVisible: false });
     }
 
     openEvent() {
-        const {navigate} = this.props.navigation;
-        navigate('NewEvent', { email: this.state.email})
+        const { navigate } = this.props.navigation;
+
+        var tripinfo = { tripname: this.state.tripname, destination1: this.state.destination1, destination2: this.state.destination2, email: this.state.email, startDate: this.state.startDate, endDate: this.state.endDate, events: this.state.events, members: this.state.members }
+        navigate('NewEvent', { email: this.state.email, trip: tripinfo });
     }
 
-    closeEvent() {
-        this.setState({modalEvent: false});
-    }
-
-    onPressNewEvent() {
-        const {eventTitle, eventAddress} = this.state;
-
-        var obj = {title: eventTitle, address: eventAddress};
-        this.state.events.push(obj);
-
-        this.closeEvent();
-
-    }
-
+   
 
     // function to create a new trip using firebase database
     onPressNewTrip() {
-        const {navigate} = this.props.navigation;
-        const {tripname, destination1, destination2, members, email, startDate, endDate, events} = this.state;
+        const { navigate } = this.props.navigation;
+        const { tripname, destination1, destination2, members, email, startDate, endDate, events } = this.state;
 
 
         members.push(email);
@@ -150,122 +155,140 @@ export default class NewTrip extends React.Component {
 
 
         //after adding the trip go back to trips
-        navigate('Trips', {email: this.state.email});
+        navigate('Trips', { email: this.state.email });
     }
 
     render() {
-        const {navigate} = this.props.navigation;
+        const { navigate } = this.props.navigation;
 
         return (
             <View style={styles.container}>
-                <View style={styles.childContainer}>
 
-                    <View style={styles.tripNameInputContainer}>
-                        <View style={styles.tripNameContainer}>
-                            <Text style={styles.textHeader}>Name of Trip</Text>
-                            <TextInput
-                                placeholder="ex. Spring Break 2018"
-                                returnKeyType="done"
-                                autoCapitalize="words"
-                                autoCorrect={true}
-                                style={styles.input}
-                                onChangeText={tripname => this.setState({tripname})} // gets the trip name
-                            />
-                        </View>
-                    </View>
+                <View style={styles.tripNameContainer}>
+                    <Text style={styles.textHeader}>Name of Trip</Text>
+                    <TextInput
+                        placeholder="ex. Spring Break 2018"
+                        value={this.state.tripname}
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.input}
+                        onChangeText={tripname => this.setState({ tripname })} // gets the trip name
+                    />
+                </View>
 
-                    <View style={styles.durationChoseContainer}>
-                        <Text style={styles.textHeader}>Duration</Text>
-                        <View style={styles.durationContainer}>
-                            <DatePicker
-                                style={{
-                                    width: '30%',
-                                    height: '60%',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                    paddingBottom: 10
-                                }}
-                                date={this.state.startDate}
-                                showIcon={false}
-                                mode="date"
-                                placeholder="Start Date"
-                                format="YYYY-MM-DD"
-                                customStyles={styles.durationInput}
-                                onDateChange={(startdate) => {
-                                    this.setState({startDate: startdate}), this.placeholder = startdate
-                                }}
-                            />
-                            <Text style={styles.middleText}>to</Text>
-                            <DatePicker
-                                style={{
-                                    width: '30%',
-                                    height: '60%',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                    paddingBottom: 10
-                                }}
-                                date={this.state.endDate}
-                                showIcon={false}
-                                mode="date"
-                                placeholder="End Date"
-                                format="YYYY-MM-DD"
-                                customStyles={styles.durationInput}
-                                onDateChange={(enddate) => {
-                                    this.setState({endDate: enddate}), this.placeholder = enddate
-                                }}
-                            />
-                        </View>
-                    </View>
+                <View style={styles.durationContainer}>
+                    <Text style={styles.textHeader}>Duration</Text>
+                    <DatePicker
+                        style={{
+                            width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                            marginBottom: 20,
+                            paddingHorizontal: 10
+                        }}
+                        date={this.state.startDate}
+                        showIcon={false}
+                        mode="date"
+                        placeholder="Start Date"
+                        value={this.state.startDate}
+                        format="YYYY-MM-DD"
+                        customStyles={styles.durationInput}
+                        onDateChange={(startdate) => {
+                            this.setState({ startDate: startdate }), this.placeholder = startdate
+                        }}
+                    />
+                    <DatePicker
+                        style={{
+                            width: 200, backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                            marginBottom: 20,
+                            paddingHorizontal: 10
+                        }}
+                        date={this.state.endDate}
+                        showIcon={false}
+                        mode="date"
+                        placeholder="End Date"
+                        value={this.state.endDate}
+                        format="YYYY-MM-DD"
+                        customStyles={styles.durationInput}
+                        onDateChange={(enddate) => {
+                            this.setState({ endDate: enddate }), this.placeholder = enddate
+                        }}
+                    />
+                </View>
 
-                    <View style={styles.startLContainment}>
-                        <View style={styles.startLocationContainer}>
-                            <Text style={styles.textHeader}>Start Location</Text>
-                            <TextInput
-                                placeholder="ex. Tempe, AZ"
-                                returnKeyType="done"
-                                autoCapitalize="words"
-                                autoCorrect={true}
-                                style={styles.input}
-                                onChangeText={destination1 => this.setState({destination1})}
-                            />
-                        </View>
-                    </View>
+                <View style={styles.startLocationContainer}>
+                    <Text style={styles.textHeader}>Start Location</Text>
+                    <TextInput
+                        placeholder="ex. Tempe, AZ"
+                        value={this.state.destination1}
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.input}
+                        onChangeText={destination1 => this.setState({ destination1 })}
+                    />
+                </View>
 
-                    <View style={styles.endLContainment}>
-                        <View style={styles.endLocationContainer}>
-                            <Text style={styles.textHeader}>End Location</Text>
-                            <TextInput
-                                placeholder="ex. Tempe, AZ"
-                                returnKeyType="done"
-                                autoCapitalize="words"
-                                autoCorrect={true}
-                                style={styles.input}
-                                onChangeText={destination2 => this.setState({destination2})}
-                            />
-                        </View>
-                    </View>
+                <View style={styles.endLocationContainer}>
+                    <Text style={styles.textHeader}>End Location</Text>
+                    <TextInput
+                        placeholder="ex. Tempe, AZ"
+                        value={this.state.destination2}
+                        returnKeyType="done"
+                        autoCapitalize="words"
+                        autoCorrect={true}
+                        style={styles.input}
+                        onChangeText={destination2 => this.setState({ destination2 })}
+                    />
+                </View>
 
-                    <View style={styles.addContiner}>
-                    <View style={styles.addFuncContainer}>
+                <View style={styles.addFuncContainer}>
                     <TouchableOpacity onPress={() => this.openEvent()}>
-                    <Text style={styles.splitText}>+ ADD EVENT</Text>
+                        <Text style={styles.splitText}>+ ADD EVENT</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => this.openModal()}>
-                    <Text style={styles.splitText}>+ ADD MEMBERS</Text>
+                        <Text style={styles.splitText}>+ ADD MEMBERS</Text>
                     </TouchableOpacity>
-                    </View>
-                    </View>
-
-                    <View style={styles.createBContainer}>
-                        <View style={styles.createBStyle}>
-                            <TouchableOpacity  onPress={() => this.onPressNewTrip()}>
-                                <Text style={styles.buttonText}>CREATE TRIP</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
                 </View>
+
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <View style={styles.container2}>
+
+                        <Modal
+                            visible={this.state.modalVisible}
+                            animationType={'slide'}
+                            onRequestClose={() => this.closeModal()}
+                        >
+                            <View style={styles.modalContainer}>
+                                <View style={styles.innerContainer}>
+                                    <Text>Please select a method of invitation</Text>
+
+                                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
+                                        <Text style={styles.buttonText}>Send SMS Invite</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                        onPress={() => this.sendEmail()}>
+                                        <Text style={styles.buttonText}>Send Email Invite</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                        onPress={() => this.closeModal()}>
+                                        <Text style={styles.buttonText}>Back To Trip View</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </Modal>
+
+
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
+                            <Text style={styles.buttonText}>CREATE TRIP</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
-        // style={styles.buttonContainer}
+
         );
     }
 }
@@ -275,28 +298,33 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    childContainer: {
+    tripNameContainer: {
         flex: 1,
-        marginTop: '15%',
-        marginBottom: '15%',
-        marginLeft: '5%',
-        marginRight: '5%'
     },
     textHeader: {
-        color: '#7a7a7a',
-        fontWeight: 'bold'
+        color: '#000eff'
     },
-
-
-
+    durationContainer: {
+        flex: 2
+    },
+    startLocationContainer: {
+        flex: 1
+    },
+    endLocationContainer: {
+        flex: 1
+    },
+    addFuncContainer: {
+        flex: 1
+    },
     container2: {
-        // paddingTop: 10
+        paddingTop: 10
     },
     input: {
-        height: '100%',
-        width: '70%',
+        height: 50,
+        width: 350,
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
         marginBottom: 10,
+        paddingHorizontal: 10
     },
     durationInput: {
         height: 50,
@@ -304,7 +332,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
         marginBottom: 20,
         paddingHorizontal: 10,
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     buttonContainer: {
         backgroundColor: 'rgb(0,25,88)',
@@ -316,16 +344,13 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '100',
-        fontSize: 20
-
+        fontWeight: 'bold'
     },
     splitText: {
         textAlign: 'left',
         color: 'rgb(0,25,88)',
-        fontWeight: 'normal',
+        fontWeight: 'bold',
         fontSize: 20,
-        paddingBottom: 10
     },
     modalContainer: {
         flex: 1,
@@ -358,78 +383,5 @@ const styles = StyleSheet.create({
     newEContainer: {
         flex: 1,
         //width:
-    },
-    tripNameInputContainer: {
-        height: '10%',
-        // paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    tripNameContainer: {
-        flex: 1
-    },
-    durationChoseContainer: {
-        height: '25%',
-        paddingTop: 30,
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    durationContainer: {
-        flex: 2,
-        flexDirection: 'row',
-        // paddingTop: 10
-    },
-    middleText: {
-        textAlign: 'center',
-        color: 'grey',
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginTop: 15,
-        fontSize: 20
-    },
-    startLContainment: {
-        height: '10%',
-        paddingLeft: 20,
-        paddingRight: 20,
-
-    },
-    startLocationContainer: {
-        flex: 1
-    },
-    endLContainment: {
-        height: '10%',
-        marginTop: 40,
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    endLocationContainer: {
-        flex: 1
-    },
-    addContiner:{
-        height: '10%',
-        marginTop: 25,
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    addFuncContainer: {
-        flex: 1
-    },
-    createBContainer:{
-        height: '10%',
-        marginTop: 35,
-        paddingLeft: 20,
-        paddingRight: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
-
-    },
-    createBStyle:{
-        flex: 1,
-        backgroundColor: 'rgb(0,25,88)',
-        height: '90%',
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 6
     }
 });
