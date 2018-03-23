@@ -10,7 +10,7 @@ import firebase from '../Firebase/firebaseStorage';
 import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
-
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 var SendIntentAndroid = require('react-native-send-intent');
 
@@ -123,14 +123,37 @@ export default class NewEvent extends React.Component {
                         onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
                     />
                     <Text style={styles.textHeader}>Address of the event:</Text>
-                    <TextInput
-                        placeholder="ex. ASU"
-                        underlineColorAndroid="transparent"
-                        returnKeyType="done"
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        style={styles.newEInput}
-                        onChangeText={eventAddress => this.setState({eventAddress})} // gets the trip name
+                    <GooglePlacesAutocomplete
+                        placeholder='ex. Tempe, AZ'
+                        minLength={2}
+                        autoFocus={false}
+                        returnKeyType={'default'}
+                        fetchDetails={true}
+                        styles={{
+                            textInputContainer: {
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                borderTopWidth: 0,
+                                borderBottomWidth: 0,
+                                width: '90%',
+                            },
+                            textInput: {
+                                width: '90%',
+                                backgroundColor: 'white',
+                                borderRadius: 30
+                            },
+                            predefinedPlacesDescription: {
+                                color: '#1faadb'
+                            },
+                        }}
+                        currentLocation={false}
+                        query={{
+                            key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
+                            language: 'en', // language of the results
+                        }}
+                        onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                          
+                            this.setState({ eventAddress: data.description })
+                        }}
                     />
                 </View>
 
