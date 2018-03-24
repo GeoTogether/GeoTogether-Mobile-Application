@@ -6,106 +6,126 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 export default class SplashScreen extends Component {
 
-    constructor(props) {
-        super(props)
-
-    }
-
     static navigationOptions = {
         header: null
     };
 
+    constructor(props) {
+        super(props)
+    }
+
     render() {
         const {navigate} = this.props.navigation;
         return (
-
-            <View style={styles.container}>
-
-                <LinearGradient colors={['#00B4AB', '#FE7C00']}>
-
+            <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.container}>
                 <View style={styles.logoContainer}>
-                    <Image
-                        style={styles.logoStyle}
-
-                        source={require('../../images/geotogetherlogo.png')}
-                    />
+                    <View style={styles.logoContainerStyle}>
+                        <Image
+                            style={styles.logoStyle}
+                            source={require('../../images/geotogetherlogo.png')}
+                        />
+                    </View>
                 </View>
-
                 <View style={styles.textLogoContainer}>
-                    <Image
-                    style={styles.textLogoStyle}
-                    source={require('../../images/geotogethertext.png')}
-                    />
+                    <View style={styles.textLogoContainerStyle}>
+                        <Image
+                            style={styles.textLogoStyle}
+                            source={require('../../images/geotogethertext.png')}
+                        />
+                    </View>
                 </View>
-
                 <View style={styles.formContainer}>
                     <View style={styles.buttonFormat}>
-                        <TouchableOpacity style={styles.buttonStyle} onPress={() => navigate('Login')}>
-                            <Text style={styles.buttonTextStyle}>Login</Text>
-                        </TouchableOpacity>
+                        <View style={styles.loginContainer}>
+                            <TouchableOpacity onPress={() => navigate('Login')}>
+                                <Text style={styles.buttonTextStyle}>Login</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.signUpContainer}>
+                            <TouchableOpacity onPress={() => navigate('SignUp')}>
+                                <Text style={styles.buttonTextStyle}>Sign Up</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.buttonFormat}>
-                        <TouchableOpacity style={styles.buttonStyle} onPress={() => navigate('SignUp')}>
-                            <Text style={styles.buttonTextStyle}>Sign Up</Text>
-                        </TouchableOpacity>
-                    </View>
-
                 </View>
-                </LinearGradient>
-            </View>
-
-
-
+            </LinearGradient>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column'
+        flex: 1
     },
     logoContainer: {
-        height: '45%',
+        height: '60%',
         alignItems: 'center',
         justifyContent: 'center'
     },
+    logoContainerStyle: {
+        width: '70%',
+        height: '70%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '20%'
+    },
     logoStyle: {
-        width: 250,
-        height: 250
+        width: '100%',
+        height: '100%',
+        alignItems: 'center'
     },
     textLogoContainer: {
         height: '20%',
         alignItems: 'center',
         justifyContent: 'center'
     },
+    textLogoContainerStyle: {
+        height: '50%',
+        width: '80%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '-5%'
+    },
     textLogoStyle: {
         resizeMode: 'contain',
-        width: 300,
-        height: 200
+        width: '100%',
+        height: '80%'
     },
     formContainer: {
-        height: '45%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        height: '20%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     buttonFormat: {
-        width: '50%',
+        width: '80%',
         height: '50%',
-        padding: 20
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row'
     },
-    buttonStyle: {
-        backgroundColor: 'rgb(0,25,88)',
-        width: 130,
-
+    loginContainer: {
+        width: '45%',
+        height: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginLeft: '2%',
+        backgroundColor: 'rgb(0,25,88)'
+    },
+    signUpContainer: {
+        width: '45%',
+        height: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginRight: '2%',
+        backgroundColor: 'rgb(0,25,88)'
     },
     buttonTextStyle: {
         fontSize: 14,
         textAlign: 'center',
         color: 'white',
-        fontWeight: '500',
-        borderRadius: 5,
-        paddingVertical: 10,
+        fontWeight: '100',
     }
-
 });
