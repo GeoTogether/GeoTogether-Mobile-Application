@@ -1,5 +1,14 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, Image, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import {
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    KeyboardAvoidingView,
+    TextInput,
+    TouchableOpacity
+} from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -9,23 +18,19 @@ import firebase from '../Firebase/firebaseStorage';
 import LinearGradient from 'react-native-linear-gradient';
 
 
-
-
-
-
 export default class SignUp extends React.Component {
 
     constructor(props) {
         super(props)
     }
 
-  // navigation options to be used to navigate the class from other classes
+    // navigation options to be used to navigate the class from other classes
 
     static navigationOptions = {
         title: 'SignUp',
         header: null
-    }
-  // the user state with all of the user information
+    };
+    // the user state with all of the user information
     state = {
         email: '',
         password: '',
@@ -35,201 +40,217 @@ export default class SignUp extends React.Component {
         datastor: '',
         fname: '',
         lname: '',
-    }
+    };
 
     componentWillMount() {
-
 
     }
 
 // function to sign up the user using firebase authentication
-    onPressSignUp(){
-        const { email, password, fname, lname } = this.state;
-        const { navigate } = this.props.navigation;
+    onPressSignUp() {
+        const {email, password, fname, lname} = this.state;
+        const {navigate} = this.props.navigation;
 
         // add the user email and password to firebase 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => this.setState({
-              authenticating: false,
-              user,
-              error: '',
+                authenticating: false,
+                user,
+                error: '',
             })).catch(() => this.setState({
-              authenticating: false,
-              user: null,
-              error: 'Sign Up Failure',
-            }))
+            authenticating: false,
+            user: null,
+            error: 'Sign Up Failure',
+        }));
 
-            // add the user to the database
-            firebase.database().ref('users/').push({
-              first: fname,
-              last: lname,
-              email: email,
-              photo: '',
-              newUser: 1,
-            });
-
-
-         // if the register is success
-            if (this.state.error == ''){
-                navigate('Login'); // go back to login
-            }
+        // add the user to the database
+        firebase.database().ref('users/').push({
+            first: fname,
+            last: lname,
+            email: email,
+            photo: '',
+            newUser: 1,
+        });
 
 
+        // if the register is success
+        if (this.state.error == '') {
+            navigate('Login'); // go back to login
+        }
     }
-
-
-
 
 
     render() {
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
 
         return (
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                <KeyboardAvoidingView behavior="padding" style={styles.container}>
-            <View style={styles.Container}>
-                <View>
-                <TouchableOpacity onPress={() => navigate('SplashScreen')} style={styles.back} >
-                    <Image source={require('../../images/backarrow.png')}/>
-                </TouchableOpacity>
+                {/*<KeyboardAvoidingView behavior="padding" style={styles.container}>*/}
+                {/*<View style={styles.Container}>*/}
+                <View style={styles.backArrowContainer}>
+                    <View style={styles.backArrowStyle}>
+                        <TouchableOpacity onPress={() => navigate('SplashScreen')}>
+                            <Image
+                                style={styles.arrowStyle}
+                                source={require('../../images/backarrow.png')}/>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.logoContainer}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../images/geotogether.png')}
+                    <View style={styles.logoStyle}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../../images/geotogetherlogo.png')}
+                        />
+                    </View>
+                </View>
+                <View style={styles.fNameContainer}>
+                    <TextInput
+                        placeholder="Full name"
+                        underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={fname => this.setState({fname})}
+                        style={styles.fullNameStyle}
                     />
                 </View>
-            <TextInput
-            placeholder="Full name"
-            underlineColorAndroid="transparent"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={fname => this.setState({ fname })}
-            style={styles.input}
-          />
-
-
-
-          <TextInput
-            placeholder="Email Address"
-            underlineColorAndroid="transparent"
-            returnKeyType="next"
-            onSubmitEditing={() => this.passwordInput.focus()}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={email => this.setState({ email })}
-            style={styles.input2}
-          />
-
-          <TextInput
-            placeholder="Password"
-            underlineColorAndroid="transparent"
-            secureTextEntry
-            style={styles.input3}
-            onChangeText={password => this.setState({ password })}
-          />
-
-          <TouchableOpacity onPress={() => this.onPressSignUp()} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
-              borderRadius: 10,
-              marginBottom: 125
-             }} >
-            <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableOpacity>
-
-        </View>
-        </KeyboardAvoidingView>
+                <View style={styles.emailContainer}>
+                    <TextInput
+                        placeholder="Email Address"
+                        underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        onSubmitEditing={() => this.passwordInput.focus()}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={email => this.setState({email})}
+                        style={styles.emailStyle}
+                    />
+                </View>
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        placeholder="Password"
+                        underlineColorAndroid="transparent"
+                        secureTextEntry
+                        style={styles.passwordStyle}
+                        onChangeText={password => this.setState({password})}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity onPress={() => this.onPressSignUp()}>
+                            <Text style={styles.buttonText}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </LinearGradient>
         )
-
     }
-
-
-
 }
 
 
 const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-  },
-  logo: {
-      width: 250,
-      height: 250
-  },
-  logoContainer: {
-      marginBottom: 75,
-      flex: 3,
-      alignItems: 'center',
-      flexDirection: 'row',
-      justifyContent: 'center'
-  },
-  back: {
-    marginLeft: -20,
-    marginTop: 5,
-  },
-  linearGradient: {
-      flex: 1,
-      paddingLeft: 15,
-      paddingRight: 15,
-      borderRadius: 2
-  },
-
-  buttonText: {
-      textAlign: 'center',
-      color: '#FFFFFF',
-      fontWeight: '700',
-      paddingTop: 10,
-      paddingBottom: 10,
-  },
-  buttonContainer: {
-      backgroundColor: 'rgb(0,25,88)',
-      borderRadius: 10,
-      width: 300,
-      height: 45,
-      marginBottom: 20,
-
-
-      paddingHorizontal: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
-
-
-
-  },
-  input: {
-      height: 50,
-      width: 350,
-      marginBottom: 10,
-
-
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      backgroundColor: 'white',
-      borderRadius: 10,
-  },
-  input2: {
-      height: 50,
-      width: 350,
-      marginBottom: 10,
-
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      backgroundColor: 'white',
-      borderRadius: 10,
-  },
-  input3: {
-      height: 50,
-      width: 350,
-      marginBottom: 40,
-      paddingHorizontal: 10,
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      backgroundColor: 'white',
-      borderRadius: 10,
-  }
-
-
+    linearGradient: {
+        flex: 1
+    },
+    backArrowContainer: {
+        height: '15%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexDirection: 'column',
+        marginTop: 5
+    },
+    backArrowStyle: {
+        width: '90%',
+        height: '80%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    },
+    arrowStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    logoContainer: {
+        height: '40%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '-15%'
+    },
+    logoStyle: {
+        width: '70%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    logo: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center'
+    },
+    fNameContainer: {
+        width: '100%',
+        height: '11%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '2%'
+    },
+    fullNameStyle: {
+        height: '100%',
+        width: '90%',
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10,
+    },
+    emailContainer: {
+        width: '100%',
+        height: '11%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '2%'
+    },
+    emailStyle: {
+        height: '100%',
+        width: '90%',
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10,
+    },
+    passwordContainer: {
+        width: '100%',
+        height: '11%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '2%'
+    },
+    passwordStyle: {
+        height: '100%',
+        width: '90%',
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10
+    },
+    buttonContainer: {
+        height: '13%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '3%'
+    },
+    buttonStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(0,25,88)',
+        borderRadius: 9,
+        width: '80%',
+        height: '60%'
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100',
+        fontSize: 15
+    },
 });
