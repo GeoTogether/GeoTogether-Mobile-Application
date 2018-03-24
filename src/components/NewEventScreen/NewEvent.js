@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet, View, TextInput, TouchableOpacity, Text, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -107,10 +107,16 @@ export default class NewEvent extends React.Component {
     render() {
 
         const {navigate} = this.props.navigation;
+        const {goBack} = this.props.navigation;
 
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
+                <View>
+                    <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                        <Image source={require('../../images/backarrow.png')}/>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.newTitleContainer}>
                     <Text style={styles.textHeader}>Title of the event:</Text>
                     <TextInput
@@ -263,6 +269,7 @@ const styles = StyleSheet.create({
     startLocationContainer: {
         flex: 1
     },
+
     endLocationContainer: {
         flex: 1
     },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View,  KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, Image,  KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -59,14 +59,20 @@ export default class PasswordReset extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        const {goBack} = this.props.navigation;
 
         return (
 
 
   <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
+              <View>
+                  <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                      <Image source={require('../../images/backarrow.png')}/>
+                  </TouchableOpacity>
+              </View>
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.Container}>
-         
+
             <TextInput
             placeholder="Email"
             returnKeyType="next"
@@ -116,6 +122,10 @@ const styles = StyleSheet.create({
       paddingRight: 15,
       borderRadius: 2
   },
+   back: {
+       marginLeft: -20,
+       marginTop: 5,
+   },
 
   buttonText: {
       textAlign: 'center',

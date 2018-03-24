@@ -228,9 +228,14 @@ export default class ProfileSettings extends Component {
     // onPress={() => this.updateInfo()}
 
     render() {
-
+        const {goBack} = this.props.navigation;
         return (
             <View style={styles.container}>
+                <View>
+                    <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                        <Image source={require('../../images/backarrow.png')}/>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.imageContainer}>
                     {this.state.photoS == null ? (
                         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
@@ -313,6 +318,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    back: {
+        marginLeft: -10,
+        marginTop: 5,
     },
     imageComponent: {
         borderRadius: 75,

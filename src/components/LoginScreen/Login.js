@@ -284,7 +284,7 @@ export default class Login extends React.Component {
 
 
     render() {
-
+        const {goBack} = this.props.navigation;
 
         const { navigate } = this.props.navigation;
 
@@ -292,7 +292,14 @@ export default class Login extends React.Component {
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
+                <View style={styles.container}>
+                    <View>
+                        <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                            <Image source={require('../../images/backarrow.png')}/>
+                        </TouchableOpacity>
+                    </View>
                 <View style={styles.logoContainer}>
+
                     <Image
                         style={styles.logo}
                         source={require('../../images/geotogether.png')}
@@ -348,6 +355,7 @@ export default class Login extends React.Component {
                             source={require('../../images/google.png')} />
                     </TouchableOpacity>
                 </View>
+                </View>
             </LinearGradient>
 
         )
@@ -365,6 +373,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    back: {
+        marginRight: 345,
+        marginTop: 5,
     },
     logoContainer: {
         flex: 3,
