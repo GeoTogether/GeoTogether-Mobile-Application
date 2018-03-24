@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert, Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -253,6 +253,12 @@ export default class NewTrip extends React.Component {
                     />
                 </View>
 
+
+            
+
+                    <View style={styles.addContiner}>
+                    <View style={styles.addFuncContainer}>
+
                 <View style={styles.endLocationContainer}>
                     <Text style={styles.textHeader}>End Location</Text>
                     <GooglePlacesAutocomplete
@@ -291,6 +297,7 @@ export default class NewTrip extends React.Component {
                 </View>
 
                 <View style={styles.addFuncContainer}>
+
                     <TouchableOpacity onPress={() => this.openEvent()}>
                         <Text style={styles.splitText}>+ ADD EVENT</Text>
                     </TouchableOpacity>
@@ -303,31 +310,29 @@ export default class NewTrip extends React.Component {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.container2}>
 
-                        <Modal
-                            visible={this.state.modalVisible}
-                            animationType={'slide'}
-                            onRequestClose={() => this.closeModal()}
-                        >
-                            <View style={styles.modalContainer}>
-                                <View style={styles.innerContainer}>
-                                    <Text>Please select a method of invitation</Text>
+                           <Modal
+                        visible={this.state.modalVisible}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeModal()}>
 
-                                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.sendSMS()}>
-                                        <Text style={styles.buttonText}>Send SMS Invite</Text>
-                                    </TouchableOpacity>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.innerContainer}>
 
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => this.sendEmail()}>
-                                        <Text style={styles.buttonText}>Send Email Invite</Text>
-                                    </TouchableOpacity>
+                                <TouchableOpacity  onPress={() => this.sendSMS()}>
+                                    <Image source={require('../../images/sms.png')} />
+                                </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => this.closeModal()}>
-                                        <Text style={styles.buttonText}>Back To Trip View</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity
+                                    onPress={() => this.sendEmail()}>
+                                    <Image source={require('../../images/email.png')} />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity  onPress={() => this.closeModal()} >
+                                    <Image source={require('../../images/cancel.png')} />
+                                </TouchableOpacity>
                             </View>
-                        </Modal>
+                        </View>
+                    </Modal>
 
 
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onPressNewTrip()}>
@@ -405,12 +410,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 100,
-        width: 350,
+        height: 300,
+        width: 375,
     },
     innerContainer: {
-        backgroundColor: '#fffaf0',
-        padding: 20,
+        backgroundColor: '#ffffff',
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 10,
         borderRadius: 4,
         borderColor: "#ffa53f"
 
