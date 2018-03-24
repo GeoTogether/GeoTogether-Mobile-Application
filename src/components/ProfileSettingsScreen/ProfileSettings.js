@@ -131,7 +131,7 @@ export default class ProfileSettings extends Component {
                     if (this.state.photo == '') {
 
 
-                        // this.setState({ photoS: require('../../images/face.png') })
+                        this.setState({ photoS: require('../../images/face.png') })
 
                     } else {
 
@@ -258,24 +258,31 @@ export default class ProfileSettings extends Component {
                 <View style={styles.profileInfoContainer}>
 
                     <View style={styles.displayHeader}>
-                        <Text style={styles.labels}>Name</Text>
+                        <Text style={styles.labels}>First Name</Text>
                     </View>
-                    <TextInput style={styles.input}>
-                        {this.state.fname} {this.state.lname}
+                    <TextInput style={styles.input} defaultValue={this.state.fname}
+                    ref= {(el) => { this.fname = el; }}
+                    onChangeText={(fname) => this.setState({fname})}
+                    value={this.state.fname}>
                     </TextInput>
 
                     <View style={styles.displayHeader}>
-                        <Text style={styles.labels}>Username</Text>
+                        <Text style={styles.labels}>Last Name</Text>
                     </View>
-                    <TextInput style={styles.input}>
-                        {this.state.fname}
+                    <TextInput style={styles.input} defaultValue={this.state.lname}
+                    ref= {(el) => { this.lname = el; }}
+                    onChangeText={(lname) => this.setState({lname})}
+                    value={this.state.lname}>
                     </TextInput>
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Email</Text>
                     </View>
-                    <TextInput style={styles.input2}>
-                        {this.state.email}
+
+                    <TextInput style={styles.input2} defaultValue={this.state.email}
+                    ref= {(el) => { this.email = el; }}
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}>
                     </TextInput>
 
                     <View style={styles.displayHeader}>
@@ -288,7 +295,7 @@ export default class ProfileSettings extends Component {
                 </View>
 
                 <View style={styles.updateBContainer}>
-                    <TouchableOpacity  style={styles.buttonContainer} >
+                    <TouchableOpacity  style={styles.buttonContainer} onPress={() => this.updateInfo()}>
                         <Text style={styles.buttonText}>Update Profile Info</Text>
                     </TouchableOpacity>
                 </View>
