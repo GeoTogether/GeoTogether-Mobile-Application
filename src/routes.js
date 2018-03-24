@@ -16,7 +16,8 @@ import NewTrip from './components/NewTripScreen/NewTrip';
 import ProfileSettings from './components/ProfileSettingsScreen/ProfileSettings';
 import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 import GMapView from './components/MapViewScreen/GMapView';
-import NewEvent from './components/NewEventScreen/NewEvent'
+import NewEvent from './components/NewEventScreen/NewEvent';
+
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
@@ -30,7 +31,8 @@ const Home = StackNavigator({
     Intro: { screen: Intro },
     GMapView:{screen: GMapView},
     TimeLineScreen: {screen: TimeLineScreen},
-    NewEvent:{screen:NewEvent},
+    NewEvent:{screen: NewEvent},
+
 },
     { headerMode: 'screen' });
 
