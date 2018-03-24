@@ -50,14 +50,15 @@ export default class ProfileSettings extends Component {
 
 
         if (this.state.email == this.state.previousEmail) {
+            console.log("1");
             //changing names
             db.ref("users/" + userData + "/first").set(this.state.fname);
             db.ref("users/" + userData + "/last").set(this.state.lname);
         }
         else {
+            console.log("12");
             //chaning authorization and names and trips
             var user = firebase.auth().currentUser;
-            console.log("here");
             db.ref("users/" + userData + "/email").set(this.state.email);
             db.ref("users/" + userData + "/first").set(this.state.fname);
             db.ref("users/" + userData + "/last").set(this.state.lname);
@@ -77,8 +78,6 @@ export default class ProfileSettings extends Component {
                         var index = childSnapshot.val().members.indexOf(tempEmail);
                         db.ref("trips/" + childSnapshot.key + "/members/" + index + "").set(currentEmail);
 
-                        console.log(childSnapshot.key);
-                        console.log(index);
                     }
 
                     if (childSnapshot.child("admin").val() == tempEmail) {
@@ -102,30 +101,40 @@ export default class ProfileSettings extends Component {
     }
 
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentWillMount() {
+
+        
 
         const {state} = this.props.navigation;
         this.setState({email: state.params.email});
         this.setState({previousEmail: state.params.email});
 
+        
 
         // get all the users from the firebase database
         firebase.database().ref("users").on('value', (snapshot) => {
             snapshot.forEach((userSnapshot) => {
-
+                
 
                 const val = userSnapshot.val();
+                
 
+                
+                if (val.email == this.state.email || ( val.email == state.params.email && (this.state.email =="") )) {
 
-                if (val.email == this.state.email) {
-
-
+                    console.log("hello");
                     this.setState({fname: val.first});
                     this.setState({lname: val.last});
-                    this.setState({photo: val.photo})
+                    this.setState({photo: val.photo});
+
+                    
+
+                    
+
+
 
 
                     if (this.state.photo == '') {
@@ -247,10 +256,11 @@ export default class ProfileSettings extends Component {
 
                         </TouchableOpacity>
                     ) : (
-                        <Image
-                            style={{width: 100, height: 100, marginLeft: 155}}
-                            source={this.state.photoS}
-                        />
+                    
+                    <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                        <Text style={{color: 'blue'}}>Select a Photo</Text>
+                        </TouchableOpacity>
+                        
                     )}
                 </View>
 
