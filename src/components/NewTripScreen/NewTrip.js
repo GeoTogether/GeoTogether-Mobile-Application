@@ -161,9 +161,15 @@ export default class NewTrip extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        const {goBack} = this.props.navigation;
 
         return (
             <View style={styles.container}>
+                <View>
+                    <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                        <Image source={require('../../images/backarrow.png')}/>
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.tripNameContainer}>
                     <Text style={styles.textHeader}>Name of Trip</Text>
@@ -372,6 +378,10 @@ const styles = StyleSheet.create({
     container2: {
                         paddingTop: 10
                 },
+    back: {
+        marginLeft: -10,
+        marginTop: 5,
+    },
     input: {
                         height: 50,
                     width: 350,

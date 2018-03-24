@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
-  StackNavigator
+    StackNavigator
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
 import { GoogleSignin } from 'react-native-google-signin';
@@ -13,225 +13,225 @@ export default class Trips extends React.Component {
 
 
 
-  constructor(props) {
-    super(props)
-  }
+    constructor(props) {
+        super(props)
+    }
 
-  // navigation options to be used to navigate the class from other classes
+    // navigation options to be used to navigate the class from other classes
 
-  static navigationOptions = {
-    title: 'Trips',
-    header: null
-  }
-  
-  state = {
-    email: '',
-    password: '',
-    authenticating: false,
-    user: null,
-    error: '',
-    name: '',
-    trips: [],
-    tripsNames: [],
-    modalVisible: false,
-    UserInvite: '',
-    newUser: 2,
-  }
+    static navigationOptions = {
+        title: 'Trips',
+        header: null
+    }
 
-
-  openModal() {
-    this.setState({modalVisible:true});
-  }
-
-  closeModal() {
-    this.setState({modalVisible:false});
-  }
-
-  showAlert = () => {
-      Alert.alert(
-         this.state.UserInvite + ' has been added to the trip'
-      )
-   }
+    state = {
+        email: '',
+        password: '',
+        authenticating: false,
+        user: null,
+        error: '',
+        name: '',
+        trips: [],
+        tripsNames: [],
+        modalVisible: false,
+        UserInvite: '',
+        newUser: 2,
+    }
 
 
-  componentWillMount() {
-    const { navigate } = this.props.navigation;
-    const { state } = this.props.navigation;
-    this.setState({ email: state.params.email });
-    this.checkNewUser();
-   
-    // gets all the user trips 
-     this.onPressGetTrips();
+    openModal() {
+        this.setState({modalVisible:true});
+    }
+
+    closeModal() {
+        this.setState({modalVisible:false});
+    }
+
+    showAlert = () => {
+        Alert.alert(
+            this.state.UserInvite + ' has been added to the trip'
+        )
+    }
 
 
+    componentWillMount() {
+        const { navigate } = this.props.navigation;
+        const { state } = this.props.navigation;
+        this.setState({ email: state.params.email });
+        this.checkNewUser();
 
-  }
-
-  componentDidMount(){
-    const { navigate } = this.props.navigation;
-    const { state } = this.props.navigation;
-    this.setState({ email: state.params.email });
-    this.checkNewUser();
-    
-        
-
-    // gets all the user trips 
-     this.onPressGetTrips();
-
-  }
-
-  // funcation to sign out using firebase authentication.
-
-  onPressLogOut() {
-    const { navigate } = this.props.navigation;
+        // gets all the user trips
+        this.onPressGetTrips();
 
 
 
-    if (firebase.auth().currentUser !== null) {
+    }
 
-      firebase.auth().signOut()
-        .then(() => {
-          this.setState({
-            email: '',
-            password: '',
-            authenticating: false,
-            user: null,
-          })
-          navigate('SplashScreen') // after login go to trips
+    componentDidMount(){
+        const { navigate } = this.props.navigation;
+        const { state } = this.props.navigation;
+        this.setState({ email: state.params.email });
+        this.checkNewUser();
 
-        }, error => {
-          console.error('Sign Out Error', error);
-        });
+
+
+        // gets all the user trips
+        this.onPressGetTrips();
+
+    }
+
+    // funcation to sign out using firebase authentication.
+
+    onPressLogOut() {
+        const { navigate } = this.props.navigation;
+
+
+
+        if (firebase.auth().currentUser !== null) {
+
+            firebase.auth().signOut()
+                .then(() => {
+                    this.setState({
+                        email: '',
+                        password: '',
+                        authenticating: false,
+                        user: null,
+                    })
+                    navigate('SplashScreen') // after login go to trips
+
+                }, error => {
+                    console.error('Sign Out Error', error);
+                });
+
+        }
+
+
+
+
+    }
+
+    async checkNewUser(){
+        const { navigate } = this.props.navigation;
+
+        firebase.database().ref('users/').on('value', (snapshot) => {
+            snapshot.forEach((userSnapshot) => {
+
+
+                const val = userSnapshot.val();
+
+
+
+                if (val.email == this.state.email) {
+
+
+                    if(val.newUser == 1){
+
+                        this.setState({newUser : 1});
+
+                        firebase.database().ref('users/').child(userSnapshot.key).set({ first: val.first,
+                                last: val.last,
+                                email: val.email,
+                                photo: val.photo,
+                                newUser: 2,
+                            }
+                        )
+
+                        navigate('Intro', { email: this.state.email });
+
+                    }
+
+
+                }
+
+            })
+        })
+
 
     }
 
 
+    // function to get all the user trips using firebase database
+    async onPressGetTrips() {
+
+        // get all the user trips from the firebase database
+        firebase.database().ref('trips/').on('value', (snapshot) => {
+            snapshot.forEach((tripSnapshot) => {
 
 
-  }
-
-  async checkNewUser(){
-    const { navigate } = this.props.navigation;
-    
-    firebase.database().ref('users/').on('value', (snapshot) => {
-        snapshot.forEach((userSnapshot) => {
+                const val = tripSnapshot.val();
 
 
-            const val = userSnapshot.val();
-           
+                if (val.members.indexOf(this.state.email) != -1) {
 
 
-            if (val.email == this.state.email) {
 
 
-               if(val.newUser == 1){
+                    if (this.state.tripsNames.indexOf(val.tripName) == -1) {
 
-                this.setState({newUser : 1});
-
-                firebase.database().ref('users/').child(userSnapshot.key).set({ first: val.first,
-                    last: val.last,
-                    email: val.email,
-                    photo: val.photo,
-                    newUser: 2,
-                       }
-                )
-
-                navigate('Intro', { email: this.state.email });
-
-            }
+                        this.state.trips.push(val);
 
 
-            }
+                        this.setState({ tripsNames: this.state.tripsNames.concat(val.tripName) })
 
+                    }
+
+
+
+                }
+
+            })
         })
-    })
 
 
-  }
+    }
 
 
-  // function to get all the user trips using firebase database
-  async onPressGetTrips() {
-
-    // get all the user trips from the firebase database
-    firebase.database().ref('trips/').on('value', (snapshot) => {
-      snapshot.forEach((tripSnapshot) => {
+    render() {
+        const { navigate } = this.props.navigation;
+        // adding components for all the user trips
 
 
-        const val = tripSnapshot.val();
+        var components = this.state.trips.map((type) =>
+            <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
+                <View style={styles.textRow}>
+                    <Text style={styles.tripName}>{type.tripName}</Text>
+                    <Text style={styles.status}>(Open)</Text>
+                </View>
+                <View style={styles.textRow}>
+                    <Text style={styles.members}>Members: {type.members.length} </Text>
+                    <Text style={styles.date}>{type.startDate} - {type.endDate}</Text>
+                </View>
+            </TouchableOpacity>);
 
 
-        if (val.members.indexOf(this.state.email) != -1) {
+        return (
+            <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
+                <View style={styles.tripContainer}>
+                    <ScrollView>
+                        <View style={styles.tripView}>
+                            {components}
+                        </View>
+                    </ScrollView>
+
+                </View>
+                <View style={styles.addButtonContainer}>
+                    <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
+                        <Image
+                            source={require('../../images/addbutton.png')}
+                        />
+                    </TouchableOpacity>
+
+
+                </View>
 
 
 
 
-          if (this.state.tripsNames.indexOf(val.tripName) == -1) {
-
-            this.state.trips.push(val);
 
 
-            this.setState({ tripsNames: this.state.tripsNames.concat(val.tripName) })
-
-          }
-
-
-
-        }
-
-      })
-    })
-
-
-  }
-
-
-  render() {
-    const { navigate } = this.props.navigation;
-    // adding components for all the user trips 
-
-
-    var components = this.state.trips.map((type) =>
-        <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
-            <View style={styles.textRow}>
-                <Text style={styles.tripName}>{type.tripName}</Text>
-                <Text style={styles.status}>(Open)</Text>
-            </View>
-            <View style={styles.textRow}>
-                <Text style={styles.members}>Members: {type.members.length} </Text>
-                <Text style={styles.date}>{type.startDate} - {type.endDate}</Text>
-            </View>
-        </TouchableOpacity>);
-
-
-    return (
-        <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
-            <View style={styles.tripContainer}>
-                <ScrollView>
-                    <View style={styles.tripView}>
-                        {components}
-                    </View>
-                </ScrollView>
-                
-            </View>
-            <View style={styles.addButtonContainer}>
-                <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
-                    <Image
-                        source={require('../../images/addbutton.png')}
-                    />
-                </TouchableOpacity>
-
-                
-            </View>
-
-     
-
-            
-
-
-        </LinearGradient>
-    );
-  }
+            </LinearGradient>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
