@@ -72,9 +72,9 @@ export default class PasswordReset extends React.Component {
               </View>
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.Container}>
-
+                <Text style={{textAlign: 'center', paddingBottom: 10, color: '#FFFFFF', fontWeight: '700'}}>Enter your email to reset your password</Text>
             <TextInput
-            placeholder="Email"
+            placeholder="Email Address"
             returnKeyType="next"
             keyboardType="email-address"
             autoCapitalize="none"
@@ -85,13 +85,13 @@ export default class PasswordReset extends React.Component {
 
           <TouchableOpacity onPress={() => this.onPressPasswordReset()} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
               borderRadius: 10,
-              marginBottom: 100
+              marginBottom: 10
           }} >
-            <Text style={styles.buttonText}>Submit</Text>
+            <Text style={styles.buttonText2}>Submit</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigate('Login')} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
               borderRadius: 10,
-              marginBottom: 75
+              marginBottom: 5
           }} >
             <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
@@ -140,6 +140,13 @@ const styles = StyleSheet.create({
       paddingTop: 15,
       paddingBottom: 15,
   },
+  buttonText2: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700',
+      paddingTop: 15,
+      paddingBottom: 15,
+  },
   buttonContainer: {
       backgroundColor: 'rgb(0,25,88)',
       paddingVertical: 15,
@@ -148,7 +155,7 @@ const styles = StyleSheet.create({
   input: {
       height: 50,
       width: 350,
-      marginBottom: 10,
+      marginBottom: 40,
 
 
       alignItems: 'stretch',
