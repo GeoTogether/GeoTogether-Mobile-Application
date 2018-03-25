@@ -131,7 +131,10 @@ export default class NewTrip extends React.Component {
         navigate('NewEvent', { email: this.state.email, trip: tripinfo });
     }
 
-
+    getCurrentTime(){
+        var currentdate = new Date(); 
+        return currentdate.getTime();
+    }
 
     // function to create a new trip using firebase database
     onPressNewTrip() {
@@ -151,7 +154,22 @@ export default class NewTrip extends React.Component {
             destination1: destination1,
             destination2: destination2,
             members: members,
-            events: events
+            events: events,
+            "chats":{
+                "groupChat":{
+                    users: members,
+                        "messages":{
+                            0:{
+                                "yay:)":[
+                                "GeoTogether",
+                                "Welcome To The Beginning Of Your Chat",
+                                this.getCurrentTime(),
+                                0,
+                            ]
+                        }
+                    }
+                }
+            },
         });
 
 
