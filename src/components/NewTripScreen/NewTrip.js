@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView,
+    Alert, Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -11,6 +12,7 @@ import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CheckBox from 'react-native-check-box'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -156,12 +158,12 @@ export default class NewTrip extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.childContainer}>
-
                     <View style={styles.tripNameInputContainer}>
                         <View style={styles.tripNameContainer}>
                             <Text style={styles.textHeader}>Name of Trip</Text>
                             <TextInput
                                 placeholder="ex. Spring Break 2018"
+                                value={this.state.tripname}
                                 returnKeyType="done"
                                 autoCapitalize="words"
                                 autoCorrect={true}
@@ -184,6 +186,7 @@ export default class NewTrip extends React.Component {
                                 date={this.state.startDate}
                                 showIcon={false}
                                 mode="date"
+                                value={this.state.startDate}
                                 placeholder="Start Date"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
@@ -204,6 +207,7 @@ export default class NewTrip extends React.Component {
                                 mode="date"
                                 placeholder="End Date"
                                 format="YYYY-MM-DD"
+                                value={this.state.endDate}
                                 customStyles={styles.durationInput}
                                 onDateChange={(enddate) => {
                                     this.setState({endDate: enddate}), this.placeholder = enddate
@@ -215,54 +219,133 @@ export default class NewTrip extends React.Component {
                     <View style={styles.startLContainment}>
                         <View style={styles.startLocationContainer}>
                             <Text style={styles.textHeader}>Start Location</Text>
-                            <TextInput
+                            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                            <GooglePlacesAutocomplete
                                 placeholder="ex. Tempe, AZ"
-                                returnKeyType="done"
-                                autoCapitalize="words"
-                                autoCorrect={true}
-                                style={styles.input}
-                                onChangeText={destination1 => this.setState({destination1})}
+                                minLength={2}
+                                autoFocus={false}
+                                returnKeyType={'default'}
+                                fetchDetails={true}
+                                styles={{
+                                    textInputContainer: {
+                                        backgroundColor: 'rgba(0,0,0,0)',
+                                        borderTopWidth: 0,
+                                        borderBottomWidth: 0,
+                                    },
+                                    textInput: {
+                                        marginLeft: 0,
+                                        marginRight: 0,
+                                        height: '100%',
+                                        width: '100%',
+                                        color: '#5d5d5d',
+                                        fontSize: 16,
+                                    },
+                                    predefinedPlacesDescription: {
+                                        color: '#1faadb'
+                                    },
+                                }}
+                                currentLocation={false}
+                                query={{
+                                    key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
+                                    language: 'en', // language of the results
+                                }}
+                                onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+
+                                    this.setState({destination1: data.description})
+                                }}
                             />
+                            </KeyboardAvoidingView>
                         </View>
                     </View>
 
                     <View style={styles.endLContainment}>
                         <View style={styles.endLocationContainer}>
                             <Text style={styles.textHeader}>End Location</Text>
-                            <TextInput
-                                placeholder="ex. Tempe, AZ"
-                                returnKeyType="done"
-                                autoCapitalize="words"
-                                autoCorrect={true}
-                                style={styles.input}
-                                onChangeText={destination2 => this.setState({destination2})}
+                            <GooglePlacesAutocomplete
+                                placeholder='ex. Tempe, AZ'
+                                minLength={2}
+                                autoFocus={false}
+                                returnKeyType={'default'}
+                                fetchDetails={true}
+                                styles={{
+                                    textInputContainer: {
+                                        backgroundColor: 'rgba(0,0,0,0)',
+                                        borderTopWidth: 0,
+                                        borderBottomWidth: 0
+                                    },
+                                    textInput: {
+                                        marginLeft: 0,
+                                        marginRight: 0,
+                                        height: '100%',
+                                        width: '100%',
+                                        color: '#5d5d5d',
+                                        fontSize: 16,
+                                    },
+                                    predefinedPlacesDescription: {
+                                        color: '#1faadb'
+                                    },
+                                }}
+                                currentLocation={false}
+                                query={{
+                                    key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
+                                    language: 'en', // language of the results
+                                }}
+                                onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+
+                                    this.setState({destination2: data.description})
+                                }}
                             />
                         </View>
                     </View>
 
                     <View style={styles.addContiner}>
-                    <View style={styles.addFuncContainer}>
-                    <TouchableOpacity onPress={() => this.openEvent()}>
-                    <Text style={styles.splitText}>+ ADD EVENT</Text>
-                    </TouchableOpacity>
+                        <View style={styles.addFuncContainer}>
+                            <TouchableOpacity onPress={() => this.openEvent()}>
+                                <Text style={styles.splitText}>+ ADD EVENT</Text>
+                            </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.openModal()}>
-                    <Text style={styles.splitText}>+ ADD MEMBERS</Text>
-                    </TouchableOpacity>
-                    </View>
+                            <TouchableOpacity onPress={() => this.openModal()}>
+                                <Text style={styles.splitText}>+ ADD MEMBERS</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     <View style={styles.createBContainer}>
                         <View style={styles.createBStyle}>
-                            <TouchableOpacity  onPress={() => this.onPressNewTrip()}>
+                            <TouchableOpacity onPress={() => this.onPressNewTrip()}>
                                 <Text style={styles.buttonText}>CREATE TRIP</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
 
+                        <Modal
+                            visible={this.state.modalVisible}
+                            animationType={'slide'}
+                            onRequestClose={() => this.closeModal()}>
+
+                            <View style={styles.inviteContainer}>
+                            <View style={styles.modalContainer}>
+                                <View style={styles.innerContainer}>
+
+                                    <TouchableOpacity onPress={() => this.sendSMS()}>
+                                        <Image source={require('../../images/sms.png')}/>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity
+                                        onPress={() => this.sendEmail()}>
+                                        <Image source={require('../../images/email.png')}/>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={() => this.closeModal()}>
+                                        <Image source={require('../../images/cancel.png')}/>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            </View>
+                        </Modal>
+
                 </View>
             </View>
-        // style={styles.buttonContainer}
         );
     }
 }
@@ -274,18 +357,15 @@ const styles = StyleSheet.create({
     },
     childContainer: {
         flex: 1,
-        marginTop: '15%',
+        marginTop: '13%',
         marginBottom: '15%',
         marginLeft: '5%',
-        marginRight: '5%'
+        marginRight: '5%',
     },
     textHeader: {
         color: '#7a7a7a',
         fontWeight: 'bold'
     },
-
-
-
     container2: {
         // paddingTop: 10
     },
@@ -329,14 +409,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 100,
-        width: 350,
+        width: 350
     },
     innerContainer: {
-        backgroundColor: '#fffaf0',
+        backgroundColor: "#b4b4b4",
         padding: 20,
         borderRadius: 4,
         borderColor: "#ffa53f"
-
     },
     newTitleContainer: {
         flex: 1,
@@ -366,8 +445,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     durationChoseContainer: {
-        height: '25%',
-        paddingTop: 30,
+        height: '20%',
+        paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
     },
@@ -385,7 +464,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     startLContainment: {
-        height: '10%',
+        height: '23%',
         paddingLeft: 20,
         paddingRight: 20,
 
@@ -394,33 +473,31 @@ const styles = StyleSheet.create({
         flex: 1
     },
     endLContainment: {
-        height: '10%',
-        marginTop: 40,
+        height: '23%',
         paddingLeft: 20,
         paddingRight: 20
     },
     endLocationContainer: {
         flex: 1
     },
-    addContiner:{
+    addContiner: {
         height: '10%',
-        marginTop: 25,
         paddingLeft: 20,
         paddingRight: 20
     },
     addFuncContainer: {
         flex: 1
     },
-    createBContainer:{
+    createBContainer: {
         height: '10%',
-        marginTop: 35,
+        marginTop: 30,
         paddingLeft: 20,
         paddingRight: 20,
         justifyContent: 'center',
-        alignItems: 'center'
-
+        alignItems: 'center',
+        flexDirection: 'column',
     },
-    createBStyle:{
+    createBStyle: {
         flex: 1,
         backgroundColor: 'rgb(0,25,88)',
         height: '90%',
@@ -428,5 +505,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 6
+    },
+    inviteContainer:{
+        flex: 1,
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
