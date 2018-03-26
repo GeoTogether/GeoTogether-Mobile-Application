@@ -12,7 +12,7 @@ import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CheckBox from 'react-native-check-box'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -42,18 +42,12 @@ export default class NewTrip extends React.Component {
         eventTitle: '',
         eventAddress: '',
     };
-
-    isChecked = false;
-
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
-
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
-
     _handleDatePicked = (date) => {
         console.log('A date has been picked: ', date);
         this._hideDateTimePicker();
     };
-
     sendEmail = () => {
 
         SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
@@ -84,21 +78,37 @@ export default class NewTrip extends React.Component {
         super(props)
     }
 
-    // showAlert = () => {
-    //     this.state.members.push(this.state.UserInvite);
-    //
-    //     Alert.alert(
-    //         this.state.UserInvite + ' has been added to the trip'
-    //     )
-    // }
+    componentWillMount() {
 
-    // componentWillMount() {
-    //
-    //     const { state } = this.props.navigation;
-    //     this.setState({ email: state.params.email });
-    //
-    // }
-    //
+        const {state} = this.props.navigation;
+
+        this.setState({email: state.params.email});
+
+        if ((state.params.trip !== undefined)) {
+
+            this.setState({tripname: state.params.trip.tripname})
+            this.setState({destination1: state.params.trip.destination1})
+            this.setState({destination2: state.params.trip.destination2})
+            this.setState({startDate: state.params.trip.startDate})
+            this.setState({endDate: state.params.trip.endDate})
+            for (var i = 0; i < state.params.trip.members.length; i++) {
+
+
+                this.state.members.push(state.params.trip.members[i])
+            }
+
+            for (var j = 0; j < state.params.trip.events.length; j++) {
+
+                this.state.events.push(state.params.trip.events[j]);
+
+            }
+
+
+        }
+
+
+    }
+
     openModal() {
         this.setState({modalVisible: true});
     }
@@ -108,21 +118,19 @@ export default class NewTrip extends React.Component {
     }
 
     openEvent() {
-        this.setState({modalEvent: true});
-    }
+        const {navigate} = this.props.navigation;
 
-    closeEvent() {
-        this.setState({modalEvent: false});
-    }
-
-    onPressNewEvent() {
-        const {eventTitle, eventAddress} = this.state;
-
-        var obj = {title: eventTitle, address: eventAddress};
-        this.state.events.push(obj);
-
-        this.closeEvent();
-
+        var tripinfo = {
+            tripname: this.state.tripname,
+            destination1: this.state.destination1,
+            destination2: this.state.destination2,
+            email: this.state.email,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate,
+            events: this.state.events,
+            members: this.state.members
+        }
+        navigate('NewEvent', {email: this.state.email, trip: tripinfo});
     }
 
 
@@ -220,40 +228,40 @@ export default class NewTrip extends React.Component {
                         <View style={styles.startLocationContainer}>
                             <Text style={styles.textHeader}>Start Location</Text>
                             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                            <GooglePlacesAutocomplete
-                                placeholder="ex. Tempe, AZ"
-                                minLength={2}
-                                autoFocus={false}
-                                returnKeyType={'default'}
-                                fetchDetails={true}
-                                styles={{
-                                    textInputContainer: {
-                                        backgroundColor: 'rgba(0,0,0,0)',
-                                        borderTopWidth: 0,
-                                        borderBottomWidth: 0,
-                                    },
-                                    textInput: {
-                                        marginLeft: 0,
-                                        marginRight: 0,
-                                        height: '100%',
-                                        width: '100%',
-                                        color: '#5d5d5d',
-                                        fontSize: 16,
-                                    },
-                                    predefinedPlacesDescription: {
-                                        color: '#1faadb'
-                                    },
-                                }}
-                                currentLocation={false}
-                                query={{
-                                    key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
-                                    language: 'en', // language of the results
-                                }}
-                                onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                                <GooglePlacesAutocomplete
+                                    placeholder="ex. Tempe, AZ"
+                                    minLength={2}
+                                    autoFocus={false}
+                                    returnKeyType={'default'}
+                                    fetchDetails={true}
+                                    styles={{
+                                        textInputContainer: {
+                                            backgroundColor: 'rgba(0,0,0,0)',
+                                            borderTopWidth: 0,
+                                            borderBottomWidth: 0,
+                                        },
+                                        textInput: {
+                                            marginLeft: 0,
+                                            marginRight: 0,
+                                            height: '100%',
+                                            width: '100%',
+                                            color: '#5d5d5d',
+                                            fontSize: 16,
+                                        },
+                                        predefinedPlacesDescription: {
+                                            color: '#1faadb'
+                                        },
+                                    }}
+                                    currentLocation={false}
+                                    query={{
+                                        key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
+                                        language: 'en', // language of the results
+                                    }}
+                                    onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                    this.setState({destination1: data.description})
-                                }}
-                            />
+                                        this.setState({destination1: data.description})
+                                    }}
+                                />
                             </KeyboardAvoidingView>
                         </View>
                     </View>
@@ -318,12 +326,12 @@ export default class NewTrip extends React.Component {
                         </View>
                     </View>
 
-                        <Modal
-                            visible={this.state.modalVisible}
-                            animationType={'slide'}
-                            onRequestClose={() => this.closeModal()}>
+                    <Modal
+                        visible={this.state.modalVisible}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeModal()}>
 
-                            <View style={styles.inviteContainer}>
+                        <View style={styles.inviteContainer}>
                             <View style={styles.modalContainer}>
                                 <View style={styles.innerContainer}>
 
@@ -341,8 +349,8 @@ export default class NewTrip extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            </View>
-                        </Modal>
+                        </View>
+                    </Modal>
 
                 </View>
             </View>
@@ -402,7 +410,7 @@ const styles = StyleSheet.create({
         color: 'rgb(0,25,88)',
         fontWeight: 'normal',
         fontSize: 20,
-        paddingBottom: 10
+        paddingBottom: 5
     },
     modalContainer: {
         flex: 1,
@@ -481,7 +489,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     addContiner: {
-        height: '10%',
+        height: '9%',
         paddingLeft: 20,
         paddingRight: 20
     },
@@ -506,7 +514,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 6
     },
-    inviteContainer:{
+    inviteContainer: {
         flex: 1,
         height: '100%',
         justifyContent: 'center',
