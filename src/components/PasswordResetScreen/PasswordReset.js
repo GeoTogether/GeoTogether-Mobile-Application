@@ -72,9 +72,9 @@ export default class PasswordReset extends React.Component {
               </View>
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.Container}>
-
+                <Text style={{textAlign: 'center', paddingBottom: 10, color: '#FFFFFF', fontWeight: '700'}}>Enter your email to reset your password</Text>
             <TextInput
-            placeholder="Email"
+            placeholder="Email Address"
             returnKeyType="next"
             keyboardType="email-address"
             autoCapitalize="none"
@@ -83,10 +83,16 @@ export default class PasswordReset extends React.Component {
             style={styles.input}
           />
 
-          <TouchableOpacity onPress={() => this.onPressPasswordReset()} style={styles.buttonContainer} >
-            <Text style={styles.buttonText}>Submit</Text>
+          <TouchableOpacity onPress={() => this.onPressPasswordReset()} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
+              borderRadius: 10,
+              marginBottom: 10
+          }} >
+            <Text style={styles.buttonText2}>Submit</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigate('Login')} style={styles.buttonContainer} >
+          <TouchableOpacity onPress={() => navigate('Login')} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
+              borderRadius: 10,
+              marginBottom: 5
+          }} >
             <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
@@ -130,7 +136,16 @@ const styles = StyleSheet.create({
   buttonText: {
       textAlign: 'center',
       color: '#FFFFFF',
-      fontWeight: '700'
+      fontWeight: '700',
+      paddingTop: 15,
+      paddingBottom: 15,
+  },
+  buttonText2: {
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: '700',
+      paddingTop: 15,
+      paddingBottom: 15,
   },
   buttonContainer: {
       backgroundColor: 'rgb(0,25,88)',
@@ -139,10 +154,14 @@ const styles = StyleSheet.create({
   },
   input: {
       height: 50,
-      width: 400,
-      backgroundColor: 'rgba(255, 255, 255, 0.7)',
-      marginBottom: 20,
-      paddingHorizontal: 10
+      width: 350,
+      marginBottom: 40,
+
+
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      borderRadius: 10,
   }
 
 });
