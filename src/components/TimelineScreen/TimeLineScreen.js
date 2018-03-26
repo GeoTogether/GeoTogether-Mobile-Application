@@ -10,6 +10,7 @@ export default class TimeLineScreen extends React.Component {
         header: null
     };
 
+
     constructor(props) {
         super(props);
 
@@ -23,6 +24,27 @@ export default class TimeLineScreen extends React.Component {
 
     }
 
+    // the user state with all of the user and the trip information
+    state = {
+        events: [],
+        eventTitle: '',
+        eventAddress: '',
+        startTimeChosen:'00:00',
+        endTimeChosen: '00:00',
+    };
+
+
+    componentWillMount() {
+
+        const { state } = this.props.navigation;
+
+        if ((state.params.trip.events !== undefined)) {
+            for (var i = 0; i < state.params.trip.events.length; i++) {
+                this.state.events.push(state.params.trip.events[i]);
+            }
+            console.log("Events: ", this.state.events);
+        }
+    }
 
     render() {
         const { navigate } = this.props.navigation;
