@@ -14,54 +14,27 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
-
     }
 
     stat = {
         initialTimeStamps: [],
-        temp:1,
     }
 
-setFirebaseVar(Path){
 
-}
   componentDidMount(){
 
     const {state} = this.props.navigation;   
     var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
-    
-    
 
     firebase.database().ref(Path).on('value', (snapshot) => {
-    	while(this.stat.temp == 0){
-
-    	}
-		this.stat.temp = 0;
-
-		var q = 0;
-
-		firebase.database().ref(Path2).on('value', (snapshot2) => {
-			
-			q = snapshot2.val();
-		});
-
-		
-            
-       this.setFirebaseVar(Path2);            
-            
-        
-        var x = 1;
-    
        var TotalArray = snapshot.val();
-       
+       var x = 1;
        var Messages = [];
 
 
            for (var key in TotalArray) {
             for (var key2 in TotalArray[key]) {
-                if(x > this.stat.initialTimeStamps.length){
-        		x = x+1;
-                             
+                if(x > this.stat.initialTimeStamps.length){                    
                     this.stat.initialTimeStamps.push(TotalArray[key][key2][2]);
                         if(TotalArray[key][key2][0] == state.params.email){
                             Messages.push({
@@ -94,15 +67,13 @@ setFirebaseVar(Path){
                     console.log(TotalArray[key][key2][1]);
                 }
                
-                                
+                x = x+1;                
                }
         }
 
         this.AddToGui(Messages.reverse());
 
-        this.stat.temp = 1;
 
-        
     });
     
   }
@@ -119,12 +90,6 @@ setFirebaseVar(Path){
 
     sendMessage(message){
 
-        
-
-        var temp = firebase.database().ref(('trips/' + state.params.tripKey.key + '/chats/groupChat/messages/0/start/3'));
-
-        console.log(temp);
-
         const {state} = this.props.navigation;
         //i did this cause firebase stored messages out of order and the 
         //chat gui doesnt organize by time
@@ -136,10 +101,6 @@ setFirebaseVar(Path){
         
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' +this.getCurrentTime();
 
-        
-
-
-        
         firebase.database().ref(Path).push({
             
                     
@@ -157,7 +118,6 @@ setFirebaseVar(Path){
         const {state} = this.props.navigation;
         
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/users/';
-
 
         firebase.database().ref(Path).push({
                       
