@@ -158,13 +158,13 @@ export default class NewTrip extends React.Component {
             "chats":{
                 "groupChat":{
                     users: members,
+                    number: 0,
                         "messages":{
                             0:{
-                                "yay:)":[
+                                "start":[
                                 "GeoTogether",
                                 "Welcome To The Beginning Of Your Chat",
                                 this.getCurrentTime(),
-                                0,
                             ]
                         }
                     }
