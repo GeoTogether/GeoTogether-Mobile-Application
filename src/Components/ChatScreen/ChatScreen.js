@@ -18,6 +18,7 @@ export default class ChatScreen extends React.Component {
 
     stat = {
         initialTimeStamps: [],
+        firstTime: 0,
     }
 
 
@@ -26,7 +27,10 @@ export default class ChatScreen extends React.Component {
     const {state} = this.props.navigation;   
     var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
 
+
     firebase.database().ref(Path).on('value', (snapshot) => {
+        if(this.stat.firstTime == 0){
+            this.stat.temp = 1;
        var TotalArray = snapshot.val();
        var x = 1;
        var Messages = [];
@@ -72,6 +76,27 @@ export default class ChatScreen extends React.Component {
         }
 
         this.AddToGui(Messages.reverse());
+    }
+
+
+    else{
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     });
@@ -97,18 +122,27 @@ export default class ChatScreen extends React.Component {
         //it isnt an issue cause the database would go timestamp/madeupfirebasekey/messages
         //so no conflicts would be caused
         
-        var key = this.getCurrentTime();
-        
-        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' +this.getCurrentTime();
+        var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/0/start/3';
+
+        var q;
+
+        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
+
+        firebase.database().ref(Path2).set((q+1));
+
+        console.log(q);
+
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q+1);
+
+
+
 
         firebase.database().ref(Path).push({
             
                     
                     0: state.params.email,
                     1: message,
-                    2: this.getCurrentTime(),
-                    
-                
+                    2: this.getCurrentTime(),     
             
         });
     }
