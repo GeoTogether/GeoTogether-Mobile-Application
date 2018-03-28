@@ -91,7 +91,7 @@ export default class PasswordReset extends React.Component {
               borderRadius: 10,
               marginBottom: 10
           }} >
-            <Text style={styles.buttonText2}>Submit</Text>
+            <Text style={styles.buttonText2}>Reset</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigate('Login')} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
               borderRadius: 10,
