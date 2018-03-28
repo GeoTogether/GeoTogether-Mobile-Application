@@ -10,26 +10,70 @@ export default class TimeLineScreen extends React.Component {
         header: null
     };
 
+
     constructor(props) {
         super(props);
-
-        this.data = [
-            {time: '9:00 AM', title: "Breakfast", description: "Eating at Denny's with the Pied Piper team", circleColor: 'yellow',lineColor: 'yellow'},
-            {time: '11:00 AM', title: "Museum", description: "Visit the State Museum with the team", circleColor: 'white', lineColor:'white'},
-            {time: '1:15 PM', title: "Lunch", circleColor: 'white', lineColor:'white'},
-            {time: '3:00 PM', title: "Bus Tour", description: "Adress to the Bus: 423 E. Cale St. Somewhere, Land", circleColor: 'white', lineColor:'white'},
-        ]
-
-
     }
 
+    // the user state with all of the user and the trip information
+    state = {
+        events: [],
+        eventTitle: '',
+        eventAddress: '',
+        startTimeChosen:'00:00',
+        endTimeChosen: '00:00',
+    };
+
+
+    data = [];
+
+    componentWillMount() {
+
+        const { state } = this.props.navigation;
+
+        // this.data = [
+        //     {time: '', title: "", description: "Add Description", circleColor: 'yellow',lineColor: 'yellow'}
+        // ];
+
+        if ((state.params.trip.events !== undefined)) {
+            for (var i = 0; i < state.params.trip.events.length; i++) {
+                this.state.events.push(state.params.trip.events[i]);
+                console.log("Event Title: ", this.state.events[i].eventTitle, i);
+                console.log("Start Time: ", this.state.events[i].startTimeChosen, i);
+            }
+
+            this.getEventInfo();
+            // console.log("Events: ", this.state.events[0][0]);
+        }
+    }
+
+    getEventInfo(){
+
+        for(var i=0; i<this.state.events.length; i++){
+            console.log("Count:", i);
+            this.data.push({
+                time: this.state.events[i].startTimeChosen.toString(),
+                title: this.state.events[i].eventTitle.toString(),
+                description: "Add Description",
+                circleColor: 'orange',
+                lineColor: 'white'
+            })
+        }
+    }
 
     render() {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
+
+        this.data.push( {time: '0:00 PM',
+            title: "Next Event Title",
+            description: "Add Description",
+            circleColor: 'white',
+            lineColor: 'white'});
+
         return (
             <View style={styles.container}>
-                 <ActionBar
+                <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
@@ -49,22 +93,22 @@ export default class TimeLineScreen extends React.Component {
                     ]}
                 />
 
-            <Timeline
-                style={styles.list}
-                data={this.data}
-                circleSize={20}
-                separator={false}
-                circleColor='rgb(45,156,219)'
-                //lineColor='rgb(45,156,219)'
-                timeContainerStyle={{minWidth:125, marginTop: -5}}
-                timeStyle={{fontSize: 20, textAlign: 'center', color:'white'}}
-                titleStyle={{fontSize: 24, color:'#fff'}}
-                descriptionStyle={{color:'white'}}
-                options={{
-                    style:{paddingTop:100, paddingRight: 20},
-                    backgroundColor: '#001c7d'
-                }}
-            />
+                <Timeline
+                    style={styles.list}
+                    data={this.data}
+                    circleSize={20}
+                    separator={false}
+                    circleColor='rgb(45,156,219)'
+                    //lineColor='rgb(45,156,219)'
+                    timeContainerStyle={{minWidth:125, marginTop: -5}}
+                    timeStyle={{fontSize: 20, textAlign: 'center', color:'white'}}
+                    titleStyle={{fontSize: 24, color:'#fff'}}
+                    descriptionStyle={{color:'white'}}
+                    options={{
+                        style:{paddingTop:100, paddingRight: 20},
+                        backgroundColor: '#1855bf'
+                    }}
+                />
             </View>
         )
 
@@ -87,4 +131,3 @@ const styles = StyleSheet.create({
     }
 
 });
-
