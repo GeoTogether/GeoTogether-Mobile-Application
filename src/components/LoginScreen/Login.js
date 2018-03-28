@@ -21,14 +21,7 @@ import FBSDK, {
     LoginManager, AccessToken, GraphRequest,
     GraphRequestManager
 } from 'react-native-fbsdk';
-import t from 'tcomb-form-native';
 
-const Form = t.form.Form;
-
-const User = t.struct({
-   email: t.String,
-   password: t.string,
-});
 
 export default class Login extends React.Component {
 
