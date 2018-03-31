@@ -3,6 +3,11 @@ package com.geotogetherapplication;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.sbugert.rnadmob.RNAdMobPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -21,6 +26,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
 import com.airbnb.android.react.maps.MapsPackage;
+import com.sbugert.rnadmob.RNAdMobPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,12 +49,18 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new RNSendIntentPackage(),
+            new LinearGradientPackage(),
+            new RNGoogleSigninPackage(),
+            new RNAdMobPackage(),
             new RNSendIntentPackage(),
             new LinearGradientPackage(),
             new ImagePickerPackage(),
             new RNGoogleSigninPackage(),
               new FBSDKPackage(mCallbackManager),
               new RNGeocoderPackage(),
+              new RNAdMobPackage(),
               new MapsPackage());
     }
 

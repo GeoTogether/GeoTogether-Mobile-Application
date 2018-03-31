@@ -13,6 +13,9 @@ import Chat from "../ChatScreen/Chat";
 import MapView from "../MapViewScreen/GMapView";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
+import {
+    AdMobBanner
+} from 'react-native-admob'
 
 
 class Trips extends React.Component {
@@ -163,23 +166,28 @@ class Trips extends React.Component {
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
 
                 <View style={styles.actionBar}>
+                    <AdMobBanner
+                        bannerSize="fullBanner"
+                        adUnitID="ca-app-pub-8015391654573891/4518564554"
+                        testDeviceID="EMULATOR"
+                        didFailToReceiveAdWithError={this.bannerError} />
 
-                    <ActionBar
-                        containerStyle={styles.bar}
-                        title={'Home'}
-                        titleStyle ={styles.title}
-                        backgroundColor= {'black'}
-                        badgeColor={'red'}
-                        leftIconImage={require('../../images/profile.png')}
-                        onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
-                        rightIcons={[
-                            {
-                                image: require('../../images/settings.png'), // To use a custom image
-                                badge: '1',
-                                onPress: () => console.log('settings feature'),
-                            },
-                        ]}
-                    />
+                    {/*<ActionBar*/}
+                        {/*containerStyle={styles.bar}*/}
+                        {/*title={'Home'}*/}
+                        {/*titleStyle ={styles.title}*/}
+                        {/*backgroundColor= {'black'}*/}
+                        {/*badgeColor={'red'}*/}
+                        {/*leftIconImage={require('../../images/profile.png')}*/}
+                        {/*onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}*/}
+                        {/*rightIcons={[*/}
+                            {/*{*/}
+                                {/*image: require('../../images/settings.png'), // To use a custom image*/}
+                                {/*badge: '1',*/}
+                                {/*onPress: () => console.log('settings feature'),*/}
+                            {/*},*/}
+                        {/*]}*/}
+                    {/*/>*/}
                 </View>
 
                 <View style={styles.tripContainer}>
