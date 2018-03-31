@@ -8,8 +8,8 @@ import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
 import PopupDialog from 'react-native-popup-dialog';
-
-
+import RNGooglePlaces from 'react-native-google-places';
+import firebase from '../Firebase/firebaseStorage';
 
 
 
@@ -146,24 +146,24 @@ export default class GMapView extends React.Component {
 
         if ((this.state.events.length !== 0)) {
 
-            var obj = { d1: state.params.trip.destination1, d2: this.state.events[0].eventAddress };
+            var obj = { d1: state.params.trip.destination1.address, d2: this.state.events[0].eventAddress.address };
             this.state.coords.push(obj);
 
             for (var i = 0; i < this.state.events.length - 1; i++) {
 
 
-                var obj = { d1: this.state.events[i].eventAddress, d2: this.state.events[i + 1].eventAddress };
+                var obj = { d1: this.state.events[i].eventAddress.address, d2: this.state.events[i + 1].eventAddress.address };
                 this.state.coords.push(obj);
 
             }
 
-            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress, d2: state.params.trip.destination2 };
+            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress.address, d2: state.params.trip.destination2.address };
             this.state.coords.push(obj2);
 
 
         } else {
 
-            var obj2 = { d1: state.params.trip.destination1, d2: state.params.trip.destination2 };
+            var obj2 = { d1: state.params.trip.destination1.address, d2: state.params.trip.destination2.address };
             this.state.coords.push(obj2);
 
 
@@ -182,14 +182,23 @@ export default class GMapView extends React.Component {
 
         for (var i = 0; i < this.state.events.length; i++) {
 
-            // Address Geocoding
-            Geocoder.geocodeAddress(this.state.events[i].eventAddress.toUpperCase()).then(res => {
-                // res is an Array of geocoding object (see below)
+            RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
+            .then((results) => {
 
-                this.state.eventsMarkers.push(res);
-
-
-            }).catch(err => console.log(err))
+                firebase.database().ref('test/').push(results);
+            this.state.eventsMarkers.push(results);
+            this.setState({ latitude: results.latitude });
+            this.setState({ longitude: results.longitude });
+                
+               
+            
+            
+            
+            
+            
+            
+            })
+            .catch((error) => alert(error.message));
 
         }
 
@@ -209,19 +218,26 @@ export default class GMapView extends React.Component {
         for (var i = 0; i < this.state.destinations.length; i++) {
 
             // Address Geocoding
-            Geocoder.geocodeAddress(this.state.destinations[i].toUpperCase()).then(res => {
+            Geocoder.geocodeAddress(this.state.destinations[i].address.toUpperCase()).then(res => {
                 // res is an Array of geocoding object (see below)
 
-                this.state.markers.push(res);
+                if((res["0"].position !== undefined )){
+                    firebase.database().ref('test/').push(res);
+                    var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
+                    this.state.markers.push(obj);
                 this.setState({ latitude: res["0"].position.lat });
                 this.setState({ longitude: res["0"].position.lng });
 
+                }
+                
 
 
-            }).catch(err => console.log(err))
+
+            }).catch(err => alert(err))
 
         }
 
+  
 
 
 
@@ -256,15 +272,15 @@ export default class GMapView extends React.Component {
 
         // adding buttom components for all the user trips 
         var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
-            latitude: type["0"].position.lat,
-            longitude: type["0"].position.lng
-        }} title={'marker'}
+            latitude: type.latitude,
+            longitude: type.longitude
+        }} title={type.name}
         />)
 
         var eventsMComponents = this.state.eventsMarkers.map((type) => <MapView.Marker coordinate={{
-            latitude: type["0"].position.lat,
-            longitude: type["0"].position.lng
-        }} title={'marker'}
+            latitude: type.latitude,
+            longitude: type.longitude
+        }} title={type.name}
             pinColor="blue"
         />)
 
@@ -284,9 +300,9 @@ export default class GMapView extends React.Component {
             latitude: this.state.userlatitude,
             longitude: this.state.userlongitude
         }} title={"Your Location"}
-        image = {require('../../images/userlocation.png')}
-      
-       />
+            image={require('../../images/userlocation.png')}
+
+        />
         return (
 
 
@@ -298,13 +314,13 @@ export default class GMapView extends React.Component {
                     titleStyle={styles.title}
                     backgroundColor={'black'}
                     leftIconImage={require('../../images/profile.png')}
-                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip:state.params.trip })}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
                     rightIcons={[
                         {
                             image: require('../../images/timeline.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip:state.params.trip}),
-                        },{
+                            onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
+                        }, {
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
                             onPress: () => console.log('Right Custom image !'),
@@ -328,8 +344,8 @@ export default class GMapView extends React.Component {
 
                     {dirComponents}
 
-           {userloc}
-                   
+                    {userloc}
+
 
                 </MapView>
 
