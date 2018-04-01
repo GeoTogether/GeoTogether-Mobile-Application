@@ -188,7 +188,6 @@ export default class GMapView extends React.Component {
                         // res is an Array of geocoding object (see below)
         
                         if((res["0"].position !== undefined )){
-                            firebase.database().ref('test/').push(res);
                             var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
                             this.state.eventsMarkers.push(obj);
                         this.setState({ latitude: res["0"].position.lat });
@@ -245,7 +244,6 @@ export default class GMapView extends React.Component {
                 // res is an Array of geocoding object (see below)
 
                 if((res["0"].position !== undefined )){
-                    firebase.database().ref('test/').push(res);
                     var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
                     this.state.markers.push(obj);
                 this.setState({ latitude: res["0"].position.lat });
