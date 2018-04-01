@@ -178,17 +178,38 @@ export default class GMapView extends React.Component {
 
     getEventAddress() {
 
-        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
+     Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
 
         for (var i = 0; i < this.state.events.length; i++) {
 
-            RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
-            .then((results) => {
 
-                firebase.database().ref('test/').push(results);
-            this.state.eventsMarkers.push(results);
-            this.setState({ latitude: results.latitude });
-            this.setState({ longitude: results.longitude });
+                    // Address Geocoding
+                    Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
+                        // res is an Array of geocoding object (see below)
+        
+                        if((res["0"].position !== undefined )){
+                            firebase.database().ref('test/').push(res);
+                            var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
+                            this.state.eventsMarkers.push(obj);
+                        this.setState({ latitude: res["0"].position.lat });
+                        this.setState({ longitude: res["0"].position.lng });
+        
+                        }
+                        
+        
+        
+        
+                    })
+
+                    if(this.state.eventsMarkers[i] == undefined){
+                        RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
+                        .then((results) => {
+                        this.state.eventsMarkers.push(results);
+                       
+
+                    
+
+      
                 
                
             
@@ -201,7 +222,9 @@ export default class GMapView extends React.Component {
             .catch((error) => alert(error.message));
 
         }
+        }
 
+        this.forceUpdate();
     }
 
 
@@ -233,7 +256,23 @@ export default class GMapView extends React.Component {
 
 
 
-            }).catch(err => alert(err))
+            })
+
+
+            if(this.state.markers[i] == undefined){
+                RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
+                .then((results) => {
+    
+                this.state.markers.push(results);
+                this.setState({ latitude: results.latitude });
+                this.setState({ longitude: results.longitude });
+                
+                
+                })
+                .catch((error) => alert(error.message));
+            }
+
+           
 
         }
 
@@ -244,6 +283,7 @@ export default class GMapView extends React.Component {
         this.setState({ trip: state.params.trip });
 
 
+        this.forceUpdate();
     }
 
 
