@@ -33,26 +33,22 @@ export default class PasswordReset extends React.Component {
 
 // function to Reset the user password using firebase authentication
     onPressPasswordReset(){
-        const { email } = this.state;
+        const { email} = this.state;
         const { navigate } = this.props.navigation;
 
-        if(email == '') {
-            alert("Please fill out all fields.")
-        } else {
+
             firebase.auth().sendPasswordResetEmail(email).then(function() {
-                alert('Email sent');
+              alert('Email sent');
                 // Email sent.
-            }).catch(function(error) {
+              }).catch(function(error) {
                 // An error happened.
                 this.setState({ error: 'Failed'});
-            });
+              });
+              
 
-
-            if (this.state.error == ''){
+              if (this.state.error == ''){
                 navigate('Login'); // go back to login
             }
-
-        }
 
 
     }
@@ -91,7 +87,7 @@ export default class PasswordReset extends React.Component {
               borderRadius: 10,
               marginBottom: 10
           }} >
-            <Text style={styles.buttonText2}>Reset</Text>
+            <Text style={styles.buttonText2}>Submit</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigate('Login')} style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0,25,88)',
               borderRadius: 10,
