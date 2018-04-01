@@ -141,27 +141,22 @@ export default class NewTrip extends React.Component {
 
         members.push(email);
 
-        if(tripname == '' || destination1 == '' || destination2 == '' || startDate == null || endDate == null) {
-            alert("Please fill out all fields.");
-        }
-        else {
-            // add the the trip to the database
-            firebase.database().ref('trips/').push({
-                tripName: tripname,
-                admin: email,
-                startDate: startDate,
-                endDate: endDate,
-                destination1: destination1,
-                destination2: destination2,
-                members: members,
-                events: events
-            });
+
+        // add the the trip to the database
+        firebase.database().ref('trips/').push({
+            tripName: tripname,
+            admin: email,
+            startDate: startDate,
+            endDate: endDate,
+            destination1: destination1,
+            destination2: destination2,
+            members: members,
+            events: events
+        });
 
 
-            //after adding the trip go back to trips
-            navigate('Trips', {email: this.state.email});
-        }
-
+        //after adding the trip go back to trips
+        navigate('Trips', {email: this.state.email});
     }
 
     render() {
