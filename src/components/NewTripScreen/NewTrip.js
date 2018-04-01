@@ -23,8 +23,8 @@ export default class NewTrip extends React.Component {
     }
     // the user state with all of the user information
     state = {
-        destination1: '',
-        destination2: '',
+        destination1: null,
+        destination2: null,
         authenticating: false,
         user: null,
         error: '',
@@ -258,7 +258,9 @@ export default class NewTrip extends React.Component {
                                     }}
                                     onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                        this.setState({destination1: data.description})
+                                    var temp = {address: data.description, id: data.place_id}
+                                    this.setState({destination1: temp})
+                                       
                                     }}
                                 />
                             </KeyboardAvoidingView>
@@ -299,7 +301,11 @@ export default class NewTrip extends React.Component {
                                 }}
                                 onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                    this.setState({destination2: data.description})
+                                var temp = {address: data.description, id: data.place_id}
+                                this.setState({destination2: temp})
+                               
+                               
+                                   
                                 }}
                             />
                         </View>

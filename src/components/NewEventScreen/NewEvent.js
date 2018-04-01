@@ -39,7 +39,7 @@ export default class NewEvent extends React.Component {
         modalVisible: false,
         modalEvent: false,
         eventTitle: '',
-        eventAddress: '',
+        eventAddress: null,
         startTimeChosen:'00:00',
         endTimeChosen: '00:00',
     };
@@ -158,7 +158,9 @@ export default class NewEvent extends React.Component {
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                           
-                            this.setState({ eventAddress: data.description })
+                        var temp = {address: data.description, id: data.place_id}
+                        this.setState({eventAddress: temp})
+                           
                         }}
                     />
                 </View>
