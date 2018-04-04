@@ -160,6 +160,7 @@ export default class Trips extends React.Component {
 
         const val = tripSnapshot.val();
 
+
         if (val.members.indexOf(this.state.email) != -1) {
 
 
@@ -191,8 +192,6 @@ export default class Trips extends React.Component {
 
 
     var components = this.state.trips.map((type) =>
-      
-
         <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('ChatScreen',{tripKey: type, trip: type.val(), email: this.state.email})}>
             <View style={styles.textRow}>
                 <Text style={styles.tripName}>{type.val().tripName}</Text>

@@ -76,6 +76,7 @@ export default class ChatScreen extends React.Component {
                                     name: TotalArray[key][key2][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
+                                image: ('https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg')
                             });
                         }
                         else{
@@ -88,6 +89,7 @@ export default class ChatScreen extends React.Component {
                                     name: TotalArray[key][key2][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
+                                image: ('https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg')
                             });
                         }
 
@@ -311,6 +313,7 @@ export default class ChatScreen extends React.Component {
                 .then(() => {
                     uploadBlob.close()
                     return imageRef.getDownloadURL()
+
                 })
                 .then((url) => {
                     resolve(url)
@@ -378,6 +381,7 @@ export default class ChatScreen extends React.Component {
                 }}
                 renderActions={this.renderCustomActions}
                 renderCustomView={this.renderCustomView}
+
             />
 
 

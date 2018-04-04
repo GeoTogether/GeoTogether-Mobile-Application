@@ -18,18 +18,19 @@ import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 import GMapView from './components/MapViewScreen/GMapView';
 import ChatScreen from './components/ChatScreen/ChatScreen';
 
+
 // adding all the classes ti navigator
 const Home = StackNavigator({
-    //SplashScreen: { screen: SplashScreen },
-    //Login: { screen: Login },
-    //SignUp: { screen: SignUp },
-    //Trips: { screen: Trips },
-    //PasswordReset: { screen: PasswordReset },
-    //NewTrip: { screen: NewTrip },
-    //ProfileSettings: { screen: ProfileSettings },
-    //Intro: { screen: Intro },
-    //GMapView:{screen: GMapView},
-    //TimeLineScreen: {screen: TimeLineScreen},
+    SplashScreen: { screen: SplashScreen },
+    Login: { screen: Login },
+    SignUp: { screen: SignUp },
+    Trips: { screen: Trips },
+    PasswordReset: { screen: PasswordReset },
+    NewTrip: { screen: NewTrip },
+    ProfileSettings: { screen: ProfileSettings },
+    Intro: { screen: Intro },
+    GMapView:{screen: GMapView},
+    TimeLineScreen: {screen: TimeLineScreen},
     ChatScreen: { screen: ChatScreen },
 },
     { headerMode: 'screen' });

@@ -5,6 +5,14 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
@@ -45,6 +53,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNSendIntentPackage(),
             new LinearGradientPackage(),
+            new RNFetchBlobPackage(),
+            new VectorIconsPackage(),
             new ImagePickerPackage(),
             new RNGoogleSigninPackage(),
               new FBSDKPackage(mCallbackManager),
