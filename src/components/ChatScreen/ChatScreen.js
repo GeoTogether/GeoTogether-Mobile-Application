@@ -1,8 +1,10 @@
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import React from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, Text } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
+import CustomView from '../CustomView/CustomView';
+import ImagePicker from "react-native-image-picker";
 
 
 export default class ChatScreen extends React.Component {
@@ -15,8 +17,8 @@ export default class ChatScreen extends React.Component {
         super(props);
         this.state = {messages: []};
         this.onSend = this.onSend.bind(this);
-        this._images = [];
         this.renderCustomActions = this.renderCustomActions.bind(this);
+
     }
 
     stat = {
@@ -28,18 +30,18 @@ export default class ChatScreen extends React.Component {
 
   componentDidMount(){
 
-    const {state} = this.props.navigation;   
+    const {state} = this.props.navigation;
     var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
     var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
 
 
     firebase.database().ref(Path).on('value', (snapshot) => {
-       
 
-        
+
+
 
         if(this.stat.firstTime == 0){
-            
+
             var q;
 
             firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
@@ -54,7 +56,7 @@ export default class ChatScreen extends React.Component {
 
            for (var key in TotalArray) {
             for (var key2 in TotalArray[key]) {
-                if(x > this.stat.initialTimeStamps.length){                    
+                if(x > this.stat.initialTimeStamps.length){
                     this.stat.initialTimeStamps.push(TotalArray[key][key2][2]);
                         if(TotalArray[key][key2][0] == state.params.email){
                             Messages.push({
@@ -85,8 +87,8 @@ export default class ChatScreen extends React.Component {
                 else{
 
                 }
-               
-                x = x+1;                
+
+                x = x+1;
                }
         }
 
@@ -97,9 +99,9 @@ export default class ChatScreen extends React.Component {
     else{
 
 
-                    
 
-                
+
+
 
 
          var q;
@@ -120,7 +122,7 @@ export default class ChatScreen extends React.Component {
         console.log(q);
 
         for(var key in snap){
-        
+
             if(snap[key][0] == state.params.email){
                             Messages.push({
                                 _id: q,
@@ -178,7 +180,7 @@ export default class ChatScreen extends React.Component {
 
 
     });
-    
+
   }
 
 
@@ -191,11 +193,19 @@ export default class ChatScreen extends React.Component {
 
     }
 
+    renderCustomView(props) {
+        return (
+            <CustomView
+                {...props}
+            />
+        );
+    }
+
     sendMessage(message){
 
         const {state} = this.props.navigation;
 
-        
+
         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
 
         var q;
@@ -211,39 +221,39 @@ export default class ChatScreen extends React.Component {
 
 
         firebase.database().ref(Path).push({
-            
-                    
+
+
                     0: state.params.email,
                     1: message,
-                    2: this.getCurrentTime(),     
-            
+                    2: this.getCurrentTime(),
+
         });
     }
-    
+
     addUserToGroupChat(name){
 
         const {state} = this.props.navigation;
-        
+
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/users/';
 
         firebase.database().ref(Path).push({
-                      
+
                     name,
-            
+
         });
 
     }
 
     getCurrentTime(){
-        var currentdate = new Date(); 
+        var currentdate = new Date();
         return currentdate.getTime();
     }
 
 
     componentWillMount() {
-         
-        
-        
+
+
+
     }
     onSend(messages = []) {
         this.sendMessage(messages[0].text);
@@ -258,11 +268,8 @@ export default class ChatScreen extends React.Component {
             );
         }
         const options = {
-            'Action 1': (props) => {
-                alert('option 1');
-            },
-            'Action 2': (props) => {
-                alert('option 2');
+            'Select Photo': (props) => {
+                this.selectPhoto();
             },
             'Cancel': () => {},
         };
@@ -272,6 +279,43 @@ export default class ChatScreen extends React.Component {
                 options={options}
             />
         );
+    }
+
+    selectPhoto() {
+        const options = {
+            quality: 1.0,
+            maxWidth: 500,
+            maxHeight: 500,
+            storageOptions: {
+                skipBackup: true
+            }
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                let source = {uri: response.uri};
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+
+                    ImageSource: source
+
+                });
+            }
+        });
     }
 
 
@@ -289,7 +333,9 @@ export default class ChatScreen extends React.Component {
                     name: email,
                 }}
                 renderActions={this.renderCustomActions}
+                renderCustomView={this.renderCustomView}
             />
+
 
         );
     }
@@ -305,9 +351,9 @@ this is on the new trips screen now
         createGroupChat(){
 
         firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/').push({
-     
+
                     users:[
-                    'hellos@gmail.com', 
+                    'hellos@gmail.com',
                     'x@gmail.com'
                     ],
                     messages:[
