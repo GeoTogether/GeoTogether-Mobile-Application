@@ -28,7 +28,7 @@ class Trips extends React.Component {
 
     static navigationOptions = {
         title: 'Home',
-        // header: null
+        header: null
     }
 
     state = {
@@ -192,10 +192,6 @@ class Trips extends React.Component {
                     {/*</View>*/}
                 </View>
 
-
-
-
-
                 <View style={styles.tripContainer}>
                     <ScrollView>
                         <View style={styles.tripView}>
@@ -238,7 +234,6 @@ export default TabNavigator (
                     showLabel = false;
                 }
 
-
                 return <Ionicons name={iconName} size={25} color={tintColor} />;
             }
         }),
@@ -265,6 +260,7 @@ const styles = StyleSheet.create({
         height: '10%',
         alignItems: 'stretch',
         width: '100%',
+        marginTop: '16%'
     },
     linearGradient: {
         flex: 1,
