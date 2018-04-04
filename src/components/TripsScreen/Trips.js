@@ -10,6 +10,7 @@ import { GoogleSignin } from 'react-native-google-signin';
 import LinearGradient from 'react-native-linear-gradient';
 
 import Chat from "../ChatScreen/Chat";
+import Share from "../ShareScreen/Share";
 import MapView from "../MapViewScreen/GMapView";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
@@ -207,6 +208,7 @@ export default TabNavigator (
     {
         Chat: { screen: Chat },
         Home: { screen: Trips },
+        Share: { screen: Share},
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -217,8 +219,8 @@ export default TabNavigator (
                     iconName = `ios-home${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Chat') {
                     iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
-                } else if (routeName === 'MapView') {
-                    showLabel = false;
+                } else if (routeName === 'Share') {
+                    iconName = `ios-home${focused ? '' : '-outline'}`;
                 }
 
 
