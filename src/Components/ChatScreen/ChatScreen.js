@@ -17,9 +17,11 @@ export default class ChatScreen extends React.Component {
     }
 
     stat = {
+        initialMessages: [],
         initialTimeStamps: [],
-        firstTime: 0,
-        arrayVal: 0,
+        initialUsers: [],
+        initialKeyOne: [],
+        initialKeyTwo: [],
     }
 
 
@@ -27,35 +29,29 @@ export default class ChatScreen extends React.Component {
 
     const {state} = this.props.navigation;   
     var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
-    var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
-
 
     firebase.database().ref(Path).on('value', (snapshot) => {
-       
-
-        
-
-        if(this.stat.firstTime == 0){
-            
-            var q;
-
-            firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
-
-            this.stat.arrayVal = q;
-
-            this.stat.firstTime = 1;
        var TotalArray = snapshot.val();
-       var x = 1;
+       var x = 0;
+
        var Messages = [];
 
 
            for (var key in TotalArray) {
             for (var key2 in TotalArray[key]) {
-                if(x > this.stat.initialTimeStamps.length){                    
+                if(this.stat.initialKeyOne.includes(key) && this.stat.initialKeyTwo.includes(key2)){                    
+                    
+
+                }
+                else{
+                    this.stat.initialMessages.push(TotalArray[key][key2][1]);
+                    this.stat.initialUsers.push(TotalArray[key][key2][0]);
                     this.stat.initialTimeStamps.push(TotalArray[key][key2][2]);
+                    this.stat.initialKeyOne.push(key);
+                    this.stat.initialKeyTwo.push(key2);
                         if(TotalArray[key][key2][0] == state.params.email){
                             Messages.push({
-                                _id: key,
+                                _id: x+2,
                                 text: TotalArray[key][key2][1],
                                 createdAt: TotalArray[key][key2][2],
                                 user: {
@@ -67,20 +63,16 @@ export default class ChatScreen extends React.Component {
                         }
                         else{
                             Messages.push({
-                                _id: key,
+                                _id: x+2,
                                 text: TotalArray[key][key2][1],
                                 createdAt: TotalArray[key][key2][2],
                                 user: {
-                                    _id: key+1,
+                                    _id: x+3,
                                     name: TotalArray[key][key2][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
                             });
                         }
-
-                }
-                else{
-
                 }
                
                 x = x+1;                
@@ -88,90 +80,6 @@ export default class ChatScreen extends React.Component {
         }
 
         this.AddToGui(Messages.reverse());
-    }
-
-
-    else{
-
-
-                    
-
-                
-
-
-         var q;
-
-        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
-
-        var temp = this.stat.arrayVal;
-
-        this.stat.arrayVal = temp + 1;
-
-        var Path3 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + q;
-
-        var snap;
-        firebase.database().ref(Path3).once('value', (snapshot) => {snap = snapshot.val();});
-
-        var Messages = [];
-
-        console.log(q);
-
-        for(var key in snap){
-        
-            if(snap[key][0] == state.params.email){
-                            Messages.push({
-                                _id: q,
-                                text: snap[key][1],
-                                createdAt: snap[key][2],
-                                user: {
-                                    _id: 1,
-                                    name: snap[key][0],
-                                    avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
-                                },
-                            });
-                        }
-                        else{
-                            Messages.push({
-                                _id: q,
-                                text: snap[key][1],
-                                createdAt: snap[key][2],
-                                user: {
-                                    _id: q+1,
-                                    name: snap[key][0],
-                                    avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
-                                },
-                            });
-                        }
-
-
-        }
-
-
-        this.AddToGui(Messages.reverse());
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
 
 
     });
@@ -191,28 +99,24 @@ export default class ChatScreen extends React.Component {
     sendMessage(message){
 
         const {state} = this.props.navigation;
-
+        //i did this cause firebase stored messages out of order and the 
+        //chat gui doesnt organize by time
+        //so the key could be a timestamp in firebase and if two users send at the same time
+        //it isnt an issue cause the database would go timestamp/madeupfirebasekey/messages
+        //so no conflicts would be caused
         
-        var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
-
-        var q;
-
-        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
-
-        firebase.database().ref(Path2).set((q+1));
-
-
-        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q+1);
-
-
-
+        var key = this.getCurrentTime();
+        
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' +this.getCurrentTime();
 
         firebase.database().ref(Path).push({
             
                     
                     0: state.params.email,
                     1: message,
-                    2: this.getCurrentTime(),     
+                    2: this.getCurrentTime(),
+                    
+                
             
         });
     }
