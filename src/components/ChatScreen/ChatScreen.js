@@ -5,6 +5,12 @@ import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
 import CustomView from '../CustomView/CustomView';
 import ImagePicker from "react-native-image-picker";
+import RNFetchBlob from 'react-native-fetch-blob';
+
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
 
 
 export default class ChatScreen extends React.Component {
@@ -16,6 +22,7 @@ export default class ChatScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {messages: []};
+        //this.getImage = this.getImage.bind(this);
         this.onSend = this.onSend.bind(this);
         this.renderCustomActions = this.renderCustomActions.bind(this);
 
@@ -25,6 +32,7 @@ export default class ChatScreen extends React.Component {
         initialTimeStamps: [],
         firstTime: 0,
         arrayVal: 0,
+        image_uri: null,
     }
 
 
@@ -281,13 +289,46 @@ export default class ChatScreen extends React.Component {
         );
     }
 
+    uploadImage(uri, mime = 'image/jpg') {
+        const Blob = RNFetchBlob.polyfill.Blob
+        const fs = RNFetchBlob.fs
+        window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+        window.Blob = Blob
+        return new Promise((resolve, reject) => {
+            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+            let uploadBlob = null
+
+            const imageRef = firebase.storage().ref('images').child('image_001')
+
+            fs.readFile(uploadUri, 'base64')
+                .then((data) => {
+                    return Blob.build(data, { type: `${mime};BASE64` })
+                })
+                .then((blob) => {
+                    uploadBlob = blob
+                    return imageRef.put(blob, { contentType: mime })
+                })
+                .then(() => {
+                    uploadBlob.close()
+                    return imageRef.getDownloadURL()
+                })
+                .then((url) => {
+                    resolve(url)
+                })
+                .catch((error) => {
+                    reject(error)
+                })
+        })
+    }
+
     selectPhoto() {
         const options = {
             quality: 1.0,
             maxWidth: 500,
             maxHeight: 500,
             storageOptions: {
-                skipBackup: true
+                skipBackup: true,
+                path: 'images'
             }
         };
 
@@ -304,16 +345,19 @@ export default class ChatScreen extends React.Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                let source = {uri: response.uri};
+                //let source = {uri: response.uri};
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-                this.setState({
+                //this.setstat({
 
-                    ImageSource: source
+                  //  ImageSource: source
 
-                });
+                //});
+                this.uploadImage(response.uri)
+                    .then(url => { alert('uploaded'); this.setState({image_uri: url}) })
+                    .catch(error => console.log(error))
             }
         });
     }
