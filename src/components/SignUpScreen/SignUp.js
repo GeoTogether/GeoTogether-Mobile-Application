@@ -46,37 +46,47 @@ export default class SignUp extends React.Component {
 
     }
 
+    validateEmail = (email) => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    };
+
 // function to sign up the user using firebase authentication
     onPressSignUp() {
         const {email, password, fname, lname} = this.state;
         const {navigate} = this.props.navigation;
 
-        // add the user email and password to firebase 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(user => this.setState({
+        if (!this.validateEmail(email)) {
+            alert("Please enter a valid email");
+        } else {
+            // add the user email and password to firebase
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(user => this.setState({
+                    authenticating: false,
+                    user,
+                    error: '',
+                })).catch(() => this.setState({
                 authenticating: false,
-                user,
-                error: '',
-            })).catch(() => this.setState({
-            authenticating: false,
-            user: null,
-            error: 'Sign Up Failure',
-        }));
+                user: null,
+                error: 'Sign Up Failure',
+            }));
 
-        // add the user to the database
-        firebase.database().ref('users/').push({
-            first: fname,
-            last: lname,
-            email: email,
-            photo: '',
-            newUser: 1,
-        });
+            // add the user to the database
+            firebase.database().ref('users/').push({
+                first: fname,
+                last: lname,
+                email: email,
+                photo: '',
+                newUser: 1,
+            });
 
 
-        // if the register is success
-        if (this.state.error == '') {
-            navigate('Login'); // go back to login
+            // if the register is success
+            if (this.state.error == '') {
+                navigate('Login'); // go back to login
+            }
         }
+
     }
 
 
