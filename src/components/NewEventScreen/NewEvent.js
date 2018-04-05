@@ -32,31 +32,27 @@ export default class NewEvent extends React.Component {
         header: null
     };
 
-    // state = {
-    //     destination1: '',
-    //     destination2: '',
-    //     authenticating: false,
-    //     user: null,
-    //     error: '',
-    //     tripname: '',
-    //     members: [],
-    //     events: [],
-    //     member: '',
-    //     startDate: null,
-    //     endDate: null,
-    //     email: '',
-    //     UserInvite: '',
-    //     modalVisible: false,
-    //     modalEvent: false,
-    //     eventTitle: '',
-    //     eventAddress: null,
-    //     startTimeChosen:'00:00',
-    //     endTimeChosen: '00:00',
-    // };
-
-    // componentWillMount() {
-    //     RevMobManager.hideBanner();
-    // }
+    state = {
+        destination1: '',
+        destination2: '',
+        authenticating: false,
+        user: null,
+        error: '',
+        tripname: '',
+        members: [],
+        events: [],
+        member: '',
+        startDate: null,
+        endDate: null,
+        email: '',
+        UserInvite: '',
+        modalVisible: false,
+        modalEvent: false,
+        eventTitle: '',
+        eventAddress: null,
+        startTimeChosen:'00:00',
+        endTimeChosen: '00:00',
+    };
 
 
     componentDidMount(){
@@ -69,71 +65,78 @@ export default class NewEvent extends React.Component {
 
     }
 
+    componentWillUnmount(){
+        RevMobManager.hideBanner();
+    }
 
-    // _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
-    //
-    // _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
-    //
-    // _handleDatePicked = (date) => {
-    //
-    //
-    // var hours = date.getHours();
-    // var minutes = date.getMinutes();
-    // var period = ' PM';
-    //
-    // if (hours > 12) {
-    //     hours -= 12;
-    //     period = ' AM'
-    // } else if (hours === 0) {
-    //     hours = 12;
-    //     period = ' AM'
-    // }
-    //
-    // var todisplay = hours.toString() + ':' + minutes.toString()+ period;
-    //
-    //     this.setState({startTimeChosen: todisplay});
-    //     this._hideDateTimePicker();
-    // };
-    //
-    // _handleDatePicked2 = (date) => {
-    //
-    // var hours = date.getHours();
-    // var minutes = date.getMinutes();
-    // var period = ' PM';
-    //
-    // if (hours > 12) {
-    //     hours -= 12;
-    //     period = ' AM'
-    // } else if (hours === 0) {
-    //     hours = 12;
-    //     period = ' AM'
-    // }
-    //
-    // var todisplay = hours.toString() + ':' + minutes.toString()+ period;
-    //
-    //     this.setState({endTimeChosen: todisplay});
-    //     this._hideDateTimePicker();
-    // };
+    componentDidUpdate(){
+        RevMobManager.showBanner();
+    }
+
+    _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
+
+    _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
+
+    _handleDatePicked = (date) => {
+
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var period = ' PM';
+
+    if (hours > 12) {
+        hours -= 12;
+        period = ' AM'
+    } else if (hours === 0) {
+        hours = 12;
+        period = ' AM'
+    }
+
+    var todisplay = hours.toString() + ':' + minutes.toString()+ period;
+
+        this.setState({startTimeChosen: todisplay});
+        this._hideDateTimePicker();
+    };
+
+    _handleDatePicked2 = (date) => {
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var period = ' PM';
+
+    if (hours > 12) {
+        hours -= 12;
+        period = ' AM'
+    } else if (hours === 0) {
+        hours = 12;
+        period = ' AM'
+    }
+
+    var todisplay = hours.toString() + ':' + minutes.toString()+ period;
+
+        this.setState({endTimeChosen: todisplay});
+        this._hideDateTimePicker();
+    };
 
 
     constructor(props) {
         super(props)
     }
 
-    // onPressNewEvent(){
-    //     const { navigate } = this.props.navigation;
-    //     const { state } = this.props.navigation;
-    //     var newEvent = {eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen}
-    //
-    //     state.params.trip.events.push(newEvent);
-    //     navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
-    //
-    // }
+    onPressNewEvent(){
+        const { navigate } = this.props.navigation;
+        const { state } = this.props.navigation;
+        var newEvent = {eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen}
+
+        state.params.trip.events.push(newEvent);
+        navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+
+    }
 
     render() {
 
-        // const {navigate} = this.props.navigation;
-        // const {goBack} = this.props.navigation;
+        const {navigate} = this.props.navigation;
+        const {goBack} = this.props.navigation;
 
         return (
 
@@ -152,7 +155,7 @@ export default class NewEvent extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.newEInput}
-                        // onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
+                        onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
                     />
                     <Text style={styles.textHeader}>Address of the event:</Text>
                     <GooglePlacesAutocomplete
@@ -184,8 +187,8 @@ export default class NewEvent extends React.Component {
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                           
-                        // var temp = {address: data.description, id: data.place_id};
-                        // this.setState({eventAddress: temp})
+                        var temp = {address: data.description, id: data.place_id};
+                        this.setState({eventAddress: temp})
                            
                         }}
                     />
@@ -196,16 +199,16 @@ export default class NewEvent extends React.Component {
                         <View style={styles.dateStartStyle}>
                             <Text style={styles.textHeader}>Start Date:</Text>
                             <DatePicker
-                                // date={this.state.startDate}
+                                date={this.state.startDate}
                                 style={{backgroundColor: 'white'}}
                                 showIcon={false}
                                 mode="date"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
-                                // onDateChange={(startdate) => {
-                                //     this.setState({startDate: startdate}), this.placeholder = startdate
-                                // }}
+                                onDateChange={(startdate) => {
+                                    this.setState({startDate: startdate}), this.placeholder = startdate
+                                }}
                             />
                         </View>
                     </View>
@@ -214,16 +217,16 @@ export default class NewEvent extends React.Component {
                         <View style={styles.dateStartStyle}>
                             <Text style={styles.textHeader}>End Date:</Text>
                             <DatePicker
-                                // date={this.state.endDate}
+                                date={this.state.endDate}
                                 style={{backgroundColor: 'white'}}
                                 showIcon={false}
                                 mode="date"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
-                                // onDateChange={(enddate) => {
-                                //     this.setState({endDate: enddate}), this.placeholder = enddate
-                                // }}
+                                onDateChange={(enddate) => {
+                                    this.setState({endDate: enddate}), this.placeholder = enddate
+                                }}
                             />
                         </View>
                     </View>
@@ -231,18 +234,16 @@ export default class NewEvent extends React.Component {
                     <View style={styles.timeContainer}>
                         <View style={styles.timeStyle}>
                             <Text style={styles.textHeader}>Start Time:</Text>
-                            <TouchableOpacity>
-                            {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
+                            <TouchableOpacity onPress={this._showDateTimePicker}>
                                 <View style={styles.timeSlot}>
-                                    {/*<Text style={styles.timeDisplay}>{this.state.startTimeChosen}</Text>*/}
-                                    <Text style={styles.timeDisplay}></Text>
+                                    <Text style={styles.timeDisplay}>{this.state.startTimeChosen}</Text>
                                 </View>
                                 <DateTimePicker
-                                    // isVisible={this.state.isDateTimePickerVisible}
-                                    // onConfirm={this._handleDatePicked}
-                                    // onCancel={this._hideDateTimePicker}
+                                    isVisible={this.state.isDateTimePickerVisible}
+                                    onConfirm={this._handleDatePicked}
+                                    onCancel={this._hideDateTimePicker}
                                     mode="time"
-                                    // is24Hour={false}
+                                    is24Hour={false}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -251,16 +252,14 @@ export default class NewEvent extends React.Component {
                     <View style={styles.timeContainer}>
                         <View style={styles.timeStyle}>
                             <Text style={styles.textHeader}>End Time:</Text>
-                            {/*<TouchableOpacity onPress={this._showDateTimePicker}>*/}
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={this._showDateTimePicker}>
                                 <View style={styles.timeSlot}>
-                                    {/*<Text style={styles.timeDisplay}>{this.state.endTimeChosen}</Text>*/}
-                                    <Text style={styles.timeDisplay}></Text>
+                                    <Text style={styles.timeDisplay}>{this.state.endTimeChosen}</Text>
                                 </View>
                                 <DateTimePicker
-                                    // isVisible={this.state.isDateTimePickerVisible}
-                                    // onConfirm={this._handleDatePicked2}
-                                    // onCancel={this._hideDateTimePicker}
+                                    isVisible={this.state.isDateTimePickerVisible}
+                                    onConfirm={this._handleDatePicked2}
+                                    onCancel={this._hideDateTimePicker}
                                     mode="time"
                                     is24Hour={false}
                                 />
@@ -270,8 +269,7 @@ export default class NewEvent extends React.Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttonStyle}>
-                        {/*<TouchableOpacity onPress={() => this.onPressNewEvent()}>*/}
-                        <TouchableOpacity >
+                        <TouchableOpacity onPress={() => this.onPressNewEvent()}>
                             <Text style={styles.buttonText}>Add Event</Text>
                         </TouchableOpacity>
                     </View>

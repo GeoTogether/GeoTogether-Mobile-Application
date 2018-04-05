@@ -72,17 +72,24 @@ class Trips extends React.Component {
     componentDidMount(){
         RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
             if(!err) RevMobManager.loadBanner(); // Load banner if session starts successfully.
-        })
+        });
         NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
             RevMobManager.showBanner(); // Show banner if it's loaded
-        })
+        });
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.checkNewUser();
-
         // gets all the user trips
         this.onPressGetTrips();
+    }
+
+    componentWillUnmount(){
+        RevMobManager.hideBanner();
+    }
+
+    componentDidUpdate(){
+        RevMobManager.showBanner();
     }
 
     // funcation to sign out using firebase authentication.
@@ -204,6 +211,7 @@ class Trips extends React.Component {
                     <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
                         <Image
                             source={require('../../images/addbutton.png')}
+                            onPress={RevMobManager.hideBanner()}
                         />
                     </TouchableOpacity>
                 </View>
@@ -224,13 +232,10 @@ export default TabNavigator (
                 const { routeName } = navigation.state;
                 let iconName;
                 if (routeName === 'Home') {
-                    RevMobManager.hideBanner();
                     iconName = `ios-home${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Chat') {
-                    RevMobManager.hideBanner();
                     iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
                 } else if (routeName === 'MapView') {
-                    RevMobManager.hideBanner();
                     showLabel = false;
                 }
 
