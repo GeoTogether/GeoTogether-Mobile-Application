@@ -51,41 +51,56 @@ export default class SignUp extends React.Component {
         return re.test(email);
     };
 
+    validatePassword = (password) => {
+      var reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
+      return reg.test(password);
+    };
+
 // function to sign up the user using firebase authentication
     onPressSignUp() {
         const {email, password, fname, lname} = this.state;
         const {navigate} = this.props.navigation;
 
-        if (!this.validateEmail(email)) {
-            alert("Please enter a valid email");
+        if(fname == '') {
+            alert("Please enter your full name");
         } else {
-            // add the user email and password to firebase
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(user => this.setState({
-                    authenticating: false,
-                    user,
-                    error: '',
-                })).catch(() => this.setState({
-                authenticating: false,
-                user: null,
-                error: 'Sign Up Failure',
-            }));
+            if (!this.validateEmail(email)) {
+                alert("Please enter a valid email");
+            } else {
+                if (!this.validatePassword(password)) {
+                    alert("Please enter a password with at least 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character.");
+                } else {
+                    // add the user email and password to firebase
+                    firebase.auth().createUserWithEmailAndPassword(email, password)
+                        .then(user => this.setState({
+                            authenticating: false,
+                            user,
+                            error: '',
+                        })).catch(() => this.setState({
+                        authenticating: false,
+                        user: null,
+                        error: 'Sign Up Failure',
+                    }));
 
-            // add the user to the database
-            firebase.database().ref('users/').push({
-                first: fname,
-                last: lname,
-                email: email,
-                photo: '',
-                newUser: 1,
-            });
+                    // add the user to the database
+                    firebase.database().ref('users/').push({
+                        first: fname,
+                        last: lname,
+                        email: email,
+                        photo: '',
+                        newUser: 1,
+                    });
 
 
-            // if the register is success
-            if (this.state.error == '') {
-                navigate('Login'); // go back to login
+                    // if the register is success
+                    if (this.state.error == '') {
+                        navigate('Login'); // go back to login
+                    }
+                }
+
             }
         }
+
 
     }
 
