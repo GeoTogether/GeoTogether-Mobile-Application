@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableH
 import {
     StackNavigator
 } from 'react-navigation';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
@@ -369,7 +369,7 @@ export default class GMapView extends React.Component {
 
 
 
-                <MapView style={styles.map} region={{
+                <MapView  prvoider={PROVIDER_GOOGLE} style={styles.map} region={{
 
                     latitude: this.state.latitude,
                     longitude: this.state.longitude,
