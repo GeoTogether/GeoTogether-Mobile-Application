@@ -16,7 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
 
 
-class Trips extends React.Component {
+export default class Trips extends React.Component {
 
     constructor(props) {
         super(props)
@@ -203,12 +203,14 @@ class Trips extends React.Component {
     }
 }
 
+/*
 // main bottom navigation tab
 export default TabNavigator (
     {
         Chat: { screen: Chat },
         Home: { screen: Trips },
         Share: { screen: Share},
+        MapView: { screen: MapView },
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -237,6 +239,7 @@ export default TabNavigator (
         swipeEnabled: false,
     }
 );
+*/
 
 const styles = StyleSheet.create({
     actionBar: {

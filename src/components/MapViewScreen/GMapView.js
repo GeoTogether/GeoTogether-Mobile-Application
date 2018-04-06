@@ -1,7 +1,9 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
 import {
-    StackNavigator
+    StackNavigator,
+    TabNavigator,
+    TabBarBottom
 } from 'react-navigation';
 import MapView from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
@@ -11,11 +13,13 @@ import PopupDialog from 'react-native-popup-dialog';
 import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
 
+import Chat from "../ChatScreen/Chat";
+import Share from "../ShareScreen/Share";
+import Home from "../TripsScreen/Trips";
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
-
-export default class GMapView extends React.Component {
+class GMapView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -81,7 +85,7 @@ export default class GMapView extends React.Component {
         title: 'GMapView',
         header: null
     }
-    // the user state with all of the user and the trip information 
+    // the user state with all of the user and the trip information
     state = {
         destinations: [],
         markers: [],
@@ -186,37 +190,37 @@ export default class GMapView extends React.Component {
                     // Address Geocoding
                     Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
                         // res is an Array of geocoding object (see below)
-        
+
                         if((res["0"].position !== undefined )){
                             var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
                             this.state.eventsMarkers.push(obj);
                         this.setState({ latitude: res["0"].position.lat });
                         this.setState({ longitude: res["0"].position.lng });
-        
+
                         }
-                        
-        
-        
-        
+
+
+
+
                     })
 
                     if(this.state.eventsMarkers[i] == undefined){
                         RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
                         .then((results) => {
                         this.state.eventsMarkers.push(results);
-                       
 
-                    
 
-      
-                
-               
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
             })
             .catch((error) => alert(error.message));
 
@@ -250,7 +254,7 @@ export default class GMapView extends React.Component {
                 this.setState({ longitude: res["0"].position.lng });
 
                 }
-                
+
 
 
 
@@ -260,21 +264,21 @@ export default class GMapView extends React.Component {
             if(this.state.markers[i] == undefined){
                 RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
                 .then((results) => {
-    
+
                 this.state.markers.push(results);
                 this.setState({ latitude: results.latitude });
                 this.setState({ longitude: results.longitude });
-                
-                
+
+
                 })
                 .catch((error) => alert(error.message));
             }
 
-           
+
 
         }
 
-  
+
 
 
 
@@ -308,7 +312,7 @@ export default class GMapView extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
-        // adding buttom components for all the user trips 
+        // adding buttom components for all the user trips
         var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
             latitude: type.latitude,
             longitude: type.longitude
@@ -491,6 +495,42 @@ export default class GMapView extends React.Component {
 
 }
 
+// main bottom navigation tab
+export default TabNavigator (
+    {
+        GMapView: { screen: GMapView },
+        Chat: { screen: Chat },
+        //Trips: { screen: Home },
+        Share: { screen: Share},
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'GMapView') {
+                    iconName = `ios-home${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Chat') {
+                    iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Share') {
+                    iconName = `ios-home${focused ? '' : '-outline'}`;
+                }
+
+
+                return <Ionicons name={iconName} size={25} color={tintColor} />;
+            }
+        }),
+        tabBarOptions: {
+            activeTintColor: 'gray',
+            inactiveTintColor: 'gray',
+        },
+        tabBarComponent: TabBarBottom,
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+    }
+);
+
 
 const styles = StyleSheet.create({
     container: {
@@ -569,4 +609,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     }
 });
-
