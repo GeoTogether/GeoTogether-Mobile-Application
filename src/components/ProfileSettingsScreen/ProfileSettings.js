@@ -265,31 +265,27 @@ export default class ProfileSettings extends Component {
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Name</Text>
                     </View>
-                    <TextInput style={styles.input}>
-                        {this.state.fname} {this.state.lname}
-                    </TextInput>
+                    <TextInput style={styles.input} value={this.state.fname+" "+ this.state.lname }/>
+                       
+                    
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Username</Text>
                     </View>
-                    <TextInput style={styles.input}>
-                        {this.state.fname}
-                    </TextInput>
+                    <TextInput style={styles.input} value={this.state.fname}/>
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Email</Text>
                     </View>
-                    <TextInput style={styles.input2}>
-                        {this.state.email}
-                    </TextInput>
+                    <TextInput style={styles.input2} value={this.state.email}/>
+                    
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Gender</Text>
                     </View>
-                    <TextInput style={styles.input2}>
-                        Male
-                    </TextInput>
-
+                    <TextInput style={styles.input2} value={"Male"}/>
+                      
+                   
                 </View>
 
                 <View style={styles.updateBContainer}>

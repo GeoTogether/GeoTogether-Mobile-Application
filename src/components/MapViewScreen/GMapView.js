@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image} from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -10,6 +10,7 @@ import ActionBar from 'react-native-action-bar';
 import PopupDialog from 'react-native-popup-dialog';
 import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
+import Modal from "react-native-modal";
 
 
 
@@ -26,9 +27,7 @@ export default class GMapView extends React.Component {
 
     getTripInfo() {
         this.getTime();
-        this.popupDialog.show(() => {
-
-        });
+        this.setState({modalVisible: true});
     }
 
     getTime() {
@@ -68,9 +67,7 @@ export default class GMapView extends React.Component {
     }
 
     closeInfo() {
-        this.popupDialog.dismiss(() => {
-
-        });
+        this.setState({modalVisible: false});
     }
 
 
@@ -178,49 +175,49 @@ export default class GMapView extends React.Component {
 
     getEventAddress() {
 
-     Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
+        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
 
         for (var i = 0; i < this.state.events.length; i++) {
 
 
-                    // Address Geocoding
-                    Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
-                        // res is an Array of geocoding object (see below)
-        
-                        if((res["0"].position !== undefined )){
-                            var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
-                            this.state.eventsMarkers.push(obj);
-                        this.setState({ latitude: res["0"].position.lat });
-                        this.setState({ longitude: res["0"].position.lng });
-        
-                        }
-                        
-        
-        
-        
-                    })
+            // Address Geocoding
+            Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
+                // res is an Array of geocoding object (see below)
 
-                    if(this.state.eventsMarkers[i] == undefined){
-                        RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
-                        .then((results) => {
-                        this.state.eventsMarkers.push(results);
-                       
+                if ((res["0"].position !== undefined)) {
+                    var obj = { latitude: res["0"].position.lat, longitude: res["0"].position.lng, name: res["0"].locality };
+                    this.state.eventsMarkers.push(obj);
+                    this.setState({ latitude: res["0"].position.lat });
+                    this.setState({ longitude: res["0"].position.lng });
 
-                    
+                }
 
-      
-                
-               
-            
-            
-            
-            
-            
-            
+
+
+
             })
-            .catch((error) => alert(error.message));
 
-        }
+            if (this.state.eventsMarkers[i] == undefined) {
+                RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
+                    .then((results) => {
+                        this.state.eventsMarkers.push(results);
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    })
+                    .catch((error) => alert(error.message));
+
+            }
         }
 
         this.forceUpdate();
@@ -243,38 +240,38 @@ export default class GMapView extends React.Component {
             Geocoder.geocodeAddress(this.state.destinations[i].address.toUpperCase()).then(res => {
                 // res is an Array of geocoding object (see below)
 
-                if((res["0"].position !== undefined )){
-                    var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
+                if ((res["0"].position !== undefined)) {
+                    var obj = { latitude: res["0"].position.lat, longitude: res["0"].position.lng, name: res["0"].locality };
                     this.state.markers.push(obj);
-                this.setState({ latitude: res["0"].position.lat });
-                this.setState({ longitude: res["0"].position.lng });
+                    this.setState({ latitude: res["0"].position.lat });
+                    this.setState({ longitude: res["0"].position.lng });
 
                 }
-                
+
 
 
 
             })
 
 
-            if(this.state.markers[i] == undefined){
+            if (this.state.markers[i] == undefined) {
                 RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
-                .then((results) => {
-    
-                this.state.markers.push(results);
-                this.setState({ latitude: results.latitude });
-                this.setState({ longitude: results.longitude });
-                
-                
-                })
-                .catch((error) => alert(error.message));
+                    .then((results) => {
+
+                        this.state.markers.push(results);
+                        this.setState({ latitude: results.latitude });
+                        this.setState({ longitude: results.longitude });
+
+
+                    })
+                    .catch((error) => alert(error.message));
             }
 
-           
+
 
         }
 
-  
+
 
 
 
@@ -342,10 +339,7 @@ export default class GMapView extends React.Component {
 
         />
         return (
-
-
-            <View style={styles.form}>
-
+            <View style={styles.Container}>
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
@@ -365,36 +359,35 @@ export default class GMapView extends React.Component {
                         },
                     ]}
                 />
+                <View style={styles.MapContainer}>
+                    <View style={styles.MapStyle}>
+                        <MapView prvoider={PROVIDER_GOOGLE} style={StyleSheet.absoluteFillObject} region={{
+
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421
+                        }}>
+                            {MarkersComponents}
+
+                            {eventsMComponents}
+
+                            {dirComponents}
+
+                            {userloc}
 
 
+                        </MapView>
 
 
-                <MapView  prvoider={PROVIDER_GOOGLE} style={styles.map} region={{
+                    </View>
+                </View>
+                <View style={styles.SecondContainer}>
+                <Modal style={styles.ModalContainer}
+                        visible={this.state.modalVisible}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeInfo()}>
 
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }}>
-                    {MarkersComponents}
-
-                    {eventsMComponents}
-
-                    {dirComponents}
-
-                    {userloc}
-
-
-                </MapView>
-
-
-
-                <View style={styles.container}>
-                    <PopupDialog
-                        ref={(popupDialog) => { this.popupDialog = popupDialog; }}
-                        width={.7}
-                        height={.55}
-                    >
                         <View style={styles.infoContainer}>
 
                             <Text style={styles.titleInfoText}>Trip Info</Text>
@@ -468,15 +461,13 @@ export default class GMapView extends React.Component {
                             </View>
 
                         </View>
-                    </PopupDialog>
+                        </Modal>
                 </View>
-
-
-                <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
-                    <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
-                </TouchableHighlight>
-
-
+                
+                    <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
+                        <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
+                    </TouchableHighlight>
+                
 
 
 
@@ -493,22 +484,6 @@ export default class GMapView extends React.Component {
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    form: {
-        flex: 1
-    },
-    map: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-    },
     title: {
         textAlign: 'center',
         color: 'white',
@@ -516,8 +491,8 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        width: 150,
-        height: 45,
+        width: 100,
+        height: 40,
         borderRadius: 10
     },
     centerView: {
@@ -526,11 +501,14 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '100'
+        fontWeight: '100',
+        paddingTop: 10,
+
     },
     infoContainer: {
         paddingRight: 40,
         paddingLeft: 40,
+        backgroundColor:'white',
 
     },
     titleInfoText: {
@@ -567,6 +545,34 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 30,
         textAlign: 'center',
-    }
+    },
+    Container:{
+        flex: 1,
+     },
+     
+     MapContainer:{
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+     },
+     
+     MapStyle:{
+       height: '100%',
+       width: '100%',
+     },
+     
+     SecondContainer:{
+       height: '10%',
+       paddingRight: 40,
+       paddingLeft: 40,
+     },
+     
+     ModalContainer:{
+       height: '10%',
+       backgroundColor: 'white',
+       
+     }
+
 });
 
