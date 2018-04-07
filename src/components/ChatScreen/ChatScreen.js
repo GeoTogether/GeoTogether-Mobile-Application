@@ -25,7 +25,6 @@ export default class ChatScreen extends React.Component {
         //this.getImage = this.getImage.bind(this);
         this.onSend = this.onSend.bind(this);
         this.renderCustomActions = this.renderCustomActions.bind(this);
-        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
 
     }
 
@@ -36,11 +35,6 @@ export default class ChatScreen extends React.Component {
         arrayVal: 0,
         image_uri: null,
     }
-
-    forceUpdateHandler(){
-    this.setState({firstTime: 0});
-    this.forceUpdate();
-  };
 
 
   componentDidMount(){
@@ -63,7 +57,6 @@ export default class ChatScreen extends React.Component {
 
             this.stat.arrayVal = q;
 
-            this.stat.firstTime = 1;
        var TotalArray = snapshot.val();
        var x = 1;
        var Messages = [];
@@ -138,6 +131,20 @@ export default class ChatScreen extends React.Component {
 
 
     });
+
+
+    
+
+    
+    
+        
+    
+    
+
+
+
+
+
 
   }
 
