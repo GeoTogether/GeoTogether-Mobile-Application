@@ -55,7 +55,7 @@ export default class ChatScreen extends React.Component {
 
 
 
-        if(this.stat.firstTime == 0){
+        
 
             var q;
 
@@ -134,89 +134,7 @@ export default class ChatScreen extends React.Component {
         }
 
         this.AddToGui(Messages.reverse());
-    }
-
-
-    else{
-
-
-
-
-        this.forceUpdateHandler
-
-         var q;
-
-        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
-
-        var temp = this.stat.arrayVal;
-
-        this.stat.arrayVal = temp + 1;
-
-        var Path3 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + q;
-
-        var snap;
-        firebase.database().ref(Path3).once('value', (snapshot) => {snap = snapshot.val();});
-
-        var Messages = [];
-
-        console.log(q);
-
-        for(var key in snap){
-
-            if(snap[key][0] == state.params.email){
-                            Messages.push({
-                                _id: q,
-                                text: snap[key][1],
-                                createdAt: snap[key][2],
-                                user: {
-                                    _id: 1,
-                                    name: snap[key][0],
-                                    avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
-                                },
-                            });
-                        }
-                        else{
-                            Messages.push({
-                                _id: q,
-                                text: snap[key][1],
-                                createdAt: snap[key][2],
-                                user: {
-                                    _id: q+1,
-                                    name: snap[key][0],
-                                    avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
-                                },
-                            });
-                        }
-
-
-        }
-
-
-        this.AddToGui(Messages.reverse());
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
     });
