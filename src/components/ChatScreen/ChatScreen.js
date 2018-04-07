@@ -43,89 +43,84 @@ export default class ChatScreen extends React.Component {
     var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
     var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
 
-
-    firebase.database().ref(Path).on('value', (snapshot) => {
+    firebase.database().ref(Path).on('child_added', (snapshot) => {
 
 
 
 
         
 
-            var q;
-
             firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
 
-            this.stat.arrayVal = q;
+            
 
        var TotalArray = snapshot.val();
-       var x = 1;
        var Messages = [];
 
 
            for (var key in TotalArray) {
-            for (var key2 in TotalArray[key]) {
-                if(x > this.stat.initialTimeStamps.length){
-                    this.stat.initialTimeStamps.push(TotalArray[key][key2][2]);
-                        if(TotalArray[key][key2][0] == state.params.email && TotalArray[key][key2][2] =="7"){
+
+                        if(TotalArray[key][0] == state.params.email && TotalArray[key][2] =="7"){
+
                             Messages.push({
-                                _id: key,
+                                _id: this.stat.arrayVal,
                                 text: "",
-                                createdAt: TotalArray[key][key2][3],
+                                createdAt: TotalArray[key][3],
                                 user: {
                                     _id: 1,
-                                    name: TotalArray[key][key2][0],
+                                    name: TotalArray[key][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
-                                image: (TotalArray[key][key2][1])
+                                image: (TotalArray[key][1])
                             });
                         }
-                        else if(TotalArray[key][key2][0] != state.params.email && TotalArray[key][key2][2] =="7"){
+                        else if(TotalArray[key][0] != state.params.email && TotalArray[key][2] =="7"){
+
                             Messages.push({
-                                _id: key,
+                                _id: this.stat.arrayVal,
                                 text: "",
-                                createdAt: TotalArray[key][key2][3],
+                                createdAt: TotalArray[key][3],
                                 user: {
-                                    _id: key+1,
-                                    name: TotalArray[key][key2][0],
+                                    _id: this.stat.arrayVal,
+                                    name: TotalArray[key][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
-                                image: (TotalArray[key][key2][1])
+                                image: (TotalArray[key][1])
                             });
                         }
-                        else if(TotalArray[key][key2][0] == state.params.email){
+                        else if(TotalArray[key][0] == state.params.email){
+
                             Messages.push({
-                                _id: key,
-                                text: TotalArray[key][key2][1],
-                                createdAt: TotalArray[key][key2][2],
+                                _id: this.stat.arrayVal,
+                                text: TotalArray[key][1],
+                                createdAt: TotalArray[key][2],
                                 user: {
                                     _id: 1,
-                                    name: TotalArray[key][key2][0],
+                                    name: TotalArray[key][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
                             });
                         }
                         else{
+
                             Messages.push({
-                                _id: key,
-                                text: TotalArray[key][key2][1],
-                                createdAt: TotalArray[key][key2][2],
+                                _id: this.stat.arrayVal,
+                                text: TotalArray[key][1],
+                                createdAt: TotalArray[key][2],
                                 user: {
-                                    _id: key+1,
-                                    name: TotalArray[key][key2][0],
+                                    _id: this.stat.arrayVal,
+                                    name: TotalArray[key][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
                             });
                         }
 
-                }
-                else{
+                    this.stat.arrayVal = this.stat.arrayVal +1;
+                
 
-                }
-
-                x = x+1;
-               }
+                
+               
         }
-
         this.AddToGui(Messages.reverse());
     
 
