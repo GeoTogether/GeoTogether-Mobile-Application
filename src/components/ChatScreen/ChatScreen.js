@@ -25,8 +25,10 @@ export default class ChatScreen extends React.Component {
         //this.getImage = this.getImage.bind(this);
         this.onSend = this.onSend.bind(this);
         this.renderCustomActions = this.renderCustomActions.bind(this);
+        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
 
     }
+
 
     stat = {
         initialTimeStamps: [],
@@ -34,6 +36,11 @@ export default class ChatScreen extends React.Component {
         arrayVal: 0,
         image_uri: null,
     }
+
+    forceUpdateHandler(){
+    this.setState({firstTime: 0});
+    this.forceUpdate();
+  };
 
 
   componentDidMount(){
@@ -111,8 +118,7 @@ export default class ChatScreen extends React.Component {
 
 
 
-
-
+        this.forceUpdateHandler
 
          var q;
 
