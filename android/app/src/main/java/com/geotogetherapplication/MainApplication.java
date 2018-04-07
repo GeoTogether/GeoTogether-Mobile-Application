@@ -3,6 +3,9 @@ package com.geotogetherapplication;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -22,6 +25,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
 import com.airbnb.android.react.maps.MapsPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,11 +48,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNGooglePlacesPackage(),
             new RNSendIntentPackage(),
+            new RNGoogleSigninPackage(),
+          new RNFetchBlobPackage(),  
+            new RNGooglePlacesPackage(),
             new LinearGradientPackage(),
             new ImagePickerPackage(),
-            new RNGoogleSigninPackage(),
               new FBSDKPackage(mCallbackManager),
               new RNGeocoderPackage(),
               new MapsPackage());

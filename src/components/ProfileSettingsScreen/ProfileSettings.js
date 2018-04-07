@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View} from 'react-native';
+import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View, Platform} from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob';
 
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
 
 export default class ProfileSettings extends Component {
+
 
 
     static navigationOptions = {
@@ -47,8 +53,25 @@ export default class ProfileSettings extends Component {
 
             });
         });
+        
+        if(this.state.ImageSource != null){
+            var dbs = firebase.storage();
+
+            var uri = this.state.ImageSource;
+
+            
+            this.uploadImage(uri)
+                    .then(url => { alert('uploaded'); this.setState({image_uri: url}) })
+                    .catch(error => console.log(error))
+            
+            
+
+            
 
 
+
+
+        }
         if (this.state.email == this.state.previousEmail) {
             //changing names
             db.ref("users/" + userData + "/first").set(this.state.fname);
@@ -104,6 +127,41 @@ export default class ProfileSettings extends Component {
     constructor(props) {
         super(props)
     }
+
+    uploadImage(uri, mime = 'image/jpg') {
+        
+        
+        return new Promise((resolve, reject) => {
+
+            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+            console.log(uploadUri);
+            let uploadBlob = null
+
+            const imageRef = firebase.storage().ref('images').child('image_001')
+
+            fs.readFile(uploadUri, 'base64')
+                .then((data) => {
+                    return Blob.build(data, { type: `${mime};BASE64` })
+                })
+                .then((blob) => {
+                    uploadBlob = blob
+                    return imageRef.put(blob, { contentType: mime })
+                })
+                .then(() => {
+                    uploadBlob.close()
+                    return imageRef.getDownloadURL()
+
+                })
+                .then((url) => {
+                    resolve(url)
+                })
+                .catch((error) => {
+                    reject(error)
+                })
+        })
+    }
+
+
 
     componentWillMount() {
 
@@ -215,7 +273,7 @@ export default class ProfileSettings extends Component {
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                
+
                 this.setState({
 
                     ImageSource: source
@@ -237,7 +295,7 @@ export default class ProfileSettings extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.imageContainer}>
-                    {this.state.photoS == null ? (
+                    {this.state.ImageSource == null ? (
                         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
 
                             <View style={styles.imageComponent}>
@@ -253,8 +311,8 @@ export default class ProfileSettings extends Component {
                         </TouchableOpacity>
                     ) : (
                         <Image
-                            style={{width: 100, height: 100, marginLeft: 155}}
-                            source={this.state.photoS}
+                          style={{width: 50, height: 50}}
+                          source={this.state.ImageSource}
                         />
                     )}
                 </View>
