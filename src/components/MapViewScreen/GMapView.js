@@ -180,44 +180,13 @@ export default class GMapView extends React.Component {
         for (var i = 0; i < this.state.events.length; i++) {
 
 
-            // Address Geocoding
-            Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
-                // res is an Array of geocoding object (see below)
-
-                if ((res["0"].position !== undefined)) {
-                    var obj = { latitude: res["0"].position.lat, longitude: res["0"].position.lng, name: res["0"].locality };
-                    this.state.eventsMarkers.push(obj);
-                    this.setState({ latitude: res["0"].position.lat });
-                    this.setState({ longitude: res["0"].position.lng });
-
-                }
-
-
-
-
-            })
-
-            if (this.state.eventsMarkers[i] == undefined) {
-                RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
+            RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
                     .then((results) => {
                         this.state.eventsMarkers.push(results);
-
-
-
-
-
-
-
-
-
-
-
-
-
                     })
                     .catch((error) => alert(error.message));
 
-            }
+            
         }
 
         this.forceUpdate();
@@ -236,36 +205,20 @@ export default class GMapView extends React.Component {
 
         for (var i = 0; i < this.state.destinations.length; i++) {
 
-            // Address Geocoding
-            Geocoder.geocodeAddress(this.state.destinations[i].address.toUpperCase()).then(res => {
-                // res is an Array of geocoding object (see below)
+            RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
+            .then((results) => {
 
-                if ((res["0"].position !== undefined)) {
-                    var obj = { latitude: res["0"].position.lat, longitude: res["0"].position.lng, name: res["0"].locality };
-                    this.state.markers.push(obj);
-                    this.setState({ latitude: res["0"].position.lat });
-                    this.setState({ longitude: res["0"].position.lng });
-
-                }
-
-
+                this.state.markers.push(results);
+                this.setState({ latitude: results.latitude });
+                this.setState({ longitude: results.longitude });
 
 
             })
+            .catch((error) => alert(error.message));
 
 
-            if (this.state.markers[i] == undefined) {
-                RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
-                    .then((results) => {
 
-                        this.state.markers.push(results);
-                        this.setState({ latitude: results.latitude });
-                        this.setState({ longitude: results.longitude });
-
-
-                    })
-                    .catch((error) => alert(error.message));
-            }
+    
 
 
 
