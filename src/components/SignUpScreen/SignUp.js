@@ -52,8 +52,8 @@ export default class SignUp extends React.Component {
     };
 
     validatePassword = (password) => {
-      var reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
-      return reg.test(password);
+        var reg = /([A-Z]){8,}/;
+        return reg.test(password);
     };
 
 // function to sign up the user using firebase authentication
