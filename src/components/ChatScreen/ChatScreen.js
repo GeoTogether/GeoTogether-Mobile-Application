@@ -73,7 +73,33 @@ export default class ChatScreen extends React.Component {
             for (var key2 in TotalArray[key]) {
                 if(x > this.stat.initialTimeStamps.length){
                     this.stat.initialTimeStamps.push(TotalArray[key][key2][2]);
-                        if(TotalArray[key][key2][0] == state.params.email){
+                        if(TotalArray[key][key2][0] == state.params.email && TotalArray[key][key2][2] =="7"){
+                            Messages.push({
+                                _id: key,
+                                text: "",
+                                createdAt: TotalArray[key][key2][3],
+                                user: {
+                                    _id: 1,
+                                    name: TotalArray[key][key2][0],
+                                    avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
+                                },
+                                image: (TotalArray[key][key2][1])
+                            });
+                        }
+                        else if(TotalArray[key][key2][0] != state.params.email && TotalArray[key][key2][2] =="7"){
+                            Messages.push({
+                                _id: key,
+                                text: "",
+                                createdAt: TotalArray[key][key2][3],
+                                user: {
+                                    _id: key+1,
+                                    name: TotalArray[key][key2][0],
+                                    avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
+                                },
+                                image: (TotalArray[key][key2][1])
+                            });
+                        }
+                        else if(TotalArray[key][key2][0] == state.params.email){
                             Messages.push({
                                 _id: key,
                                 text: TotalArray[key][key2][1],
@@ -83,7 +109,6 @@ export default class ChatScreen extends React.Component {
                                     name: TotalArray[key][key2][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
-                                image: ('https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg')
                             });
                         }
                         else{
@@ -96,7 +121,6 @@ export default class ChatScreen extends React.Component {
                                     name: TotalArray[key][key2][0],
                                     avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                                 },
-                                image: ('https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg')
                             });
                         }
 
@@ -302,17 +326,20 @@ export default class ChatScreen extends React.Component {
         const fs = RNFetchBlob.fs
         window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
         window.Blob = Blob
+        const {state} = this.props.navigation;
+                        
         return new Promise((resolve, reject) => {
             const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
             let uploadBlob = null
-
-            const imageRef = firebase.storage().ref('images').child('image_001')
+            var path = 'images/' + this.getCurrentTime() + '/';
+            const imageRef = firebase.storage().ref(path).child(uploadUri);
 
             fs.readFile(uploadUri, 'base64')
                 .then((data) => {
                     return Blob.build(data, { type: `${mime};BASE64` })
                 })
                 .then((blob) => {
+
                     uploadBlob = blob
                     return imageRef.put(blob, { contentType: mime })
                 })
@@ -365,7 +392,35 @@ export default class ChatScreen extends React.Component {
 
                 //});
                 this.uploadImage(response.uri)
-                    .then(url => { alert('uploaded'); this.setState({image_uri: url}) })
+                    .then(url => { alert('uploaded'); this.setState({image_uri: url}) 
+                        const {state} = this.props.navigation;
+
+
+                        var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
+
+                        var q;
+
+                        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
+
+                        firebase.database().ref(Path2).set((q+1));
+
+
+                        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q+1);
+
+
+
+                        firebase.database().ref(Path).push({
+
+
+                                    0: state.params.email,
+                                    1: url,
+                                    2: 7,
+                                    3: this.getCurrentTime(),
+
+                        });
+
+
+                })
                     .catch(error => console.log(error))
             }
         });
