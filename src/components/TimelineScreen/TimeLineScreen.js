@@ -88,7 +88,7 @@ export default class TimeLineScreen extends React.Component {
                         },{
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => console.log('Right Custom image !'),
+                            onPress: () => navigate('Settings', { email: state.params.email })
                         },
                     ]}
                 />

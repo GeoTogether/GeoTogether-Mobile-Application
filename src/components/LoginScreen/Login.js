@@ -114,7 +114,7 @@ export default class Login extends React.Component {
 
 
               
-                    navigate('Trips', { email: this.state.email });
+                    navigate('Home', { email: this.state.email });
                 
             }
 
@@ -143,12 +143,25 @@ export default class Login extends React.Component {
 
 
     componentWillMount() {
-
+        const {navigate} = this.props.navigation;
+        if(firebase.auth().currentUser !== null){
+ 
+         navigate('Home', { email: firebase.auth().currentUser.email });
+        }
+ 
 
 
     }
 
     componentDidMount() {
+       
+
+        const {navigate} = this.props.navigation;
+        if(firebase.auth().currentUser !== null){
+ 
+         navigate('Home', { email: firebase.auth().currentUser.email });
+        }
+
         this.setupGoogleSignin();
     }
 
@@ -219,7 +232,7 @@ export default class Login extends React.Component {
 
 
 
-                    navigate('Trips', { email: this.state.data.email });
+                    navigate('Home', { email: this.state.data.email });
                 
 
 

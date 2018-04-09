@@ -177,7 +177,7 @@ class Trips extends React.Component {
                             {
                                 image: require('../../images/settings.png'), // To use a custom image
                                 badge: '1',
-                                onPress: () => console.log('settings feature'),
+                                onPress: () => navigate('Settings', { email: state.params.email })
                             },
                         ]}
                     />
