@@ -1,87 +1,25 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image} from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
 import PopupDialog from 'react-native-popup-dialog';
 import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
-
-
-
+import Modal from "react-native-modal";
 
 
 export default class GMapView extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-
-
-    }
-
-    getTripInfo() {
-        this.getTime();
-        this.popupDialog.show(() => {
-
-        });
-    }
-
-    getTime() {
-        if (this.state.trip == "null") {
-
-        }
-        else {
-            var TripDateEnd = this.state.trip.endDate.split('-');
-            var UnixTripDateEnd = new Date(TripDateEnd[0] + '/' + TripDateEnd[1] + '/' + TripDateEnd[2]);
-            var UnixTripDateStart = new Date();
-            var x = new Date().toLocaleString();
-            var diffMs = (UnixTripDateEnd - UnixTripDateStart); // milliseconds between now & Christmas
-
-            var Days = Math.floor(diffMs / 86400000); // days
-            var Hours = Math.floor((diffMs % 86400000) / 3600000); // hours
-            var Mins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-
-
-            if (diffMs <= 0) {
-                this.setState({ days: ("0") });
-                this.setState({ hours: ("0") });
-                this.setState({ mins: ("0") });
-
-
-            }
-            else {
-                this.setState({ days: (Days) });
-                this.setState({ hours: (Hours) });
-                this.setState({ mins: (Mins) });
-            }
-
-
-
-
-
-        }
-    }
-
-    closeInfo() {
-        this.popupDialog.dismiss(() => {
-
-        });
-    }
-
-
-
-    // navigation options to be used to navigate the class from other classes
 
     static navigationOptions = {
         title: 'GMapView',
         header: null
     }
-    // the user state with all of the user and the trip information 
+    // the user state with all of the user and the trip information
     state = {
         destinations: [],
         markers: [],
@@ -106,12 +44,60 @@ export default class GMapView extends React.Component {
         userlongitude: 0.1,
     };
 
+    constructor(props) {
+        super(props);
 
 
+    }
+
+    getTripInfo() {
+        this.getTime();
+        this.setState({modalVisible: true});
+    }
+
+
+    // navigation options to be used to navigate the class from other classes
+
+    getTime() {
+        if (this.state.trip == "null") {
+
+        }
+        else {
+            var TripDateEnd = this.state.trip.endDate.split('-');
+            var UnixTripDateEnd = new Date(TripDateEnd[0] + '/' + TripDateEnd[1] + '/' + TripDateEnd[2]);
+            var UnixTripDateStart = new Date();
+            var x = new Date().toLocaleString();
+            var diffMs = (UnixTripDateEnd - UnixTripDateStart); // milliseconds between now & Christmas
+
+            var Days = Math.floor(diffMs / 86400000); // days
+            var Hours = Math.floor((diffMs % 86400000) / 3600000); // hours
+            var Mins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+
+
+            if (diffMs <= 0) {
+                this.setState({days: ("0")});
+                this.setState({hours: ("0")});
+                this.setState({mins: ("0")});
+
+
+            }
+            else {
+                this.setState({days: (Days)});
+                this.setState({hours: (Hours)});
+                this.setState({mins: (Mins)});
+            }
+
+
+        }
+    }
+
+    closeInfo() {
+        this.setState({modalVisible: false});
+    }
 
     componentWillMount() {
 
-        const { state } = this.props.navigation;
+        const {state} = this.props.navigation;
 
         this.state.destinations.push(state.params.trip.destination1);
 
@@ -133,7 +119,6 @@ export default class GMapView extends React.Component {
         this.getCurrentPosition();
 
 
-
     }
 
     componentDidMount() {
@@ -142,35 +127,38 @@ export default class GMapView extends React.Component {
 
     showDirections() {
 
-        const { state } = this.props.navigation;
+        const {state} = this.props.navigation;
 
         if ((this.state.events.length !== 0)) {
 
-            var obj = { d1: state.params.trip.destination1.address, d2: this.state.events[0].eventAddress.address };
+            var obj = {d1: state.params.trip.destination1.address, d2: this.state.events[0].eventAddress.address};
             this.state.coords.push(obj);
 
             for (var i = 0; i < this.state.events.length - 1; i++) {
 
 
-                var obj = { d1: this.state.events[i].eventAddress.address, d2: this.state.events[i + 1].eventAddress.address };
+                var obj = {
+                    d1: this.state.events[i].eventAddress.address,
+                    d2: this.state.events[i + 1].eventAddress.address
+                };
                 this.state.coords.push(obj);
 
             }
 
-            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress.address, d2: state.params.trip.destination2.address };
+            var obj2 = {
+                d1: this.state.events[this.state.events.length - 1].eventAddress.address,
+                d2: state.params.trip.destination2.address
+            };
             this.state.coords.push(obj2);
 
 
         } else {
 
-            var obj2 = { d1: state.params.trip.destination1.address, d2: state.params.trip.destination2.address };
+            var obj2 = {d1: state.params.trip.destination1.address, d2: state.params.trip.destination2.address};
             this.state.coords.push(obj2);
 
 
         }
-
-
-
 
 
     }
@@ -178,49 +166,39 @@ export default class GMapView extends React.Component {
 
     getEventAddress() {
 
-     Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
+        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
 
         for (var i = 0; i < this.state.events.length; i++) {
 
 
-                    // Address Geocoding
-                    Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
-                        // res is an Array of geocoding object (see below)
-        
-                        if((res["0"].position !== undefined )){
-                            var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
-                            this.state.eventsMarkers.push(obj);
-                        this.setState({ latitude: res["0"].position.lat });
-                        this.setState({ longitude: res["0"].position.lng });
-        
-                        }
-                        
-        
-        
-        
-                    })
+            // Address Geocoding
+            Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
+                // res is an Array of geocoding object (see below)
 
-                    if(this.state.eventsMarkers[i] == undefined){
-                        RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
-                        .then((results) => {
-                        this.state.eventsMarkers.push(results);
-                       
+                if ((res["0"].position !== undefined)) {
+                    var obj = {
+                        latitude: res["0"].position.lat,
+                        longitude: res["0"].position.lng,
+                        name: res["0"].locality
+                    };
+                    this.state.eventsMarkers.push(obj);
+                    this.setState({latitude: res["0"].position.lat});
+                    this.setState({longitude: res["0"].position.lng});
 
-                    
+                }
 
-      
-                
-               
-            
-            
-            
-            
-            
-            
+
             })
-            .catch((error) => alert(error.message));
 
-        }
+            if (this.state.eventsMarkers[i] == undefined) {
+                RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
+                    .then((results) => {
+                        this.state.eventsMarkers.push(results);
+
+                    })
+                    .catch((error) => alert(error.message));
+
+            }
         }
 
         this.forceUpdate();
@@ -230,9 +208,8 @@ export default class GMapView extends React.Component {
     showAddress() {
 
 
-        const { navigate } = this.props.navigation;
-        const { state } = this.props.navigation;
-
+        const {navigate} = this.props.navigation;
+        const {state} = this.props.navigation;
 
 
         Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
@@ -243,43 +220,38 @@ export default class GMapView extends React.Component {
             Geocoder.geocodeAddress(this.state.destinations[i].address.toUpperCase()).then(res => {
                 // res is an Array of geocoding object (see below)
 
-                if((res["0"].position !== undefined )){
-                    var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
+                if ((res["0"].position !== undefined)) {
+                    var obj = {
+                        latitude: res["0"].position.lat,
+                        longitude: res["0"].position.lng,
+                        name: res["0"].locality
+                    };
                     this.state.markers.push(obj);
-                this.setState({ latitude: res["0"].position.lat });
-                this.setState({ longitude: res["0"].position.lng });
+                    this.setState({latitude: res["0"].position.lat});
+                    this.setState({longitude: res["0"].position.lng});
 
                 }
-                
+
+            });
 
 
-
-            })
-
-
-            if(this.state.markers[i] == undefined){
+            if (this.state.markers[i] == undefined) {
                 RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
-                .then((results) => {
-    
-                this.state.markers.push(results);
-                this.setState({ latitude: results.latitude });
-                this.setState({ longitude: results.longitude });
-                
-                
-                })
-                .catch((error) => alert(error.message));
+                    .then((results) => {
+
+                        this.state.markers.push(results);
+                        this.setState({latitude: results.latitude});
+                        this.setState({longitude: results.longitude});
+
+
+                    })
+                    .catch((error) => alert(error.message));
             }
 
-           
 
         }
 
-  
-
-
-
-        this.setState({ trip: state.params.trip });
-
+        this.setState({trip: state.params.trip});
 
         this.forceUpdate();
     }
@@ -298,15 +270,15 @@ export default class GMapView extends React.Component {
                 //  this.setState({ latitude:  position.coords.latitude });
                 // this.setState({ longitude: position.coords.longitude});
             },
-            (error) => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+            (error) => this.setState({error: error.message}),
+            {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000},
         );
     }
 
 
     render() {
-        const { navigate } = this.props.navigation;
-        const { state } = this.props.navigation;
+        const {navigate} = this.props.navigation;
+        const {state} = this.props.navigation;
 
         // adding buttom components for all the user trips 
         var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
@@ -319,7 +291,7 @@ export default class GMapView extends React.Component {
             latitude: type.latitude,
             longitude: type.longitude
         }} title={type.name}
-            pinColor="blue"
+                                                                                       pinColor="blue"
         />)
 
 
@@ -338,26 +310,29 @@ export default class GMapView extends React.Component {
             latitude: this.state.userlatitude,
             longitude: this.state.userlongitude
         }} title={"Your Location"}
-            image={require('../../images/userlocation.png')}
+                                      image={require('../../images/userlocation.png')}
 
         />
         return (
-
-
-            <View style={styles.form}>
-
+            <View style={styles.Container}>
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
                     backgroundColor={'black'}
                     leftIconImage={require('../../images/profile.png')}
-                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
+                    onLeftPress={() => navigate('ProfileSettings', {
+                        email: state.params.email,
+                        trip: state.params.trip
+                    })}
                     rightIcons={[
                         {
                             image: require('../../images/timeline.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
+                            onPress: () => navigate('TimeLineScreen', {
+                                email: state.params.email,
+                                trip: state.params.trip
+                            }),
                         }, {
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
@@ -365,36 +340,33 @@ export default class GMapView extends React.Component {
                         },
                     ]}
                 />
+                <View style={styles.MapContainer}>
+                    <View style={styles.MapStyle}>
+                        <MapView prvoider={PROVIDER_GOOGLE} style={StyleSheet.absoluteFillObject} region={{
+
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421
+                        }}>
+                            {MarkersComponents}
+
+                            {eventsMComponents}
+
+                            {dirComponents}
+
+                            {userloc}
 
 
+                        </MapView>
+                    </View>
+                </View>
+                <View style={styles.SecondContainer}>
+                    <Modal style={styles.ModalContainer}
+                           visible={this.state.modalVisible}
+                           animationType={'slide'}
+                           onRequestClose={() => this.closeInfo()}>
 
-
-                <MapView style={styles.map} region={{
-
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }}>
-                    {MarkersComponents}
-
-                    {eventsMComponents}
-
-                    {dirComponents}
-
-                    {userloc}
-
-
-                </MapView>
-
-
-
-                <View style={styles.container}>
-                    <PopupDialog
-                        ref={(popupDialog) => { this.popupDialog = popupDialog; }}
-                        width={.7}
-                        height={.55}
-                    >
                         <View style={styles.infoContainer}>
 
                             <Text style={styles.titleInfoText}>Trip Info</Text>
@@ -407,12 +379,17 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingTop: 10
+                            }}>
                                 <Text style={styles.infoText1}>Group Total: </Text>
                                 <Text style={styles.infoText2}> $300.12 </Text>
                             </View>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                                 <Text style={styles.infoText1}>My Total: </Text>
                                 <Text style={styles.infoText2}> $101.66 </Text>
                             </View>
@@ -427,7 +404,12 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingTop: 10
+                            }}>
                                 <Text style={styles.infoText1}># Trip Members: </Text>
                                 <Text style={styles.infoText2}> {this.state.trip.members.length} </Text>
                             </View>
@@ -442,20 +424,26 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10 }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingTop: 10,
+                                paddingBottom: 10
+                            }}>
                                 <Text style={styles.infoText1}>Duration: </Text>
 
-                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
                                     <Text style={styles.timeText}> {this.state.days} </Text>
                                     <Text style={styles.infoText1}> days </Text>
                                 </View>
 
-                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
                                     <Text style={styles.timeText}> {this.state.hours} </Text>
                                     <Text style={styles.infoText1}> hours </Text>
                                 </View>
 
-                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
                                     <Text style={styles.timeText}> {this.state.mins} </Text>
                                     <Text style={styles.infoText1}> mins </Text>
                                 </View>
@@ -468,18 +456,14 @@ export default class GMapView extends React.Component {
                             </View>
 
                         </View>
-                    </PopupDialog>
+                    </Modal>
                 </View>
 
-
-                <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
-                    <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
+                <TouchableHighlight onPress={() => this.getTripInfo()}
+                                    style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}}>
+                    <Image style={{position: "absolute", bottom: 0, right: 0, height: 30, width: 30}}
+                           source={require('../../images/infobutton.png')}/>
                 </TouchableHighlight>
-
-
-
-
-
 
 
             </View>
@@ -488,27 +472,10 @@ export default class GMapView extends React.Component {
     }
 
 
-
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    form: {
-        flex: 1
-    },
-    map: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-    },
     title: {
         textAlign: 'center',
         color: 'white',
@@ -516,8 +483,8 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        width: 150,
-        height: 45,
+        width: 100,
+        height: 40,
         borderRadius: 10
     },
     centerView: {
@@ -526,11 +493,14 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '100'
+        fontWeight: '100',
+        paddingTop: 10,
+
     },
     infoContainer: {
         paddingRight: 40,
         paddingLeft: 40,
+        backgroundColor: 'white',
 
     },
     titleInfoText: {
@@ -567,6 +537,38 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 30,
         textAlign: 'center',
+    },
+    Container: {
+        flex: 1,
+    },
+
+    MapContainer: {
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    MapStyle: {
+        height: '100%',
+        width: '100%',
+    },
+
+    SecondContainer: {
+        flex: 1,
+        height: '100%',
+        width: '70%',
+        justifyContent: 'center',
+        alignItems: 'center'
+        // paddingRight: 40,
+        // paddingLeft: 40,
+    },
+
+    ModalContainer: {
+        height: '10%',
+        backgroundColor: 'white',
+
     }
+
 });
 
