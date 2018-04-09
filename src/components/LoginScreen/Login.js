@@ -10,33 +10,22 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
-import { GoogleSignin } from 'react-native-google-signin';
+import {GoogleSignin} from 'react-native-google-signin';
 import {
     StackNavigator
 } from 'react-navigation';
-import FBSDK, {
-    LoginManager, AccessToken, GraphRequest,
-    GraphRequestManager
-} from 'react-native-fbsdk';
 
 export default class Login extends React.Component {
-
-    constructor(props) {
-        super(props)
-
-    }
-
-
-
-    // navigation options to be used to navigate the class from other classes
 
     static navigationOptions = {
         header: null
     }
 
+
+    // navigation options to be used to navigate the class from other classes
     // the user state with all of the user information
     state = {
         email: '',
@@ -46,14 +35,19 @@ export default class Login extends React.Component {
         error: '',
         data: null,
         stored: true,
-        
+
+    }
+
+    constructor(props) {
+        super(props)
+
     }
 
 
     //Master Fix
 
     _fbAuth() {
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
 
         LoginManager.logInWithReadPermissions(['public_profile', 'email']).then((result) => {
             if (result.isCancelled) {
@@ -78,7 +72,6 @@ export default class Login extends React.Component {
             firebase.auth().signInWithCredential(credential);
 
 
-
             const responseInfoCallback = (error, result) => {
                 if (error) {
                     //console.log(error)
@@ -86,7 +79,7 @@ export default class Login extends React.Component {
                 } else {
 
 
-                    this.setState({ email: result.email });
+                    this.setState({email: result.email});
 
 
                     // get all the users from the firebase database
@@ -104,18 +97,16 @@ export default class Login extends React.Component {
                                 newUser: 1,
                             });
 
-                           
+
                         }
                     });
-
 
 
                 }
 
 
-              
-                    navigate('Trips', { email: this.state.email });
-                
+                navigate('Trips', {email: this.state.email});
+
             }
 
             const infoRequest = new GraphRequest('/me', {
@@ -131,7 +122,6 @@ export default class Login extends React.Component {
             new GraphRequestManager().addRequest(infoRequest).start()
 
 
-
         }).catch((error) => {
             alert('Login failed with error: ' + error);
         });
@@ -140,14 +130,6 @@ export default class Login extends React.Component {
     }
 
 
-
-
-    componentWillMount() {
-
-
-
-    }
-
     componentDidMount() {
         this.setupGoogleSignin();
     }
@@ -155,7 +137,7 @@ export default class Login extends React.Component {
 
     async setupGoogleSignin() {
         try {
-            await GoogleSignin.hasPlayServices({ autoResolve: true });
+            await GoogleSignin.hasPlayServices({autoResolve: true});
             // iosClientId: settings.iOSClientId,
             // webClientId: settings.webClientId,
             await GoogleSignin.configure({
@@ -173,9 +155,8 @@ export default class Login extends React.Component {
 
     async onPressGoogleSignIn() {
 
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
         this.setupGoogleSignin();
-
 
 
         GoogleSignin.signIn()
@@ -186,7 +167,7 @@ export default class Login extends React.Component {
                 // Login with the credential
 
                 firebase.auth().signInWithCredential(credential);
-                this.setState({ data: data });
+                this.setState({data: data});
             })
             .then((user) => {
                 this.setState({
@@ -194,7 +175,6 @@ export default class Login extends React.Component {
                     user: user,
                     error: '',
                 });
-
 
 
                 // get all the users from the firebase database
@@ -212,17 +192,12 @@ export default class Login extends React.Component {
                             newUser: 1,
                         });
 
-                       
+
                     }
                 });
 
 
-
-
-                    navigate('Trips', { email: this.state.data.email });
-                
-
-
+                navigate('Trips', {email: this.state.data.email});
 
 
             })
@@ -232,19 +207,18 @@ export default class Login extends React.Component {
             });
 
 
-
     }
 
     // function to sign in the user using firebase authentication
     onPressSignIn() {
 
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
 
         this.setState({
             authenticating: true,
         });
 
-        const { email, password } = this.state; // gets the user email and password
+        const {email, password} = this.state; // gets the user email and password
 
 
         if (email == '' || password == '') {
@@ -263,7 +237,7 @@ export default class Login extends React.Component {
                     error: '',
                 });
 
-                navigate('Trips', { email: firebase.auth().currentUser.email }) // after login go to trips
+                navigate('Trips', {email: firebase.auth().currentUser.email}) // after login go to trips
 
             }).catch((error) => {
                 alert('Login failed with error: ' + error);
@@ -271,90 +245,88 @@ export default class Login extends React.Component {
             });
 
 
-
         }
-
-
-
-
 
 
     }
 
 
-
     render() {
         const {goBack} = this.props.navigation;
 
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
 
 
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
                 <View style={styles.container}>
-                    <View>
-                        <TouchableOpacity onPress={() => goBack()} style={styles.back} >
-                            <Image source={require('../../images/backarrow.png')}/>
+                    <View style={styles.backArrowContainer}>
+                        <View style={styles.backArrowStyle}>
+                            <TouchableOpacity onPress={() => navigate('SplashScreen')}>
+                                <Image
+                                    style={styles.arrowStyle}
+                                    source={require('../../images/backarrow.png')}/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.logoContainer}>
+
+                        <Image
+                            style={styles.logo}
+                            source={require('../../images/geotogether.png')}
+                        />
+                    </View>
+
+                    <View style={styles.loginFieldContainer}>
+
+                        <TextInput
+                            placeholder="Email"
+                            underlineColorAndroid="transparent"
+                            returnKeyType="next"
+                            onSubmitEditing={() => this.passwordInput.focus()}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText={email => this.setState({email})}
+                            style={styles.input}
+                        />
+
+                        <TextInput
+                            placeholder="Password"
+                            underlineColorAndroid="transparent"
+                            autoCapitalize="none"
+                            returnKeyType="go"
+                            secureTextEntry
+                            style={styles.input}
+                            onChangeText={password => this.setState({password})}
+                        />
+
+                        <Text style={styles.forgotPasswordTxt} onPress={() => navigate('PasswordReset')}>Forgot Your
+                            Password?</Text>
+
+                    </View>
+
+                    <View style={styles.loginBContainer}>
+                        <TouchableOpacity style={styles.buttonStyle} onPress={() => this.onPressSignIn()}>
+                            <Text style={styles.buttonText}>LOGIN</Text>
                         </TouchableOpacity>
                     </View>
-                <View style={styles.logoContainer}>
 
-                    <Image
-                        style={styles.logo}
-                        source={require('../../images/geotogether.png')}
-                    />
-                </View>
-
-                <View style={styles.loginFieldContainer}>
-
-                    <TextInput
-                        placeholder="Email"
-                        underlineColorAndroid="transparent"
-                        returnKeyType="next"
-                        onSubmitEditing={() => this.passwordInput.focus()}
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        onChangeText={email => this.setState({ email })}
-                        style={styles.input}
-                    />
-
-                    <TextInput
-                        placeholder="Password"
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
-                        returnKeyType="go"
-                        secureTextEntry
-                        style={styles.input}
-                        onChangeText={password => this.setState({ password })}
-                    />
-
-                    <Text style={styles.forgotPasswordTxt} onPress={() => navigate('PasswordReset')}>Forgot Your
-                        Password?</Text>
-
-                </View>
-
-                <View style={styles.loginBContainer}>
-                    <TouchableOpacity style={styles.buttonStyle} onPress={() => this.onPressSignIn()}>
-                        <Text style={styles.buttonText}>LOGIN</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.altLoginContainer}>
-                    <TouchableOpacity onPress={() => this._fbAuth()} style={styles.altBStyle}>
-                        <Image
-                            style={styles.icon}
-                            source={require('../../images/facebook.png')}
-                        />
-                    </TouchableOpacity>
-                    <Text> </Text>
-                    <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)} style={styles.altBStyle}>
-                        <Image
-                            style={styles.icon}
-                            source={require('../../images/google.png')} />
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.altLoginContainer}>
+                        <TouchableOpacity onPress={() => this._fbAuth()} style={styles.altBStyle}>
+                            <Image
+                                style={styles.icon}
+                                source={require('../../images/facebook.png')}
+                            />
+                        </TouchableOpacity>
+                        <Text> </Text>
+                        <TouchableOpacity onPress={this.onPressGoogleSignIn.bind(this)} style={styles.altBStyle}>
+                            <Image
+                                style={styles.icon}
+                                source={require('../../images/google.png')}/>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </LinearGradient>
 
@@ -369,26 +341,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    container:{
+    container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    back: {
-        marginRight: 345,
-        marginTop: 5,
+    backArrowContainer: {
+        height: '10%',
+        width: '100%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        marginTop: 7
+    },
+    backArrowStyle: {
+        width: '100%',
+        height: '80%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    },
+    arrowStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     logoContainer: {
         flex: 3,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 20
     },
     logo: {
         width: 250,
         height: 250
     },
-    loginFieldContainer:{
+    loginFieldContainer: {
         flex: 2,
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -407,15 +394,11 @@ const styles = StyleSheet.create({
         color: 'rgb(0,25,88)',
         fontWeight: '100'
     },
-    loginBContainer:{
+    loginBContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: 'red',
-        shadowOffset: {width: 10, height: 10},
-        shadowOpacity: 100,
-        shadowRadius: 50,
         elevation: 1
     },
     buttonStyle: {
@@ -436,7 +419,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    altBStyle:{
+    altBStyle: {
         margin: '8%'
     },
     icon: {
