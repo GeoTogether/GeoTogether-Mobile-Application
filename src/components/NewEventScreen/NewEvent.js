@@ -1,6 +1,16 @@
 import React from 'react';
 import {
-    StyleSheet, View, TextInput, TouchableOpacity, Text, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Alert
+    StyleSheet,
+    View,
+    TextInput,
+    TouchableOpacity,
+    Text,
+    Image,
+    TouchableWithoutFeedback,
+    Keyboard,
+    KeyboardAvoidingView,
+    Alert,
+    NativeAppEventEmitter
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -11,6 +21,8 @@ import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { RevMobManager } from 'react-native-revmob';
+
 
 var SendIntentAndroid = require('react-native-send-intent');
 
@@ -19,8 +31,6 @@ export default class NewEvent extends React.Component {
     static navigationOptions = {
         header: null
     };
-
-   
 
     state = {
         destination1: '',
@@ -46,6 +56,25 @@ export default class NewEvent extends React.Component {
         isDateTimePickerVisible2: false,
     };
 
+
+    componentDidMount(){
+        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
+            if(!err) RevMobManager.loadBanner(); // Load banner if session starts successfully.
+        });
+        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
+            RevMobManager.showBanner(); // Show banner if it's loaded
+        });
+
+    }
+
+    componentWillUnmount(){
+        RevMobManager.hideBanner();
+    }
+
+    componentDidUpdate(){
+        RevMobManager.showBanner();
+    }
+
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
 
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
@@ -55,7 +84,7 @@ export default class NewEvent extends React.Component {
     _hideDateTimePicker2 = () => this.setState({isDateTimePickerVisible2: false});
 
     _handleDatePicked = (date) => {
-       
+
 
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -86,7 +115,7 @@ export default class NewEvent extends React.Component {
     };
 
     _handleDatePicked2 = (date) => {
-        
+
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var period;
@@ -124,10 +153,10 @@ export default class NewEvent extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         var newEvent = {eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen}
-   
+
         state.params.trip.events.push(newEvent);
         navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
-   
+
     }
 
     render() {
@@ -138,7 +167,7 @@ export default class NewEvent extends React.Component {
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                <View>
+                <View style={styles.backBContainer}>
                     <TouchableOpacity onPress={() => goBack()} style={styles.back} >
                         <Image source={require('../../images/backarrow.png')}/>
                     </TouchableOpacity>
@@ -169,9 +198,9 @@ export default class NewEvent extends React.Component {
                                 width: '90%',
                             },
                             textInput: {
-                                width: '90%',
+                                width: '100%',
                                 backgroundColor: 'white',
-                                borderRadius: 30
+                                borderRadius: 3
                             },
                             predefinedPlacesDescription: {
                                 color: '#1faadb'
@@ -184,7 +213,7 @@ export default class NewEvent extends React.Component {
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                           
-                        var temp = {address: data.description, id: data.place_id}
+                        var temp = {address: data.description, id: data.place_id};
                         this.setState({eventAddress: temp})
                            
                         }}
@@ -281,18 +310,21 @@ const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
     },
+    backBContainer:{
+        height: '10%',
+        marginTop: '20%',
+    },
     textHeader: {
         color: 'white',
         paddingTop: 20,
-        paddingBottom: 20,
+        // paddingBottom: 20,
     },
     durationContainer: {
-        height: '45%',
+        height: '30%',
         flexDirection: 'row',
         flexWrap: 'wrap',
         paddingLeft: 20,
-        paddingRight: 20
-
+        paddingRight: 20,
     },
     startLocationContainer: {
         flex: 1
@@ -339,7 +371,7 @@ const styles = StyleSheet.create({
         width: 350,
     },
     newTitleContainer: {
-        height: '40%',
+        height: '30%',
         flexDirection: 'column',
         alignItems: 'flex-start',
         paddingLeft: 20
@@ -368,7 +400,7 @@ const styles = StyleSheet.create({
     },
     dateStartContainer: {
         width: '50%',
-        height: '50%',
+        height: '20%',
         padding: 2,
     },
     dateStartStyle: {
@@ -376,8 +408,9 @@ const styles = StyleSheet.create({
     },
     timeContainer: {
         width: '50%',
-        height: '50%',
+        height: '20%',
         padding: 2,
+        marginTop: '15%'
     },
     timeStyle: {
         flex: 1,
@@ -393,11 +426,12 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonContainer: {
-        height: '15%',
+        height: '13%',
         flexDirection: 'row',
-        paddingTop: 5,
+        // paddingTop: 5,
         paddingLeft: '25%',
-        paddingRight: '25%'
+        paddingRight: '25%',
+        alignItems: 'flex-end'
     },
     buttonStyle: {
         width: '50%',

@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { NativeAppEventEmitter, ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
+    Header,
     StackNavigator,
     TabNavigator,
     TabBarBottom
@@ -14,6 +15,7 @@ import Share from "../ShareScreen/Share";
 import MapView from "../MapViewScreen/GMapView";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
+import { RevMobManager } from 'react-native-revmob';
 
 
 class Trips extends React.Component {
@@ -21,6 +23,7 @@ class Trips extends React.Component {
     constructor(props) {
         super(props)
     }
+
 
     // navigation options to be used to navigate the class from other classes
 
@@ -68,13 +71,26 @@ class Trips extends React.Component {
     }
 
     componentDidMount(){
+        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
+            if(!err) RevMobManager.loadBanner(); // Load banner if session starts successfully.
+        });
+        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
+            RevMobManager.showBanner(); // Show banner if it's loaded
+        });
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.checkNewUser();
-
         // gets all the user trips
         this.onPressGetTrips();
+    }
+
+    componentWillUnmount(){
+        RevMobManager.hideBanner();
+    }
+
+    componentDidUpdate(){
+        RevMobManager.showBanner();
     }
 
     // funcation to sign out using firebase authentication.
@@ -163,8 +179,8 @@ class Trips extends React.Component {
         return (
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
 
-                <View style={styles.actionBar}>
-
+                <View style={styles.headerContainer}>
+                    {/*<View style={styles.headerStyle}>*/}
                     <ActionBar
                         containerStyle={styles.bar}
                         title={'Home'}
@@ -181,6 +197,7 @@ class Trips extends React.Component {
                             },
                         ]}
                     />
+                    {/*</View>*/}
                 </View>
 
                 <View style={styles.tripContainer}>
@@ -195,6 +212,7 @@ class Trips extends React.Component {
                     <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
                         <Image
                             source={require('../../images/addbutton.png')}
+                            onPress={RevMobManager.hideBanner()}
                         />
                     </TouchableOpacity>
                 </View>
@@ -223,7 +241,6 @@ export default TabNavigator (
                     iconName = `ios-home${focused ? '' : '-outline'}`;
                 }
 
-
                 return <Ionicons name={iconName} size={25} color={tintColor} />;
             }
         }),
@@ -244,6 +261,13 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'flex-start',
         width: '100%',
+    },
+    headerContainer:{
+        flex: 1,
+        height: '10%',
+        alignItems: 'stretch',
+        width: '100%',
+        marginTop: '16%'
     },
     linearGradient: {
         flex: 1,
