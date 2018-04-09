@@ -1,10 +1,9 @@
 import React from 'react';
-import {NativeAppEventEmitter, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import { TabNavigator,} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import LinearGradient from 'react-native-linear-gradient';
-import { RevMobManager } from 'react-native-revmob';
 
 export default class Chat extends React.Component {
 
@@ -17,24 +16,6 @@ export default class Chat extends React.Component {
     static navigationOptions = {
         title: 'Chat',
         header: null
-    };
-
-    componentDidMount(){
-        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
-            if(!err) RevMobManager.loadBanner(); // Load banner if session starts successfully.
-        });
-        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
-            RevMobManager.showBanner(); // Show banner if it's loaded
-        });
-
-    }
-
-    componentWillUnmount(){
-        RevMobManager.hideBanner();
-    }
-
-    componentDidUpdate(){
-        RevMobManager.showBanner();
     }
 
     render() {
