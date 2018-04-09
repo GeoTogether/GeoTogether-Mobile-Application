@@ -120,12 +120,17 @@ export default class GMapView extends React.Component {
 
             }
 
-            this.getEventAddress();
+            //this.getEventAddress();
         }
 
         this.state.destinations.push(state.params.trip.destination2);
 
-        this.showAddress();
+        
+        this.setState({ latitude: state.params.trip.destination1.geometry.location.lat });
+        this.setState({ longitude: state.params.trip.destination1.geometry.location.lng });
+        this.setState({ trip: state.params.trip });
+
+       // this.showAddress();
         this.showDirections();
         this.getCurrentPosition();
 
@@ -143,24 +148,24 @@ export default class GMapView extends React.Component {
 
         if ((this.state.events.length !== 0)) {
 
-            var obj = { d1: state.params.trip.destination1.address, d2: this.state.events[0].eventAddress.address };
+            var obj = { d1: state.params.trip.destination1.formatted_address, d2: this.state.events[0].eventAddress.formatted_address };
             this.state.coords.push(obj);
 
             for (var i = 0; i < this.state.events.length - 1; i++) {
 
 
-                var obj = { d1: this.state.events[i].eventAddress.address, d2: this.state.events[i + 1].eventAddress.address };
+                var obj = { d1: this.state.events[i].eventAddress.formatted_address, d2: this.state.events[i + 1].eventAddress.formatted_address };
                 this.state.coords.push(obj);
 
             }
 
-            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress.address, d2: state.params.trip.destination2.address };
+            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress.formatted_address, d2: state.params.trip.destination2.formatted_address };
             this.state.coords.push(obj2);
 
 
         } else {
 
-            var obj2 = { d1: state.params.trip.destination1.address, d2: state.params.trip.destination2.address };
+            var obj2 = { d1: state.params.trip.destination1.formatted_address, d2: state.params.trip.destination2.formatted_address };
             this.state.coords.push(obj2);
 
 
@@ -170,68 +175,6 @@ export default class GMapView extends React.Component {
 
 
 
-    }
-
-
-    getEventAddress() {
-
-        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
-
-        for (var i = 0; i < this.state.events.length; i++) {
-
-
-            RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
-                    .then((results) => {
-                        this.state.eventsMarkers.push(results);
-                    })
-                    .catch((error) => alert(error.message));
-
-            
-        }
-
-        this.forceUpdate();
-    }
-
-
-    showAddress() {
-
-
-        const { navigate } = this.props.navigation;
-        const { state } = this.props.navigation;
-
-
-
-        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
-
-        for (var i = 0; i < this.state.destinations.length; i++) {
-
-            RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
-            .then((results) => {
-
-                this.state.markers.push(results);
-                this.setState({ latitude: results.latitude });
-                this.setState({ longitude: results.longitude });
-
-
-            })
-            .catch((error) => alert(error.message));
-
-
-
-    
-
-
-
-        }
-
-
-
-
-
-        this.setState({ trip: state.params.trip });
-
-
-        this.forceUpdate();
     }
 
 
@@ -259,16 +202,16 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         // adding buttom components for all the user trips 
-        var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
-            latitude: type.latitude,
-            longitude: type.longitude
+        var MarkersComponents = this.state.destinations.map((type) => <MapView.Marker coordinate={{
+            latitude: type.geometry.location.lat,
+            longitude: type.geometry.location.lng
         }} title={type.name}
         />)
 
-        var eventsMComponents = this.state.eventsMarkers.map((type) => <MapView.Marker coordinate={{
-            latitude: type.latitude,
-            longitude: type.longitude
-        }} title={type.name}
+        var eventsMComponents = this.state.events.map((type) => <MapView.Marker coordinate={{
+            latitude: type.eventAddress.geometry.location.lat,
+            longitude: type.eventAddress.geometry.location.lng
+        }} title={type.eventAddress.name}
             pinColor="blue"
         />)
 
