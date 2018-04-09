@@ -181,11 +181,13 @@ export default class NewEvent extends React.Component {
                         query={{
                             key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                             language: 'en', // language of the results
+                        
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                          
-                        var temp = {address: data.description, id: data.place_id}
-                        this.setState({eventAddress: temp})
+                        // firebase.database().ref('test/').push(data);
+                        // firebase.database().ref('test/').push(details);
+                        // var temp = {address: data.description, id: data.place_id}
+                        this.setState({eventAddress: details})
                            
                         }}
                     />

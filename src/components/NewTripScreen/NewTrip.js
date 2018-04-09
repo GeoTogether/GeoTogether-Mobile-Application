@@ -258,8 +258,8 @@ export default class NewTrip extends React.Component {
                                     }}
                                     onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                    var temp = {address: data.description, id: data.place_id}
-                                    this.setState({destination1: temp})
+                                   // var temp = {address: data.description, id: data.place_id}
+                                    this.setState({destination1: details})
                                        
                                     }}
                                 />
@@ -301,8 +301,8 @@ export default class NewTrip extends React.Component {
                                 }}
                                 onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                var temp = {address: data.description, id: data.place_id}
-                                this.setState({destination2: temp})
+                              //  var temp = {address: data.description, id: data.place_id}
+                                this.setState({destination2: details})
                                
                                
                                    
