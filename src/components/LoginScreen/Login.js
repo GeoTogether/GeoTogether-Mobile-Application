@@ -399,10 +399,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: 'red',
-        shadowOffset: {width: 10, height: 10},
-        shadowOpacity: 100,
-        shadowRadius: 50,
         elevation: 1
     },
     buttonStyle: {
