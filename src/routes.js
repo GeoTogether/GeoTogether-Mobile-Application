@@ -20,7 +20,7 @@ import NewEvent from './components/NewEventScreen/NewEvent';
 import Chat from './components/ChatScreen/Chat';
 import Share from './components/ShareScreen/Share';
 import Settings from './components/SettingsScreen/Settings';
-
+import ChatScreen from './components/ChatScreen/ChatScreen'
 // adding all the classes ti navigator
 const Home = StackNavigator({
     SplashScreen: { screen: SplashScreen },
@@ -37,6 +37,7 @@ const Home = StackNavigator({
     TimeLineScreen: {screen: TimeLineScreen},
     NewEvent:{screen: NewEvent},
     Settings:{screen: Settings},
+    ChatScreen: { screen: ChatScreen },
 
 },
     { headerMode: 'screen' });
