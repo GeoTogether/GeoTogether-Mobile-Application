@@ -4,6 +4,7 @@ import { TabNavigator,} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import LinearGradient from 'react-native-linear-gradient';
+import firebase from '../Firebase/firebaseStorage';
 
 export default class Settings extends React.Component {
 
@@ -17,6 +18,30 @@ export default class Settings extends React.Component {
         title: 'Settings',
         header: null
     }
+
+
+        // funcation to sign out using firebase authentication.
+
+        onPressLogOut() {
+            const { navigate } = this.props.navigation;
+    
+            if (firebase.auth().currentUser !== null) {
+    
+                firebase.auth().signOut()
+                    .then(() => {
+                        this.setState({
+                            email: '',
+                            password: '',
+                            authenticating: false,
+                            user: null,
+                        })
+                        navigate('SplashScreen') // after login go to trips
+    
+                    }, error => {
+                        console.error('Sign Out Error', error);
+                    });
+            }
+        }
 
     render() {
 
@@ -45,7 +70,7 @@ export default class Settings extends React.Component {
                 />
 
                 <View style={styles.updateBContainer}>
-                    <TouchableOpacity  style={styles.buttonContainer} >
+                    <TouchableOpacity  style={styles.buttonContainer}  onPress={() => this.onPressLogOut()}>
                         <Text style={styles.buttonText}>Log OUt</Text>
                     </TouchableOpacity>
                 </View>

@@ -77,28 +77,28 @@ class Trips extends React.Component {
         this.onPressGetTrips();
     }
 
-    // funcation to sign out using firebase authentication.
+    // // funcation to sign out using firebase authentication.
 
-    onPressLogOut() {
-        const { navigate } = this.props.navigation;
+    // onPressLogOut() {
+    //     const { navigate } = this.props.navigation;
 
-        if (firebase.auth().currentUser !== null) {
+    //     if (firebase.auth().currentUser !== null) {
 
-            firebase.auth().signOut()
-                .then(() => {
-                    this.setState({
-                        email: '',
-                        password: '',
-                        authenticating: false,
-                        user: null,
-                    })
-                    navigate('SplashScreen') // after login go to trips
+    //         firebase.auth().signOut()
+    //             .then(() => {
+    //                 this.setState({
+    //                     email: '',
+    //                     password: '',
+    //                     authenticating: false,
+    //                     user: null,
+    //                 })
+    //                 navigate('SplashScreen') // after login go to trips
 
-                }, error => {
-                    console.error('Sign Out Error', error);
-                });
-        }
-    }
+    //             }, error => {
+    //                 console.error('Sign Out Error', error);
+    //             });
+    //     }
+    // }
 
     async checkNewUser(){
         const { navigate } = this.props.navigation;
