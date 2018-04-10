@@ -19,6 +19,7 @@ import GMapView from './components/MapViewScreen/GMapView';
 import NewEvent from './components/NewEventScreen/NewEvent';
 import Chat from './components/ChatScreen/Chat';
 import Share from './components/ShareScreen/Share';
+import Settings from './components/SettingsScreen/Settings';
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
@@ -35,6 +36,7 @@ const Home = StackNavigator({
     GMapView:{screen: GMapView},
     TimeLineScreen: {screen: TimeLineScreen},
     NewEvent:{screen: NewEvent},
+    Settings:{screen: Settings},
 
 },
     { headerMode: 'screen' });

@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,AppRegistry, PixelRatio, TouchableOpacity, Image } from 'react-native';
 import { TabNavigator,} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import LinearGradient from 'react-native-linear-gradient';
+import firebase from '../Firebase/firebaseStorage';
 
-export default class Share extends React.Component {
+export default class Settings extends React.Component {
 
     constructor(props) {
         super(props)
@@ -14,9 +15,33 @@ export default class Share extends React.Component {
     // navigation options to be used to navigate the class from other classes
 
     static navigationOptions = {
-        title: 'Share',
+        title: 'Settings',
         header: null
     }
+
+
+        // funcation to sign out using firebase authentication.
+
+        onPressLogOut() {
+            const { navigate } = this.props.navigation;
+    
+            if (firebase.auth().currentUser !== null) {
+    
+                firebase.auth().signOut()
+                    .then(() => {
+                        this.setState({
+                            email: '',
+                            password: '',
+                            authenticating: false,
+                            user: null,
+                        })
+                        navigate('SplashScreen') // after login go to trips
+    
+                    }, error => {
+                        console.error('Sign Out Error', error);
+                    });
+            }
+        }
 
     render() {
 
@@ -29,7 +54,7 @@ export default class Share extends React.Component {
 
                 <ActionBar
                     containerStyle={styles.bar}
-                    title={'Chat'}
+                    title={'Settings'}
                     titleStyle ={styles.title}
                     backgroundColor= {'black'}
                     badgeColor={'red'}
@@ -44,7 +69,12 @@ export default class Share extends React.Component {
                     ]}
                 />
 
-                <Text style={styles.textStyle}>[Share Feature Coming Soon]</Text>
+                <View style={styles.updateBContainer}>
+                    <TouchableOpacity  style={styles.buttonContainer}  onPress={() => this.onPressLogOut()}>
+                        <Text style={styles.buttonText}>Log OUt</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
             </LinearGradient>
         );
@@ -69,5 +99,23 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 20,
         marginTop: '60%'
+    },
+    updateBContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        backgroundColor: 'rgb(0,25,88)',
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100'
     }
 });
