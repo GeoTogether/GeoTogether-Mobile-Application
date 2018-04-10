@@ -81,7 +81,7 @@ export default class ChatScreen extends React.Component {
                         text: "",
                         createdAt: TotalArray[key][3],
                         user: {
-                            _id: this.stat.arrayVal,
+                            _id: this.stat.arrayVal+2,
                             name: TotalArray[key][0],
                             avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                         },
@@ -108,7 +108,7 @@ export default class ChatScreen extends React.Component {
                         text: TotalArray[key][1],
                         createdAt: TotalArray[key][2],
                         user: {
-                            _id: this.stat.arrayVal,
+                            _id: this.stat.arrayVal+2,
                             name: TotalArray[key][0],
                             avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
                         },
@@ -228,7 +228,7 @@ export default class ChatScreen extends React.Component {
             );
         }
         const options = {
-            'Select Photo': (props) => {
+            'Send a photo': (props) => {
                 this.selectPhoto();
             },
             'Cancel': () => {},
@@ -312,7 +312,7 @@ export default class ChatScreen extends React.Component {
 
                 //});
                 this.uploadImage(response.uri)
-                    .then(url => { alert('uploaded'); this.setState({image_uri: url})
+                    .then(url => {this.setState({image_uri: url})
                         const {state} = this.props.navigation;
 
 
