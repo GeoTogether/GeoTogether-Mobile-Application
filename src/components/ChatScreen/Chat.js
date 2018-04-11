@@ -20,7 +20,7 @@ export default class Chat extends React.Component {
     // navigation options to be used to navigate the class from other classes
 
     static navigationOptions = {
-        title: 'Trips',
+        title: 'Chat',
         header: null
     }
 
@@ -57,7 +57,7 @@ export default class Chat extends React.Component {
     componentWillMount() {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
-        this.setState({ email: state.params.email });
+        this.setState({ email: firebase.auth().currentUser.email });
         this.checkNewUser();
 
         // gets all the user trips
@@ -70,7 +70,7 @@ export default class Chat extends React.Component {
     componentDidMount(){
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
-        this.setState({ email: state.params.email });
+        this.setState({ email: firebase.auth().currentUser.email });
         this.checkNewUser();
 
 
