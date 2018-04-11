@@ -3,7 +3,6 @@ package com.geotogetherapplication;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -45,7 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
             new RNGooglePlacesPackage(),
             new RNSendIntentPackage(),
             new LinearGradientPackage(),
