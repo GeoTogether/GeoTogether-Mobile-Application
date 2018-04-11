@@ -1,5 +1,20 @@
 import React from 'react';
-import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {
+    ScrollView,
+    Alert,
+    Image,
+    Modal,
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    View,
+    KeyboardAvoidingView,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Keyboard,
+    BackHandler
+} from 'react-native';
 import {
     StackNavigator,
     TabNavigator,
