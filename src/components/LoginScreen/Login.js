@@ -17,6 +17,8 @@ import {GoogleSignin} from 'react-native-google-signin';
 import {
     StackNavigator
 } from 'react-navigation';
+import FBSDK, {LoginManager, AccessToken, GraphRequest,
+ GraphRequestManager} from 'react-native-fbsdk';
 
 export default class Login extends React.Component {
 
