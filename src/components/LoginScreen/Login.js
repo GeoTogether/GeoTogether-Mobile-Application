@@ -264,7 +264,7 @@ export default class Login extends React.Component {
                     error: '',
                 });
 
-                navigate('Trips', {email: firebase.auth().currentUser.email}) // after login go to trips
+                navigate('Home', {email: firebase.auth().currentUser.email}) // after login go to trips
 
             }).catch((error) => {
                 alert('Login failed with error: ' + error);

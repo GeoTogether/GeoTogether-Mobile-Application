@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -27,7 +27,7 @@ export default class GMapView extends React.Component {
 
     getTripInfo() {
         this.getTime();
-        this.setState({modalVisible: true});
+        this.setState({ modalVisible: true });
     }
 
     getTime() {
@@ -67,10 +67,17 @@ export default class GMapView extends React.Component {
     }
 
     closeInfo() {
-        this.setState({modalVisible: false});
+        this.setState({ modalVisible: false });
     }
 
+    getEventInfo() {
+        
+        this.setState({ modalVisible2: true });
+    }
 
+    closeEventInfo() {
+        this.setState({ modalVisible2: false });
+    }
 
     // navigation options to be used to navigate the class from other classes
 
@@ -94,6 +101,7 @@ export default class GMapView extends React.Component {
         selectedcity: '',
         coords: [],
         modalVisible: false,
+        modalVisible2: false,
         trip: "null",
         days: "0",
         hours: "0",
@@ -101,6 +109,7 @@ export default class GMapView extends React.Component {
         eventsMarkers: [],
         userlatitude: 0.1,
         userlongitude: 0.1,
+        selecteEvent: null,
     };
 
 
@@ -111,6 +120,10 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         this.state.destinations.push(state.params.trip.destination1);
+        var obj2 = {formatted_address:"null"};
+
+        var obj = {eventTitle: "null", eventAddress: obj2, startDate: "null", endDate: "null", startTimeChosen:"null", endTimeChosen:"null"};
+        this.setState({ selecteEvent: obj});
 
         if ((state.params.trip.events !== undefined)) {
 
@@ -118,19 +131,22 @@ export default class GMapView extends React.Component {
 
                 this.state.events.push(state.params.trip.events[i]);
 
+
+
             }
 
-            //this.getEventAddress();
+           this.setState({ selecteEvent: state.params.trip.events[0]});
         }
 
         this.state.destinations.push(state.params.trip.destination2);
 
-        
+
         this.setState({ latitude: state.params.trip.destination1.geometry.location.lat });
         this.setState({ longitude: state.params.trip.destination1.geometry.location.lng });
         this.setState({ trip: state.params.trip });
+        
 
-       // this.showAddress();
+        // this.showAddress();
         this.showDirections();
         this.getCurrentPosition();
 
@@ -213,6 +229,8 @@ export default class GMapView extends React.Component {
             longitude: type.eventAddress.geometry.location.lng
         }} title={type.eventAddress.name}
             pinColor="blue"
+            onPress={() => {this.setState({selecteEvent: type});
+             this.getEventInfo();}}
         />)
 
 
@@ -251,8 +269,9 @@ export default class GMapView extends React.Component {
                         }, {
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => navigate('Settings', { email: state.params.email })},
-                        
+                            onPress: () => navigate('Settings', { email: state.params.email })
+                        },
+
                     ]}
                 />
                 <View style={styles.MapContainer}>
@@ -279,7 +298,7 @@ export default class GMapView extends React.Component {
                     </View>
                 </View>
                 <View style={styles.SecondContainer}>
-                <Modal style={styles.ModalContainer}
+                    <Modal style={styles.ModalContainer}
                         visible={this.state.modalVisible}
                         animationType={'slide'}
                         onRequestClose={() => this.closeInfo()}>
@@ -357,13 +376,87 @@ export default class GMapView extends React.Component {
                             </View>
 
                         </View>
-                        </Modal>
+                    </Modal>
                 </View>
-                
-                    <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
-                        <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
-                    </TouchableHighlight>
-                
+
+                <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
+                    <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
+                </TouchableHighlight>
+
+
+                <View style={styles.SecondContainer}>
+                    <Modal style={styles.ModalContainer}
+                        visible={this.state.modalVisible2}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeEventInfo()}>
+
+                        <View style={styles.infoContainer}>
+
+                            <Text style={styles.titleInfoText}>Event Name</Text>
+                            <Text style={styles.infoTextEvent}>{this.state.selecteEvent.eventTitle}</Text>
+
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
+
+                           
+
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={styles.infoText1}>Event Address: </Text>
+                                <Text style={styles.infoTextEvent}> {this.state.selecteEvent.eventAddress.formatted_address} </Text>
+                            </View>
+
+                        
+
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
+
+                              <Text style={styles.infoText1}>Event Duration: </Text>
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10 }}>
+                              
+
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                    <Text style={styles.timeText}> Start </Text>
+                                    <Text style={styles.infoText1}> Date:{this.state.selecteEvent.startDate} </Text>
+                                    <Text style={styles.infoText1}> Time:{this.state.selecteEvent.startTimeChosen} </Text>
+                                   
+                                   
+                                   
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                <Text style={styles.timeText}> End </Text>
+                                    <Text style={styles.infoText1}> Date: {this.state.selecteEvent.endDate} </Text>
+                                    <Text style={styles.infoText1}> Time: {this.state.selecteEvent.endTimeChosen} </Text>
+                                   
+                                </View>
+
+                            
+
+                            </View>
+
+                            <View style={styles.centerView}>
+                                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeEventInfo()}>
+                                    <Text style={styles.buttonText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+                    </Modal>
+                </View>
+
+
+
 
 
 
@@ -404,7 +497,7 @@ const styles = StyleSheet.create({
     infoContainer: {
         paddingRight: 40,
         paddingLeft: 40,
-        backgroundColor:'white',
+        backgroundColor: 'white',
 
     },
     titleInfoText: {
@@ -442,33 +535,40 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         textAlign: 'center',
     },
-    Container:{
+    Container: {
         flex: 1,
-     },
-     
-     MapContainer:{
+    },
+
+    MapContainer: {
         height: '100%',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-     },
-     
-     MapStyle:{
-       height: '100%',
-       width: '100%',
-     },
-     
-     SecondContainer:{
-       height: '10%',
-       paddingRight: 40,
-       paddingLeft: 40,
-     },
-     
-     ModalContainer:{
-       height: '10%',
-       backgroundColor: 'white',
-       
-     }
+    },
+
+    MapStyle: {
+        height: '100%',
+        width: '100%',
+    },
+
+    SecondContainer: {
+        height: '10%',
+        paddingRight: 40,
+        paddingLeft: 40,
+    },
+
+    ModalContainer: {
+        height: '10%',
+        backgroundColor: 'white',
+
+    },
+    infoTextEvent: {
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 16,
+        lineHeight: 30,
+        textAlign: 'center',
+    },
 
 });
 
