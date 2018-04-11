@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, StatusBar } from 'react-native';
 import { TabNavigator,} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
@@ -15,7 +15,7 @@ export default class Chat extends React.Component {
 
     static navigationOptions = {
         title: 'Chat',
-        header: null
+        header: null,
     }
 
     render() {
@@ -24,22 +24,26 @@ export default class Chat extends React.Component {
         const { state } = this.props.navigation;
 
         return (
+
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
             <View style={styles.mainStyle}>
-
+            <StatusBar
+               backgroundColor="#000"
+               barStyle="light-content"
+             />
                 <ActionBar
                     containerStyle={styles.bar}
                     title={'Chat'}
                     titleStyle ={styles.title}
-                    backgroundColor= {'black'}
+                    backgroundColor= {'#FFFFFF'}
                     badgeColor={'red'}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                     rightIcons={[
                         {
                             image: require('../../images/settings.png'), // To use a custom image
-                            badge: '1',
-                            onPress: () => console.log('settings feature'),
+                            //badge: '1',
+                            onPress: () => navigate('AppSettings', { email: state.params.email })
                         },
                     ]}
                 />

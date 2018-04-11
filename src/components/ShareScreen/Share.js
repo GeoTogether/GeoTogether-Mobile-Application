@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, StatusBar } from 'react-native';
 import { TabNavigator,} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
@@ -26,12 +26,15 @@ export default class Share extends React.Component {
         return (
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
             <View style={styles.mainStyle}>
-
+            <StatusBar
+               backgroundColor="#000"
+               barStyle="light-content"
+             />
                 <ActionBar
                     containerStyle={styles.bar}
-                    title={'Chat'}
+                    title={'Share'}
                     titleStyle ={styles.title}
-                    backgroundColor= {'black'}
+                    backgroundColor= {'#FFF'}
                     badgeColor={'red'}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
@@ -39,7 +42,7 @@ export default class Share extends React.Component {
                         {
                             image: require('../../images/settings.png'), // To use a custom image
                             badge: '1',
-                            onPress: () => console.log('settings feature'),
+                            onPress: () => navigate('AppSettings', { email: state.params.email }),
                         },
                     ]}
                 />

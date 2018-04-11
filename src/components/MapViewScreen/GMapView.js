@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
+import { ActivityIndicator, StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
 import {
-    StackNavigator
+    StackNavigator,
+    TabNavigator
 } from 'react-navigation';
 import MapView from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
@@ -22,6 +23,11 @@ export default class GMapView extends React.Component {
 
 
 
+    }
+
+    static navigationOptions = {
+        title: 'MapView',
+        header: null,
     }
 
     getTripInfo() {
@@ -81,7 +87,7 @@ export default class GMapView extends React.Component {
         title: 'GMapView',
         header: null
     }
-    // the user state with all of the user and the trip information 
+    // the user state with all of the user and the trip information
     state = {
         destinations: [],
         markers: [],
@@ -186,37 +192,37 @@ export default class GMapView extends React.Component {
                     // Address Geocoding
                     Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
                         // res is an Array of geocoding object (see below)
-        
+
                         if((res["0"].position !== undefined )){
                             var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
                             this.state.eventsMarkers.push(obj);
                         this.setState({ latitude: res["0"].position.lat });
                         this.setState({ longitude: res["0"].position.lng });
-        
+
                         }
-                        
-        
-        
-        
+
+
+
+
                     })
 
                     if(this.state.eventsMarkers[i] == undefined){
                         RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
                         .then((results) => {
                         this.state.eventsMarkers.push(results);
-                       
 
-                    
 
-      
-                
-               
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
             })
             .catch((error) => alert(error.message));
 
@@ -250,7 +256,7 @@ export default class GMapView extends React.Component {
                 this.setState({ longitude: res["0"].position.lng });
 
                 }
-                
+
 
 
 
@@ -260,21 +266,21 @@ export default class GMapView extends React.Component {
             if(this.state.markers[i] == undefined){
                 RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
                 .then((results) => {
-    
+
                 this.state.markers.push(results);
                 this.setState({ latitude: results.latitude });
                 this.setState({ longitude: results.longitude });
-                
-                
+
+
                 })
                 .catch((error) => alert(error.message));
             }
 
-           
+
 
         }
 
-  
+
 
 
 
@@ -308,7 +314,7 @@ export default class GMapView extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
-        // adding buttom components for all the user trips 
+        // adding buttom components for all the user trips
         var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
             latitude: type.latitude,
             longitude: type.longitude
@@ -345,23 +351,26 @@ export default class GMapView extends React.Component {
 
 
             <View style={styles.form}>
-
+            <StatusBar
+               backgroundColor="#000"
+               barStyle="light-content"
+             />
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
-                    backgroundColor={'black'}
+                    backgroundColor={'#FFFFFF'}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
                     rightIcons={[
                         {
                             image: require('../../images/timeline.png'), // To use a custom image
-                            badge: '1',
+                            //badge: '1',
                             onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
                         }, {
                             image: require('../../images/settings.png'), // To use a custom image
-                            badge: '1',
-                            onPress: () => console.log('Right Custom image !'),
+                            //badge: '1',
+                            onPress: () => navigate('AppSettings', { email: state.params.email })
                         },
                     ]}
                 />
@@ -511,7 +520,7 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        color: 'white',
+        color: 'black',
         fontWeight: '700'
     },
     buttonStyle: {
@@ -569,4 +578,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     }
 });
-

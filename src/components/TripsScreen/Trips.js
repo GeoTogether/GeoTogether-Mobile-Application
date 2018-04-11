@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import {
     StackNavigator,
     TabNavigator,
@@ -164,20 +164,23 @@ class Trips extends React.Component {
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
 
                 <View style={styles.actionBar}>
-
+                <StatusBar
+                   backgroundColor="black"
+                   barStyle="light-content"
+                 />
                     <ActionBar
                         containerStyle={styles.bar}
                         title={'Home'}
                         titleStyle ={styles.title}
-                        backgroundColor= {'black'}
+                        backgroundColor= {'#FFF'}
                         badgeColor={'red'}
                         leftIconImage={require('../../images/profile.png')}
                         onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                         rightIcons={[
                             {
                                 image: require('../../images/settings.png'), // To use a custom image
-                                badge: '1',
-                                onPress: () => console.log('settings feature'),
+                                //badge: '1',
+                                onPress: () => navigate('AppSettings', { email: state.params.email }),
                             },
                         ]}
                     />
@@ -220,7 +223,7 @@ export default TabNavigator (
                 } else if (routeName === 'Chat') {
                     iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Share') {
-                    iconName = `ios-home${focused ? '' : '-outline'}`;
+                    iconName = `cloud-upload${focused ? '' : '-outline'}`;
                 }
 
 

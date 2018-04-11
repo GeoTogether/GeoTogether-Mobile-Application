@@ -1,6 +1,6 @@
 import React from 'react';
 import Timeline from 'react-native-timeline-listview';
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, StatusBar} from "react-native";
 import firebase from "../Firebase/firebaseStorage";
 import ActionBar from 'react-native-action-bar';
 
@@ -73,22 +73,26 @@ export default class TimeLineScreen extends React.Component {
 
         return (
             <View style={styles.container}>
+            <StatusBar
+               backgroundColor="black"
+               barStyle="light-content"
+             />
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
-                    backgroundColor={'black'}
+                    backgroundColor={'white'}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip:state.params.trip })}
                     rightIcons={[
                         {
                             image: require('../../images/map.png'), // To use a custom image
-                            badge: '1',
+                            //badge: '1',
                             onPress: () => navigate('GMapView', { email: state.params.email, trip:state.params.trip }),
                         },{
                             image: require('../../images/settings.png'), // To use a custom image
-                            badge: '1',
-                            onPress: () => console.log('Right Custom image !'),
+                            //badge: '1',
+                            onPress: () => navigate('AppSettings', { email: state.params.email })
                         },
                     ]}
                 />

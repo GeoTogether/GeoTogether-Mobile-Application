@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, Image, TouchableHighlight, StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
-export default class Settings extends React.Component {
+export default class AppSettings extends React.Component {
   constructor(props) {
       super(props)
       this.state = { count: 0 }
