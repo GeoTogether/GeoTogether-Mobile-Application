@@ -42,25 +42,41 @@ export default class NewEvent extends React.Component {
         eventAddress: null,
         startTimeChosen:'00:00',
         endTimeChosen: '00:00',
+        isDateTimePickerVisible: false,
+        isDateTimePickerVisible2: false,
     };
 
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
 
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
 
+    _showDateTimePicker2 = () => this.setState({isDateTimePickerVisible2: true});
+
+    _hideDateTimePicker2 = () => this.setState({isDateTimePickerVisible2: false});
+
     _handleDatePicked = (date) => {
        
 
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var period = ' PM';
+    var period;
 
     if (hours > 12) {
         hours -= 12;
-        period = ' AM'
+        period = ' PM'
     } else if (hours === 0) {
         hours = 12;
         period = ' AM'
+    }else if(hours < 12){
+
+        period = ' AM';
+
+
+    }else if(hours === 12){
+
+
+        period = ' PM'
+
     }
 
     var todisplay = hours.toString() + ':' + minutes.toString()+ period;
@@ -73,20 +89,30 @@ export default class NewEvent extends React.Component {
         
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var period = ' PM';
+    var period;
 
     if (hours > 12) {
         hours -= 12;
-        period = ' AM'
+        period = ' PM'
     } else if (hours === 0) {
         hours = 12;
         period = ' AM'
+    }else if(hours < 12){
+
+        period = ' AM';
+
+
+    }else if(hours === 12){
+
+
+        period = ' PM'
+
     }
 
     var todisplay = hours.toString() + ':' + minutes.toString()+ period;
 
         this.setState({endTimeChosen: todisplay});
-        this._hideDateTimePicker();
+        this._hideDateTimePicker2();
     };
 
 
@@ -155,11 +181,13 @@ export default class NewEvent extends React.Component {
                         query={{
                             key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                             language: 'en', // language of the results
+                        
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                          
-                        var temp = {address: data.description, id: data.place_id}
-                        this.setState({eventAddress: temp})
+                        // firebase.database().ref('test/').push(data);
+                        // firebase.database().ref('test/').push(details);
+                        // var temp = {address: data.description, id: data.place_id}
+                        this.setState({eventAddress: details})
                            
                         }}
                     />
@@ -223,14 +251,14 @@ export default class NewEvent extends React.Component {
                     <View style={styles.timeContainer}>
                         <View style={styles.timeStyle}>
                             <Text style={styles.textHeader}>End Time:</Text>
-                            <TouchableOpacity onPress={this._showDateTimePicker}>
+                            <TouchableOpacity onPress={this._showDateTimePicker2}>
                                 <View style={styles.timeSlot}>
                                     <Text style={styles.timeDisplay}>{this.state.endTimeChosen}</Text>
                                 </View>
                                 <DateTimePicker
-                                    isVisible={this.state.isDateTimePickerVisible}
+                                    isVisible={this.state.isDateTimePickerVisible2}
                                     onConfirm={this._handleDatePicked2}
-                                    onCancel={this._hideDateTimePicker}
+                                    onCancel={this._hideDateTimePicker2}
                                     mode="time"
                                     is24Hour={false}
                                 />

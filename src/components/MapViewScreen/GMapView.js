@@ -5,13 +5,14 @@ import {
     TabNavigator,
     TabBarBottom
 } from 'react-navigation';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
 import MapViewDirections from 'react-native-maps-directions';
 import ActionBar from 'react-native-action-bar';
 import PopupDialog from 'react-native-popup-dialog';
 import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
+import Modal from "react-native-modal";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Chat from "../ChatScreen/Chat";
@@ -34,9 +35,7 @@ export default class GMapView extends React.Component {
 
     getTripInfo() {
         this.getTime();
-        this.popupDialog.show(() => {
-
-        });
+        this.setState({ modalVisible: true });
     }
 
     getTime() {
@@ -76,12 +75,17 @@ export default class GMapView extends React.Component {
     }
 
     closeInfo() {
-        this.popupDialog.dismiss(() => {
-
-        });
+        this.setState({ modalVisible: false });
     }
 
+    getEventInfo() {
+        
+        this.setState({ modalVisible2: true });
+    }
 
+    closeEventInfo() {
+        this.setState({ modalVisible2: false });
+    }
 
     // navigation options to be used to navigate the class from other classes
 
@@ -105,6 +109,7 @@ export default class GMapView extends React.Component {
         selectedcity: '',
         coords: [],
         modalVisible: false,
+        modalVisible2: false,
         trip: "null",
         days: "0",
         hours: "0",
@@ -112,6 +117,7 @@ export default class GMapView extends React.Component {
         eventsMarkers: [],
         userlatitude: 0.1,
         userlongitude: 0.1,
+        selecteEvent: null,
     };
 
 
@@ -122,6 +128,10 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         this.state.destinations.push(state.params.trip.destination1);
+        var obj2 = {formatted_address:"null"};
+
+        var obj = {eventTitle: "null", eventAddress: obj2, startDate: "null", endDate: "null", startTimeChosen:"null", endTimeChosen:"null"};
+        this.setState({ selecteEvent: obj});
 
         if ((state.params.trip.events !== undefined)) {
 
@@ -129,14 +139,22 @@ export default class GMapView extends React.Component {
 
                 this.state.events.push(state.params.trip.events[i]);
 
+
+
             }
 
-            this.getEventAddress();
+           this.setState({ selecteEvent: state.params.trip.events[0]});
         }
 
         this.state.destinations.push(state.params.trip.destination2);
 
-        this.showAddress();
+
+        this.setState({ latitude: state.params.trip.destination1.geometry.location.lat });
+        this.setState({ longitude: state.params.trip.destination1.geometry.location.lng });
+        this.setState({ trip: state.params.trip });
+        
+
+        // this.showAddress();
         this.showDirections();
         this.getCurrentPosition();
 
@@ -154,24 +172,24 @@ export default class GMapView extends React.Component {
 
         if ((this.state.events.length !== 0)) {
 
-            var obj = { d1: state.params.trip.destination1.address, d2: this.state.events[0].eventAddress.address };
+            var obj = { d1: state.params.trip.destination1.formatted_address, d2: this.state.events[0].eventAddress.formatted_address };
             this.state.coords.push(obj);
 
             for (var i = 0; i < this.state.events.length - 1; i++) {
 
 
-                var obj = { d1: this.state.events[i].eventAddress.address, d2: this.state.events[i + 1].eventAddress.address };
+                var obj = { d1: this.state.events[i].eventAddress.formatted_address, d2: this.state.events[i + 1].eventAddress.formatted_address };
                 this.state.coords.push(obj);
 
             }
 
-            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress.address, d2: state.params.trip.destination2.address };
+            var obj2 = { d1: this.state.events[this.state.events.length - 1].eventAddress.formatted_address, d2: state.params.trip.destination2.formatted_address };
             this.state.coords.push(obj2);
 
 
         } else {
 
-            var obj2 = { d1: state.params.trip.destination1.address, d2: state.params.trip.destination2.address };
+            var obj2 = { d1: state.params.trip.destination1.formatted_address, d2: state.params.trip.destination2.formatted_address };
             this.state.coords.push(obj2);
 
 
@@ -182,7 +200,6 @@ export default class GMapView extends React.Component {
 
 
     }
-
 
     getEventAddress() {
 
@@ -316,18 +333,20 @@ export default class GMapView extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
-        // adding buttom components for all the user trips
-        var MarkersComponents = this.state.markers.map((type) => <MapView.Marker coordinate={{
-            latitude: type.latitude,
-            longitude: type.longitude
+        // adding buttom components for all the user trips 
+        var MarkersComponents = this.state.destinations.map((type) => <MapView.Marker coordinate={{
+            latitude: type.geometry.location.lat,
+            longitude: type.geometry.location.lng
         }} title={type.name}
         />)
 
-        var eventsMComponents = this.state.eventsMarkers.map((type) => <MapView.Marker coordinate={{
-            latitude: type.latitude,
-            longitude: type.longitude
-        }} title={type.name}
+        var eventsMComponents = this.state.events.map((type) => <MapView.Marker coordinate={{
+            latitude: type.eventAddress.geometry.location.lat,
+            longitude: type.eventAddress.geometry.location.lng
+        }} title={type.eventAddress.name}
             pinColor="blue"
+            onPress={() => {this.setState({selecteEvent: type});
+             this.getEventInfo();}}
         />)
 
 
@@ -350,13 +369,12 @@ export default class GMapView extends React.Component {
 
         />
         return (
-
-
             <View style={styles.form}>
             <StatusBar
                backgroundColor="#000"
                barStyle="light-content"
              />
+            <View style={styles.Container}>
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
@@ -374,38 +392,38 @@ export default class GMapView extends React.Component {
                             //badge: '1',
                             onPress: () => navigate('AppSettings', { email: state.params.email })
                         },
+
                     ]}
                 />
+                <View style={styles.MapContainer}>
+                    <View style={styles.MapStyle}>
+                        <MapView prvoider={PROVIDER_GOOGLE} style={StyleSheet.absoluteFillObject} region={{
+
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421
+                        }}>
+                            {MarkersComponents}
+
+                            {eventsMComponents}
+
+                            {dirComponents}
+
+                            {userloc}
 
 
+                        </MapView>
 
 
-                <MapView style={styles.map} region={{
+                    </View>
+                </View>
+                <View style={styles.SecondContainer}>
+                    <Modal style={styles.ModalContainer}
+                        visible={this.state.modalVisible}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeInfo()}>
 
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }}>
-                    {MarkersComponents}
-
-                    {eventsMComponents}
-
-                    {dirComponents}
-
-                    {userloc}
-
-
-                </MapView>
-
-
-
-                <View style={styles.container}>
-                    <PopupDialog
-                        ref={(popupDialog) => { this.popupDialog = popupDialog; }}
-                        width={.7}
-                        height={.55}
-                    >
                         <View style={styles.infoContainer}>
 
                             <Text style={styles.titleInfoText}>Trip Info</Text>
@@ -479,13 +497,85 @@ export default class GMapView extends React.Component {
                             </View>
 
                         </View>
-                    </PopupDialog>
+                    </Modal>
                 </View>
-
 
                 <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
                     <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
                 </TouchableHighlight>
+
+
+                <View style={styles.SecondContainer}>
+                    <Modal style={styles.ModalContainer}
+                        visible={this.state.modalVisible2}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeEventInfo()}>
+
+                        <View style={styles.infoContainer}>
+
+                            <Text style={styles.titleInfoText}>Event Name</Text>
+                            <Text style={styles.infoTextEvent}>{this.state.selecteEvent.eventTitle}</Text>
+
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
+
+                           
+
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={styles.infoText1}>Event Address: </Text>
+                                <Text style={styles.infoTextEvent}> {this.state.selecteEvent.eventAddress.formatted_address} </Text>
+                            </View>
+
+                        
+
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                    paddingBottom: 10,
+                                }}
+                            />
+
+                              <Text style={styles.infoText1}>Event Duration: </Text>
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10 }}>
+                              
+
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                    <Text style={styles.timeText}> Start </Text>
+                                    <Text style={styles.infoText1}> Date:{this.state.selecteEvent.startDate} </Text>
+                                    <Text style={styles.infoText1}> Time:{this.state.selecteEvent.startTimeChosen} </Text>
+                                   
+                                   
+                                   
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
+                                <Text style={styles.timeText}> End </Text>
+                                    <Text style={styles.infoText1}> Date: {this.state.selecteEvent.endDate} </Text>
+                                    <Text style={styles.infoText1}> Time: {this.state.selecteEvent.endTimeChosen} </Text>
+                                   
+                                </View>
+
+                            
+
+                            </View>
+
+                            <View style={styles.centerView}>
+                                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeEventInfo()}>
+                                    <Text style={styles.buttonText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+                    </Modal>
+                </View>
+
 
 
 
@@ -542,22 +632,6 @@ export default TabNavigator (
 */
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    form: {
-        flex: 1
-    },
-    map: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-    },
     title: {
         textAlign: 'center',
         color: 'black',
@@ -565,8 +639,8 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
-        width: 150,
-        height: 45,
+        width: 100,
+        height: 40,
         borderRadius: 10
     },
     centerView: {
@@ -575,11 +649,14 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '100'
+        fontWeight: '100',
+        paddingTop: 10,
+
     },
     infoContainer: {
         paddingRight: 40,
         paddingLeft: 40,
+        backgroundColor: 'white',
 
     },
     titleInfoText: {
@@ -616,5 +693,40 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 30,
         textAlign: 'center',
-    }
+    },
+    Container: {
+        flex: 1,
+    },
+
+    MapContainer: {
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    MapStyle: {
+        height: '100%',
+        width: '100%',
+    },
+
+    SecondContainer: {
+        height: '10%',
+        paddingRight: 40,
+        paddingLeft: 40,
+    },
+
+    ModalContainer: {
+        height: '10%',
+        backgroundColor: 'white',
+
+    },
+    infoTextEvent: {
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 16,
+        lineHeight: 30,
+        textAlign: 'center',
+    },
+
 });
