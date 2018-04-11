@@ -19,13 +19,18 @@ export default class Settings extends React.Component {
     }
 
    render() {
+     const {goBack} = this.props.navigation;
       return (
         <View style={styles.container}>
-        <View>
-        <Text style={styles.heading}> Settings </Text>
-            <TouchableOpacity onPress={() => goBack()} style={styles.back} >
-                <Image source={require('../../images/backarrow.png')}/>
-            </TouchableOpacity>
+        <View style={styles.headerTab}>
+        <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+          <Image style={styles.icon}
+            source={require('../../images/back.png')}/>
+          </TouchableOpacity>
+
+          <View style={styles.headingText}>
+          <Text style={styles.heading}> APP SETTINGS </Text>
+          </View>
         </View>
 
 
@@ -35,6 +40,7 @@ export default class Settings extends React.Component {
           >
            <Text style={{color: '#000'}}> Display & Sound </Text>
           </TouchableHighlight>
+
           <TouchableHighlight
            style={styles.button}
            onPress={this.onPress}
@@ -66,7 +72,26 @@ export default class Settings extends React.Component {
     },
     button: {
       backgroundColor: '#FFF',
-      padding: 10,
+      padding: 12,
+      color: '#000',
+      borderRadius: 1,
+      borderWidth: 0.5,
+      borderColor: '#000'
+    },
+    headerTab: {
+      flexDirection: 'row',
+      backgroundColor: '#FFF',
+      padding: 15,
+      color: '#000',
+      borderRadius: 1,
+      borderWidth: 0.5,
+      borderColor: '#000',
+      //justifyContent: 'center',
+      alignItems: 'center',
+    },
+    settingsTab: {
+      backgroundColor: '#FFF',
+      padding: 15,
       color: '#000',
       borderRadius: 1,
       borderWidth: 0.5,
@@ -78,10 +103,15 @@ export default class Settings extends React.Component {
     },
     heading: {
         textAlign: 'center',
-        fontWeight: 'bold',
         fontSize: 16,
         marginTop: '5%',
         marginBottom: '5%',
         color: '#000'
     },
+    icon: {
+      transform: [{ rotate: '180deg' }],
+      height: 30,
+      width: 30,
+      marginLeft: '2%',
+    }
   });
