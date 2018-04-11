@@ -2,7 +2,8 @@ import React from 'react';
 import { ActivityIndicator, StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
 import {
     StackNavigator,
-    TabNavigator
+    TabNavigator,
+    TabBarBottom
 } from 'react-navigation';
 import MapView from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
@@ -12,9 +13,10 @@ import PopupDialog from 'react-native-popup-dialog';
 import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
 
-
-
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Chat from "../ChatScreen/Chat";
+import Share from "../ShareScreen/Share";
+import Trips from "../TripsScreen/Trips";
 
 export default class GMapView extends React.Component {
 
@@ -500,6 +502,44 @@ export default class GMapView extends React.Component {
 
 }
 
+/*
+// main bottom navigation tab
+export default TabNavigator (
+    {
+        GMap: { screen: GMapView },
+        Chat: { screen: Chat },
+        //Trips: { screen: Trips },
+        Share: { screen: Share },
+
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = `ios-home${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Chat') {
+                    iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Share') {
+                    iconName = `cloud-upload${focused ? '' : '-outline'}`;
+                }
+
+
+                return <Ionicons name={iconName} size={25} color={tintColor} />;
+            }
+        }),
+        tabBarOptions: {
+            activeTintColor: 'gray',
+            inactiveTintColor: 'gray',
+        },
+        tabBarComponent: TabBarBottom,
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+    }
+);
+*/
 
 const styles = StyleSheet.create({
     container: {
