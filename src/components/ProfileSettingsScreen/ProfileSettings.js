@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View} from 'react-native';
+import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View, Platform} from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob';
 
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
 
 export default class ProfileSettings extends Component {
+
 
 
     static navigationOptions = {
@@ -22,14 +28,17 @@ export default class ProfileSettings extends Component {
         lname: '',
         ImageSource: null,
         photoS: null,
+        picker:0,
     }
     updateInfo = () => {
         var userData;
         var db = firebase.database();
+
         tempEmail = this.state.previousEmail;
         currentEmail = this.state.email;
 
         var leadsRef = firebase.database().ref('users');
+
 
         leadsRef.on('value', function (snapshot) {
 
@@ -48,11 +57,28 @@ export default class ProfileSettings extends Component {
             });
         });
 
+        if(this.state.ImageSource != null){
+            var dbs = firebase.storage();
 
+            var uri = this.state.ImageSource;
+
+
+            this.uploadImage(uri)
+                .then(url => { alert('uploaded'); this.setState({image_uri: url}) })
+                .catch(error => console.log(error))
+
+
+
+
+
+
+
+
+        }
         if (this.state.email == this.state.previousEmail) {
             //changing names
-            db.ref("users/" + userData + "/first").set(this.state.fname);
             db.ref("users/" + userData + "/last").set(this.state.lname);
+            db.ref("users/" + userData + "/first").set(this.state.fname);
         }
         else {
             //chaning authorization and names and trips
@@ -105,6 +131,41 @@ export default class ProfileSettings extends Component {
         super(props)
     }
 
+    uploadImage(uri, mime = 'image/jpg') {
+
+
+        return new Promise((resolve, reject) => {
+
+            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+            console.log(uploadUri);
+            let uploadBlob = null
+
+            const imageRef = firebase.storage().ref('imagesUsers').child("dlpdp");
+
+            fs.readFile(uploadUri, 'base64')
+                .then((data) => {
+                    return Blob.build(data, { type: `${mime};BASE64` })
+                })
+                .then((blob) => {
+                    uploadBlob = blob;
+                    return imageRef.put(blob, { contentType: mime })
+                })
+                .then(() => {
+                    uploadBlob.close()
+                    return imageRef.getDownloadURL()
+
+                })
+                .then((url) => {
+                    resolve(url)
+                })
+                .catch((error) => {
+                    reject(error)
+                })
+        })
+    }
+
+
+
     componentWillMount() {
 
         const {state} = this.props.navigation;
@@ -128,15 +189,6 @@ export default class ProfileSettings extends Component {
                     this.setState({photo: val.photo})
 
 
-                    if (this.state.photo == '') {
-
-
-                        // this.setState({ photoS: require('../../images/face.png') })
-
-                    } else {
-
-                        this.setState({photoS: {uri: this.state.photo}})
-                    }
 
 
                 }
@@ -169,14 +221,13 @@ export default class ProfileSettings extends Component {
                     this.setState({photo: val.photo})
 
 
-                    if (this.state.photo == '') {
 
 
-                        //this.setState({ photoS: require('../../images/face.png') })
+                    if (val.photo != '') {
 
-                    } else {
 
-                        this.setState({photoS: {uri: this.state.photo}})
+                        this.setState({ ImageSource: val.photo })
+
                     }
 
 
@@ -211,23 +262,63 @@ export default class ProfileSettings extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
+
                 let source = {uri: response.uri};
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                this.uploadImage(response.uri).then(url => {
+
+
+                    var userData;
+                    var db = firebase.database();
+
+                    tempEmail = this.state.previousEmail;
+                    currentEmail = this.state.email;
+
+                    var leadsRef = firebase.database().ref('users');
+
+
+                    leadsRef.on('value', function (snapshot) {
+
+                        snapshot.forEach(function (childSnapshot) {
+
+                            if (childSnapshot.child("email").val() == tempEmail) {
+                                userData = childSnapshot.key;
+                            }
+                            else {
+
+                            }
+                            //userData = childSnapshot.val();
+                            //userData2 = childSnapshot.child("email").val();
+
+
+                        });
+                    });
+                    db.ref("users/" + userData + "/photo").set(url);
+
+
+
+                });
 
                 this.setState({
 
-                    ImageSource: source
+
+                    picker: 1
 
                 });
             }
         });
     }
 
+    getCurrentTime(){
+        var currentdate = new Date();
+        return currentdate.getTime();
+    }
     // onPress={() => this.updateInfo()}
 
     render() {
+        var picker = this.state.picker;
         const {goBack} = this.props.navigation;
         return (
             <View style={styles.container}>
@@ -237,7 +328,7 @@ export default class ProfileSettings extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.imageContainer}>
-                    {this.state.photoS == null ? (
+                    {this.state.ImageSource == null ? (
                         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
 
                             <View style={styles.imageComponent}>
@@ -252,44 +343,60 @@ export default class ProfileSettings extends Component {
 
                         </TouchableOpacity>
                     ) : (
-                        <Image
-                            style={{width: 100, height: 100, marginLeft: 155}}
-                            source={this.state.photoS}
-                        />
+                        <View>
+                            <Image
+                                style={styles.imageComponent}
+                                source={{uri: this.state.ImageSource}}
+                            />
+                            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                                <Text style={styles.change}>Change Photo</Text>
+                            </TouchableOpacity>
+                        </View>
+
                     )}
+
                 </View>
 
 
                 <View style={styles.profileInfoContainer}>
 
                     <View style={styles.displayHeader}>
-                        <Text style={styles.labels}>Name</Text>
+                        <Text style={styles.labels}>First Name</Text>
                     </View>
-                    <TextInput style={styles.input} value={this.state.fname+" "+ this.state.lname }/>
-                       
-                    
+                    <TextInput style={styles.input} defaultValue={this.state.fname}
+                               ref= {(el) => { this.fname = el; }}
+                               onChangeText={(fname) => this.setState({fname})}
+                               value={this.state.fname}>
+                    </TextInput>
 
                     <View style={styles.displayHeader}>
-                        <Text style={styles.labels}>Username</Text>
+                        <Text style={styles.labels}>Last Name</Text>
                     </View>
-                    <TextInput style={styles.input} value={this.state.fname}/>
+                    <TextInput style={styles.input} defaultValue={this.state.lname}
+                               ref= {(el) => { this.lname = el; }}
+                               onChangeText={(lname) => this.setState({lname})}
+                               value={this.state.lname}>
+                    </TextInput>
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Email</Text>
                     </View>
-                    <TextInput style={styles.input2} value={this.state.email}/>
-                    
+
+                    <TextInput style={styles.input2} defaultValue={this.state.email}
+                               value={this.state.email}>
+                    </TextInput>
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Gender</Text>
                     </View>
-                    <TextInput style={styles.input2} value={"Male"}/>
-                      
-                   
+                    <TextInput style={styles.input2}>
+                        Male
+                    </TextInput>
+
                 </View>
 
                 <View style={styles.updateBContainer}>
-                    <TouchableOpacity  style={styles.buttonContainer} >
+                    <TouchableOpacity  style={styles.buttonContainer} onPress={() => this.updateInfo()}>
                         <Text style={styles.buttonText}>Update Profile Info</Text>
                     </TouchableOpacity>
                 </View>
@@ -318,6 +425,12 @@ const styles = StyleSheet.create({
     back: {
         marginLeft: -10,
         marginTop: 5,
+    },
+    change: {
+        color: 'blue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
     },
     imageComponent: {
         borderRadius: 75,

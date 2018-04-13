@@ -1,4 +1,4 @@
-import { GiftedChat, Actions } from 'react-native-gifted-chat';
+import { GiftedChat, Actions, Bubble } from 'react-native-gifted-chat';
 import React from 'react';
 import { View, Platform, Text, StyleSheet } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
@@ -38,6 +38,35 @@ export default class ChatScreen extends React.Component {
         image_uri: null,
     }
 
+    renderName = (props) => {
+        const { user: self } = this.state
+        const { user = {} } = props.currentMessage
+        const { user: pUser = {} } = props.previousMessage
+        const isSameUser = pUser._id === user._id
+        //const isSelf = user._id === self._id
+        //const shouldNotRenderName = isSameUser
+
+        return (
+
+            <Text>
+                {user.name}
+            </Text>
+        )
+
+    }
+
+    renderBubble = (props) => {
+        return (
+            <View>
+                {this.renderName(props)}
+                <Bubble {...props} />
+            </View>
+        )
+    }
+
+
+
+
 
     componentDidMount(){
 
@@ -60,7 +89,36 @@ export default class ChatScreen extends React.Component {
             var Messages = [];
 
 
+
+
             for (var key in TotalArray) {
+
+                var photo;
+                var firstname;
+                var lastname;
+                var name;
+                firebase.database().ref("users").on('value', (snapshot) => {
+                    snapshot.forEach((userSnapshot) => {
+
+
+                        const val = userSnapshot.val();
+
+
+                        if (val.email == TotalArray[key][0]) {
+
+
+                            photo = val.photo;
+                            lastname = val.last;
+                            firstname = val.first;
+
+                            name = firstname +" "+lastname;
+
+                        }
+
+                    })
+                })
+
+
 
                 if(TotalArray[key][0] == state.params.email && TotalArray[key][2] =="7"){
 
@@ -70,8 +128,8 @@ export default class ChatScreen extends React.Component {
                         createdAt: TotalArray[key][3],
                         user: {
                             _id: 1,
-                            name: TotalArray[key][0],
-                            avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
+                            name: name,
+                            avatar: photo,
                         },
                         image: (TotalArray[key][1])
                     });
@@ -84,8 +142,8 @@ export default class ChatScreen extends React.Component {
                         createdAt: TotalArray[key][3],
                         user: {
                             _id: this.stat.arrayVal+2,
-                            name: TotalArray[key][0],
-                            avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
+                            name: name,
+                            avatar: photo,
                         },
                         image: (TotalArray[key][1])
                     });
@@ -98,8 +156,8 @@ export default class ChatScreen extends React.Component {
                         createdAt: TotalArray[key][2],
                         user: {
                             _id: 1,
-                            name: TotalArray[key][0],
-                            avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
+                            name: name,
+                            avatar: photo,
                         },
                     });
                 }
@@ -111,8 +169,8 @@ export default class ChatScreen extends React.Component {
                         createdAt: TotalArray[key][2],
                         user: {
                             _id: this.stat.arrayVal+2,
-                            name: TotalArray[key][0],
-                            avatar: 'https://i.pinimg.com/originals/9c/53/50/9c5350210821ef961feca8e70ebd4160.jpg',
+                            name: name,
+                            avatar: photo,
                         },
                     });
                 }
@@ -364,6 +422,7 @@ export default class ChatScreen extends React.Component {
                 }}
                 renderActions={this.renderCustomActions}
                 //renderCustomView={this.renderCustomView}
+                renderBubble={this.renderBubble}
 
             />
 
