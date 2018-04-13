@@ -156,7 +156,7 @@ export default class NewTrip extends React.Component {
 
 
         //after adding the trip go back to trips
-        navigate('Trips', {email: this.state.email});
+        navigate('Home', {email: this.state.email});
     }
 
     render() {
