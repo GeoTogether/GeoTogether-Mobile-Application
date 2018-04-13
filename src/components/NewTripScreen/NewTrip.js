@@ -255,6 +255,7 @@ export default class NewTrip extends React.Component {
                                     query={{
                                         key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                                         language: 'en', // language of the results
+                                        origin: 'http://mywebsite.com'
                                     }}
                                     onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
@@ -298,6 +299,7 @@ export default class NewTrip extends React.Component {
                                 query={{
                                     key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                                     language: 'en', // language of the results
+                                    origin: 'http://mywebsite.com'
                                 }}
                                 onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 

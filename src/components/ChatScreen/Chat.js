@@ -58,7 +58,7 @@ export default class Chat extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: firebase.auth().currentUser.email });
-        this.checkNewUser();
+   
 
         // gets all the user trips
         this.onPressGetTrips();
@@ -71,8 +71,7 @@ export default class Chat extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: firebase.auth().currentUser.email });
-        this.checkNewUser();
-
+      
 
 
         // gets all the user trips
@@ -80,74 +79,6 @@ export default class Chat extends React.Component {
 
     }
 
-    // funcation to sign out using firebase authentication.
-
-    onPressLogOut() {
-        const { navigate } = this.props.navigation;
-
-
-
-        if (firebase.auth().currentUser !== null) {
-
-            firebase.auth().signOut()
-                .then(() => {
-                    this.setState({
-                        email: '',
-                        password: '',
-                        authenticating: false,
-                        user: null,
-                    })
-                    navigate('SplashScreen') // after login go to trips
-
-                }, error => {
-                    console.error('Sign Out Error', error);
-                });
-
-        }
-
-
-
-
-    }
-
-    async checkNewUser(){
-        const { navigate } = this.props.navigation;
-
-        firebase.database().ref('users/').on('value', (snapshot) => {
-            snapshot.forEach((userSnapshot) => {
-
-
-                const val = userSnapshot.val();
-
-
-
-                if (val.email == this.state.email) {
-
-
-                    if(val.newUser == 1){
-
-                        this.setState({newUser : 1});
-
-                        firebase.database().ref('users/').child(userSnapshot.key).set({ first: val.first,
-                                last: val.last,
-                                email: val.email,
-                                photo: val.photo,
-                                newUser: 2,
-                            }
-                        )
-
-                        navigate('Intro', { email: this.state.email });
-
-                    }
-
-
-                }
-
-            })
-        })
-
-
-    }
 
 
     // function to get all the user trips using firebase database
