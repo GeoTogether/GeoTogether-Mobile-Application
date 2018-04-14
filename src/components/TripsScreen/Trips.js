@@ -174,6 +174,7 @@ export default class Trips extends React.Component {
                         titleStyle ={styles.title}
                         backgroundColor= {'#FFF'}
                         badgeColor={'red'}
+                        iconImageStyle={{tintColor: "black"}}
                         leftIconImage={require('../../images/profile.png')}
                         onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                         rightIcons={[
@@ -324,5 +325,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '700'
+    },
+    title: {
+        textAlign: 'center',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 20
     },
 });

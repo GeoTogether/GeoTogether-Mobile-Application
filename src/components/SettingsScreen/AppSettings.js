@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppRegistry, Image, TouchableHighlight, StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import firebase from '../Firebase/firebaseStorage';
 
 export default class AppSettings extends React.Component {
   constructor(props) {
@@ -17,6 +18,30 @@ export default class AppSettings extends React.Component {
         count: this.state.count+1
       })
     }
+    
+        // funcation to sign out using firebase authentication.
+
+        onPressLogOut() {
+          const { navigate } = this.props.navigation;
+  
+          if (firebase.auth().currentUser !== null) {
+  
+              firebase.auth().signOut()
+                  .then(() => {
+                      this.setState({
+                          email: '',
+                          password: '',
+                          authenticating: false,
+                          user: null,
+                      })
+                      navigate('SplashScreen') // after login go to trips
+  
+                  }, error => {
+                      console.error('Sign Out Error', error);
+                  });
+          }
+      }
+
 
    render() {
      const {goBack} = this.props.navigation;
@@ -58,6 +83,13 @@ export default class AppSettings extends React.Component {
            onPress={this.onPress}
           >
            <Text style={{color: '#000'}}> About </Text>
+          </TouchableHighlight>
+
+             <TouchableHighlight
+           style={styles.button}
+           onPress={() => this.onPressLogOut()}
+          >
+           <Text style={{color: '#000'}}> Log Out </Text>
           </TouchableHighlight>
 
         </View>
