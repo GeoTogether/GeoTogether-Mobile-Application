@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
+import {View, Image, TouchableOpacity, StyleSheet, Text, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashTextLogo from '../SplashTextLogo/SplashTextLogo';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
@@ -49,6 +49,10 @@ export default class SplashScreen extends Component {
         return (
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.container}>
                 <View style={styles.logoContainer}>
+                <StatusBar
+                   backgroundColor="black"
+                   barStyle="light-content"
+                 />
                     <View style={styles.logoContainerStyle}>
                         <Image
                             style={styles.logoStyle}

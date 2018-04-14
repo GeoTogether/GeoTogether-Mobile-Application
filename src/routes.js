@@ -14,6 +14,7 @@ import PasswordReset from './components/PasswordResetScreen/PasswordReset';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import NewTrip from './components/NewTripScreen/NewTrip';
 import ProfileSettings from './components/ProfileSettingsScreen/ProfileSettings';
+import AppSettings from './components/SettingsScreen/AppSettings';
 import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 import GMapView from './components/MapViewScreen/GMapView';
 import NewEvent from './components/NewEventScreen/NewEvent';
@@ -32,6 +33,7 @@ const Home = StackNavigator({
     PasswordReset: { screen: PasswordReset },
     NewTrip: { screen: NewTrip },
     ProfileSettings: { screen: ProfileSettings },
+    AppSettings: { screen: AppSettings },
     Intro: { screen: Intro },
     GMapView:{screen: GMapView},
     TimeLineScreen: {screen: TimeLineScreen},
