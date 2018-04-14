@@ -1,9 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Modal } from 'react-native';
+import { ActivityIndicator,StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 import {
-    StackNavigator,
-    TabNavigator,
-    TabBarBottom
+    StackNavigator
 } from 'react-navigation';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geocoder from 'react-native-geocoder';
@@ -14,10 +12,9 @@ import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
 import Modal from "react-native-modal";
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Chat from "../ChatScreen/Chat";
-import Share from "../ShareScreen/Share";
-import Trips from "../TripsScreen/Trips";
+
+
+
 
 export default class GMapView extends React.Component {
 
@@ -26,11 +23,6 @@ export default class GMapView extends React.Component {
 
 
 
-    }
-
-    static navigationOptions = {
-        title: 'MapView',
-        header: null,
     }
 
     getTripInfo() {
@@ -79,7 +71,7 @@ export default class GMapView extends React.Component {
     }
 
     getEventInfo() {
-        
+
         this.setState({ modalVisible2: true });
     }
 
@@ -93,7 +85,7 @@ export default class GMapView extends React.Component {
         title: 'GMapView',
         header: null
     }
-    // the user state with all of the user and the trip information
+    // the user state with all of the user and the trip information 
     state = {
         destinations: [],
         markers: [],
@@ -128,10 +120,10 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         this.state.destinations.push(state.params.trip.destination1);
-        var obj2 = {formatted_address:"null"};
+        var obj2 = { formatted_address: "null" };
 
-        var obj = {eventTitle: "null", eventAddress: obj2, startDate: "null", endDate: "null", startTimeChosen:"null", endTimeChosen:"null"};
-        this.setState({ selecteEvent: obj});
+        var obj = { eventTitle: "null", eventAddress: obj2, startDate: "null", endDate: "null", startTimeChosen: "null", endTimeChosen: "null" };
+        this.setState({ selecteEvent: obj });
 
         if ((state.params.trip.events !== undefined)) {
 
@@ -143,7 +135,7 @@ export default class GMapView extends React.Component {
 
             }
 
-           this.setState({ selecteEvent: state.params.trip.events[0]});
+            this.setState({ selecteEvent: state.params.trip.events[0] });
         }
 
         this.state.destinations.push(state.params.trip.destination2);
@@ -152,7 +144,7 @@ export default class GMapView extends React.Component {
         this.setState({ latitude: state.params.trip.destination1.geometry.location.lat });
         this.setState({ longitude: state.params.trip.destination1.geometry.location.lng });
         this.setState({ trip: state.params.trip });
-        
+
 
         // this.showAddress();
         this.showDirections();
@@ -201,114 +193,6 @@ export default class GMapView extends React.Component {
 
     }
 
-    getEventAddress() {
-
-     Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
-
-        for (var i = 0; i < this.state.events.length; i++) {
-
-
-                    // Address Geocoding
-                    Geocoder.geocodeAddress(this.state.events[i].eventAddress.address.toUpperCase()).then(res => {
-                        // res is an Array of geocoding object (see below)
-
-                        if((res["0"].position !== undefined )){
-                            var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
-                            this.state.eventsMarkers.push(obj);
-                        this.setState({ latitude: res["0"].position.lat });
-                        this.setState({ longitude: res["0"].position.lng });
-
-                        }
-
-
-
-
-                    })
-
-                    if(this.state.eventsMarkers[i] == undefined){
-                        RNGooglePlaces.lookUpPlaceByID(this.state.events[i].eventAddress.id)
-                        .then((results) => {
-                        this.state.eventsMarkers.push(results);
-
-
-
-
-
-
-
-
-
-
-
-
-
-            })
-            .catch((error) => alert(error.message));
-
-        }
-        }
-
-        this.forceUpdate();
-    }
-
-
-    showAddress() {
-
-
-        const { navigate } = this.props.navigation;
-        const { state } = this.props.navigation;
-
-
-
-        Geocoder.fallbackToGoogle('AIzaSyDidve9BD8VNBoxevb5jnmmYltrdSiuM-8');
-
-        for (var i = 0; i < this.state.destinations.length; i++) {
-
-            // Address Geocoding
-            Geocoder.geocodeAddress(this.state.destinations[i].address.toUpperCase()).then(res => {
-                // res is an Array of geocoding object (see below)
-
-                if((res["0"].position !== undefined )){
-                    var obj = {latitude: res["0"].position.lat, longitude: res["0"].position.lng, name:  res["0"].locality };
-                    this.state.markers.push(obj);
-                this.setState({ latitude: res["0"].position.lat });
-                this.setState({ longitude: res["0"].position.lng });
-
-                }
-
-
-
-
-            })
-
-
-            if(this.state.markers[i] == undefined){
-                RNGooglePlaces.lookUpPlaceByID(this.state.destinations[i].id)
-                .then((results) => {
-
-                this.state.markers.push(results);
-                this.setState({ latitude: results.latitude });
-                this.setState({ longitude: results.longitude });
-
-
-                })
-                .catch((error) => alert(error.message));
-            }
-
-
-
-        }
-
-
-
-
-
-        this.setState({ trip: state.params.trip });
-
-
-        this.forceUpdate();
-    }
-
 
     getCurrentPosition() {
 
@@ -345,8 +229,10 @@ export default class GMapView extends React.Component {
             longitude: type.eventAddress.geometry.location.lng
         }} title={type.eventAddress.name}
             pinColor="blue"
-            onPress={() => {this.setState({selecteEvent: type});
-             this.getEventInfo();}}
+            onPress={() => {
+                this.setState({ selecteEvent: type });
+                this.getEventInfo();
+            }}
         />)
 
 
@@ -369,27 +255,26 @@ export default class GMapView extends React.Component {
 
         />
         return (
-            <View style={styles.form}>
-            <StatusBar
-               backgroundColor="#000"
-               barStyle="light-content"
-             />
             <View style={styles.Container}>
+
+                <StatusBar
+                    backgroundColor="#000"
+                    barStyle="light-content"
+                />
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
                     backgroundColor={'#FFFFFF'}
+                    iconImageStyle={{tintColor: "black"}}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
                     rightIcons={[
                         {
                             image: require('../../images/timeline.png'), // To use a custom image
-                            //badge: '1',
                             onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
                         }, {
                             image: require('../../images/settings.png'), // To use a custom image
-                            //badge: '1',
                             onPress: () => navigate('AppSettings', { email: state.params.email })
                         },
 
@@ -524,14 +409,14 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                           
+
 
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={styles.infoText1}>Event Address: </Text>
                                 <Text style={styles.infoTextEvent}> {this.state.selecteEvent.eventAddress.formatted_address} </Text>
                             </View>
 
-                        
+
 
                             <View
                                 style={{
@@ -541,28 +426,28 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                              <Text style={styles.infoText1}>Event Duration: </Text>
+                            <Text style={styles.infoText1}>Event Duration: </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10 }}>
-                              
+
 
                                 <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
                                     <Text style={styles.timeText}> Start </Text>
                                     <Text style={styles.infoText1}> Date:{this.state.selecteEvent.startDate} </Text>
                                     <Text style={styles.infoText1}> Time:{this.state.selecteEvent.startTimeChosen} </Text>
-                                   
-                                   
-                                   
+
+
+
                                 </View>
 
                                 <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
-                                <Text style={styles.timeText}> End </Text>
+                                    <Text style={styles.timeText}> End </Text>
                                     <Text style={styles.infoText1}> Date: {this.state.selecteEvent.endDate} </Text>
                                     <Text style={styles.infoText1}> Time: {this.state.selecteEvent.endTimeChosen} </Text>
-                                   
+
                                 </View>
 
-                            
+
 
                             </View>
 
@@ -592,49 +477,11 @@ export default class GMapView extends React.Component {
 
 }
 
-/*
-// main bottom navigation tab
-export default TabNavigator (
-    {
-        GMap: { screen: GMapView },
-        Chat: { screen: Chat },
-        //Trips: { screen: Trips },
-        Share: { screen: Share },
-
-    },
-    {
-        navigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ focused, tintColor }) => {
-                const { routeName } = navigation.state;
-                let iconName;
-                if (routeName === 'Home') {
-                    iconName = `ios-home${focused ? '' : '-outline'}`;
-                } else if (routeName === 'Chat') {
-                    iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
-                } else if (routeName === 'Share') {
-                    iconName = `cloud-upload${focused ? '' : '-outline'}`;
-                }
-
-
-                return <Ionicons name={iconName} size={25} color={tintColor} />;
-            }
-        }),
-        tabBarOptions: {
-            activeTintColor: 'gray',
-            inactiveTintColor: 'gray',
-        },
-        tabBarComponent: TabBarBottom,
-        tabBarPosition: 'bottom',
-        animationEnabled: false,
-        swipeEnabled: false,
-    }
-);
-*/
 
 const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
-        color: 'black',
+        color: 'white',
         fontWeight: '700'
     },
     buttonStyle: {
@@ -728,5 +575,12 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         textAlign: 'center',
     },
+    title: {
+        textAlign: 'center',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 20
+    },
 
 });
+
