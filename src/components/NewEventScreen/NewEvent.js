@@ -138,7 +138,7 @@ export default class NewEvent extends React.Component {
         return (
 
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                <View>
+                <View style={styles.backButtonContainer}>
                     <TouchableOpacity onPress={() => goBack()} style={styles.back} >
                         <Image source={require('../../images/backarrow.png')}/>
                     </TouchableOpacity>
@@ -283,6 +283,12 @@ const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
     },
+    back:{
+      marginLeft: 10
+    },
+    backButtonContainer: {
+      height: '5%'
+    },
     textHeader: {
         color: 'white',
         paddingTop: 20,
@@ -395,7 +401,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonContainer: {
-        height: '15%',
+        height: '10%',
         flexDirection: 'row',
         paddingTop: 5,
         paddingLeft: '25%',
