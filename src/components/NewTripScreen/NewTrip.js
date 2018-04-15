@@ -13,7 +13,7 @@ import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Mailer from 'react-native-mail';
-
+import SendSMS from 'react-native-sms'
 
 var SendIntentAndroid = require('react-native-send-intent');
 
@@ -74,6 +74,20 @@ export default class NewTrip extends React.Component {
 
     };
 
+    sendText = () => {
+        SendSMS.send({
+            body: 'Invitation to join ' + this.state.tripname + '\n\nHey there! I hope you can accept this invite to join this amazing trip.\n\n' +
+            this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
+            successTypes: ['sent', 'queued']
+        }, (completed, cancelled, error) => {
+
+            console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
+
+        });
+
+        this.closeModal();
+    };
+
     handleEmail = () => {
         Mailer.mail({
             subject: 'Invitation to join ' + this.state.tripname,
@@ -92,6 +106,7 @@ export default class NewTrip extends React.Component {
             )
         });
 
+        this.closeModal();
 
     };
 
@@ -362,7 +377,7 @@ export default class NewTrip extends React.Component {
                             <View style={styles.modalContainer}>
                                 <View style={styles.innerContainer}>
 
-                                    <TouchableOpacity onPress={() => this.sendSMS()}>
+                                    <TouchableOpacity onPress={this.sendText}>
                                         <Image source={require('../../images/sms.png')}/>
                                     </TouchableOpacity>
 
