@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ScrollView, Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -40,11 +40,11 @@ export default class Chat extends React.Component {
 
 
     openModal() {
-        this.setState({modalVisible:true});
+        this.setState({ modalVisible: true });
     }
 
     closeModal() {
-        this.setState({modalVisible:false});
+        this.setState({ modalVisible: false });
     }
 
     showAlert = () => {
@@ -58,20 +58,20 @@ export default class Chat extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: firebase.auth().currentUser.email });
-   
+
 
         // gets all the user trips
-        this.onPressGetTrips();
+         this.onPressGetTrips();
 
 
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: firebase.auth().currentUser.email });
-      
+
 
 
         // gets all the user trips
@@ -94,15 +94,12 @@ export default class Chat extends React.Component {
 
                 if (val.members.indexOf(this.state.email) != -1) {
 
-
-
-
                     if (this.state.tripsNames.indexOf(val.tripName) == -1) {
 
                         this.state.trips.push(tripSnapshot);
+                        this.state.tripsNames.push(val.tripName);
 
-
-                        this.setState({ tripsNames: this.state.tripsNames.concat(val.tripName) })
+                        //   this.setState({ tripsNames: this.state.tripsNames.concat(val.tripName) })
 
                     }
 
@@ -123,7 +120,7 @@ export default class Chat extends React.Component {
 
 
         var components = this.state.trips.map((type) =>
-            <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('ChatScreen',{tripKey: type, trip: type.val(), email: this.state.email})}>
+            <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('ChatScreen', { tripKey: type, trip: type.val(), email: this.state.email })}>
                 <View style={styles.textRow}>
                     <Text style={styles.tripName}>{type.val().tripName}</Text>
                     <Text style={styles.status}>(Open)</Text>
@@ -168,7 +165,7 @@ const styles = StyleSheet.create({
         width: '95%',
         // backgroundColor: 'black',
     },
-    tripView:{
+    tripView: {
         flex: 1,
         //backgroundColor: 'white',
         alignItems: 'center',
@@ -198,7 +195,7 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         paddingTop: 35
     },
-    textRow:{
+    textRow: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
