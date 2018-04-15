@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, TextInput, PixelRatio, TouchableOpacity, StyleSheet, Image, View} from 'react-native';
+import {
+    AppRegistry,
+    Text,
+    TextInput,
+    PixelRatio,
+    TouchableOpacity,
+    StyleSheet,
+    Image,
+    View,
+    BackHandler
+} from 'react-native';
 
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
@@ -152,6 +162,10 @@ export default class ProfileSettings extends Component {
         const {state} = this.props.navigation;
         this.setState({email: state.params.email});
         this.setState({previousEmail: state.params.email});
+
+        BackHandler.addEventListener('hardwareBackPress', function() {
+            return false;
+        });
         // get all the users from the firebase database
         // get all the users from the firebase database
         firebase.database().ref("users").on('value', (snapshot) => {
@@ -225,10 +239,17 @@ export default class ProfileSettings extends Component {
         });
     }
 
+
     // onPress={() => this.updateInfo()}
 
     render() {
         const {goBack} = this.props.navigation;
+
+        BackHandler.removeEventListener('hardwareBackPress', function() {
+            this.props.navigation.goBack();
+            return true;
+        });
+
         return (
             <View style={styles.container}>
                 <View>
@@ -266,8 +287,8 @@ export default class ProfileSettings extends Component {
                         <Text style={styles.labels}>Name</Text>
                     </View>
                     <TextInput style={styles.input} value={this.state.fname+" "+ this.state.lname }/>
-                       
-                    
+
+
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Username</Text>
@@ -278,14 +299,14 @@ export default class ProfileSettings extends Component {
                         <Text style={styles.labels}>Email</Text>
                     </View>
                     <TextInput style={styles.input2} value={this.state.email}/>
-                    
+
 
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Gender</Text>
                     </View>
                     <TextInput style={styles.input2} value={"Male"}/>
-                      
-                   
+
+
                 </View>
 
                 <View style={styles.updateBContainer}>
