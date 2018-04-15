@@ -194,6 +194,8 @@ export default class Trips extends React.Component {
                         </View>
                     </ScrollView>
 
+
+
                 </View>
                 <View style={styles.addButtonContainer}>
                     <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
