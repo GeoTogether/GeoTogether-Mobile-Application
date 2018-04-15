@@ -136,7 +136,6 @@ export default class NewEvent extends React.Component {
         const {goBack} = this.props.navigation;
 
         return (
-
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
                 <View style={styles.backButtonContainer}>
                     <TouchableOpacity onPress={() => goBack()} style={styles.back} >
