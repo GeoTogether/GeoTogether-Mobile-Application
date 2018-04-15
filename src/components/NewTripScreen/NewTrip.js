@@ -12,6 +12,7 @@ import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import Mailer from 'react-native-mail';
 
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -70,6 +71,27 @@ export default class NewTrip extends React.Component {
         });
 
         this.closeModal();
+
+    };
+
+    handleEmail = () => {
+        Mailer.mail({
+            subject: 'Invitation to join ' + this.state.tripname,
+            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>'+ this.state.tripname +
+                    '<b> starts on the </b>' + this.state.startDate + '<b>\n\nPlease be sure to accept soon!</b>',
+            isHTML: true
+        }, (error, event) => {
+            Alert.alert(
+                error,
+                event,
+                [
+                    {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+                    {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+                ],
+                { cancelable: true }
+            )
+        });
+
 
     };
 
@@ -345,7 +367,7 @@ export default class NewTrip extends React.Component {
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
-                                        onPress={() => this.sendEmail()}>
+                                        onPress={this.handleEmail}>
                                         <Image source={require('../../images/email.png')}/>
                                     </TouchableOpacity>
 
