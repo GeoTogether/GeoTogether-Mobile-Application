@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
+import { ActivityIndicator,StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -71,7 +71,7 @@ export default class GMapView extends React.Component {
     }
 
     getEventInfo() {
-        
+
         this.setState({ modalVisible2: true });
     }
 
@@ -120,10 +120,10 @@ export default class GMapView extends React.Component {
         const { state } = this.props.navigation;
 
         this.state.destinations.push(state.params.trip.destination1);
-        var obj2 = {formatted_address:"null"};
+        var obj2 = { formatted_address: "null" };
 
-        var obj = {eventTitle: "null", eventAddress: obj2, startDate: "null", endDate: "null", startTimeChosen:"null", endTimeChosen:"null"};
-        this.setState({ selecteEvent: obj});
+        var obj = { eventTitle: "null", eventAddress: obj2, startDate: "null", endDate: "null", startTimeChosen: "null", endTimeChosen: "null" };
+        this.setState({ selecteEvent: obj });
 
         if ((state.params.trip.events !== undefined)) {
 
@@ -135,7 +135,7 @@ export default class GMapView extends React.Component {
 
             }
 
-           this.setState({ selecteEvent: state.params.trip.events[0]});
+            this.setState({ selecteEvent: state.params.trip.events[0] });
         }
 
         this.state.destinations.push(state.params.trip.destination2);
@@ -144,7 +144,7 @@ export default class GMapView extends React.Component {
         this.setState({ latitude: state.params.trip.destination1.geometry.location.lat });
         this.setState({ longitude: state.params.trip.destination1.geometry.location.lng });
         this.setState({ trip: state.params.trip });
-        
+
 
         // this.showAddress();
         this.showDirections();
@@ -229,8 +229,10 @@ export default class GMapView extends React.Component {
             longitude: type.eventAddress.geometry.location.lng
         }} title={type.eventAddress.name}
             pinColor="blue"
-            onPress={() => {this.setState({selecteEvent: type});
-             this.getEventInfo();}}
+            onPress={() => {
+                this.setState({ selecteEvent: type });
+                this.getEventInfo();
+            }}
         />)
 
 
@@ -254,22 +256,26 @@ export default class GMapView extends React.Component {
         />
         return (
             <View style={styles.Container}>
+
+                <StatusBar
+                    backgroundColor="#000"
+                    barStyle="light-content"
+                />
                 <ActionBar
                     containerStyle={styles.bar}
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
-                    backgroundColor={'black'}
+                    backgroundColor={'#FFFFFF'}
+                    iconImageStyle={{tintColor: "black"}}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
                     rightIcons={[
                         {
                             image: require('../../images/timeline.png'), // To use a custom image
-                            badge: '1',
                             onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
                         }, {
                             image: require('../../images/settings.png'), // To use a custom image
-                            badge: '1',
-                            onPress: () => navigate('Settings', { email: state.params.email })
+                            onPress: () => navigate('AppSettings', { email: state.params.email })
                         },
 
                     ]}
@@ -403,14 +409,14 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                           
+
 
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={styles.infoText1}>Event Address: </Text>
                                 <Text style={styles.infoTextEvent}> {this.state.selecteEvent.eventAddress.formatted_address} </Text>
                             </View>
 
-                        
+
 
                             <View
                                 style={{
@@ -420,28 +426,28 @@ export default class GMapView extends React.Component {
                                 }}
                             />
 
-                              <Text style={styles.infoText1}>Event Duration: </Text>
+                            <Text style={styles.infoText1}>Event Duration: </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 10 }}>
-                              
+
 
                                 <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
                                     <Text style={styles.timeText}> Start </Text>
                                     <Text style={styles.infoText1}> Date:{this.state.selecteEvent.startDate} </Text>
                                     <Text style={styles.infoText1}> Time:{this.state.selecteEvent.startTimeChosen} </Text>
-                                   
-                                   
-                                   
+
+
+
                                 </View>
 
                                 <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', }}>
-                                <Text style={styles.timeText}> End </Text>
+                                    <Text style={styles.timeText}> End </Text>
                                     <Text style={styles.infoText1}> Date: {this.state.selecteEvent.endDate} </Text>
                                     <Text style={styles.infoText1}> Time: {this.state.selecteEvent.endTimeChosen} </Text>
-                                   
+
                                 </View>
 
-                            
+
 
                             </View>
 
@@ -568,6 +574,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 30,
         textAlign: 'center',
+    },
+    title: {
+        textAlign: 'center',
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 20
     },
 
 });

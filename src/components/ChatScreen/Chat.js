@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackHandler, StyleSheet, Text, View} from 'react-native';
+import {BackHandler, StyleSheet, Text, View, StatusBar} from 'react-native';
 import { TabNavigator,} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
@@ -32,6 +32,7 @@ export default class Chat extends React.Component {
             BackHandler.exitApp();
             return false;
         });
+
     }
 
     render() {
@@ -41,25 +42,30 @@ export default class Chat extends React.Component {
 
 
         return (
-            <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
-                <View style={styles.mainStyle}>
 
-                    <ActionBar
-                        containerStyle={styles.bar}
-                        title={'Chat'}
-                        titleStyle ={styles.title}
-                        backgroundColor= {'black'}
-                        badgeColor={'red'}
-                        leftIconImage={require('../../images/profile.png')}
-                        onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
-                        rightIcons={[
-                            {
-                                image: require('../../images/settings.png'), // To use a custom image
-                                badge: '1',
-                                onPress: () => console.log('settings feature'),
-                            },
-                        ]}
-                    />
+            <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
+
+            <View style={styles.mainStyle}>
+            <StatusBar
+               backgroundColor="#000"
+               barStyle="light-content"
+             />
+                <ActionBar
+                    containerStyle={styles.bar}
+                    title={'Chat'}
+                    titleStyle ={styles.title}
+                    backgroundColor= {'#FFFFFF'}
+                    badgeColor={'red'}
+                    leftIconImage={require('../../images/profile.png')}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
+                    rightIcons={[
+                        {
+                            image: require('../../images/settings.png'), // To use a custom image
+                            //badge: '1',
+                            onPress: () => navigate('AppSettings', { email: state.params.email })
+                        },
+                    ]}
+                />
 
                     <Text style={styles.textStyle}>[Chat Feature Coming Soon]</Text>
                 </View>
