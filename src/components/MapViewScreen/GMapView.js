@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator,StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
+import { ActivityIndicator,StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image,Dimensions } from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -11,7 +11,8 @@ import PopupDialog from 'react-native-popup-dialog';
 import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
 import Modal from "react-native-modal";
-
+import TabNavigator from 'react-native-tab-navigator';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -87,6 +88,7 @@ export default class GMapView extends React.Component {
     }
     // the user state with all of the user and the trip information 
     state = {
+        email: '',
         destinations: [],
         markers: [],
         events: [],
@@ -113,11 +115,19 @@ export default class GMapView extends React.Component {
     };
 
 
+    px2dp(px) {
 
+        const deviceW = Dimensions.get('window').width;
+
+        const basePx = 375;
+
+        return px * deviceW / basePx
+    }
 
     componentWillMount() {
 
         const { state } = this.props.navigation;
+        this.setState({email: state.params.email});
 
         this.state.destinations.push(state.params.trip.destination1);
         var obj2 = { formatted_address: "null" };
@@ -155,6 +165,8 @@ export default class GMapView extends React.Component {
     }
 
     componentDidMount() {
+        const { state } = this.props.navigation;
+        this.setState({email: state.params.email});
         this.getCurrentPosition();
     }
 
@@ -300,10 +312,38 @@ export default class GMapView extends React.Component {
 
                         </MapView>
 
+                        <TabNavigator>
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Chat'}
+                            title="Chat"
+                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'home'}
+                            title="Home"
+                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Home', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Share'}
+                            title="Share"
+                            renderIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Share', { email: this.state.email })}>
+                        </TabNavigator.Item>
+                    </TabNavigator>
 
                     </View>
                 </View>
                 <View style={styles.SecondContainer}>
+
+
+
                     <Modal style={styles.ModalContainer}
                         visible={this.state.modalVisible}
                         animationType={'slide'}
@@ -385,7 +425,7 @@ export default class GMapView extends React.Component {
                     </Modal>
                 </View>
 
-                <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
+                <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 55, right: 10, height: 30, width: 30 }}>
                     <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
                 </TouchableHighlight>
 
@@ -555,6 +595,7 @@ const styles = StyleSheet.create({
     MapStyle: {
         height: '100%',
         width: '100%',
+        paddingBottom: 40,
     },
 
     SecondContainer: {

@@ -1,9 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View, StatusBar } from 'react-native';
-import { TabNavigator,} from 'react-navigation';
+import {StyleSheet, Text, View, StatusBar,Dimensions } from 'react-native';
+import {
+    StackNavigator
+} from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import LinearGradient from 'react-native-linear-gradient';
+import TabNavigator from 'react-native-tab-navigator';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class Share extends React.Component {
 
@@ -17,6 +21,45 @@ export default class Share extends React.Component {
         title: 'Share',
         header: null
     }
+
+    state = {
+        email: '',
+        password: '',
+        authenticating: false,
+        user: null,
+        error: '',
+        name: '',
+        trips: [],
+        tripsNames: [],
+        modalVisible: false,
+        UserInvite: '',
+        newUser: 2,
+    }
+
+    
+    px2dp(px) {
+
+        const deviceW = Dimensions.get('window').width;
+
+        const basePx = 375;
+
+        return px * deviceW / basePx
+    }
+
+    componentWillMount() {
+        const { navigate } = this.props.navigation;
+        const { state } = this.props.navigation;
+        this.setState({ email: state.params.email });
+      
+    }
+
+    componentDidMount() {
+        const { navigate } = this.props.navigation;
+        const { state } = this.props.navigation;
+        this.setState({ email: state.params.email });
+      
+    }
+
 
     render() {
 
@@ -36,18 +79,45 @@ export default class Share extends React.Component {
                     titleStyle ={styles.title}
                     backgroundColor= {'#FFF'}
                     badgeColor={'red'}
+                    iconImageStyle={{tintColor: "black"}}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                     rightIcons={[
                         {
                             image: require('../../images/settings.png'), // To use a custom image
-                            badge: '1',
                             onPress: () => navigate('AppSettings', { email: state.params.email }),
                         },
                     ]}
                 />
 
                 <Text style={styles.textStyle}>[Share Feature Coming Soon]</Text>
+
+
+                    <TabNavigator>
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Chat'}
+                            title="Chat"
+                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'home'}
+                            title="Home"
+                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Home', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Share'}
+                            title="Share"
+                            renderIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Share', { email: this.state.email })}>
+                        </TabNavigator.Item>
+                    </TabNavigator>
             </View>
             </LinearGradient>
         );
@@ -72,5 +142,11 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 20,
         marginTop: '60%'
-    }
+    },
+    title: {
+        textAlign: 'center',
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
 });

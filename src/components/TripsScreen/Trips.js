@@ -1,8 +1,7 @@
 import React from 'react';
-import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar, BackHandler } from 'react-native';
+import { ScrollView, Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar, BackHandler, Dimensions } from 'react-native';
 import {
     StackNavigator,
-    TabNavigator,
     TabBarBottom
 } from 'react-navigation';
 import firebase from '../Firebase/firebaseStorage';
@@ -14,6 +13,7 @@ import Share from "../ShareScreen/Share";
 import MapView from "../MapViewScreen/GMapView";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
+import TabNavigator from 'react-native-tab-navigator';
 
 
 export default class Trips extends React.Component {
@@ -43,12 +43,23 @@ export default class Trips extends React.Component {
         newUser: 2,
     }
 
+
+
+    px2dp(px) {
+
+        const deviceW = Dimensions.get('window').width;
+
+        const basePx = 375;
+
+        return px * deviceW / basePx
+    }
+
     openModal() {
-        this.setState({modalVisible:true});
+        this.setState({ modalVisible: true });
     }
 
     closeModal() {
-        this.setState({modalVisible:false});
+        this.setState({ modalVisible: false });
     }
 
     showAlert = () => {
@@ -67,7 +78,7 @@ export default class Trips extends React.Component {
         this.onPressGetTrips();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -100,7 +111,7 @@ export default class Trips extends React.Component {
     //     }
     // }
 
-    async checkNewUser(){
+    async checkNewUser() {
         const { navigate } = this.props.navigation;
 
         firebase.database().ref('users/').on('value', (snapshot) => {
@@ -109,14 +120,15 @@ export default class Trips extends React.Component {
                 const val = userSnapshot.val();
 
                 if (val.email == this.state.email) {
-                    if(val.newUser == 1){
-                        this.setState({newUser : 1});
-                        firebase.database().ref('users/').child(userSnapshot.key).set({ first: val.first,
-                                last: val.last,
-                                email: val.email,
-                                photo: val.photo,
-                                newUser: 2,
-                            }
+                    if (val.newUser == 1) {
+                        this.setState({ newUser: 1 });
+                        firebase.database().ref('users/').child(userSnapshot.key).set({
+                            first: val.first,
+                            last: val.last,
+                            email: val.email,
+                            photo: val.photo,
+                            newUser: 2,
+                        }
                         )
                         navigate('Intro', { email: this.state.email });
                     }
@@ -149,7 +161,7 @@ export default class Trips extends React.Component {
 
 
         var components = this.state.trips.map((type) =>
-            <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView',{trip: type, email: this.state.email})}>
+            <TouchableOpacity style={styles.tripComponent} onPress={() => navigate('GMapView', { trip: type, email: this.state.email })}>
                 <View style={styles.textRow}>
                     <Text style={styles.tripName}>{type.tripName}</Text>
                     <Text style={styles.status}>(Open)</Text>
@@ -163,18 +175,19 @@ export default class Trips extends React.Component {
         return (
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
 
+<View style={styles.mainStyle}>
                 <View style={styles.actionBar}>
-                <StatusBar
-                   backgroundColor="black"
-                   barStyle="light-content"
-                 />
+                    <StatusBar
+                        backgroundColor="black"
+                        barStyle="light-content"
+                    />
                     <ActionBar
                         containerStyle={styles.bar}
                         title={'Home'}
-                        titleStyle ={styles.title}
-                        backgroundColor= {'#FFF'}
+                        titleStyle={styles.title}
+                        backgroundColor={'#FFF'}
                         badgeColor={'red'}
-                        iconImageStyle={{tintColor: "black"}}
+                        iconImageStyle={{ tintColor: "black" }}
                         leftIconImage={require('../../images/profile.png')}
                         onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
                         rightIcons={[
@@ -195,56 +208,53 @@ export default class Trips extends React.Component {
                     </ScrollView>
 
 
+    
 
                 </View>
                 <View style={styles.addButtonContainer}>
-                    <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
+                    <TouchableOpacity onPress={() => navigate('NewTrip', { email: this.state.email })}>
                         <Image
                             source={require('../../images/addbutton.png')}
                         />
                     </TouchableOpacity>
                 </View>
+
+
+          <TabNavigator>
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Chat'}
+                            title="Chat"
+                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'home'}
+                            title="Home"
+                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Home', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Share'}
+                            title="Share"
+                            renderIcon={() => <Ionicons name="share" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="share" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Share', { email: this.state.email })}>
+                        </TabNavigator.Item>
+                    </TabNavigator>
+
+
+ </View>
+
             </LinearGradient>
         );
     }
 }
 
-/*
-// main bottom navigation tab
-export default TabNavigator (
-    {
-        Chat: { screen: Chat },
-        Home: { screen: Trips },
-        Share: { screen: Share},
-    },
-    {
-        navigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ focused, tintColor }) => {
-                const { routeName } = navigation.state;
-                let iconName;
-                if (routeName === 'Home') {
-                    iconName = `ios-home${focused ? '' : '-outline'}`;
-                } else if (routeName === 'Chat') {
-                    iconName = `ios-chatboxes${focused ? '' : '-outline'}`;
-                } else if (routeName === 'Share') {
-                    iconName = `cloud-upload${focused ? '' : '-outline'}`;
-                }
 
-
-                return <Ionicons name={iconName} size={25} color={tintColor} />;
-            }
-        }),
-        tabBarOptions: {
-            activeTintColor: 'gray',
-            inactiveTintColor: 'gray',
-        },
-        tabBarComponent: TabBarBottom,
-        tabBarPosition: 'bottom',
-        animationEnabled: false,
-        swipeEnabled: false,
-    }
-);
-*/
 
 const styles = StyleSheet.create({
     actionBar: {
@@ -264,7 +274,7 @@ const styles = StyleSheet.create({
         paddingTop: '15%'
         // backgroundColor: 'black',
     },
-    tripView:{
+    tripView: {
         flex: 1,
         //backgroundColor: 'white',
         alignItems: 'center',
@@ -294,7 +304,7 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         paddingTop: 35
     },
-    textRow:{
+    textRow: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
@@ -321,7 +331,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         paddingRight: 10,
-        paddingBottom: 10
+        paddingBottom: 50
     },
     buttonText: {
         textAlign: 'center',
@@ -333,5 +343,10 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20
+    },
+    mainStyle: {
+        flex: 1,
+        width: '100%',
+        height:'100%',
     },
 });

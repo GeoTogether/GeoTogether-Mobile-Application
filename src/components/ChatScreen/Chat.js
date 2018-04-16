@@ -1,11 +1,12 @@
 import React from 'react';
-import { BackHandler, StyleSheet, Text, View, StatusBar, ScrollView, Alert, Image, Modal, ActivityIndicator, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { TabNavigator, } from 'react-navigation';
+import { BackHandler, StyleSheet, Text, View, StatusBar, ScrollView, Alert, Image, Modal, ActivityIndicator, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard,Dimensions } from 'react-native';
+import { StackNavigator, } from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
-
+import TabNavigator from 'react-native-tab-navigator';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class Chat extends React.Component {
 
@@ -33,6 +34,16 @@ export default class Chat extends React.Component {
         modalVisible: false,
         UserInvite: '',
         newUser: 2,
+    }
+
+        
+    px2dp(px) {
+
+        const deviceW = Dimensions.get('window').width;
+
+        const basePx = 375;
+
+        return px * deviceW / basePx
     }
 
     componentDidMount() {
@@ -160,11 +171,38 @@ export default class Chat extends React.Component {
                             {components}
                         </View>
                     </ScrollView>
-                    </View>
-
 
                     
+                    </View>
+                  
+                    <TabNavigator>
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Chat'}
+                            title="Chat"
+                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'home'}
+                            title="Home"
+                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Home', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Share'}
+                            title="Share"
+                            renderIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Share', { email: this.state.email })}>
+                        </TabNavigator.Item>
+                    </TabNavigator>
+                    
                 </View>
+                
             </LinearGradient>
         );
     }
@@ -179,6 +217,7 @@ const styles = StyleSheet.create({
     mainStyle: {
         flex: 1,
         width: '100%',
+        height:'100%',
     },
     textStyle: {
         flex: 1,
