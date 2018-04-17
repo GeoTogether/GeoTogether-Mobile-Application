@@ -389,8 +389,8 @@ export default class ProfileSettings extends Component {
                     <View style={styles.displayHeader}>
                         <Text style={styles.labels}>Gender</Text>
                     </View>
-                    <TextInput style={styles.input2}>
-                        Male
+                    <TextInput style={styles.input2} defaultValue={"Male"}>
+                        
                     </TextInput>
 
                 </View>

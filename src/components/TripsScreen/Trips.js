@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     tripContainer: {
         height: '100%',
         width: '95%',
-        paddingTop: '15%'
+        paddingTop: '25%'
         // backgroundColor: 'black',
     },
     tripView: {
