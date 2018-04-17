@@ -3,11 +3,12 @@ import React from 'react';
 import { View, Platform, Text, StyleSheet } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
-import { TabNavigator,} from 'react-navigation';
+import { TabNavigator, } from 'react-navigation';
 import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from 'react-native-fetch-blob';
+
 
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
@@ -23,7 +24,7 @@ export default class ChatScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {messages: []};
+        this.state = { messages: [] };
         //this.getImage = this.getImage.bind(this);
         this.onSend = this.onSend.bind(this);
         this.renderCustomActions = this.renderCustomActions.bind(this);
@@ -68,9 +69,9 @@ export default class ChatScreen extends React.Component {
 
 
 
-    componentDidMount(){
+    componentDidMount() {
 
-        const {state} = this.props.navigation;
+        const { state } = this.props.navigation;
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
 
@@ -81,7 +82,7 @@ export default class ChatScreen extends React.Component {
 
 
 
-            firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
+            firebase.database().ref(Path2).once('value', (snapshot) => { q = snapshot.val(); });
 
 
 
@@ -111,7 +112,7 @@ export default class ChatScreen extends React.Component {
                             lastname = val.last;
                             firstname = val.first;
 
-                            name = firstname +" "+lastname;
+                            name = firstname + " " + lastname;
 
                         }
 
@@ -120,7 +121,7 @@ export default class ChatScreen extends React.Component {
 
 
 
-                if(TotalArray[key][0] == state.params.email && TotalArray[key][2] =="7"){
+                if (TotalArray[key][0] == state.params.email && TotalArray[key][2] == "7") {
 
                     Messages.push({
                         _id: this.stat.arrayVal,
@@ -134,21 +135,21 @@ export default class ChatScreen extends React.Component {
                         image: (TotalArray[key][1])
                     });
                 }
-                else if(TotalArray[key][0] != state.params.email && TotalArray[key][2] =="7"){
+                else if (TotalArray[key][0] != state.params.email && TotalArray[key][2] == "7") {
 
                     Messages.push({
                         _id: this.stat.arrayVal,
                         text: "",
                         createdAt: TotalArray[key][3],
                         user: {
-                            _id: this.stat.arrayVal+2,
+                            _id: this.stat.arrayVal + 2,
                             name: name,
                             avatar: photo,
                         },
                         image: (TotalArray[key][1])
                     });
                 }
-                else if(TotalArray[key][0] == state.params.email){
+                else if (TotalArray[key][0] == state.params.email) {
 
                     Messages.push({
                         _id: this.stat.arrayVal,
@@ -161,21 +162,21 @@ export default class ChatScreen extends React.Component {
                         },
                     });
                 }
-                else{
+                else {
 
                     Messages.push({
                         _id: this.stat.arrayVal,
                         text: TotalArray[key][1],
                         createdAt: TotalArray[key][2],
                         user: {
-                            _id: this.stat.arrayVal+2,
+                            _id: this.stat.arrayVal + 2,
                             name: name,
                             avatar: photo,
                         },
                     });
                 }
 
-                this.stat.arrayVal = this.stat.arrayVal +1;
+                this.stat.arrayVal = this.stat.arrayVal + 1;
 
 
 
@@ -204,7 +205,7 @@ export default class ChatScreen extends React.Component {
     }
 
 
-    AddToGui(messages = []){
+    AddToGui(messages = []) {
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
@@ -221,21 +222,21 @@ export default class ChatScreen extends React.Component {
         );
     }
 
-    sendMessage(message){
+    sendMessage(message) {
 
-        const {state} = this.props.navigation;
+        const { state } = this.props.navigation;
 
 
         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
 
         var q;
 
-        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
+        firebase.database().ref(Path2).once('value', (snapshot) => { q = snapshot.val(); });
 
-        firebase.database().ref(Path2).set((q+1));
+        firebase.database().ref(Path2).set((q + 1));
 
 
-        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q+1);
+        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q + 1);
 
 
 
@@ -250,9 +251,9 @@ export default class ChatScreen extends React.Component {
         });
     }
 
-    addUserToGroupChat(name){
+    addUserToGroupChat(name) {
 
-        const {state} = this.props.navigation;
+        const { state } = this.props.navigation;
 
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/users/';
 
@@ -264,7 +265,7 @@ export default class ChatScreen extends React.Component {
 
     }
 
-    getCurrentTime(){
+    getCurrentTime() {
         var currentdate = new Date();
         return currentdate.getTime();
     }
@@ -291,7 +292,7 @@ export default class ChatScreen extends React.Component {
             'Send a photo': (props) => {
                 this.selectPhoto();
             },
-            'Cancel': () => {},
+            'Cancel': () => { },
         };
         return (
             <Actions
@@ -306,7 +307,7 @@ export default class ChatScreen extends React.Component {
         const fs = RNFetchBlob.fs
         window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
         window.Blob = Blob
-        const {state} = this.props.navigation;
+        const { state } = this.props.navigation;
 
         return new Promise((resolve, reject) => {
             const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
@@ -372,20 +373,21 @@ export default class ChatScreen extends React.Component {
 
                 //});
                 this.uploadImage(response.uri)
-                    .then(url => {this.setState({image_uri: url})
-                        const {state} = this.props.navigation;
+                    .then(url => {
+                        this.setState({ image_uri: url })
+                        const { state } = this.props.navigation;
 
 
                         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
 
                         var q;
 
-                        firebase.database().ref(Path2).once('value', (snapshot) => {q = snapshot.val();});
+                        firebase.database().ref(Path2).once('value', (snapshot) => { q = snapshot.val(); });
 
-                        firebase.database().ref(Path2).set((q+1));
+                        firebase.database().ref(Path2).set((q + 1));
 
 
-                        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q+1);
+                        var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/' + (q + 1);
 
 
 
@@ -409,45 +411,49 @@ export default class ChatScreen extends React.Component {
 
 
     render() {
-        const {state} = this.props.navigation;
+        const { state } = this.props.navigation;
+        const { navigate } = this.props.navigation;
         var email = state.params.email;
         return (
+            <View style={{flex: 1}}>
 
-            <GiftedChat
-                messages={this.state.messages}
-                onSend={this.onSend}
-                user={{
-                    _id: 1,
-                    name: email,
-                }}
-                renderActions={this.renderCustomActions}
-                //renderCustomView={this.renderCustomView}
-                renderBubble={this.renderBubble}
+           <ActionBar
+                    containerStyle={styles.bar}
+                    title={state.params.trip.tripName}
+                    titleStyle={styles.title}
+                    backgroundColor={'white'}
+                    iconImageStyle={{tintColor: "black"}}
+                    leftIconName={'back'}
+                    onLeftPress={() => navigate('Chat', { email: state.params.email })}
+                />
 
-            />
 
+                <GiftedChat
+                    messages={this.state.messages}
+                    onSend={this.onSend}
+                    user={{
+                        _id: 1,
+                        name: email,
+                    }}
+                    renderActions={this.renderCustomActions}
+                    //renderCustomView={this.renderCustomView}
+                    renderBubble={this.renderBubble}
+
+                />
+
+            </View>
+           
 
         );
     }
 }
 
 
-
-//firebase.auth().currentUser.email user
-//state.params.trip
-/*
-this is on the new trips screen now
-        createGroupChat(){
-        firebase.database().ref('trips/-L5q1pe515Q60z5TdwyG/chats/').push({
-                    users:[
-                    'hellos@gmail.com',
-                    'x@gmail.com'
-                    ],
-                    messages:[
-                    "GeoTogether",
-                    "Welcome To The Beginning Of Your Chat",
-                    "7:02",
-                    ]
-        });
+const styles = StyleSheet.create({
+    title: {
+        textAlign: 'center',
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20
     }
-        */
+});
