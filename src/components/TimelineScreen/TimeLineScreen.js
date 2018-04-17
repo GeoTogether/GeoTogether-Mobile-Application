@@ -1,8 +1,10 @@
 import React from 'react';
 import Timeline from 'react-native-timeline-listview';
-import {StyleSheet, View, StatusBar} from "react-native";
+import {StyleSheet, View, StatusBar, Dimensions} from "react-native";
 import firebase from "../Firebase/firebaseStorage";
 import ActionBar from 'react-native-action-bar';
+import TabNavigator from 'react-native-tab-navigator';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class TimeLineScreen extends React.Component {
 
@@ -22,6 +24,7 @@ export default class TimeLineScreen extends React.Component {
         eventAddress: '',
         startTimeChosen:'00:00',
         endTimeChosen: '00:00',
+        email: '',
     };
 
 
@@ -30,7 +33,7 @@ export default class TimeLineScreen extends React.Component {
     componentWillMount() {
 
         const { state } = this.props.navigation;
-
+        this.setState({ email: state.params.email });
         // this.data = [
         //     {time: '', title: "", description: "Add Description", circleColor: 'yellow',lineColor: 'yellow'}
         // ];
@@ -46,6 +49,17 @@ export default class TimeLineScreen extends React.Component {
             // console.log("Events: ", this.state.events[0][0]);
         }
     }
+
+        
+    px2dp(px) {
+
+        const deviceW = Dimensions.get('window').width;
+
+        const basePx = 375;
+
+        return px * deviceW / basePx
+    }
+
 
     getEventInfo(){
 
@@ -114,6 +128,35 @@ export default class TimeLineScreen extends React.Component {
                         backgroundColor: '#1855bf'
                     }}
                 />
+
+                <View>
+
+                        <TabNavigator>
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Chat'}
+                            title="Chat"
+                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'home'}
+                            title="Home"
+                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Home', { email: this.state.email })}>
+                        </TabNavigator.Item>
+
+                        <TabNavigator.Item
+                            selected={this.state.selectedTab === 'Share'}
+                            title="Share"
+                            renderIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#666" />}
+                            renderSelectedIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#3496f0" />}
+                            onPress={() => navigate('Share', { email: this.state.email })}>
+                        </TabNavigator.Item>
+                    </TabNavigator>
+                    </View>
             </View>
         )
 
@@ -138,6 +181,11 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20
+    },
+    mainStyle: {
+        flex: 1,
+        width: '100%',
+        height:'100%',
     },
 
 

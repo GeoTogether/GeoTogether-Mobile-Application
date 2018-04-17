@@ -280,13 +280,13 @@ export default class ChatScreen extends React.Component {
     }
 
     renderCustomActions(props) {
-        if (Platform.OS === 'ios') {
-            return (
-                <CustomActions
-                    {...props}
-                />
-            );
-        }
+        // if (Platform.OS === 'ios') {
+        //     return (
+        //         <CustomActions
+        //             {...props}
+        //         />
+        //     );
+        // }
         const options = {
             'Send a photo': (props) => {
                 this.selectPhoto();
