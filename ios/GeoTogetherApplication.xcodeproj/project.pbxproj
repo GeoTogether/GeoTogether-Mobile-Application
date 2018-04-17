@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -67,6 +66,7 @@
 		B91C1DC6A6634321810A115C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9529B66D3727471696F749EB /* MaterialIcons.ttf */; };
 		CD77DB943C2E421995F8DF7B /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10C3FD7C156447B19E128C54 /* Ionicons.ttf */; };
 		E0CA254E556640B591637C98 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0A9812E1D4E2887357718 /* SafariServices.framework */; };
+		518B3C7E844B402696D045FB /* libSendSMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B30984F2531450ABF3845F6 /* libSendSMS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -475,6 +475,8 @@
 		D407200C327E473A9328FC3F /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		DFFCA4B263224587A2A9F580 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		FB6EAF99DCD248E1A2C2B1CC /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */ = {isa = PBXFileReference; name = "SendSMS.xcodeproj"; path = "../node_modules/react-native-sms/SendSMS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		1B30984F2531450ABF3845F6 /* libSendSMS.a */ = {isa = PBXFileReference; name = "libSendSMS.a"; path = "libSendSMS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,6 +523,7 @@
 				8389E0E7B277446CAD4CB2D8 /* libRNImagePicker.a in Frameworks */,
 				53ED7FD42DD54635AB02CC08 /* libRNVectorIcons.a in Frameworks */,
 				81E4F24B5F2F190C5887B592 /* libPods-GeoTogetherApplication.a in Frameworks */,
+				518B3C7E844B402696D045FB /* libSendSMS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +816,7 @@
 				B489E05010E5478A95D740F0 /* RNImagePicker.xcodeproj */,
 				D3061EF55B0F4AB6BBE844AD /* RNGooglePlaces.xcodeproj */,
 				9F2779778D6C4263A16C62B5 /* RNVectorIcons.xcodeproj */,
+				C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1634,12 +1638,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplicationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1670,12 +1676,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplicationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1722,6 +1730,7 @@
 					"eact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
+					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1766,6 +1775,7 @@
 					"eact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
+					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1801,11 +1811,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
 				);
 				INFOPLIST_FILE = "GeoTogetherApplication-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1845,11 +1857,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
 				);
 				INFOPLIST_FILE = "GeoTogetherApplication-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1891,6 +1905,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.GeoTogetherApplication-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1916,6 +1931,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
