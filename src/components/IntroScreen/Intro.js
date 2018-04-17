@@ -16,18 +16,18 @@ export default class Intro extends React.Component {
       <Swiper navigation={this.props.navigation}>
         {/* First screen */}
         <View style={styles.slide1}>
-          <Text style={styles.header}>PLAN</Text>
-          <Text style={styles.text}>your dream vacation with your favorite people</Text>
+          <Text style={styles.header}>IMAGINE</Text>
+          <Text style={styles.text}>Create your dream vacation with your favorite people</Text>
         </View>
         {/* Second screen */}
         <View style={styles.slide2}>
-          <Text style={styles.header}>CREATE</Text>
-          <Text style={styles.text}>events and find the best things to do on your trip</Text>
+          <Text style={styles.header}>PLAN</Text>
+          <Text style={styles.text}>Make a schedule and stay organized with events and a time line</Text>
         </View>
         {/* Third screen */}
         <View style={styles.slide3}>
-          <Text style={styles.header}>TRAVEL</Text>
-          <Text style={styles.text}>with your favorite people and make memories youll never forget</Text>
+          <Text style={styles.header}>EXPLORE</Text>
+          <Text style={styles.text}>Make memories you will never forget</Text>
         </View>
       </Swiper>
     );
