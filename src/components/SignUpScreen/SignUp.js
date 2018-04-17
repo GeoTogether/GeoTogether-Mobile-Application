@@ -52,7 +52,7 @@ export default class SignUp extends React.Component {
     };
 
     validatePassword = (password) => {
-        var reg = /([A-Z])\w+([8,0])/;
+        var reg = /(?=.*[A-Z])(?=.*[0-9])[#@£$-/:-?{-~!"^_`\[\]a-zA-Z0-9]{8,}/;
         return reg.test(password);
     };
 
@@ -68,7 +68,7 @@ export default class SignUp extends React.Component {
                 alert("Please enter a valid email");
             } else {
                 if (!this.validatePassword(password)) {
-                    alert("Please enter a password with at least 8 characters, and one uppercase letter");
+                    alert("Please enter a password with at least 8 characters, one uppercase letter, and one number");
                 } else {
                     // add the user email and password to firebase
                     firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -145,7 +145,6 @@ export default class SignUp extends React.Component {
                         placeholder="Email Address"
                         underlineColorAndroid="transparent"
                         returnKeyType="next"
-                        onSubmitEditing={() => this.passwordInput.focus()}
                         autoCapitalize="none"
                         autoCorrect={false}
                         onChangeText={email => this.setState({email})}
