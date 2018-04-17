@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
+import { ScrollView,Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar, BackHandler } from 'react-native';
 import {
     StackNavigator,
     TabNavigator,
@@ -194,6 +194,8 @@ export default class Trips extends React.Component {
                         </View>
                     </ScrollView>
 
+
+
                 </View>
                 <View style={styles.addButtonContainer}>
                     <TouchableOpacity onPress={() => navigate('NewTrip', {email: this.state.email})}>
@@ -329,7 +331,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         color: '#000',
-        fontWeight: 'normal',
+        fontWeight: 'bold',
         fontSize: 20
     },
 });

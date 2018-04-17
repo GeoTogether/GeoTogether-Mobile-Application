@@ -82,6 +82,7 @@ export default class TimeLineScreen extends React.Component {
                     title={state.params.trip.tripName}
                     titleStyle={styles.title}
                     backgroundColor={'white'}
+                    iconImageStyle={{tintColor: "black"}}
                     leftIconImage={require('../../images/profile.png')}
                     onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip:state.params.trip })}
                     rightIcons={[
@@ -132,6 +133,12 @@ const styles = StyleSheet.create({
     list:{
         //paddingTop: 30,
         //backgroundColor:'#118bff'
-    }
+    },  title: {
+        textAlign: 'center',
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+
 
 });

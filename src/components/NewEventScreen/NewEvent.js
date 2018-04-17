@@ -136,9 +136,8 @@ export default class NewEvent extends React.Component {
         const {goBack} = this.props.navigation;
 
         return (
-
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
-                <View>
+                <View style={styles.backButtonContainer}>
                     <TouchableOpacity onPress={() => goBack()} style={styles.back} >
                         <Image source={require('../../images/backarrow.png')}/>
                     </TouchableOpacity>
@@ -181,6 +180,7 @@ export default class NewEvent extends React.Component {
                         query={{
                             key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                             language: 'en', // language of the results
+                            origin: 'http://mywebsite.com'
                         
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
@@ -282,6 +282,12 @@ export default class NewEvent extends React.Component {
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
+    },
+    back:{
+      marginLeft: 10
+    },
+    backButtonContainer: {
+      height: '5%'
     },
     textHeader: {
         color: 'white',
@@ -395,7 +401,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonContainer: {
-        height: '15%',
+        height: '10%',
         flexDirection: 'row',
         paddingTop: 5,
         paddingLeft: '25%',

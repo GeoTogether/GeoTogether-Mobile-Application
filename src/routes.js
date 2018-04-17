@@ -19,6 +19,7 @@ import TimeLineScreen from "./components/TimelineScreen/TimeLineScreen";
 import GMapView from './components/MapViewScreen/GMapView';
 import NewEvent from './components/NewEventScreen/NewEvent';
 import Chat from './components/ChatScreen/Chat';
+import ChatScreen from './components/ChatScreen/ChatScreen';
 import Share from './components/ShareScreen/Share';
 
 
@@ -38,6 +39,7 @@ const Home = StackNavigator({
     GMapView:{screen: GMapView},
     TimeLineScreen: {screen: TimeLineScreen},
     NewEvent:{screen: NewEvent},
+    ChatScreen:{screen: ChatScreen},
 
 },
     { headerMode: 'screen' });
