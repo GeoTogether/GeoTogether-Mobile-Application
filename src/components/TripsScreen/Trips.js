@@ -178,6 +178,7 @@ export default class Trips extends React.Component {
 <View style={styles.mainStyle}>
                 <View style={styles.actionBar}>
                     <StatusBar
+                        //status bar fix
                         //backgroundColor="#000"
                         barStyle="dark-content"
                     />

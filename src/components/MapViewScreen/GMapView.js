@@ -86,7 +86,7 @@ export default class GMapView extends React.Component {
         title: 'GMapView',
         header: null
     }
-    // the user state with all of the user and the trip information 
+    // the user state with all of the user and the trip information
     state = {
         email: '',
         destinations: [],
@@ -229,7 +229,7 @@ export default class GMapView extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
-        // adding buttom components for all the user trips 
+        // adding buttom components for all the user trips
         var MarkersComponents = this.state.destinations.map((type) => <MapView.Marker coordinate={{
             latitude: type.geometry.location.lat,
             longitude: type.geometry.location.lng
@@ -270,8 +270,9 @@ export default class GMapView extends React.Component {
             <View style={styles.Container}>
 
                 <StatusBar
-                    backgroundColor="#000"
-                    barStyle="light-content"
+                    //status bar fix
+                    //backgroundColor="#000"
+                    barStyle="dark-content"
                 />
                 <ActionBar
                     containerStyle={styles.bar}
@@ -624,4 +625,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
