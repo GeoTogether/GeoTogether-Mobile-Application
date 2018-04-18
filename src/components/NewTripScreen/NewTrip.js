@@ -12,7 +12,9 @@ import DatePicker from 'react-native-datepicker';
 import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-
+import Mailer from 'react-native-mail';
+import SendSMS from 'react-native-sms'
+import {RevMobManager} from "react-native-revmob";
 
 var SendIntentAndroid = require('react-native-send-intent');
 
@@ -47,6 +49,11 @@ export default class NewTrip extends React.Component {
         console.log('A date has been picked: ', date);
         this._hideDateTimePicker();
     };
+
+    componentDidMount(){
+        RevMobManager.hideBanner()
+    }
+
     sendEmail = () => {
 
         SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
@@ -67,6 +74,42 @@ export default class NewTrip extends React.Component {
             text: "Hey there! I hope you can accept this invite to join this amazing trip.\n\n" +
             this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
             type: SendIntentAndroid.TEXT_PLAIN
+        });
+
+        this.closeModal();
+
+    };
+
+    sendText = () => {
+        SendSMS.send({
+            body: 'Invitation to join ' + this.state.tripname + '\n\nHey there! I hope you can accept this invite to join this amazing trip.\n\n' +
+            this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
+            successTypes: ['sent', 'queued']
+        }, (completed, cancelled, error) => {
+
+            console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
+
+        });
+
+        this.closeModal();
+    };
+
+    handleEmail = () => {
+        Mailer.mail({
+            subject: 'Invitation to join ' + this.state.tripname,
+            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>'+ this.state.tripname +
+                    '<b> starts on the </b>' + this.state.startDate + '<b>\n\nPlease be sure to accept soon!</b>',
+            isHTML: true
+        }, (error, event) => {
+            Alert.alert(
+                error,
+                event,
+                [
+                    {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+                    {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+                ],
+                { cancelable: true }
+            )
         });
 
         this.closeModal();
@@ -156,7 +199,7 @@ export default class NewTrip extends React.Component {
 
 
         //after adding the trip go back to trips
-        navigate('Trips', {email: this.state.email});
+        navigate('Home', {email: this.state.email});
     }
 
     render() {
@@ -255,11 +298,12 @@ export default class NewTrip extends React.Component {
                                     query={{
                                         key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                                         language: 'en', // language of the results
+                                        origin: 'http://mywebsite.com'
                                     }}
                                     onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                    var temp = {address: data.description, id: data.place_id}
-                                    this.setState({destination1: temp})
+                                   // var temp = {address: data.description, id: data.place_id}
+                                    this.setState({destination1: details})
                                        
                                     }}
                                 />
@@ -298,11 +342,12 @@ export default class NewTrip extends React.Component {
                                 query={{
                                     key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                                     language: 'en', // language of the results
+                                    origin: 'http://mywebsite.com'
                                 }}
                                 onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
 
-                                var temp = {address: data.description, id: data.place_id}
-                                this.setState({destination2: temp})
+                              //  var temp = {address: data.description, id: data.place_id}
+                                this.setState({destination2: details})
                                
                                
                                    
@@ -340,12 +385,12 @@ export default class NewTrip extends React.Component {
                             <View style={styles.modalContainer}>
                                 <View style={styles.innerContainer}>
 
-                                    <TouchableOpacity onPress={() => this.sendSMS()}>
+                                    <TouchableOpacity onPress={this.sendText}>
                                         <Image source={require('../../images/sms.png')}/>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
-                                        onPress={() => this.sendEmail()}>
+                                        onPress={this.handleEmail}>
                                         <Image source={require('../../images/email.png')}/>
                                     </TouchableOpacity>
 

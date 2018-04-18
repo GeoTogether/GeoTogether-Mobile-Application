@@ -35,17 +35,7 @@
 			<string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm412</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4.apps.googleusercontent.com</string>
+				<string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
 			</array>
 		</dict>
 		<dict>
@@ -56,16 +46,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>org.reactjs.native.example.GeoTogetherApplication</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.geotogetherapplication.ios</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.geotogetherapplication.ios</string>
 			</array>
 		</dict>
 	</array>
@@ -95,8 +75,30 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your photo gallery</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -111,35 +113,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  
-  <key>CFBundleURLTypes</key>
-  <array>
-    <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb155636018424703</string>
-      </array>
-    </dict>
-    <dict>
-      <key>CFBundleTypeRole</key>
-      <string>Editor</string>
-      <key>CFBundleURLName</key>
-      <string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>com.googleusercontent.apps.271294585129-ipn5069mlbp7tp7jb10t8oqecavsfpm4</string>
-      </array>
-    </dict>
-    <dict>
-      <key>CFBundleTypeRole</key>
-      <string>Editor</string>
-      <key>CFBundleURLName</key>
-      <string>org.reactjs.native.example.GeoTogetherApplication</string>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>org.reactjs.native.example.GeoTogetherApplication</string>
-      </array>
-    </dict>
-  </array>
 </dict>
 </plist>

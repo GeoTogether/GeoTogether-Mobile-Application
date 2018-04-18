@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import {View, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
+import {View, Image, TouchableOpacity, StyleSheet, Text, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashTextLogo from '../SplashTextLogo/SplashTextLogo';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import firebase from '../Firebase/firebaseStorage';
+import { GoogleSignin } from 'react-native-google-signin';
+import FBSDK, {
+    LoginManager, AccessToken, GraphRequest,
+    GraphRequestManager
+} from 'react-native-fbsdk';
+import {RevMobManager} from 'react-native-revmob';
 
 export default class SplashScreen extends Component {
 
@@ -14,11 +21,41 @@ export default class SplashScreen extends Component {
         super(props)
     }
 
+    componentWillMount() {
+        RevMobManager.hideBanner();
+        const {navigate} = this.props.navigation;
+       if(firebase.auth().currentUser !== null){
+
+        navigate('Home', { email: firebase.auth().currentUser.email });
+       }
+
+
+    }
+
+    componentDidMount() {
+        RevMobManager.hideBanner();
+        const {navigate} = this.props.navigation;
+        if(firebase.auth().currentUser !== null){
+
+         navigate('Home', { email: firebase.auth().currentUser.email });
+        }
+
+    }
+
     render() {
         const {navigate} = this.props.navigation;
+        if(firebase.auth().currentUser !== null){
+
+            navigate('Home', { email: firebase.auth().currentUser.email });
+           }
+
         return (
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.container}>
                 <View style={styles.logoContainer}>
+                <StatusBar
+                   backgroundColor="#FFF"
+                   barStyle="dark-content"
+                 />
                     <View style={styles.logoContainerStyle}>
                         <Image
                             style={styles.logoStyle}

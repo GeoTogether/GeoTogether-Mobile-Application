@@ -3,6 +3,7 @@ package com.geotogetherapplication;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -17,11 +18,14 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.CallbackManager;
+import com.rctrevmob.RevMobPackage;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
 import com.airbnb.android.react.maps.MapsPackage;
+import com.tkporter.sendsms.SendSMSPackage;
+import com.chirag.RNMail.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,8 +48,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          SendSMSPackage.getInstance(),
+            new RNFetchBlobPackage(),
+            new RevMobPackage(),
             new RNGooglePlacesPackage(),
             new RNSendIntentPackage(),
+            new RNMail(),
             new LinearGradientPackage(),
             new ImagePickerPackage(),
             new RNGoogleSigninPackage(),

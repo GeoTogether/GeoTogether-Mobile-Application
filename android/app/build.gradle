@@ -144,6 +144,9 @@ dependencies {
     compile project(':react-native-image-picker')
     compile project(':react-native-google-places')
     compile project(':RNSendIntentModule')
+    compile project(':RNMail')
+    compile project(':react-native-revmob')
+    compile project(':react-native-sms')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
@@ -158,6 +161,8 @@ dependencies {
     }
      compile 'com.google.android.gms:play-services-base:10.0.1'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile project(':react-native-vector-icons')
+     compile project(':react-native-fetch-blob') 
 }
 
 apply plugin: 'com.google.gms.google-services' // <--- this should be the last line
