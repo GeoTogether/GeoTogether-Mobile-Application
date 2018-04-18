@@ -178,8 +178,8 @@ export default class Trips extends React.Component {
 <View style={styles.mainStyle}>
                 <View style={styles.actionBar}>
                     <StatusBar
-                        backgroundColor="black"
-                        barStyle="light-content"
+                        //backgroundColor="#000"
+                        barStyle="dark-content"
                     />
                     <ActionBar
                         containerStyle={styles.bar}
@@ -208,7 +208,7 @@ export default class Trips extends React.Component {
                     </ScrollView>
 
 
-    
+
 
                 </View>
                 <View style={styles.addButtonContainer}>

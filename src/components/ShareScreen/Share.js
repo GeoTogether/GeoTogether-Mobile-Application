@@ -36,7 +36,7 @@ export default class Share extends React.Component {
         newUser: 2,
     }
 
-    
+
     px2dp(px) {
 
         const deviceW = Dimensions.get('window').width;
@@ -50,14 +50,14 @@ export default class Share extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
-      
+
     }
 
     componentDidMount() {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
-      
+
     }
 
 
@@ -70,8 +70,8 @@ export default class Share extends React.Component {
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
             <View style={styles.mainStyle}>
             <StatusBar
-               backgroundColor="#000"
-               barStyle="light-content"
+               //backgroundColor="black"
+               barStyle="dark-content"
              />
                 <ActionBar
                     containerStyle={styles.bar}

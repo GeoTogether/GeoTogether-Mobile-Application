@@ -36,7 +36,7 @@ export default class Chat extends React.Component {
         newUser: 2,
     }
 
-        
+
     px2dp(px) {
 
         const deviceW = Dimensions.get('window').width;
@@ -144,8 +144,8 @@ export default class Chat extends React.Component {
 
                 <View style={styles.mainStyle}>
                     <StatusBar
-                        backgroundColor="#000"
-                        barStyle="light-content"
+                        //backgroundColor="#000"
+                        barStyle="dark-content"
                     />
                     <ActionBar
                         containerStyle={styles.bar}
@@ -172,9 +172,9 @@ export default class Chat extends React.Component {
                         </View>
                     </ScrollView>
 
-                    
+
                     </View>
-                  
+
                     <TabNavigator>
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Chat'}
@@ -200,9 +200,9 @@ export default class Chat extends React.Component {
                             onPress={() => navigate('Share', { email: this.state.email })}>
                         </TabNavigator.Item>
                     </TabNavigator>
-                    
+
                 </View>
-                
+
             </LinearGradient>
         );
     }
