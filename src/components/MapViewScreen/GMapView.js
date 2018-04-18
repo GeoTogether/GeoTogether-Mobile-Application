@@ -306,14 +306,14 @@ return (
             backgroundColor={'#FFFFFF'}
             iconImageStyle={{ tintColor: "black" }}
             leftIconImage={require('../../images/profile.png')}
-            onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
+            onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip }, RevMobManager.hideBanner())}
             rightIcons={[
                 {
                     image: require('../../images/timeline.png'), // To use a custom image
-                    onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
+                    onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }, RevMobManager.hideBanner()),
                 }, {
                     image: require('../../images/settings.png'), // To use a custom image
-                    onPress: () => navigate('AppSettings', { email: state.params.email })
+                    onPress: () => navigate('AppSettings', { email: state.params.email }, RevMobManager.hideBanner())
                 },
 
             ]}

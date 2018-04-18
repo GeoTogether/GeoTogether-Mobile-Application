@@ -70,7 +70,7 @@ export default class Trips extends React.Component {
     }
 
     componentWillMount() {
-        RevMobManager.showBanner();
+
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -87,7 +87,6 @@ export default class Trips extends React.Component {
         NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
             RevMobManager.showBanner(); // Show banner if it's loaded
         });
-        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -95,6 +94,7 @@ export default class Trips extends React.Component {
 
         // gets all the user trips
         this.onPressGetTrips();
+        RevMobManager.showBanner();
     }
 
     // // funcation to sign out using firebase authentication.
