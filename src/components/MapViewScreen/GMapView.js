@@ -1,5 +1,16 @@
 import React from 'react';
-import { ActivityIndicator, StatusBar, StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Dimensions } from 'react-native';
+import {
+    ActivityIndicator,
+    StatusBar,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    TouchableHighlight,
+    Image,
+    Dimensions,
+    NativeAppEventEmitter
+} from 'react-native';
 import {
     StackNavigator
 } from 'react-navigation';
@@ -13,6 +24,7 @@ import firebase from '../Firebase/firebaseStorage';
 import Modal from "react-native-modal";
 import TabNavigator from 'react-native-tab-navigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {RevMobManager} from "react-native-revmob";
 
 
 
@@ -165,6 +177,13 @@ export default class GMapView extends React.Component {
     }
 
     componentDidMount() {
+        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
+            if(!err) RevMobManager.loadBanner();
+        });
+        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
+            RevMobManager.showBanner(); // Show banner if it's loaded
+        });
+        RevMobManager.showBanner();
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.getCurrentPosition();
@@ -272,6 +291,8 @@ var userloc = <MapView.Marker coordinate={{
 </MapView.Marker>
 return (
     <View style={styles.Container}>
+        <View style={styles.adContainer}>
+        </View>
         <StatusBar
                     //status bar fix
                     //backgroundColor="#000"
@@ -340,7 +361,7 @@ return (
                                     title="Chat"
                                     renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#666" />}
                                     renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                                    onPress={() => navigate('Chat', { email: this.state.email })}>
+                                    onPress={() => navigate('Chat', { email: this.state.email }, RevMobManager.hideBanner())}>
                                 </TabNavigator.Item>
 
                                 <TabNavigator.Item
@@ -348,7 +369,7 @@ return (
                                     title="Home"
                                     renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#666" />}
                                     renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                                    onPress={() => navigate('Home', { email: this.state.email })}>
+                                    onPress={() => navigate('Home', { email: this.state.email }, RevMobManager.hideBanner())}>
                                 </TabNavigator.Item>
 
                                 <TabNavigator.Item
@@ -356,7 +377,7 @@ return (
                                     title="Share"
                                     renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
                                     renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                                    onPress={() => navigate('Share', { email: this.state.email })}>
+                                    onPress={() => navigate('Share', { email: this.state.email }, RevMobManager.hideBanner())}>
                                 </TabNavigator.Item>
                             </TabNavigator>
 
@@ -534,6 +555,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         fontWeight: '700'
+    },
+    adContainer:{
+        width: '100%',
+        height: '10%',
+        backgroundColor: '#FFF'
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',

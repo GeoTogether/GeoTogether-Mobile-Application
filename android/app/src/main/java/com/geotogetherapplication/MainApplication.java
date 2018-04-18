@@ -18,6 +18,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.CallbackManager;
+import com.rctrevmob.RevMobPackage;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
@@ -49,6 +50,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           SendSMSPackage.getInstance(),
             new RNFetchBlobPackage(),
+            new RevMobPackage(),
             new RNGooglePlacesPackage(),
             new RNSendIntentPackage(),
             new RNMail(),

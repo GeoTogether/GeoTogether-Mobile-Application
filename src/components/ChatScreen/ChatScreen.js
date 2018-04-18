@@ -1,6 +1,6 @@
 import { GiftedChat, Actions, Bubble } from 'react-native-gifted-chat';
 import React from 'react';
-import { View, Platform, Text, StyleSheet } from 'react-native';
+import {View, Platform, Text, StyleSheet, NativeAppEventEmitter} from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
 import { TabNavigator, } from 'react-navigation';
@@ -8,6 +8,7 @@ import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from 'react-native-fetch-blob';
+import {RevMobManager} from 'react-native-revmob';
 
 
 const Blob = RNFetchBlob.polyfill.Blob

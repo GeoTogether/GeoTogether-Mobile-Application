@@ -32,6 +32,7 @@
     "react-native-modal-datetime-picker": "^4.13.0",
     "react-native-nav": "^2.0.2",
     "react-native-popup-dialog": "^0.11.46",
+    "react-native-revmob": "^9.2.2",
     "react-native-send-intent": "^1.0.23",
     "react-native-size-matters": "^0.1.0",
     "react-native-sms": "^1.5.2",

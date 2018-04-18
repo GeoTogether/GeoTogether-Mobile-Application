@@ -9,6 +9,7 @@ import FBSDK, {
     LoginManager, AccessToken, GraphRequest,
     GraphRequestManager
 } from 'react-native-fbsdk';
+import {RevMobManager} from 'react-native-revmob';
 
 export default class SplashScreen extends Component {
 
@@ -21,6 +22,7 @@ export default class SplashScreen extends Component {
     }
 
     componentWillMount() {
+        RevMobManager.hideBanner();
         const {navigate} = this.props.navigation;
        if(firebase.auth().currentUser !== null){
 
@@ -31,6 +33,7 @@ export default class SplashScreen extends Component {
     }
 
     componentDidMount() {
+        RevMobManager.hideBanner();
         const {navigate} = this.props.navigation;
         if(firebase.auth().currentUser !== null){
 
