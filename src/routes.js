@@ -21,14 +21,15 @@ import NewEvent from './components/NewEventScreen/NewEvent';
 import Chat from './components/ChatScreen/Chat';
 import ChatScreen from './components/ChatScreen/ChatScreen';
 import Share from './components/ShareScreen/Share';
-
+import Loading from './components/LoadingScreen/LoadingScreen';
 
 // adding all the classes ti navigator
 const Home = StackNavigator({
+    Loading: { screen: Loading },
+    Home: { screen: Trips },
     SplashScreen: { screen: SplashScreen },
     Login: { screen: Login },
     SignUp: { screen: SignUp },
-    Home: { screen: Trips },
     Chat: { screen: Chat },
     Share: { screen: Share },
     PasswordReset: { screen: PasswordReset },

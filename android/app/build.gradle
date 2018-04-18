@@ -139,6 +139,7 @@ dexOptions {
 }
 
 dependencies {
+    compile project(':react-native-mail')
     compile project(':react-native-fbsdk')
     compile project(':react-native-geocoder')
     compile project(':react-native-image-picker')
