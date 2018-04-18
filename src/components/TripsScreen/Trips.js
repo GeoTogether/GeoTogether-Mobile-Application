@@ -182,6 +182,7 @@ export default class Trips extends React.Component {
                         //backgroundColor="#000"
                         barStyle="dark-content"
                     />
+
                     <ActionBar
                         containerStyle={styles.bar}
                         title={'Home'}
@@ -199,7 +200,7 @@ export default class Trips extends React.Component {
                             },
                         ]}
                     />
-                </View>
+              
 
                 <View style={styles.tripContainer}>
                     <ScrollView>
@@ -208,10 +209,8 @@ export default class Trips extends React.Component {
                         </View>
                     </ScrollView>
 
-
-
-
                 </View>
+
                 <View style={styles.addButtonContainer}>
                     <TouchableOpacity onPress={() => navigate('NewTrip', { email: this.state.email })}>
                         <Image
@@ -221,28 +220,28 @@ export default class Trips extends React.Component {
                 </View>
 
 
-          <TabNavigator>
+                <TabNavigator>
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Chat'}
                             title="Chat"
-                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#666" />}
+                            renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             onPress={() => navigate('Chat', { email: this.state.email })}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'home'}
                             title="Home"
-                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
+                            renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             onPress={() => navigate('Home', { email: this.state.email })}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Share'}
                             title="Share"
-                            renderIcon={() => <Ionicons name="share" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="share" size={this.px2dp(22)} color="#3496f0" />}
+                            renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
+                            renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             onPress={() => navigate('Share', { email: this.state.email })}>
                         </TabNavigator.Item>
                     </TabNavigator>
@@ -256,23 +255,30 @@ export default class Trips extends React.Component {
 }
 
 
-
 const styles = StyleSheet.create({
-    actionBar: {
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'flex-start',
-        width: '100%',
-    },
     linearGradient: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
+    mainStyle: {
+        flex: 1,
+        width: '100%',
+        height:'100%',
+    },
+    textStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        color: '#FFF',
+        fontSize: 20,
+        marginTop: '60%'
+    },
     tripContainer: {
-        height: '100%',
+        height: '75%',
         width: '95%',
-        paddingTop: '15%'
+        paddingTop: 35,
         // backgroundColor: 'black',
     },
     tripView: {
@@ -329,25 +335,20 @@ const styles = StyleSheet.create({
         //backgroundColor: 'rgb(0,25,88)',
         //flexDirection: 'row'
         position: 'absolute',
-        bottom: 0,
+        bottom: 40,
         right: 0,
         paddingRight: 10,
-        paddingBottom: 50
+        paddingBottom: 40,
     },
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '700'
     },
-    title: {
+        title: {
         textAlign: 'center',
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20
-    },
-    mainStyle: {
-        flex: 1,
-        width: '100%',
-        height:'100%',
     },
 });

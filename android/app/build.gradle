@@ -144,6 +144,8 @@ dependencies {
     compile project(':react-native-image-picker')
     compile project(':react-native-google-places')
     compile project(':RNSendIntentModule')
+    compile project(':RNMail')
+    compile project(':react-native-sms')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules

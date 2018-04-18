@@ -68,8 +68,12 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.13)
   - React (0.52.2):
     - React/Core (= 0.52.2)
+  - react-native-fetch-blob (0.10.6):
+    - React/Core
   - react-native-google-maps (0.20.1):
     - GoogleMaps (= 2.5.0)
+    - React
+  - react-native-mail (3.0.6):
     - React
   - react-native-maps (0.20.1):
     - React
@@ -129,7 +133,9 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - GoogleSignIn
+  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
+  - react-native-mail (from `../node_modules/react-native-mail`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -155,8 +161,12 @@ EXTERNAL SOURCES:
     :podspec: ../node_modules/react-native/third-party-podspecs/GLog.podspec
   React:
     :path: ../node_modules/react-native
+  react-native-fetch-blob:
+    :path: ../node_modules/react-native-fetch-blob
   react-native-google-maps:
     :path: ../node_modules/react-native-maps
+  react-native-mail:
+    :path: ../node_modules/react-native-mail
   react-native-maps:
     :path: ../node_modules/react-native-maps
   yoga:
@@ -176,10 +186,12 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   React: 43e97926f429d846050880666de1809e22dd5cc5
+  react-native-fetch-blob: 63394b1d7b0781547b3e4463b3195790177b1222
   react-native-google-maps: 963fc78a5ac32dad3a726e4fa08b5307faa5cab2
+  react-native-mail: 7b48b14bd06d315fb86420f7b707f25b723e302f
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   yoga: 55da126afc384965b96bff46652464373b330add
 
-PODFILE CHECKSUM: b37d094fa68f5590e7353fc87764aa80c76d565c
+PODFILE CHECKSUM: b6411bcb7081f611d956b02f9f6814409987951b
 
 COCOAPODS: 1.4.0

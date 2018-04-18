@@ -253,7 +253,7 @@ export default class OnboardingScreens extends Component {
           // TODO: Add a handler that would send a user to your app after onboarding is complete
           <Button
             text="Start Now"
-            onPress={() =>  navigate('Trips', { email: state.params.email })}
+            onPress={() =>  navigate('Home', { email: state.params.email })}
           />
         ) : (
           // Or this one otherwise
