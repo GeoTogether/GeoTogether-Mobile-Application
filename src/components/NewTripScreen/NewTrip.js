@@ -14,6 +14,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Mailer from 'react-native-mail';
 import SendSMS from 'react-native-sms'
+import {RevMobManager} from "react-native-revmob";
 
 var SendIntentAndroid = require('react-native-send-intent');
 
@@ -48,6 +49,11 @@ export default class NewTrip extends React.Component {
         console.log('A date has been picked: ', date);
         this._hideDateTimePicker();
     };
+
+    componentDidMount(){
+        RevMobManager.hideBanner()
+    }
+
     sendEmail = () => {
 
         SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,

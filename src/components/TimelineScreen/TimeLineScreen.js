@@ -1,10 +1,11 @@
 import React from 'react';
 import Timeline from 'react-native-timeline-listview';
-import { StyleSheet, View, StatusBar, Dimensions, Image} from "react-native";
+import {StyleSheet, View, StatusBar, Dimensions, Image, NativeAppEventEmitter} from "react-native";
 import firebase from "../Firebase/firebaseStorage";
 import ActionBar from 'react-native-action-bar';
 import TabNavigator from 'react-native-tab-navigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {RevMobManager} from "react-native-revmob";
 
 export default class TimeLineScreen extends React.Component {
 
@@ -31,7 +32,7 @@ export default class TimeLineScreen extends React.Component {
     data = [];
 
     componentWillMount() {
-
+        RevMobManager.showBanner();
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         // this.data = [
@@ -48,6 +49,16 @@ export default class TimeLineScreen extends React.Component {
             this.getEventInfo();
             // console.log("Events: ", this.state.events[0][0]);
         }
+    }
+
+    componentDidMount(){
+        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
+            if(!err) RevMobManager.loadBanner();
+        });
+        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
+            RevMobManager.showBanner(); // Show banner if it's loaded
+        });
+        RevMobManager.showBanner();
     }
 
 
@@ -89,9 +100,12 @@ export default class TimeLineScreen extends React.Component {
 
         return (
             <View style={styles.container}>
+                <View style={styles.adContainer}>
+                </View>
                 <StatusBar
-                    backgroundColor="black"
-                    barStyle="light-content"
+                    //status bar fix
+                    //backgroundColor="black"
+                    barStyle="dark-content"
                 />
                 <ActionBar
                     containerStyle={styles.bar}
@@ -100,12 +114,12 @@ export default class TimeLineScreen extends React.Component {
                     backgroundColor={'white'}
                     iconImageStyle={{ tintColor: "black" }}
                     leftIconImage={require('../../images/profile.png')}
-                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
+                    onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip }, RevMobManager.hideBanner())}
                     rightIcons={[
                         {
                             image: require('../../images/map.png'), // To use a custom image
                             //badge: '1',
-                            onPress: () => navigate('GMapView', { email: state.params.email, trip: state.params.trip }),
+                            onPress: () => navigate('GMapView', { email: state.params.email, trip: state.params.trip }, RevMobManager.hideBanner()),
                         }, {
                             image: require('../../images/settings.png'), // To use a custom image
                             //badge: '1',
@@ -139,7 +153,7 @@ export default class TimeLineScreen extends React.Component {
                             title="Chat"
                             renderIcon={() => <Image style={{ width: 27, height: 27 }} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#666" />}
                             renderSelectedIcon={() => <Image style={{ width: 27, height: 27 }} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                            onPress={() => navigate('Chat', { email: this.state.email }, RevMobManager.hideBanner())}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
@@ -147,7 +161,7 @@ export default class TimeLineScreen extends React.Component {
                             title="Home"
                             renderIcon={() => <Image style={{ width: 27, height: 27 }} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#666" />}
                             renderSelectedIcon={() => <Image style={{ width: 27, height: 27 }} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                            onPress={() => navigate('Home', { email: this.state.email })}>
+                            onPress={() => navigate('Home', { email: this.state.email }, RevMobManager.hideBanner())}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
@@ -155,7 +169,7 @@ export default class TimeLineScreen extends React.Component {
                             title="Share"
                             renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
                             renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                            onPress={() => navigate('Share', { email: this.state.email })}>
+                            onPress={() => navigate('Share', { email: this.state.email }, RevMobManager.hideBanner())}>
                         </TabNavigator.Item>
                     </TabNavigator>
                 </View>
@@ -174,6 +188,11 @@ const styles = StyleSheet.create({
         flex: 1,
         //alignItems: 'center',
         //justifyContent: 'center'
+    },
+    adContainer:{
+        width: '100%',
+        height: '10%',
+        backgroundColor: '#FFF'
     },
     list: {
         //paddingTop: 30,

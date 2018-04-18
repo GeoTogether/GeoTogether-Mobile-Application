@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar, BackHandler, Dimensions } from 'react-native';
+import { NativeAppEventEmitter, ScrollView, Alert, Image, Modal, ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar, BackHandler, Dimensions } from 'react-native';
 import {
     StackNavigator,
     TabBarBottom
@@ -14,6 +14,7 @@ import MapView from "../MapViewScreen/GMapView";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
 import TabNavigator from 'react-native-tab-navigator';
+import {RevMobManager} from 'react-native-revmob';
 
 
 export default class Trips extends React.Component {
@@ -69,6 +70,7 @@ export default class Trips extends React.Component {
     }
 
     componentWillMount() {
+        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -79,6 +81,13 @@ export default class Trips extends React.Component {
     }
 
     componentDidMount() {
+        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
+            if(!err) RevMobManager.loadBanner();
+        });
+        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
+            RevMobManager.showBanner(); // Show banner if it's loaded
+        });
+        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -176,7 +185,10 @@ export default class Trips extends React.Component {
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
 
 <View style={styles.mainStyle}>
-              
+
+    <View style={styles.adContainer}>
+    </View>
+
                     <StatusBar
                         //status bar fix
                         //backgroundColor="#000"
@@ -191,12 +203,12 @@ export default class Trips extends React.Component {
                         badgeColor={'red'}
                         iconImageStyle={{ tintColor: "black" }}
                         leftIconImage={require('../../images/profile.png')}
-                        onLeftPress={() => navigate('ProfileSettings', { email: state.params.email })}
+                        onLeftPress={() => navigate('ProfileSettings', { email: state.params.email }, RevMobManager.hideBanner())}
                         rightIcons={[
                             {
                                 image: require('../../images/settings.png'), // To use a custom image
                                 //badge: '1',
-                                onPress: () => navigate('AppSettings', { email: state.params.email }),
+                                onPress: () => navigate('AppSettings', { email: state.params.email }, RevMobManager.hideBanner()),
                             },
                         ]}
                     />
@@ -226,7 +238,7 @@ export default class Trips extends React.Component {
                             title="Chat"
                             renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#666" />}
                             renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                            onPress={() => navigate('Chat', { email: this.state.email })}>
+                            onPress={() => navigate('Chat', { email: this.state.email }, RevMobManager.hideBanner())}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
@@ -234,7 +246,7 @@ export default class Trips extends React.Component {
                             title="Home"
                             renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                            onPress={() => navigate('Home', { email: this.state.email })}>
+                            onPress={() => navigate('Home', { email: this.state.email }, RevMobManager.hideBanner())}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
@@ -242,7 +254,7 @@ export default class Trips extends React.Component {
                             title="Share"
                             renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
                             renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                            onPress={() => navigate('Share', { email: this.state.email })}>
+                            onPress={() => navigate('Share', { email: this.state.email }, RevMobManager.hideBanner())}>
                         </TabNavigator.Item>
                     </TabNavigator>
 
@@ -260,6 +272,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    adContainer:{
+        width: '100%',
+        height: '10%',
+        backgroundColor: '#FFF'
     },
     mainStyle: {
         flex: 1,
