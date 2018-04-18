@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
 import TabNavigator from 'react-native-tab-navigator';
 import {RevMobManager} from 'react-native-revmob';
-
+import RNExitApp from 'react-native-exit-app';
 
 export default class Trips extends React.Component {
 
@@ -45,7 +45,6 @@ export default class Trips extends React.Component {
     }
 
 
-
     px2dp(px) {
 
         const deviceW = Dimensions.get('window').width;
@@ -70,7 +69,7 @@ export default class Trips extends React.Component {
     }
 
     componentWillMount() {
-
+        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -95,6 +94,18 @@ export default class Trips extends React.Component {
         // gets all the user trips
         this.onPressGetTrips();
         RevMobManager.showBanner();
+
+        BackHandler.addEventListener('hardwareBackPress', function() {
+            // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+            // Typically you would use the navigator here to go to the last state.
+            RNExitApp.exitApp();
+            BackHandler.exitApp();
+            return true;
+        });
+    }
+
+    componentWillUnmount(){
+        BackHandler.removeEventListener('hardwareBackPress');
     }
 
     // // funcation to sign out using firebase authentication.
