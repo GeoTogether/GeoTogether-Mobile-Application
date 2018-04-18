@@ -272,7 +272,11 @@ var userloc = <MapView.Marker coordinate={{
 </MapView.Marker>
 return (
     <View style={styles.Container}>
-
+        <StatusBar
+                    //status bar fix
+                    //backgroundColor="#000"
+                    barStyle="dark-content"
+                />
 
         <ActionBar
             containerStyle={styles.bar}
@@ -304,7 +308,6 @@ return (
                 }}>
                     {MarkersComponents}
 
-                            {MarkersComponents}
 
                             {eventsMComponents}
 
@@ -632,7 +635,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20
     },
-
     tabBar: {
         height: '20%',
         backgroundColor: 'white',

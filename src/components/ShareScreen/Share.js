@@ -70,6 +70,7 @@ export default class Share extends React.Component {
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
             <View style={styles.mainStyle}>
             <StatusBar
+                //status bar fix
                //backgroundColor="black"
                barStyle="dark-content"
              />

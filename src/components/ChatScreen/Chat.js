@@ -144,6 +144,7 @@ export default class Chat extends React.Component {
 
                 <View style={styles.mainStyle}>
                     <StatusBar
+                        //status bar fix
                         //backgroundColor="#000"
                         barStyle="dark-content"
                     />

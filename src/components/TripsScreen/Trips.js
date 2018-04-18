@@ -175,7 +175,13 @@ export default class Trips extends React.Component {
         return (
             <LinearGradient colors={['#013067', '#00a5a9']} style={styles.linearGradient}>
 
-            <View style={styles.mainStyle}>
+<View style={styles.mainStyle}>
+                <View style={styles.actionBar}>
+                    <StatusBar
+                        //status bar fix
+                        //backgroundColor="#000"
+                        barStyle="dark-content"
+                    />
 
                     <ActionBar
                         containerStyle={styles.bar}

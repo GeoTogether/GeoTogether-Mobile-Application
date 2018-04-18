@@ -301,6 +301,7 @@ export default class Login extends React.Component {
                         </View>
                     </View>
                     <StatusBar
+                        //status bar fix
                         backgroundColor="#FFF"
                         barStyle="dark-content"
                     />
