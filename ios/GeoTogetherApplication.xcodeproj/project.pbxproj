@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -51,6 +52,7 @@
 		3B79506C64ED42E5B8DE5643 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 315F08D0C1FA467DB394D28B /* Foundation.ttf */; };
 		4ABE2D7DD582433FACE5B32C /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB764AF5D924DFDA81BCA21 /* libRCTFBSDK.a */; };
 		4F5D0E7CD7EC42498FB2AB70 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7117AD6C5A64DED902FA8E4 /* MaterialCommunityIcons.ttf */; };
+		518B3C7E844B402696D045FB /* libSendSMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B30984F2531450ABF3845F6 /* libSendSMS.a */; };
 		51F0C80BF5214DD2BF22A3D0 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D28A9AAFD72445AB8F8D580 /* Feather.ttf */; };
 		53ED7FD42DD54635AB02CC08 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F227FE79EB49298711EE81 /* libRNVectorIcons.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -66,7 +68,6 @@
 		B91C1DC6A6634321810A115C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9529B66D3727471696F749EB /* MaterialIcons.ttf */; };
 		CD77DB943C2E421995F8DF7B /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10C3FD7C156447B19E128C54 /* Ionicons.ttf */; };
 		E0CA254E556640B591637C98 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0A9812E1D4E2887357718 /* SafariServices.framework */; };
-		518B3C7E844B402696D045FB /* libSendSMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B30984F2531450ABF3845F6 /* libSendSMS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +217,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9FD355121D3E4A2900D06170;
 			remoteInfo = RNGoogleSignin;
+		};
+		2C6ED77E2086A4B800212BE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 95688E1A1D38251600F72D63;
+			remoteInfo = SendSMS;
 		};
 		2CB3CEC72075929500ABB989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -435,6 +443,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GeoTogetherApplication/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GeoTogetherApplication/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1B30984F2531450ABF3845F6 /* libSendSMS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSendSMS.a; sourceTree = "<group>"; };
 		1D28A9AAFD72445AB8F8D580 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		29696742F3F644529053929D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		2AB764AF5D924DFDA81BCA21 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
@@ -467,6 +476,7 @@
 		B7117AD6C5A64DED902FA8E4 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		BB54DCE45DC74CCDB15381C7 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		BF2C05E9CF4B4AA5A3DA92F3 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
+		C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SendSMS.xcodeproj; path = "../node_modules/react-native-sms/SendSMS.xcodeproj"; sourceTree = "<group>"; };
 		C0F227FE79EB49298711EE81 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		C90F777E546E43F79846EFC8 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		CDEC5E1849284D14B45C1E41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -475,8 +485,6 @@
 		D407200C327E473A9328FC3F /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		DFFCA4B263224587A2A9F580 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		FB6EAF99DCD248E1A2C2B1CC /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */ = {isa = PBXFileReference; name = "SendSMS.xcodeproj"; path = "../node_modules/react-native-sms/SendSMS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		1B30984F2531450ABF3845F6 /* libSendSMS.a */ = {isa = PBXFileReference; name = "libSendSMS.a"; path = "libSendSMS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -685,6 +693,7 @@
 				BF2C05E9CF4B4AA5A3DA92F3 /* libRNImagePicker.a */,
 				359E945D40144BB28FB4F2D5 /* libRNGooglePlaces.a */,
 				C0F227FE79EB49298711EE81 /* libRNVectorIcons.a */,
+				1B30984F2531450ABF3845F6 /* libSendSMS.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -702,6 +711,14 @@
 			children = (
 				2C27288D202135BC0022416F /* libBVLinearGradient.a */,
 				2C27288F202135BC0022416F /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C6ED74D2086A4B800212BE7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C6ED77F2086A4B800212BE7 /* libSendSMS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1086,6 +1103,10 @@
 					ProductGroup = 2CB3CECE2075929600ABB989 /* Products */;
 					ProjectRef = 9F2779778D6C4263A16C62B5 /* RNVectorIcons.xcodeproj */;
 				},
+				{
+					ProductGroup = 2C6ED74D2086A4B800212BE7 /* Products */;
+					ProjectRef = C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1236,6 +1257,13 @@
 			fileType = archive.ar;
 			path = libRNGoogleSignin.a;
 			remoteRef = 2C272891202135BC0022416F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C6ED77F2086A4B800212BE7 /* libSendSMS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSendSMS.a;
+			remoteRef = 2C6ED77E2086A4B800212BE7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2CB3CEC82075929500ABB989 /* libRNGooglePlaces.a */ = {
@@ -1638,7 +1666,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
+					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplicationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1676,7 +1704,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
+					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplicationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1730,7 +1758,7 @@
 					"eact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
-					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
+					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1775,7 +1803,7 @@
 					"eact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
-					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
+					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
 				);
 				INFOPLIST_FILE = GeoTogetherApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1811,7 +1839,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
+					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
 				);
 				INFOPLIST_FILE = "GeoTogetherApplication-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1857,7 +1885,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-sms\SendSMS",
+					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
 				);
 				INFOPLIST_FILE = "GeoTogetherApplication-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
