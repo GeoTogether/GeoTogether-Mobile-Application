@@ -331,7 +331,7 @@ return (
         </TouchableHighlight>
 
      
-                        <TabNavigator>
+                        <TabNavigator style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: "100%" }}>
                                 <TabNavigator.Item
                                     selected={this.state.selectedTab === 'Chat'}
                                     title="Chat"
