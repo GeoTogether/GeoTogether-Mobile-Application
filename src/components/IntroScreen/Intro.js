@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet, // CSS-like styles
   Text, // Renders text
-  View // Container component
+  View,
+  Image  // Container component
 } from "react-native";
 
 import { StackNavigator } from "react-navigation";
@@ -16,18 +17,22 @@ export default class Intro extends React.Component {
       <Swiper navigation={this.props.navigation}>
         {/* First screen */}
         <View style={styles.slide1}>
-          <Text style={styles.header}>PLAN</Text>
-          <Text style={styles.text}>your dream vacation with your favorite people</Text>
+            <Image
+                source={require('../../images/screen1.png')}
+            />
+
         </View>
         {/* Second screen */}
         <View style={styles.slide2}>
-          <Text style={styles.header}>CREATE</Text>
-          <Text style={styles.text}>events and find the best things to do on your trip</Text>
+            <Image
+                source={require('../../images/screen2.png')}
+            />
         </View>
         {/* Third screen */}
         <View style={styles.slide3}>
-          <Text style={styles.header}>TRAVEL</Text>
-          <Text style={styles.text}>with your favorite people and make memories youll never forget</Text>
+            <Image
+                source={require('../../images/screen3.png')}
+            />
         </View>
       </Swiper>
     );
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1, // Take up all screen
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
-    backgroundColor: "#FE7C00"
+    backgroundColor: "#000000"
   },
   // Slide styles
   slide2: {
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
   },
   // Header styles
   header: {
-    color: "#FFFFFF",
+    color: "#000000",
     fontFamily: "Avenir",
     fontSize: 30,
     fontWeight: "bold",
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
   },
   // Text below header
   text: {
-    color: "#FFFFFF",
+    color: "#000000",
     fontFamily: "Avenir",
     fontSize: 18,
     marginHorizontal: 40,
