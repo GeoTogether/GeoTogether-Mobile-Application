@@ -220,28 +220,28 @@ export default class Trips extends React.Component {
                 </View>
 
 
-          <TabNavigator>
+                <TabNavigator>
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Chat'}
                             title="Chat"
-                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
+                            renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#666" />}
+                            renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             onPress={() => navigate('Chat', { email: this.state.email })}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'home'}
                             title="Home"
-                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
+                            renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
+                            renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             onPress={() => navigate('Home', { email: this.state.email })}>
                         </TabNavigator.Item>
 
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Share'}
                             title="Share"
-                            renderIcon={() => <Ionicons name="share" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="share" size={this.px2dp(22)} color="#3496f0" />}
+                            renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
+                            renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
                             onPress={() => navigate('Share', { email: this.state.email })}>
                         </TabNavigator.Item>
                     </TabNavigator>
