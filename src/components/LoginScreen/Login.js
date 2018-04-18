@@ -8,14 +8,15 @@ import {
     TouchableHighlight,
     KeyboardAvoidingView,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    StatusBar
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import LinearGradient from 'react-native-linear-gradient';
 import firebase from '../Firebase/firebaseStorage';
 import {GoogleSignin} from 'react-native-google-signin';
 import {
-    StackNavigator
+    StackNavigator,
 } from 'react-navigation';
 import FBSDK, {LoginManager, AccessToken, GraphRequest,
  GraphRequestManager} from 'react-native-fbsdk';
@@ -108,9 +109,9 @@ export default class Login extends React.Component {
 
 
 
-              
+
                     navigate('Home', { email: this.state.email });
-                
+
 
             }
 
@@ -138,21 +139,21 @@ export default class Login extends React.Component {
     componentWillMount() {
         const {navigate} = this.props.navigation;
         if(firebase.auth().currentUser !== null){
- 
+
          navigate('Home', { email: firebase.auth().currentUser.email });
         }
- 
+
 
 
     }
 
 
     componentDidMount() {
-       
+
 
         const {navigate} = this.props.navigation;
         if(firebase.auth().currentUser !== null){
- 
+
          navigate('Home', { email: firebase.auth().currentUser.email });
         }
 
@@ -224,7 +225,7 @@ export default class Login extends React.Component {
 
 
                     navigate('Home', { email: this.state.data.email });
-                
+
 
 
 
@@ -299,6 +300,10 @@ export default class Login extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <StatusBar
+                        backgroundColor="#FFF"
+                        barStyle="dark-content"
+                    />
                     <View style={styles.logoContainer}>
 
                         <Image

@@ -33,25 +33,25 @@ export default class SplashScreen extends Component {
     componentDidMount() {
         const {navigate} = this.props.navigation;
         if(firebase.auth().currentUser !== null){
- 
+
          navigate('Home', { email: firebase.auth().currentUser.email });
         }
- 
+
     }
 
     render() {
         const {navigate} = this.props.navigation;
         if(firebase.auth().currentUser !== null){
- 
+
             navigate('Home', { email: firebase.auth().currentUser.email });
            }
-           
+
         return (
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.container}>
                 <View style={styles.logoContainer}>
                 <StatusBar
-                   backgroundColor="black"
-                   barStyle="light-content"
+                   backgroundColor="#FFF"
+                   barStyle="dark-content"
                  />
                     <View style={styles.logoContainerStyle}>
                         <Image

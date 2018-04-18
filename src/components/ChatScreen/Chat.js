@@ -36,7 +36,7 @@ export default class Chat extends React.Component {
         newUser: 2,
     }
 
-        
+
     px2dp(px) {
 
         const deviceW = Dimensions.get('window').width;
@@ -144,8 +144,8 @@ export default class Chat extends React.Component {
 
                 <View style={styles.mainStyle}>
                     <StatusBar
-                        backgroundColor="#000"
-                        barStyle="light-content"
+                        //backgroundColor="#000"
+                        barStyle="dark-content"
                     />
                     <ActionBar
                         containerStyle={styles.bar}
@@ -172,37 +172,37 @@ export default class Chat extends React.Component {
                         </View>
                     </ScrollView>
 
-                    
+
                     </View>
-                  
+
                     <TabNavigator>
-                        <TabNavigator.Item
-                            selected={this.state.selectedTab === 'Chat'}
-                            title="Chat"
-                            renderIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="chat" size={this.px2dp(22)} color="#3496f0" />}
-                            onPress={() => navigate('Chat', { email: this.state.email })}>
-                        </TabNavigator.Item>
+                            <TabNavigator.Item
+                                selected={this.state.selectedTab === 'Chat'}
+                                title="Chat"
+                                renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
+                                renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
+                                onPress={() => navigate('Chat', { email: this.state.email })}>
+                            </TabNavigator.Item>
 
-                        <TabNavigator.Item
-                            selected={this.state.selectedTab === 'home'}
-                            title="Home"
-                            renderIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="home" size={this.px2dp(22)} color="#3496f0" />}
-                            onPress={() => navigate('Home', { email: this.state.email })}>
-                        </TabNavigator.Item>
+                            <TabNavigator.Item
+                                selected={this.state.selectedTab === 'home'}
+                                title="Home"
+                                renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#666" />}
+                                renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
+                                onPress={() => navigate('Home', { email: this.state.email })}>
+                            </TabNavigator.Item>
 
-                        <TabNavigator.Item
-                            selected={this.state.selectedTab === 'Share'}
-                            title="Share"
-                            renderIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#666" />}
-                            renderSelectedIcon={() => <Ionicons name="Share" size={this.px2dp(22)} color="#3496f0" />}
-                            onPress={() => navigate('Share', { email: this.state.email })}>
-                        </TabNavigator.Item>
-                    </TabNavigator>
-                    
+                            <TabNavigator.Item
+                                selected={this.state.selectedTab === 'Share'}
+                                title="Share"
+                                renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
+                                renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
+                                onPress={() => navigate('Share', { email: this.state.email })}>
+                            </TabNavigator.Item>
+                        </TabNavigator>
+
                 </View>
-                
+
             </LinearGradient>
         );
     }
