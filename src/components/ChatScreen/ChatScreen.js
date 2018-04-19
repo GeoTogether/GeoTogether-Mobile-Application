@@ -1,6 +1,6 @@
 import { GiftedChat, Actions, Bubble } from 'react-native-gifted-chat';
 import React from 'react';
-import {View, Platform, Text, StyleSheet, NativeAppEventEmitter} from 'react-native';
+import {View, Platform, Text, StyleSheet, NativeAppEventEmitter, TouchableOpacity, Image} from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
 import { TabNavigator, } from 'react-navigation';
@@ -9,6 +9,9 @@ import ActionBar from 'react-native-action-bar';
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from 'react-native-fetch-blob';
 import {RevMobManager} from 'react-native-revmob';
+import Modal from "react-native-modal";
+import Mailer from 'react-native-mail';
+import SendSMS from 'react-native-sms';
 
 
 const Blob = RNFetchBlob.polyfill.Blob
@@ -38,6 +41,7 @@ export default class ChatScreen extends React.Component {
         firstTime: 0,
         arrayVal: 0,
         image_uri: null,
+        
     }
 
     renderName = (props) => {
@@ -273,7 +277,7 @@ export default class ChatScreen extends React.Component {
 
 
     componentWillMount() {
-
+        this.setState({modalVisible: false});
 
 
     }
@@ -409,24 +413,95 @@ export default class ChatScreen extends React.Component {
         });
     }
 
+    sendText = () => {
+        SendSMS.send({
+            body: 'Invitation to join ' + this.state.tripname + '\n\nHey there! I hope you can accept this invite to join this amazing trip.\n\n' +
+            this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
+            successTypes: ['sent', 'queued']
+        }, (completed, cancelled, error) => {
+
+            console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
+
+        });
+
+        this.closeModal();
+    };
+
+    handleEmail = () => {
+        Mailer.mail({
+            subject: 'Invitation to join ' + this.state.tripname,
+            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>'+ this.state.tripname +
+                    '<b> starts on the </b>' + this.state.startDate + '<b>\n\nPlease be sure to accept soon!</b>',
+            isHTML: true
+        }, (error, event) => {
+            Alert.alert(
+                error,
+                event,
+                [
+                    {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+                    {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+                ],
+                { cancelable: true }
+            )
+        });
+
+        this.closeModal();
+
+    };
+
+    openModal() {
+        this.setState({modalVisible: true});
+    }
+
+    closeModal() {
+        this.setState({modalVisible: false});
+    }
 
 
     render() {
         const { state } = this.props.navigation;
         const { navigate } = this.props.navigation;
         var email = state.params.email;
+
+        var barComp;
+
+        if(state.params.trip.admin == state.params.email){
+            barComp = <ActionBar
+            containerStyle={styles.bar}
+            title={state.params.trip.tripName}
+            titleStyle={styles.title}
+            backgroundColor={'white'}
+            iconImageStyle={{tintColor: "black"}}
+            leftIconName={'back'}
+            onLeftPress={() => navigate('Chat', { email: state.params.email })}
+            rightIcons={[
+                {
+                    name: 'plus',
+                    onPress: () => this.openModal()
+                },
+            ]}
+        />
+
+
+        }else{
+
+           barComp = <ActionBar
+            containerStyle={styles.bar}
+            title={state.params.trip.tripName}
+            titleStyle={styles.title}
+            backgroundColor={'white'}
+            iconImageStyle={{tintColor: "black"}}
+            leftIconName={'back'}
+            onLeftPress={() => navigate('Chat', { email: state.params.email })}
+        />
+
+        }
+
+
         return (
             <View style={{flex: 1}}>
 
-           <ActionBar
-                    containerStyle={styles.bar}
-                    title={state.params.trip.tripName}
-                    titleStyle={styles.title}
-                    backgroundColor={'white'}
-                    iconImageStyle={{tintColor: "black"}}
-                    leftIconName={'back'}
-                    onLeftPress={() => navigate('Chat', { email: state.params.email })}
-                />
+               {barComp}
 
 
                 <GiftedChat
@@ -442,6 +517,34 @@ export default class ChatScreen extends React.Component {
 
                 />
 
+
+
+          <Modal
+                        visible={this.state.modalVisible}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeModal()}>
+
+                        <View style={styles.inviteContainer}>
+                            <View style={styles.modalContainer}>
+                                <View style={styles.innerContainer}>
+
+                                    <TouchableOpacity onPress={this.sendText}>
+                                        <Image source={require('../../images/sms.png')}/>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity
+                                        onPress={this.handleEmail}>
+                                        <Image source={require('../../images/email.png')}/>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={() => this.closeModal()}>
+                                        <Image source={require('../../images/cancel.png')}/>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+
             </View>
            
 
@@ -456,5 +559,11 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20
-    }
+    },
+    inviteContainer: {
+        flex: 1,
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 });

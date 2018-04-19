@@ -13,7 +13,7 @@ import Modal from "react-native-modal";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Mailer from 'react-native-mail';
-import SendSMS from 'react-native-sms'
+import SendSMS from 'react-native-sms';
 import {RevMobManager} from "react-native-revmob";
 
 var SendIntentAndroid = require('react-native-send-intent');
@@ -54,67 +54,7 @@ export default class NewTrip extends React.Component {
         RevMobManager.hideBanner()
     }
 
-    sendEmail = () => {
 
-        SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
-            "Hey there! I hope you can accept this invite to join this amazing trip.\n\n"
-            + this.state.tripname + " starts on the " + this.state.startDate);
-
-        this.closeModal();
-
-    };
-    sendSMS = () => {
-
-        SendIntentAndroid.sendMail(this.state.email, "Invitation to join " + this.state.tripname,
-            "Hey there! I hope you can accept this invite to join this amazing trip.\n\n"
-            + this.state.tripname + " starts on the " + this.state.startDate);
-
-        SendIntentAndroid.sendText({
-            title: 'Invitation to join ' + this.state.tripname,
-            text: "Hey there! I hope you can accept this invite to join this amazing trip.\n\n" +
-            this.state.tripname + " starts on the " + this.state.startDate + "\n\nPlease be sure to accept soon!",
-            type: SendIntentAndroid.TEXT_PLAIN
-        });
-
-        this.closeModal();
-
-    };
-
-    sendText = () => {
-        SendSMS.send({
-            body: 'Invitation to join ' + this.state.tripname + '\n\nHey there! I hope you can accept this invite to join this amazing trip.\n\n' +
-            this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
-            successTypes: ['sent', 'queued']
-        }, (completed, cancelled, error) => {
-
-            console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
-
-        });
-
-        this.closeModal();
-    };
-
-    handleEmail = () => {
-        Mailer.mail({
-            subject: 'Invitation to join ' + this.state.tripname,
-            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>'+ this.state.tripname +
-                    '<b> starts on the </b>' + this.state.startDate + '<b>\n\nPlease be sure to accept soon!</b>',
-            isHTML: true
-        }, (error, event) => {
-            Alert.alert(
-                error,
-                event,
-                [
-                    {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
-                    {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
-                ],
-                { cancelable: true }
-            )
-        });
-
-        this.closeModal();
-
-    };
 
     constructor(props) {
         super(props)
@@ -362,9 +302,7 @@ export default class NewTrip extends React.Component {
                                 <Text style={styles.splitText}>+ ADD EVENT</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => this.openModal()}>
-                                <Text style={styles.splitText}>+ ADD MEMBERS</Text>
-                            </TouchableOpacity>
+                         
                         </View>
                     </View>
 
@@ -376,31 +314,7 @@ export default class NewTrip extends React.Component {
                         </View>
                     </View>
 
-                    <Modal
-                        visible={this.state.modalVisible}
-                        animationType={'slide'}
-                        onRequestClose={() => this.closeModal()}>
-
-                        <View style={styles.inviteContainer}>
-                            <View style={styles.modalContainer}>
-                                <View style={styles.innerContainer}>
-
-                                    <TouchableOpacity onPress={this.sendText}>
-                                        <Image source={require('../../images/sms.png')}/>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity
-                                        onPress={this.handleEmail}>
-                                        <Image source={require('../../images/email.png')}/>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity onPress={() => this.closeModal()}>
-                                        <Image source={require('../../images/cancel.png')}/>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </Modal>
+          
 
                 </View>
             </View>
