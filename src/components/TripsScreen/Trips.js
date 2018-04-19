@@ -225,13 +225,14 @@ export default class Trips extends React.Component {
                     />
               
 
+                <View style={styles.tripParentContainer}>
                 <View style={styles.tripContainer}>
                     <ScrollView>
                         <View style={styles.tripView}>
                             {components}
                         </View>
                     </ScrollView>
-
+                </View>
                 </View>
 
                 <View style={styles.addButtonContainer}>
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     mainStyle: {
         flex: 1,
         width: '100%',
-        height:'100%',
+        height:'100%'
     },
     textStyle: {
         flex: 1,
@@ -303,11 +304,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: '60%'
     },
+    tripParentContainer:{
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     tripContainer: {
         height: '75%',
         width: '95%',
-        paddingTop: 35,
-        // backgroundColor: 'black',
     },
     tripView: {
         flex: 1,
