@@ -167,7 +167,6 @@ export default class GMapView extends React.Component {
         this.setState({ longitude: state.params.trip.destination1.geometry.location.lng });
         this.setState({ trip: state.params.trip });
 
-
         // this.showAddress();
         this.showDirections();
         this.getCurrentPosition();
@@ -210,6 +209,7 @@ export default class GMapView extends React.Component {
 
             var obj2 = { d1: { latitude: this.state.events[this.state.events.length - 1].eventAddress.geometry.location.lat, longitude: this.state.events[this.state.events.length - 1].eventAddress.geometry.location.lng }, d2: { latitude: state.params.trip.destination2.geometry.location.lat, longitude: state.params.trip.destination2.geometry.location.lng } };
 
+
             this.state.coords.push(obj2);
 
 
@@ -233,17 +233,17 @@ export default class GMapView extends React.Component {
         navigator.geolocation.getCurrentPosition(
             (position) => {
 
-                this.setState({
-                    userlatitude: position.coords.latitude,
-                    userlongitude: position.coords.longitude,
-                    error: null,
-                });
-                //  this.setState({ latitude:  position.coords.latitude });
-                // this.setState({ longitude: position.coords.longitude});
-            },
-            (error) => this.setState({ error: error.message }),
+            this.setState({
+            userlatitude: position.coords.latitude,
+            userlongitude: position.coords.longitude,
+            error: null,
+        });
+        //  this.setState({ latitude:  position.coords.latitude });
+        // this.setState({ longitude: position.coords.longitude});
+    },
+        (error) => this.setState({ error: error.message }),
             { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
-        );
+    );
     }
 
 
@@ -254,12 +254,14 @@ export default class GMapView extends React.Component {
         // adding buttom components for all the user trips
         var MarkersComponents = this.state.destinations.map((type) => <MapView.Marker coordinate={{
             latitude: type.geometry.location.lat,
+
             longitude: type.geometry.location.lng
         }} title={type.name}
         />)
 
         var eventsMComponents = this.state.events.map((type) => <MapView.Marker coordinate={{
             latitude: type.eventAddress.geometry.location.lat,
+
             longitude: type.eventAddress.geometry.location.lng
         }} title={type.eventAddress.name}
             pinColor="blue"
@@ -273,14 +275,15 @@ export default class GMapView extends React.Component {
         var apikey1 = 'AIzaSyC5C7rjlNIxueS9wOSr_ayIv7upq3uoHIQ';
 
         var dirComponents = this.state.coords.map((type) => <MapViewDirections
-            origin={type.d1}
-            destination={type.d2}
-            apikey={apikey1}
-            strokeWidth={3}
-            strokeColor="blue"
-        />)
+        origin={type.d1}
+        destination={type.d2}
+        apikey={apikey1}
+        strokeWidth={3}
+        strokeColor="blue"
+            />)
 
       
+
 
 var userloc = <MapView.Marker coordinate={{
     latitude: this.state.userlatitude,
@@ -338,10 +341,12 @@ return (
 
 
 
+        {dirComponents}
 
-                </MapView>
+        {userloc}
 
 
+    </MapView>
 
             </View>
 
@@ -458,6 +463,9 @@ return (
         <View style={styles.SecondContainer}>
 
 
+        <TouchableHighlight onPress={() => this.getTripInfo()} style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }}>
+    <Image style={{ position: "absolute", bottom: 0, right: 0, height: 30, width: 30 }} source={require('../../images/infobutton.png')} />
+        </TouchableHighlight>
 
             <Modal style={styles.ModalContainer}
                 visible={this.state.modalVisible}
@@ -480,6 +488,7 @@ return (
                         <Text style={styles.infoText1}>Group Total: </Text>
                         <Text style={styles.infoText2}> $300.12 </Text>
                     </View>
+
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={styles.infoText1}>My Total: </Text>
@@ -564,8 +573,12 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',
         width: 100,
-        height: 40,
-        borderRadius: 10
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginBottom: 10,
+        marginTop: 10
     },
     centerView: {
         alignItems: 'center',
@@ -575,9 +588,10 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '100',
         paddingTop: 10,
-
     },
     infoContainer: {
+        height: '70%',
+        width: '100%',
         paddingRight: 40,
         paddingLeft: 40,
         backgroundColor: 'white',
@@ -595,75 +609,56 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'rgb(128,128,128)',
         fontWeight: 'normal',
-        fontSize: 16,
-        lineHeight: 30,
+        fontSize: 10,
     },
     infoText2: {
         color: '#000',
         fontWeight: 'normal',
         fontSize: 16,
-        lineHeight: 30,
     },
     infoText3: {
         color: '#000',
         fontWeight: 'normal',
         fontSize: 14,
-        lineHeight: 30,
         textAlign: 'center',
     },
     timeText: {
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20,
-        lineHeight: 30,
         textAlign: 'center',
     },
     Container: {
         flex: 1,
     },
-
     MapContainer: {
         height: '100%',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 40,
     },
 
     MapStyle: {
         height: '100%',
         width: '100%',
-
     },
 
-    SecondContainer: {
-        height: '10%',
-        paddingRight: 40,
-        paddingLeft: 40,
-
+    modalContainer: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        height: '50%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+        // paddingRight: 40,
+        // paddingLeft: 40,
     },
-
-    ModalContainer: {
-        height: '10%',
-        backgroundColor: 'white',
-
-    },
-    infoTextEvent: {
-        color: '#000',
-        fontWeight: 'normal',
-        fontSize: 16,
-        lineHeight: 30,
-        textAlign: 'center',
-    },
-    title: {
-        textAlign: 'center',
-        color: '#000',
-        fontWeight: 'bold',
-        fontSize: 20
-    },
-    tabBar: {
-        height: '20%',
-        backgroundColor: 'white',
-    }
+    //
+    // ModalContainer: {
+    //     height: '10%',
+    //     backgroundColor: 'white',
+    //
+    // }
 
 });
