@@ -71,7 +71,7 @@ export default class ChatScreen extends React.Component {
 
 
     componentDidMount() {
-
+        RevMobManager.hideBanner();
         const { state } = this.props.navigation;
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';

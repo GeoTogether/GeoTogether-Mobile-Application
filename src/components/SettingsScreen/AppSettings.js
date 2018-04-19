@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppRegistry, Image, TouchableHighlight, StyleSheet, View, TextInput, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
+import {RevMobManager} from "react-native-revmob";
 
 export default class AppSettings extends React.Component {
   constructor(props) {
@@ -17,6 +18,10 @@ export default class AppSettings extends React.Component {
       this.setState({
         count: this.state.count+1
       })
+    }
+
+    componentWillUnmount(){
+        RevMobManager.showBanner();
     }
     
         // funcation to sign out using firebase authentication.

@@ -80,7 +80,6 @@ export default class Chat extends React.Component {
         NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
             RevMobManager.showBanner(); // Show banner if it's loaded
         });
-        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
@@ -90,16 +89,14 @@ export default class Chat extends React.Component {
 
         // gets all the user trips
         this.onPressGetTrips();
-
+        RevMobManager.showBanner();
         // BackHandler.addEventListener('hardwareBackPress', function () {
         //     BackHandler.exitApp();
         //     return true;
         // });
     }
 
-    componentWillMount(){
-        RevMobManager.showBanner();
-    }
+
 
     componentWillUnmount() {
 

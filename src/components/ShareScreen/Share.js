@@ -48,7 +48,7 @@ export default class Share extends React.Component {
     }
 
     componentWillMount() {
-        RevMobManager.showBanner();
+
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -62,10 +62,10 @@ export default class Share extends React.Component {
         NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
             RevMobManager.showBanner(); // Show banner if it's loaded
         });
-        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
+        RevMobManager.showBanner();
 
     }
 
