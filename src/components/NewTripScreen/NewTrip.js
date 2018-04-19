@@ -172,7 +172,15 @@ export default class NewTrip extends React.Component {
             events: this.state.events,
             members: this.state.members
         }
-        navigate('NewEvent', {email: this.state.email, trip: tripinfo});
+
+        if(this.state.tripname == '' || this.state.destination1 == '' || this.state.destination2 == '' || this.state.startDate == null || this.state.endDate == null) {
+            alert("Please fill out all fields in the new trip first, before creating an event.");
+        }
+
+        else {
+            navigate('NewEvent', {email: this.state.email, trip: tripinfo});
+        }
+
     }
 
 
@@ -181,25 +189,30 @@ export default class NewTrip extends React.Component {
         const {navigate} = this.props.navigation;
         const {tripname, destination1, destination2, members, email, startDate, endDate, events} = this.state;
 
+        if(tripname == '' || destination1 == '' || destination2 == '' || startDate == null || endDate == null) {
+            alert("Please fill out all fields.");
+        }
 
-        members.push(email);
-
-
-        // add the the trip to the database
-        firebase.database().ref('trips/').push({
-            tripName: tripname,
-            admin: email,
-            startDate: startDate,
-            endDate: endDate,
-            destination1: destination1,
-            destination2: destination2,
-            members: members,
-            events: events
-        });
+        else {
+            members.push(email);
 
 
-        //after adding the trip go back to trips
-        navigate('Home', {email: this.state.email});
+            // add the the trip to the database
+            firebase.database().ref('trips/').push({
+                tripName: tripname,
+                admin: email,
+                startDate: startDate,
+                endDate: endDate,
+                destination1: destination1,
+                destination2: destination2,
+                members: members,
+                events: events
+            });
+
+
+            //after adding the trip go back to trips
+            navigate('Home', {email: this.state.email});
+        }
     }
 
     render() {
