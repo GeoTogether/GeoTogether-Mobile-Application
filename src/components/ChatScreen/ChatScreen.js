@@ -1,6 +1,6 @@
 import { GiftedChat, Actions, Bubble } from 'react-native-gifted-chat';
 import React from 'react';
-import {View, Platform, Text, StyleSheet, NativeAppEventEmitter, TouchableOpacity, Image} from 'react-native';
+import { View, Platform, Text, StyleSheet, NativeAppEventEmitter, TouchableOpacity, Image,TextInput } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
 import { TabNavigator, } from 'react-navigation';
@@ -8,7 +8,7 @@ import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from 'react-native-fetch-blob';
-import {RevMobManager} from 'react-native-revmob';
+import { RevMobManager } from 'react-native-revmob';
 import Modal from "react-native-modal";
 import Mailer from 'react-native-mail';
 import SendSMS from 'react-native-sms';
@@ -41,7 +41,7 @@ export default class ChatScreen extends React.Component {
         firstTime: 0,
         arrayVal: 0,
         image_uri: null,
-        
+
     }
 
     renderName = (props) => {
@@ -277,7 +277,7 @@ export default class ChatScreen extends React.Component {
 
 
     componentWillMount() {
-        this.setState({modalVisible: false});
+        this.setState({ modalVisible: false });
 
 
     }
@@ -416,7 +416,7 @@ export default class ChatScreen extends React.Component {
     sendText = () => {
         SendSMS.send({
             body: 'Invitation to join ' + this.state.tripname + '\n\nHey there! I hope you can accept this invite to join this amazing trip.\n\n' +
-            this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
+                this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
             successTypes: ['sent', 'queued']
         }, (completed, cancelled, error) => {
 
@@ -427,19 +427,34 @@ export default class ChatScreen extends React.Component {
         this.closeModal();
     };
 
+
+    
+    validateEmail = (InviteEmail) => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(InviteEmail);
+    }; 
+
+
     handleEmail = () => {
+        const { state } = this.props.navigation;
+
+        if (!this.validateEmail(this.state.InviteEmail)) {
+            alert("Please enter a valid email");
+        } else {
+
         Mailer.mail({
-            subject: 'Invitation to join ' + this.state.tripname,
-            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>'+ this.state.tripname +
-                    '<b> starts on the </b>' + this.state.startDate + '<b>\n\nPlease be sure to accept soon!</b>',
+            subject: 'Invitation to join ' + state.params.trip.tripName,
+            recipients: [this.state.InviteEmail],
+            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>' + state.params.trip.tripName +
+                '<b> starts on the </b>' + state.params.trip.startDate + '<b>\n\nPlease be sure to accept soon!</b>'+ '<b>\n\nhttps://geotogetherapp.github.io/?trip='+state.params.tripKey.key+'&email='+this.state.InviteEmail,
             isHTML: true
         }, (error, event) => {
             Alert.alert(
                 error,
                 event,
                 [
-                    {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
-                    {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+                    { text: 'Ok', onPress: () => console.log('OK: Email Error Response') },
+                    { text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response') }
                 ],
                 { cancelable: true }
             )
@@ -447,14 +462,16 @@ export default class ChatScreen extends React.Component {
 
         this.closeModal();
 
+    }
+
     };
 
     openModal() {
-        this.setState({modalVisible: true});
+        this.setState({ modalVisible: true });
     }
 
     closeModal() {
-        this.setState({modalVisible: false});
+        this.setState({ modalVisible: false });
     }
 
 
@@ -465,43 +482,43 @@ export default class ChatScreen extends React.Component {
 
         var barComp;
 
-        if(state.params.trip.admin == state.params.email){
+        if (state.params.trip.admin == state.params.email) {
             barComp = <ActionBar
-            containerStyle={styles.bar}
-            title={state.params.trip.tripName}
-            titleStyle={styles.title}
-            backgroundColor={'white'}
-            iconImageStyle={{tintColor: "black"}}
-            leftIconName={'back'}
-            onLeftPress={() => navigate('Chat', { email: state.params.email })}
-            rightIcons={[
-                {
-                    name: 'plus',
-                    onPress: () => this.openModal()
-                },
-            ]}
-        />
+                containerStyle={styles.bar}
+                title={state.params.trip.tripName}
+                titleStyle={styles.title}
+                backgroundColor={'white'}
+                iconImageStyle={{ tintColor: "black" }}
+                leftIconName={'back'}
+                onLeftPress={() => navigate('Chat', { email: state.params.email })}
+                rightIcons={[
+                    {
+                        name: 'plus',
+                        onPress: () => this.openModal()
+                    },
+                ]}
+            />
 
 
-        }else{
+        } else {
 
-           barComp = <ActionBar
-            containerStyle={styles.bar}
-            title={state.params.trip.tripName}
-            titleStyle={styles.title}
-            backgroundColor={'white'}
-            iconImageStyle={{tintColor: "black"}}
-            leftIconName={'back'}
-            onLeftPress={() => navigate('Chat', { email: state.params.email })}
-        />
+            barComp = <ActionBar
+                containerStyle={styles.bar}
+                title={state.params.trip.tripName}
+                titleStyle={styles.title}
+                backgroundColor={'white'}
+                iconImageStyle={{ tintColor: "black" }}
+                leftIconName={'back'}
+                onLeftPress={() => navigate('Chat', { email: state.params.email })}
+            />
 
         }
 
 
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
 
-               {barComp}
+                {barComp}
 
 
                 <GiftedChat
@@ -519,34 +536,40 @@ export default class ChatScreen extends React.Component {
 
 
 
-          <Modal
-                        visible={this.state.modalVisible}
-                        animationType={'slide'}
-                        onRequestClose={() => this.closeModal()}>
+                <Modal
+                    visible={this.state.modalVisible}
+                    animationType={'slide'}
+                    onRequestClose={() => this.closeModal()}>
 
-                        <View style={styles.inviteContainer}>
-                            <View style={styles.modalContainer}>
-                                <View style={styles.innerContainer}>
+                    <View style={styles.inviteContainer}>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.innerContainer}>
 
-                                    <TouchableOpacity onPress={this.sendText}>
-                                        <Image source={require('../../images/sms.png')}/>
-                                    </TouchableOpacity>
+                                <TextInput
+                                    placeholder="New Member Email Address"
+                                    underlineColorAndroid="transparent"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    onChangeText={InviteEmail => this.setState({InviteEmail})}
+                                    style={styles.emailStyle}
+                                />
 
-                                    <TouchableOpacity
-                                        onPress={this.handleEmail}>
-                                        <Image source={require('../../images/email.png')}/>
-                                    </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={this.handleEmail}>
+                                    <Image source={require('../../images/email.png')} />
+                                </TouchableOpacity>
 
-                                    <TouchableOpacity onPress={() => this.closeModal()}>
-                                        <Image source={require('../../images/cancel.png')}/>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity onPress={() => this.closeModal()}>
+                                    <Image source={require('../../images/cancel.png')} />
+                                </TouchableOpacity>
                             </View>
                         </View>
-                    </Modal>
+                    </View>
+                </Modal>
 
             </View>
-           
+
 
         );
     }
@@ -565,5 +588,24 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    innerContainer: {
+        backgroundColor: "#b4b4b4",
+        padding: 20,
+        borderRadius: 4,
+        borderColor: "#ffa53f"
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 100,
+        width: 350
+    },
+    emailStyle: {
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10,
     },
 });
