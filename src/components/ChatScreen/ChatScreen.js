@@ -41,6 +41,8 @@ export default class ChatScreen extends React.Component {
         firstTime: 0,
         arrayVal: 0,
         image_uri: null,
+        AddUser: null,
+        TripUsers: null,
 
     }
 
@@ -474,6 +476,99 @@ export default class ChatScreen extends React.Component {
         this.setState({ modalVisible: false });
     }
 
+    AddToTrip(){
+        this.stat.AddUser = 1;
+        this.openModal();
+    }
+    DeleteFromTrip(){
+        this.stat.AddUser = null;
+        this.openModal();
+    }
+
+    AddRender(){
+        return <View><TextInput
+                                    placeholder="New Member Email Address"
+                                    underlineColorAndroid="transparent"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    onChangeText={InviteEmail => this.setState({InviteEmail})}
+                                    style={styles.emailStyle}
+                                />
+
+                                <TouchableOpacity
+                                    onPress={this.handleEmail}>
+                                    <Image source={require('../../images/email.png')} />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => this.closeModal()}>
+                                    <Image source={require('../../images/cancel.png')} />
+                                </TouchableOpacity></View>;
+    }
+
+    DeleteRender(){
+        const { state } = this.props.navigation;
+        var Path = 'trips/' + state.params.tripKey.key + '/'
+
+        var members = "";
+
+        firebase.database().ref(Path).once('value', (snapshot) => {members = snapshot.val().members});
+
+        var membersWithoutAdmin=[];
+        var y = 0;
+        for(x = 0; x< members.length; x++){
+
+            if(members[x] == state.params.email){
+                
+            }
+            else{
+                membersWithoutAdmin[y] = members[x];
+                y++;
+
+            }
+
+
+        }
+
+
+
+        this.stat.TripUsers = membersWithoutAdmin;                      
+                                
+    }
+
+    DeleteUser(user){
+        const { state } = this.props.navigation;
+
+        var Path = 'trips/' + state.params.tripKey.key + '/';
+        var newMembers =[];
+
+        firebase.database().ref(Path).once('value', (snapshot) => {
+
+       
+        var oldMembers = snapshot.val().members;
+        var y = 0;
+        for(x = 0; x< oldMembers.length; x++){
+
+            if(oldMembers[x] == user){
+
+
+            }
+            else{
+                newMembers[y] = oldMembers[x];
+                y++;
+
+            }
+        }
+
+        });
+
+        firebase.database().ref('trips/'+state.params.tripKey.key+'/members').set(newMembers);
+                
+
+        this.closeModal();
+
+        alert("Succesfully Removed "+user+" From This Trip");
+    }
 
     render() {
         const { state } = this.props.navigation;
@@ -481,6 +576,33 @@ export default class ChatScreen extends React.Component {
         var email = state.params.email;
 
         var barComp;
+
+        var ModalContainer = "";
+        var CancelButton = <View></View>;
+        var DeleteText = <View></View>;
+
+        if (this.stat.AddUser != null) {
+          DeleteText = <View></View>; 
+          ModalContainer = this.AddRender();  
+          CancelButton = <View></View>;     
+
+
+        } else {
+
+
+        this.DeleteRender();
+          DeleteText = <Text style={styles.buttonText}>Please Select The User You Would Like To Delete From The Trip</Text>; 
+          ModalContainer = this.stat.TripUsers.map((type) =>
+            <TouchableOpacity style={styles.buttonStyle} onPress={() => this.DeleteUser(type)}>
+                <Text style={styles.buttonText}>{type}</Text>
+            </TouchableOpacity>);
+
+          CancelButton = <View><TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeModal()}>
+                <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity></View>;
+
+
+        }
 
         if (state.params.trip.admin == state.params.email) {
             barComp = <ActionBar
@@ -494,7 +616,11 @@ export default class ChatScreen extends React.Component {
                 rightIcons={[
                     {
                         name: 'plus',
-                        onPress: () => this.openModal()
+                        onPress: () => this.AddToTrip(),
+                    },
+                    {
+                        name: 'star',
+                        onPress: () => this.DeleteFromTrip(),
                     },
                 ]}
             />
@@ -545,24 +671,14 @@ export default class ChatScreen extends React.Component {
                         <View style={styles.modalContainer}>
                             <View style={styles.innerContainer}>
 
-                                <TextInput
-                                    placeholder="New Member Email Address"
-                                    underlineColorAndroid="transparent"
-                                    returnKeyType="next"
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    onChangeText={InviteEmail => this.setState({InviteEmail})}
-                                    style={styles.emailStyle}
-                                />
+                            
 
-                                <TouchableOpacity
-                                    onPress={this.handleEmail}>
-                                    <Image source={require('../../images/email.png')} />
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={() => this.closeModal()}>
-                                    <Image source={require('../../images/cancel.png')} />
-                                </TouchableOpacity>
+                            {DeleteText}                              
+                            {ModalContainer}
+                            {CancelButton}
+                            
+                                               
+                                
                             </View>
                         </View>
                     </View>
@@ -574,6 +690,7 @@ export default class ChatScreen extends React.Component {
         );
     }
 }
+
 
 
 const styles = StyleSheet.create({
@@ -607,5 +724,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: 'white',
         borderRadius: 10,
+    },
+    buttonStyle: {
+        backgroundColor: 'rgb(0,25,88)',
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100'
     },
 });
