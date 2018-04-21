@@ -414,9 +414,14 @@ export default class ChatScreen extends React.Component {
     }
 
     sendText = () => {
+        const { state } = this.props.navigation;
+        
+        if (!this.validateEmail(this.state.InviteEmail)) {
+            alert("Please enter a valid email");
+        } else {
         SendSMS.send({
-            body: 'Invitation to join ' + this.state.tripname + '\n\nHey there! I hope you can accept this invite to join this amazing trip.\n\n' +
-                this.state.tripname + ' starts on the ' + this.state.startDate + '\n\nPlease be sure to accept soon!',
+            body: 'Hey there! I hope you can accept this invite to join this amazing trip.\n\n' + state.params.trip.tripName +
+            ' starts on the ' + state.params.trip.startDate + '\n\nPlease be sure to accept soon!'+ '\n\nhttps://geotogetherapp.github.io/?trip='+state.params.tripKey.key+'&email='+this.state.InviteEmail,
             successTypes: ['sent', 'queued']
         }, (completed, cancelled, error) => {
 
@@ -425,6 +430,8 @@ export default class ChatScreen extends React.Component {
         });
 
         this.closeModal();
+
+    }
     };
 
 
@@ -554,6 +561,10 @@ export default class ChatScreen extends React.Component {
                                     onChangeText={InviteEmail => this.setState({InviteEmail})}
                                     style={styles.emailStyle}
                                 />
+
+                                 <TouchableOpacity onPress={this.sendText}>
+                                        <Image source={require('../../images/sms.png')}/>
+                                   </TouchableOpacity>
 
                                 <TouchableOpacity
                                     onPress={this.handleEmail}>
