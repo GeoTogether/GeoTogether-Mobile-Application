@@ -25,6 +25,7 @@ import Modal from "react-native-modal";
 import TabNavigator from 'react-native-tab-navigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RevMobManager} from "react-native-revmob";
+import userlocationIcon from '../../images/userlocation.png';
 
 
 
@@ -288,8 +289,8 @@ export default class GMapView extends React.Component {
 var userloc = <MapView.Marker coordinate={{
     latitude: this.state.userlatitude,
     longitude: this.state.userlongitude
-}} title={"Your Location"} >
-<Image source={require('../../images/userlocation.png')} style ={{ width: 40, height: 40 }} />
+}} title={"Your Location"}
+image={userlocationIcon} >
 
 </MapView.Marker>
 return (
@@ -337,12 +338,7 @@ return (
 
                             {dirComponents}
 
-                            {userloc}
-
-
-
-        {dirComponents}
-
+                   
         {userloc}
 
 
@@ -562,7 +558,7 @@ return (
 const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
-        color: 'white',
+        color: 'black',
         fontWeight: '700'
     },
     adContainer:{
