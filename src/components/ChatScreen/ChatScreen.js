@@ -629,7 +629,8 @@ export default class ChatScreen extends React.Component {
                         onPress: () => this.AddToTrip(),
                     },
                     {
-                        name: 'star',
+                        //name: 'star',
+                        image: require('../../images/minus.png'),
                         onPress: () => this.DeleteFromTrip(),
                     },
                 ]}
