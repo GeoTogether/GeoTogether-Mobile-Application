@@ -14,7 +14,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Mailer from 'react-native-mail';
 import SendSMS from 'react-native-sms';
-import {RevMobManager} from "react-native-revmob";
+
 
 var SendIntentAndroid = require('react-native-send-intent');
 
@@ -51,7 +51,7 @@ export default class NewTrip extends React.Component {
     };
 
     componentDidMount(){
-        RevMobManager.hideBanner()
+        
     }
 
 
@@ -144,10 +144,19 @@ export default class NewTrip extends React.Component {
 
     render() {
         const {navigate} = this.props.navigation;
-
+        const {goBack} = this.props.navigation;
+        const {state} = this.props.navigation;
         return (
             <View style={styles.container}>
+                 <View style={styles.backButtonContainer}>
+                    <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                        <Image source={require('../../images/backarrow.png')}/>
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.childContainer}>
+           
+
                     <View style={styles.tripNameInputContainer}>
                         <View style={styles.tripNameContainer}>
                             <Text style={styles.textHeader}>Name of Trip</Text>
@@ -176,6 +185,8 @@ export default class NewTrip extends React.Component {
                                 date={this.state.startDate}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 value={this.state.startDate}
                                 placeholder="Start Date"
                                 format="YYYY-MM-DD"
@@ -195,6 +206,8 @@ export default class NewTrip extends React.Component {
                                 date={this.state.endDate}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 placeholder="End Date"
                                 format="YYYY-MM-DD"
                                 value={this.state.endDate}
@@ -483,5 +496,11 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    back:{
+        marginLeft: 10
+      },
+      backButtonContainer: {
+        height: '5%'
+      },
 });

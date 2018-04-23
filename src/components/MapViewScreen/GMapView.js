@@ -23,8 +23,6 @@ import RNGooglePlaces from 'react-native-google-places';
 import firebase from '../Firebase/firebaseStorage';
 import Modal from "react-native-modal";
 import TabNavigator from 'react-native-tab-navigator';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {RevMobManager} from "react-native-revmob";
 import userlocationIcon from '../../images/userlocation.png';
 
 
@@ -177,13 +175,7 @@ export default class GMapView extends React.Component {
     }
 
     componentDidMount() {
-        RevMobManager.startSession("5ac329b0a30c3b1c882e56fb", function revMobStartSessionCb(err){
-            if(!err) RevMobManager.loadBanner();
-        });
-        NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
-            RevMobManager.showBanner(); // Show banner if it's loaded
-        });
-        RevMobManager.showBanner();
+
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
         this.getCurrentPosition();
@@ -295,8 +287,7 @@ image={userlocationIcon} >
 </MapView.Marker>
 return (
     <View style={styles.Container}>
-        <View style={styles.adContainer}>
-        </View>
+      
         <StatusBar
                     //status bar fix
                     //backgroundColor="#000"
@@ -310,14 +301,14 @@ return (
             backgroundColor={'#FFFFFF'}
             iconImageStyle={{ tintColor: "black" }}
             leftIconImage={require('../../images/profile.png')}
-            onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip }, RevMobManager.hideBanner())}
+            onLeftPress={() => navigate('ProfileSettings', { email: state.params.email, trip: state.params.trip })}
             rightIcons={[
                 {
                     image: require('../../images/timeline.png'), // To use a custom image
-                    onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }, RevMobManager.hideBanner()),
+                    onPress: () => navigate('TimeLineScreen', { email: state.params.email, trip: state.params.trip }),
                 }, {
                     image: require('../../images/settings.png'), // To use a custom image
-                    onPress: () => navigate('AppSettings', { email: state.params.email }, RevMobManager.hideBanner())
+                    onPress: () => navigate('AppSettings', { email: state.params.email })
                 },
 
             ]}
@@ -362,7 +353,7 @@ return (
                                     title="Chat"
                                     renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#666" />}
                                     renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/chat.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                                    onPress={() => navigate('Chat', { email: this.state.email }, RevMobManager.hideBanner())}>
+                                    onPress={() => navigate('Chat', { email: this.state.email })}>
                                 </TabNavigator.Item>
 
                                 <TabNavigator.Item
@@ -370,7 +361,7 @@ return (
                                     title="Home"
                                     renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#666" />}
                                     renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/home.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                                    onPress={() => navigate('Home', { email: this.state.email }, RevMobManager.hideBanner())}>
+                                    onPress={() => navigate('Home', { email: this.state.email })}>
                                 </TabNavigator.Item>
 
                                 <TabNavigator.Item
@@ -378,7 +369,7 @@ return (
                                     title="Share"
                                     renderIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#666" />}
                                     renderSelectedIcon={() => <Image style={{width: 27, height: 27}} source={require('../../images/share.png')} size={this.px2dp(15)} tintColor="#3496f0" />}
-                                    onPress={() => navigate('Share', { email: this.state.email }, RevMobManager.hideBanner())}>
+                                    onPress={() => navigate('Share', { email: this.state.email })}>
                                 </TabNavigator.Item>
                             </TabNavigator>
 

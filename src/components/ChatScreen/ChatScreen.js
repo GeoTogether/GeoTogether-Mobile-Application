@@ -1,6 +1,6 @@
 import { GiftedChat, Actions, Bubble } from 'react-native-gifted-chat';
 import React from 'react';
-import { View, Platform, Text, StyleSheet, NativeAppEventEmitter, TouchableOpacity, Image,TextInput } from 'react-native';
+import { View, Platform, Text, StyleSheet, NativeAppEventEmitter, TouchableOpacity, Image, TextInput } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
 import { TabNavigator, } from 'react-navigation';
@@ -8,7 +8,6 @@ import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from 'react-native-fetch-blob';
-import { RevMobManager } from 'react-native-revmob';
 import Modal from "react-native-modal";
 import Mailer from 'react-native-mail';
 import SendSMS from 'react-native-sms';
@@ -77,7 +76,7 @@ export default class ChatScreen extends React.Component {
 
 
     componentDidMount() {
-        RevMobManager.hideBanner();
+
         const { state } = this.props.navigation;
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
@@ -417,31 +416,33 @@ export default class ChatScreen extends React.Component {
 
     sendText = () => {
         const { state } = this.props.navigation;
-        
+
         if (!this.validateEmail(this.state.InviteEmail)) {
             alert("Please enter a valid email");
         } else {
-        SendSMS.send({
-            body: 'Hey there! I hope you can accept this invite to join this amazing trip.\n\n' + state.params.trip.tripName +
-            ' starts on the ' + state.params.trip.startDate + '\n\nPlease be sure to accept soon!'+ '\n\nhttps://geotogetherapp.github.io/?trip='+state.params.tripKey.key+'&email='+this.state.InviteEmail,
-            successTypes: ['sent', 'queued']
-        }, (completed, cancelled, error) => {
+            setTimeout(() => {
+                SendSMS.send({
+                    body: 'Hey there! I hope you can accept this invite to join this amazing trip.\n\n' + state.params.trip.tripName +
+                        ' starts on the ' + state.params.trip.startDate + '\n\nPlease be sure to accept soon!' + '\n\nhttps://geotogetherapp.github.io/?trip=' + state.params.tripKey.key + '&email=' + this.state.InviteEmail,
+                    successTypes: ['sent', 'queued']
+                }, (completed, cancelled, error) => {
 
-            console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
+                    console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
 
-        });
+                })
+            }, 1000);
 
-        this.closeModal();
+            this.closeModal();
 
-    }
+        }
     };
 
 
-    
+
     validateEmail = (InviteEmail) => {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(InviteEmail);
-    }; 
+    };
 
 
     handleEmail = () => {
@@ -450,28 +451,22 @@ export default class ChatScreen extends React.Component {
         if (!this.validateEmail(this.state.InviteEmail)) {
             alert("Please enter a valid email");
         } else {
+            setTimeout(() => {
+                Mailer.mail({
+                    subject: 'Invitation to join ' + state.params.trip.tripName,
+                    recipients: [this.state.InviteEmail],
+                    body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>' + state.params.trip.tripName +
+                        '<b> starts on the </b>' + state.params.trip.startDate + '<b>\n\nPlease be sure to accept soon!</b>' + '<b>\n\nhttps://geotogetherapp.github.io/?trip=' + state.params.tripKey.key + '&email=' + this.state.InviteEmail,
+                    isHTML: true
+                }, (error, event) => {
 
-        Mailer.mail({
-            subject: 'Invitation to join ' + state.params.trip.tripName,
-            recipients: [this.state.InviteEmail],
-            body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>' + state.params.trip.tripName +
-                '<b> starts on the </b>' + state.params.trip.startDate + '<b>\n\nPlease be sure to accept soon!</b>'+ '<b>\n\nhttps://geotogetherapp.github.io/?trip='+state.params.tripKey.key+'&email='+this.state.InviteEmail,
-            isHTML: true
-        }, (error, event) => {
-            Alert.alert(
-                error,
-                event,
-                [
-                    { text: 'Ok', onPress: () => console.log('OK: Email Error Response') },
-                    { text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response') }
-                ],
-                { cancelable: true }
-            )
-        });
+                })
+            }, 1000);
 
-        this.closeModal();
 
-    }
+            this.closeModal();
+
+        }
 
     };
 
@@ -483,55 +478,56 @@ export default class ChatScreen extends React.Component {
         this.setState({ modalVisible: false });
     }
 
-    AddToTrip(){
+    AddToTrip() {
         this.stat.AddUser = 1;
         this.openModal();
     }
-    DeleteFromTrip(){
+    DeleteFromTrip() {
         this.stat.AddUser = null;
         this.openModal();
     }
 
-    AddRender(){
-        return <View><TextInput
-                                    placeholder="New Member Email Address"
-                                    underlineColorAndroid="transparent"
-                                    returnKeyType="next"
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    onChangeText={InviteEmail => this.setState({InviteEmail})}
-                                    style={styles.emailStyle}
-                                />
- <TouchableOpacity onPress={this.sendText}>
-                                        <Image source={require('../../images/sms.png')}/>
-                                   </TouchableOpacity>
+    AddRender() {
+        return <View>
+            <TextInput
+            placeholder=" New Member Email Address "
+            underlineColorAndroid="transparent"
+            returnKeyType="next"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={InviteEmail => this.setState({ InviteEmail })}
+            style={styles.emailStyle}
+        />
+            <TouchableOpacity onPress={this.sendText}>
+                <Image source={require('../../images/sms.png')} />
+            </TouchableOpacity>
 
-                                <TouchableOpacity
-                                    onPress={this.handleEmail}>
-                                    <Image source={require('../../images/email.png')} />
-                                </TouchableOpacity>
+            <TouchableOpacity
+                onPress={this.handleEmail}>
+                <Image source={require('../../images/email.png')} />
+            </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => this.closeModal()}>
-                                    <Image source={require('../../images/cancel.png')} />
-                                </TouchableOpacity></View>;
+            <TouchableOpacity onPress={() => this.closeModal()}>
+                <Image source={require('../../images/cancel.png')} />
+            </TouchableOpacity></View>;
     }
 
-    DeleteRender(){
+    DeleteRender() {
         const { state } = this.props.navigation;
         var Path = 'trips/' + state.params.tripKey.key + '/'
 
         var members = "";
 
-        firebase.database().ref(Path).once('value', (snapshot) => {members = snapshot.val().members});
+        firebase.database().ref(Path).once('value', (snapshot) => { members = snapshot.val().members });
 
-        var membersWithoutAdmin=[];
+        var membersWithoutAdmin = [];
         var y = 0;
-        for(x = 0; x< members.length; x++){
+        for (x = 0; x < members.length; x++) {
 
-            if(members[x] == state.params.email){
-                
+            if (members[x] == state.params.email) {
+
             }
-            else{
+            else {
                 membersWithoutAdmin[y] = members[x];
                 y++;
 
@@ -542,42 +538,43 @@ export default class ChatScreen extends React.Component {
 
 
 
-        this.stat.TripUsers = membersWithoutAdmin;                      
-                                
+        this.stat.TripUsers = membersWithoutAdmin;
+
     }
 
-    DeleteUser(user){
+    DeleteUser(user) {
         const { state } = this.props.navigation;
 
         var Path = 'trips/' + state.params.tripKey.key + '/';
-        var newMembers =[];
+        var newMembers = [];
 
         firebase.database().ref(Path).once('value', (snapshot) => {
 
-       
-        var oldMembers = snapshot.val().members;
-        var y = 0;
-        for(x = 0; x< oldMembers.length; x++){
 
-            if(oldMembers[x] == user){
+            var oldMembers = snapshot.val().members;
+            var y = 0;
+            for (x = 0; x < oldMembers.length; x++) {
+
+                if (oldMembers[x] == user) {
 
 
+                }
+                else {
+                    newMembers[y] = oldMembers[x];
+                    y++;
+
+                }
             }
-            else{
-                newMembers[y] = oldMembers[x];
-                y++;
-
-            }
-        }
 
         });
 
-        firebase.database().ref('trips/'+state.params.tripKey.key+'/members').set(newMembers);
-                
+        firebase.database().ref('trips/' + state.params.tripKey.key + '/members').set(newMembers);
 
+
+        //this.setState({ modalVisible: false });
         this.closeModal();
 
-        alert("Succesfully Removed "+user+" From This Trip");
+
     }
 
     render() {
@@ -592,22 +589,22 @@ export default class ChatScreen extends React.Component {
         var DeleteText = <View></View>;
 
         if (this.stat.AddUser != null) {
-          DeleteText = <View></View>; 
-          ModalContainer = this.AddRender();  
-          CancelButton = <View></View>;     
+            DeleteText = <View></View>;
+            ModalContainer = this.AddRender();
+            CancelButton = <View></View>;
 
 
         } else {
 
 
-        this.DeleteRender();
-          DeleteText = <Text style={styles.buttonText}>Please Select The User You Would Like To Delete From The Trip</Text>; 
-          ModalContainer = this.stat.TripUsers.map((type) =>
-            <TouchableOpacity style={styles.buttonStyle} onPress={() => this.DeleteUser(type)}>
-                <Text style={styles.buttonText}>{type}</Text>
-            </TouchableOpacity>);
+            this.DeleteRender();
+            DeleteText = <Text style={styles.buttonText}>Please Select The User You Would Like To Delete From The Trip</Text>;
+            ModalContainer = this.stat.TripUsers.map((type) =>
+                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.DeleteUser(type)}>
+                    <Text style={styles.buttonText}>{type}</Text>
+                </TouchableOpacity>);
 
-          CancelButton = <View><TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeModal()}>
+            CancelButton = <View><TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeModal()}>
                 <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity></View>;
 
@@ -683,12 +680,12 @@ export default class ChatScreen extends React.Component {
 
 
 
-                            {DeleteText}                              
-                            {ModalContainer}
-                            {CancelButton}
-                            
-                                               
-                                
+                                {DeleteText}
+                                {ModalContainer}
+                                {CancelButton}
+
+
+
                             </View>
                         </View>
                     </View>
@@ -730,10 +727,12 @@ const styles = StyleSheet.create({
         width: 350
     },
     emailStyle: {
-        alignItems: 'stretch',
-        justifyContent: 'space-between',
+        // alignItems: 'stretch',
+        justifyContent: 'center',
         backgroundColor: 'white',
         borderRadius: 10,
+        width: 225,
+        height: 45,
     },
     buttonStyle: {
         backgroundColor: 'rgb(0,25,88)',

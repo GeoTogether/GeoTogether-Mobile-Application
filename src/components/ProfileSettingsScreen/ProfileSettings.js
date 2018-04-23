@@ -15,7 +15,7 @@ import {
 import firebase from '../Firebase/firebaseStorage';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
-import {RevMobManager} from "react-native-revmob";
+
 
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
@@ -177,7 +177,7 @@ export default class ProfileSettings extends Component {
     }
 
     componentWillUnmount(){
-        RevMobManager.showBanner();
+      
     }
 
 

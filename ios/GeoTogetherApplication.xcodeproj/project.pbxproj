@@ -29,6 +29,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2C0C40C5208D74E4008F23C7 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0C40C0208D74B9008F23C7 /* libRNMail.a */; };
 		2C2728A02021388E0022416F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C27289F2021388E0022416F /* libc++.tbd */; };
 		2C2728A220213E0C0022416F /* GoogleSdk in Resources */ = {isa = PBXBuildFile; fileRef = 2C2728A120213E0C0022416F /* GoogleSdk */; };
 		2CB3CF5220759B5300ABB989 /* libRNGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB3CEC82075929500ABB989 /* libRNGooglePlaces.a */; };
@@ -140,6 +141,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		2C0C40BF208D74B9008F23C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
+			remoteInfo = RNMail;
+		};
+		2C0C40C1208D74B9008F23C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
 		};
 		2C272876202135B10022416F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -447,6 +462,7 @@
 		1D28A9AAFD72445AB8F8D580 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		29696742F3F644529053929D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		2AB764AF5D924DFDA81BCA21 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
+		2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		2C27289F2021388E0022416F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		2C2728A120213E0C0022416F /* GoogleSdk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoogleSdk; path = "../node_modules/react-native-google-signin/ios/GoogleSdk"; sourceTree = "<group>"; };
 		2C2728B920214D480022416F /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = ../../google_signin_sdk_4_1_1/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
@@ -500,6 +516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0C40C5208D74E4008F23C7 /* libRNMail.a in Frameworks */,
 				2CBAC4C92085A3280033CAF8 /* libRCTCameraRoll.a in Frameworks */,
 				2CB3D0C62075F5C300ABB989 /* libRNGeocoder.a in Frameworks */,
 				2CB3D0BF2075E7EB00ABB989 /* libRNGoogleSignin.a in Frameworks */,
@@ -684,6 +701,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2C0C408E208D74B9008F23C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C40C0208D74B9008F23C7 /* libRNMail.a */,
+				2C0C40C2208D74B9008F23C7 /* RNMailTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2C2728502021357E0022416F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -813,6 +839,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */,
 				2CBAC4962085A2D40033CAF8 /* RCTCameraRoll.xcodeproj */,
 				2CB3D0C02075F59F00ABB989 /* RNGeocoder.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -1100,6 +1127,10 @@
 					ProjectRef = B489E05010E5478A95D740F0 /* RNImagePicker.xcodeproj */;
 				},
 				{
+					ProductGroup = 2C0C408E208D74B9008F23C7 /* Products */;
+					ProjectRef = 2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */;
+				},
+				{
 					ProductGroup = 2CB3CECE2075929600ABB989 /* Products */;
 					ProjectRef = 9F2779778D6C4263A16C62B5 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1180,6 +1211,20 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C0C40C0208D74B9008F23C7 /* libRNMail.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMail.a;
+			remoteRef = 2C0C40BF208D74B9008F23C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C0C40C2208D74B9008F23C7 /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 2C0C40C1208D74B9008F23C7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2C272877202135B10022416F /* libjsinspector.a */ = {

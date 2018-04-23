@@ -202,6 +202,8 @@ export default class NewEvent extends React.Component {
                                 style={{backgroundColor: 'white'}}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
@@ -220,6 +222,8 @@ export default class NewEvent extends React.Component {
                                 style={{backgroundColor: 'white'}}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
@@ -354,8 +358,9 @@ const styles = StyleSheet.create({
     },
     newEInput: {
         width: '90%',
+        height: '10%',
         backgroundColor: 'white',
-        borderRadius: 3
+        borderRadius: 30
     },
     dateInputStyle: {
         backgroundColor: 'white',
