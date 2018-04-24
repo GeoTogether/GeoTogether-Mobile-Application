@@ -179,7 +179,13 @@ export default class NewTrip extends React.Component {
         }
 
         else {
-            navigate('NewEvent', {email: this.state.email, trip: tripinfo});
+            if(this.state.startDate <= this.state.endDate) {
+                navigate('NewEvent', {email: this.state.email, trip: tripinfo});
+            }
+            else {
+                alert("Your trip start date must be earlier than your trip end date.");
+            }
+
         }
 
     }
@@ -195,24 +201,30 @@ export default class NewTrip extends React.Component {
         }
 
         else {
-            members.push(email);
+            if(startDate <= endDate) {
+                members.push(email);
 
 
-            // add the the trip to the database
-            firebase.database().ref('trips/').push({
-                tripName: tripname,
-                admin: email,
-                startDate: startDate,
-                endDate: endDate,
-                destination1: destination1,
-                destination2: destination2,
-                members: members,
-                events: events
-            });
+                // add the the trip to the database
+                firebase.database().ref('trips/').push({
+                    tripName: tripname,
+                    admin: email,
+                    startDate: startDate,
+                    endDate: endDate,
+                    destination1: destination1,
+                    destination2: destination2,
+                    members: members,
+                    events: events
+                });
 
 
-            //after adding the trip go back to trips
-            navigate('Home', {email: this.state.email});
+                //after adding the trip go back to trips
+                navigate('Home', {email: this.state.email});
+            }
+            else {
+                alert("Your trip start date must be earlier than your trip end date.");
+            }
+
         }
     }
 

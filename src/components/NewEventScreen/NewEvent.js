@@ -129,12 +129,28 @@ export default class NewEvent extends React.Component {
             alert("Please fill out all fields.");
         }
         else {
-            if(state.params.trip.startDate <= this.state.startDate && state.params.trip.endDate >= this.state.endDate) {
-                state.params.trip.events.push(newEvent);
-                navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+            if(state.params.trip.startDate <= this.state.startDate) {
+                if(state.params.trip.endDate >= this.state.endDate) {
+                    if(state.params.trip.startDate <= this.state.endDate) {
+                        if(this.state.startDate <= this.state.endDate) {
+                            state.params.trip.events.push(newEvent);
+                            navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+                        }
+                        else {
+                            alert("Please enter valid dates.");
+                        }
+                    }
+                    else {
+                        alert("Your event end date cannot be earlier than your trip start date.");
+                    }
+                }
+                else {
+                    alert("Your event end date cannot be later than your trip end date.");
+                }
+
             }
             else {
-                alert("Please enter valid dates.");
+                alert("Your event start date cannot be earlier than your trip start date.");
             }
         }
 
