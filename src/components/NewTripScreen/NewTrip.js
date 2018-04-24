@@ -218,9 +218,13 @@ export default class NewTrip extends React.Component {
 
     render() {
         const {navigate} = this.props.navigation;
+        const {goBack} = this.props.navigation;
 
         return (
             <View style={styles.container}>
+                <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                    <Image source={require('../../images/backarrow.png')}/>
+                </TouchableOpacity>
                 <View style={styles.childContainer}>
                     <View style={styles.tripNameInputContainer}>
                         <View style={styles.tripNameContainer}>
@@ -427,6 +431,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    back:{
+        marginLeft: 20
     },
     childContainer: {
         flex: 1,
