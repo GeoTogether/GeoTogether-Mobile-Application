@@ -124,9 +124,20 @@ export default class NewEvent extends React.Component {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         var newEvent = {eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen}
-   
-        state.params.trip.events.push(newEvent);
-        navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+        // alert(state.params.trip.startDate < this.state.startDate);
+        if(this.state.eventTitle == '' || this.state.eventAddress == null || this.state.startDate == null || this.state.endDate == null || this.state.startTimeChosen == '00:00' ||this.state.endTimeChosen == '00:00') {
+            alert("Please fill out all fields.");
+        }
+        else {
+            if(state.params.trip.startDate <= this.state.startDate && state.params.trip.endDate >= this.state.endDate) {
+                state.params.trip.events.push(newEvent);
+                navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+            }
+            else {
+                alert("Please enter valid dates.");
+            }
+        }
+
    
     }
 

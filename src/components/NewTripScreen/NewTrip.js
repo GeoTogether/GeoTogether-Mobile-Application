@@ -42,6 +42,7 @@ export default class NewTrip extends React.Component {
         modalEvent: false,
         eventTitle: '',
         eventAddress: '',
+        text: '',
     };
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
@@ -173,8 +174,8 @@ export default class NewTrip extends React.Component {
             members: this.state.members
         }
 
-        if(this.state.tripname == '' || this.state.destination1 == '' || this.state.destination2 == '' || this.state.startDate == null || this.state.endDate == null) {
-            alert("Please fill out all fields in the new trip first, before creating an event.");
+        if(this.state.tripname == '' || this.state.destination1 == null || this.state.destination2 == null || this.state.startDate == null || this.state.endDate == null) {
+            alert("Please fill out all fields in creating the trip before creating an event.");
         }
 
         else {
@@ -189,7 +190,7 @@ export default class NewTrip extends React.Component {
         const {navigate} = this.props.navigation;
         const {tripname, destination1, destination2, members, email, startDate, endDate, events} = this.state;
 
-        if(tripname == '' || destination1 == '' || destination2 == '' || startDate == null || endDate == null) {
+        if(tripname == '' || destination1 == null || destination2 == null || startDate == null || endDate == null) {
             alert("Please fill out all fields.");
         }
 
@@ -333,6 +334,7 @@ export default class NewTrip extends React.Component {
                                 autoFocus={false}
                                 returnKeyType={'default'}
                                 fetchDetails={true}
+                                onChangeText={(text) => this.setState({text})}
                                 styles={{
                                     textInputContainer: {
                                         backgroundColor: 'rgba(0,0,0,0)',
