@@ -1,13 +1,16 @@
 import React from "react";
 import {
-  AppRegistry,
-  StyleSheet, // CSS-like styles
-  Text, // Renders text
-  View,
-  Image  // Container component
+    AppRegistry,
+    StyleSheet, // CSS-like styles
+    Text, // Renders text
+    View,
+
+    Image, Dimensions  // Container component
 } from "react-native";
 
 import { StackNavigator } from "react-navigation";
+
+const { width, height } = Dimensions.get("window");
 
 import Swiper from "./Swiper";
 
@@ -45,6 +48,8 @@ const iconStyles = {
 const styles = StyleSheet.create({
   // Slide styles
   slide1: {
+    width: width,
+    height: height,
     flex: 1, // Take up all screen
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
@@ -52,17 +57,21 @@ const styles = StyleSheet.create({
   },
   // Slide styles
   slide2: {
-    flex: 1, // Take up all screen
-    justifyContent: "center", // Center vertically
-    alignItems: "center", // Center horizontally
-    backgroundColor: "#00B4AB"
+      width: width,
+      height: height,
+      flex: 1, // Take up all screen
+      justifyContent: "center", // Center vertically
+      alignItems: "center", // Center horizontally
+      backgroundColor: "#00B4AB"
   },
   // Slide styles
   slide3: {
-    flex: 1, // Take up all screen
-    justifyContent: "center", // Center vertically
-    alignItems: "center", // Center horizontally
-    backgroundColor: "#001958"
+      width: width,
+      height: height,
+      flex: 1, // Take up all screen
+      justifyContent: "center", // Center vertically
+      alignItems: "center", // Center horizontally
+      backgroundColor: "#001958"
   },
   // Header styles
   header: {
