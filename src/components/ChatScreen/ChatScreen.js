@@ -1,6 +1,6 @@
 import { GiftedChat, Actions, Bubble } from 'react-native-gifted-chat';
 import React from 'react';
-import {View, Platform, Text, StyleSheet, NativeAppEventEmitter} from 'react-native';
+import { View, Platform, Text, StyleSheet, NativeAppEventEmitter, TouchableOpacity, Image, TextInput } from 'react-native';
 import firebase from '../Firebase/firebaseStorage';
 import CustomActions from '../Custom/CustomActions';
 import { TabNavigator, } from 'react-navigation';
@@ -8,7 +8,10 @@ import TripScreen from '../TripsScreen/Trips';
 import ActionBar from 'react-native-action-bar';
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from 'react-native-fetch-blob';
-import {RevMobManager} from 'react-native-revmob';
+import { RevMobManager } from 'react-native-revmob';
+import Modal from "react-native-modal";
+import Mailer from 'react-native-mail';
+import SendSMS from 'react-native-sms';
 
 
 const Blob = RNFetchBlob.polyfill.Blob
@@ -38,6 +41,9 @@ export default class ChatScreen extends React.Component {
         firstTime: 0,
         arrayVal: 0,
         image_uri: null,
+        AddUser: null,
+        TripUsers: null,
+
     }
 
     renderName = (props) => {
@@ -71,7 +77,7 @@ export default class ChatScreen extends React.Component {
 
 
     componentDidMount() {
-
+        RevMobManager.hideBanner();
         const { state } = this.props.navigation;
         var Path = 'trips/' + state.params.tripKey.key + '/chats/groupChat/messages/';
         var Path2 = 'trips/' + state.params.tripKey.key + '/chats/groupChat/number/';
@@ -273,7 +279,7 @@ export default class ChatScreen extends React.Component {
 
 
     componentWillMount() {
-
+        this.setState({ modalVisible: false });
 
 
     }
@@ -409,24 +415,247 @@ export default class ChatScreen extends React.Component {
         });
     }
 
+    sendText = () => {
+        const { state } = this.props.navigation;
 
+        if (!this.validateEmail(this.state.InviteEmail)) {
+            alert("Please enter a valid email");
+        } else {
+
+            setTimeout(() => {
+                SendSMS.send({
+                    body: 'Hey there! I hope you can accept this invite to join this amazing trip.\n\n' + state.params.trip.tripName +
+                        ' starts on the ' + state.params.trip.startDate + '\n\nPlease be sure to accept soon!' + '\n\nhttps://geotogetherapp.github.io/?trip=' + state.params.tripKey.key + '&email=' + this.state.InviteEmail,
+                    successTypes: ['sent', 'queued']
+                }, (completed, cancelled, error) => {
+
+                    console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
+
+                })
+            }, 1000);
+
+            this.closeModal();
+
+
+
+        }
+    };
+
+
+
+    validateEmail = (InviteEmail) => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(InviteEmail);
+    };
+
+
+    handleEmail = () => {
+        const { state } = this.props.navigation;
+
+        if (!this.validateEmail(this.state.InviteEmail)) {
+            alert("Please enter a valid email");
+        } else {
+
+            setTimeout(() => {
+                Mailer.mail({
+                    subject: 'Invitation to join ' + state.params.trip.tripName,
+                    recipients: [this.state.InviteEmail],
+                    body: '<b>Hey there! I hope you can accept this invite to join this amazing trip.\n\n</b>' + state.params.trip.tripName +
+                        '<b> starts on the </b>' + state.params.trip.startDate + '<b>\n\nPlease be sure to accept soon!</b>' + '<b>\n\nhttps://geotogetherapp.github.io/?trip=' + state.params.tripKey.key + '&email=' + this.state.InviteEmail,
+                    isHTML: true
+                }, (error, event) => {
+
+                })
+            }, 1000);
+
+
+            this.closeModal();
+
+        }
+
+    };
+
+    openModal() {
+        this.setState({ modalVisible: true });
+    }
+
+    closeModal() {
+        this.setState({ modalVisible: false });
+    }
+
+    AddToTrip() {
+        this.stat.AddUser = 1;
+        this.openModal();
+    }
+    DeleteFromTrip() {
+        this.stat.AddUser = null;
+        this.openModal();
+    }
+
+    AddRender() {
+        return <View><TextInput
+            placeholder="New Member Email Address"
+            underlineColorAndroid="transparent"
+            returnKeyType="next"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={InviteEmail => this.setState({ InviteEmail })}
+            style={styles.emailStyle}
+        />
+            <TouchableOpacity onPress={this.sendText}>
+                <Image source={require('../../images/sms.png')} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={this.handleEmail}>
+                <Image source={require('../../images/email.png')} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.closeModal()}>
+                <Image source={require('../../images/cancel.png')} />
+            </TouchableOpacity></View>;
+    }
+
+    DeleteRender() {
+        const { state } = this.props.navigation;
+        var Path = 'trips/' + state.params.tripKey.key + '/'
+
+        var members = "";
+
+        firebase.database().ref(Path).once('value', (snapshot) => { members = snapshot.val().members });
+
+        var membersWithoutAdmin = [];
+        var y = 0;
+        for (x = 0; x < members.length; x++) {
+
+            if (members[x] == state.params.email) {
+
+            }
+            else {
+                membersWithoutAdmin[y] = members[x];
+                y++;
+
+            }
+
+
+        }
+
+
+
+        this.stat.TripUsers = membersWithoutAdmin;
+
+    }
+
+    DeleteUser(user) {
+        const { state } = this.props.navigation;
+
+        var Path = 'trips/' + state.params.tripKey.key + '/';
+        var newMembers = [];
+
+        firebase.database().ref(Path).once('value', (snapshot) => {
+
+
+            var oldMembers = snapshot.val().members;
+            var y = 0;
+            for (x = 0; x < oldMembers.length; x++) {
+
+                if (oldMembers[x] == user) {
+
+
+                }
+                else {
+                    newMembers[y] = oldMembers[x];
+                    y++;
+
+                }
+            }
+
+        });
+
+        firebase.database().ref('trips/' + state.params.tripKey.key + '/members').set(newMembers);
+
+
+        this.closeModal();
+
+       // alert("Succesfully Removed " + user + " From This Trip");
+    }
 
     render() {
         const { state } = this.props.navigation;
         const { navigate } = this.props.navigation;
         var email = state.params.email;
-        return (
-            <View style={{flex: 1}}>
 
-           <ActionBar
-                    containerStyle={styles.bar}
-                    title={state.params.trip.tripName}
-                    titleStyle={styles.title}
-                    backgroundColor={'white'}
-                    iconImageStyle={{tintColor: "black"}}
-                    leftIconName={'back'}
-                    onLeftPress={() => navigate('Chat', { email: state.params.email })}
-                />
+        var barComp;
+
+        var ModalContainer = "";
+        var CancelButton = <View></View>;
+        var DeleteText = <View></View>;
+
+        if (this.stat.AddUser != null) {
+            DeleteText = <View></View>;
+            ModalContainer = this.AddRender();
+            CancelButton = <View></View>;
+
+
+        } else {
+
+
+            this.DeleteRender();
+            DeleteText = <Text style={styles.buttonText}>Please Select The User You Would Like To Delete From The Trip</Text>;
+            ModalContainer = this.stat.TripUsers.map((type) =>
+                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.DeleteUser(type)}>
+                    <Text style={styles.buttonText}>{type}</Text>
+                </TouchableOpacity>);
+
+            CancelButton = <View><TouchableOpacity style={styles.buttonStyle} onPress={() => this.closeModal()}>
+                <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity></View>;
+
+
+        }
+
+        if (state.params.trip.admin == state.params.email) {
+            barComp = <ActionBar
+                containerStyle={styles.bar}
+                title={state.params.trip.tripName}
+                titleStyle={styles.title}
+                backgroundColor={'white'}
+                iconImageStyle={{ tintColor: "black" }}
+                leftIconName={'back'}
+                onLeftPress={() => navigate('Chat', { email: state.params.email })}
+                rightIcons={[
+                    {
+                        name: 'plus',
+                        onPress: () => this.AddToTrip(),
+                    },
+                    {
+                        //name: 'star',
+                        image: require('../../images/minus.png'),
+                        onPress: () => this.DeleteFromTrip(),
+                    },
+                ]}
+            />
+
+
+        } else {
+
+            barComp = <ActionBar
+                containerStyle={styles.bar}
+                title={state.params.trip.tripName}
+                titleStyle={styles.title}
+                backgroundColor={'white'}
+                iconImageStyle={{ tintColor: "black" }}
+                leftIconName={'back'}
+                onLeftPress={() => navigate('Chat', { email: state.params.email })}
+            />
+
+        }
+
+
+        return (
+            <View style={{ flex: 1 }}>
+
+                {barComp}
 
 
                 <GiftedChat
@@ -442,12 +671,37 @@ export default class ChatScreen extends React.Component {
 
                 />
 
+
+
+                <Modal
+                    visible={this.state.modalVisible}
+                    animationType={'slide'}
+                    onRequestClose={() => this.closeModal()}>
+
+                    <View style={styles.inviteContainer}>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.innerContainer}>
+
+
+
+                                {DeleteText}
+                                {ModalContainer}
+                                {CancelButton}
+
+
+
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
             </View>
-           
+
 
         );
     }
 }
+
 
 
 const styles = StyleSheet.create({
@@ -456,5 +710,42 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
         fontSize: 20
-    }
+    },
+    inviteContainer: {
+        flex: 1,
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    innerContainer: {
+        backgroundColor: "#b4b4b4",
+        padding: 20,
+        borderRadius: 4,
+        borderColor: "#ffa53f"
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 100,
+        width: 350
+    },
+    emailStyle: {
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        borderRadius: 10,
+    },
+    buttonStyle: {
+        backgroundColor: 'rgb(0,25,88)',
+        width: 300,
+        height: 45,
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '100'
+    },
 });

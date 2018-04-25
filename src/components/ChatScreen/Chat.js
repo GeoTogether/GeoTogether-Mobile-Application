@@ -80,7 +80,6 @@ export default class Chat extends React.Component {
         NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
             RevMobManager.showBanner(); // Show banner if it's loaded
         });
-        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
 
@@ -90,16 +89,14 @@ export default class Chat extends React.Component {
 
         // gets all the user trips
         this.onPressGetTrips();
-
+        RevMobManager.showBanner();
         // BackHandler.addEventListener('hardwareBackPress', function () {
         //     BackHandler.exitApp();
         //     return true;
         // });
     }
 
-    componentWillMount(){
-        RevMobManager.showBanner();
-    }
+
 
     componentWillUnmount() {
 
@@ -204,13 +201,14 @@ export default class Chat extends React.Component {
                             },
                         ]}
                     />
-
+                    <View style={styles.tripParentContainer}>
                        <View style={styles.tripContainer}>
                     <ScrollView>
                         <View style={styles.tripView}>
                             {components}
                         </View>
                     </ScrollView>
+                       </View>
 
 
                     </View>
@@ -273,11 +271,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: '60%'
     },
+    tripParentContainer:{
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     tripContainer: {
         height: '75%',
         width: '95%',
-        paddingTop: 35,
-        // backgroundColor: 'black',
     },
     tripView: {
         flex: 1,

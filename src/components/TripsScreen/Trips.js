@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActionBar from 'react-native-action-bar';
 import TabNavigator from 'react-native-tab-navigator';
 import {RevMobManager} from 'react-native-revmob';
-
+import RNExitApp from 'react-native-exit-app';
 
 export default class Trips extends React.Component {
 
@@ -45,7 +45,6 @@ export default class Trips extends React.Component {
     }
 
 
-
     px2dp(px) {
 
         const deviceW = Dimensions.get('window').width;
@@ -69,6 +68,7 @@ export default class Trips extends React.Component {
         )
     }
 
+
     componentWillMount() {
         RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
@@ -87,7 +87,6 @@ export default class Trips extends React.Component {
         NativeAppEventEmitter.addListener('onRevmobBannerDidReceive', () => {
             RevMobManager.showBanner(); // Show banner if it's loaded
         });
-        RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
         this.setState({ email: state.params.email });
@@ -95,6 +94,24 @@ export default class Trips extends React.Component {
 
         // gets all the user trips
         this.onPressGetTrips();
+        RevMobManager.showBanner();
+
+        BackHandler.addEventListener('hardwareBackPress', function() {
+            Alert.alert(
+                'Exit App',
+                'Do you want to exit the app?',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => RNExitApp.exitApp()},
+                ],
+                { cancelable: false }
+            )
+            return true;
+        });
+    }
+
+    componentWillUnmount(){
+        BackHandler.removeEventListener('hardwareBackPress');
     }
 
     // // funcation to sign out using firebase authentication.
@@ -214,13 +231,14 @@ export default class Trips extends React.Component {
                     />
               
 
+                <View style={styles.tripParentContainer}>
                 <View style={styles.tripContainer}>
                     <ScrollView>
                         <View style={styles.tripView}>
                             {components}
                         </View>
                     </ScrollView>
-
+                </View>
                 </View>
 
                 <View style={styles.addButtonContainer}>
@@ -281,7 +299,7 @@ const styles = StyleSheet.create({
     mainStyle: {
         flex: 1,
         width: '100%',
-        height:'100%',
+        height:'100%'
     },
     textStyle: {
         flex: 1,
@@ -292,11 +310,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: '60%'
     },
+    tripParentContainer:{
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     tripContainer: {
         height: '75%',
         width: '95%',
-        paddingTop: 35,
-        // backgroundColor: 'black',
     },
     tripView: {
         flex: 1,

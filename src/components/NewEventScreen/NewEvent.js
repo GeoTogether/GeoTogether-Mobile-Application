@@ -195,7 +195,7 @@ export default class NewEvent extends React.Component {
                                 width: '90%',
                             },
                             textInput: {
-                                width: '90%',
+                                width: '100%',
                                 backgroundColor: 'white',
                                 borderRadius: 30
                             },
@@ -229,6 +229,8 @@ export default class NewEvent extends React.Component {
                                 style={{backgroundColor: 'white'}}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
@@ -247,6 +249,8 @@ export default class NewEvent extends React.Component {
                                 style={{backgroundColor: 'white'}}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
@@ -311,7 +315,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     back:{
-      marginLeft: 10
+      marginLeft: 10,
     },
     backButtonContainer: {
       height: '5%'
@@ -377,12 +381,15 @@ const styles = StyleSheet.create({
         height: '40%',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        paddingLeft: 20
+        paddingLeft: 20,
+        paddingTop: 20
+                
     },
     newEInput: {
         width: '90%',
+        height: '10%',
         backgroundColor: 'white',
-        borderRadius: 3
+        borderRadius: 30
     },
     dateInputStyle: {
         backgroundColor: 'white',

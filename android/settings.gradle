@@ -31,6 +31,7 @@ include ':react-native-sms'
 project(':react-native-sms').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sms/android')
 include ':react-native-revmob'
 project(':react-native-revmob').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-revmob/android')
-
+include ':react-native-exit-app', ':app'
+  project(':react-native-exit-app').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-exit-app/android')
 
 include ':app'

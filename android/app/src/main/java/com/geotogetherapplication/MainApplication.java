@@ -26,7 +26,7 @@ import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
 import com.airbnb.android.react.maps.MapsPackage;
 import com.tkporter.sendsms.SendSMSPackage;
 import com.chirag.RNMail.*;
-
+import com.github.wumke.RNExitApp.RNExitAppPackage;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,6 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
           SendSMSPackage.getInstance(),
             new RNFetchBlobPackage(),
             new RevMobPackage(),
+            new RNExitAppPackage(),
             new RNGooglePlacesPackage(),
             new RNSendIntentPackage(),
             new RNMail(),
