@@ -20,7 +20,7 @@ export default class NewEvent extends React.Component {
         header: null
     };
 
-   
+
 
     state = {
         destination1: '',
@@ -40,78 +40,78 @@ export default class NewEvent extends React.Component {
         modalEvent: false,
         eventTitle: '',
         eventAddress: null,
-        startTimeChosen:'00:00',
+        startTimeChosen: '00:00',
         endTimeChosen: '00:00',
         isDateTimePickerVisible: false,
         isDateTimePickerVisible2: false,
     };
 
-    _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
+    _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
-    _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
+    _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
-    _showDateTimePicker2 = () => this.setState({isDateTimePickerVisible2: true});
+    _showDateTimePicker2 = () => this.setState({ isDateTimePickerVisible2: true });
 
-    _hideDateTimePicker2 = () => this.setState({isDateTimePickerVisible2: false});
+    _hideDateTimePicker2 = () => this.setState({ isDateTimePickerVisible2: false });
 
     _handleDatePicked = (date) => {
-       
-
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var period;
-
-    if (hours > 12) {
-        hours -= 12;
-        period = ' PM'
-    } else if (hours === 0) {
-        hours = 12;
-        period = ' AM'
-    }else if(hours < 12){
-
-        period = ' AM';
 
 
-    }else if(hours === 12){
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var period;
+
+        if (hours > 12) {
+            hours -= 12;
+            period = ' PM'
+        } else if (hours === 0) {
+            hours = 12;
+            period = ' AM'
+        } else if (hours < 12) {
+
+            period = ' AM';
 
 
-        period = ' PM'
+        } else if (hours === 12) {
 
-    }
 
-    var todisplay = hours.toString() + ':' + minutes.toString()+ period;
+            period = ' PM'
 
-        this.setState({startTimeChosen: todisplay});
+        }
+
+        var todisplay = hours.toString() + ':' + minutes.toString() + period;
+
+        this.setState({ startTimeChosen: todisplay });
         this._hideDateTimePicker();
     };
 
     _handleDatePicked2 = (date) => {
-        
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var period;
 
-    if (hours > 12) {
-        hours -= 12;
-        period = ' PM'
-    } else if (hours === 0) {
-        hours = 12;
-        period = ' AM'
-    }else if(hours < 12){
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var period;
 
-        period = ' AM';
+        if (hours > 12) {
+            hours -= 12;
+            period = ' PM'
+        } else if (hours === 0) {
+            hours = 12;
+            period = ' AM'
+        } else if (hours < 12) {
 
-
-    }else if(hours === 12){
+            period = ' AM';
 
 
-        period = ' PM'
+        } else if (hours === 12) {
 
-    }
 
-    var todisplay = hours.toString() + ':' + minutes.toString()+ period;
+            period = ' PM'
 
-        this.setState({endTimeChosen: todisplay});
+        }
+
+        var todisplay = hours.toString() + ':' + minutes.toString() + period;
+
+        this.setState({ endTimeChosen: todisplay });
         this._hideDateTimePicker2();
     };
 
@@ -120,21 +120,21 @@ export default class NewEvent extends React.Component {
         super(props)
     }
 
-    onPressNewEvent(){
+    onPressNewEvent() {
         const { navigate } = this.props.navigation;
         const { state } = this.props.navigation;
-        var newEvent = {eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen}
+        var newEvent = { eventTitle: this.state.eventTitle, eventAddress: this.state.eventAddress, startDate: this.state.startDate, endDate: this.state.endDate, startTimeChosen: this.state.startTimeChosen, endTimeChosen: this.state.endTimeChosen }
         // alert(state.params.trip.startDate < this.state.startDate);
-        if(this.state.eventTitle == '' || this.state.eventAddress == null || this.state.startDate == null || this.state.endDate == null || this.state.startTimeChosen == '00:00' ||this.state.endTimeChosen == '00:00') {
+        if (this.state.eventTitle == '' || this.state.eventAddress == null || this.state.startDate == null || this.state.endDate == null || this.state.startTimeChosen == '00:00' || this.state.endTimeChosen == '00:00') {
             alert("Please fill out all fields.");
         }
         else {
-            if(state.params.trip.startDate <= this.state.startDate) {
-                if(state.params.trip.endDate >= this.state.endDate) {
-                    if(state.params.trip.startDate <= this.state.endDate) {
-                        if(this.state.startDate <= this.state.endDate) {
+            if (state.params.trip.startDate <= this.state.startDate) {
+                if (state.params.trip.endDate >= this.state.endDate) {
+                    if (state.params.trip.startDate <= this.state.endDate) {
+                        if (this.state.startDate <= this.state.endDate) {
                             state.params.trip.events.push(newEvent);
-                            navigate('NewTrip', {email: state.params.email, trip: state.params.trip})
+                            navigate('NewTrip', { email: state.params.email, trip: state.params.trip })
                         }
                         else {
                             alert("Please enter valid dates.");
@@ -154,19 +154,19 @@ export default class NewEvent extends React.Component {
             }
         }
 
-   
+
     }
 
     render() {
 
-        const {navigate} = this.props.navigation;
-        const {goBack} = this.props.navigation;
+        const { navigate } = this.props.navigation;
+        const { goBack } = this.props.navigation;
 
         return (
             <LinearGradient colors={['#00B4AB', '#FE7C00']} style={styles.linearGradient}>
                 <View style={styles.backButtonContainer}>
                     <TouchableOpacity onPress={() => goBack()} style={styles.back} >
-                        <Image source={require('../../images/backarrow.png')}/>
+                        <Image source={require('../../images/backarrow.png')} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.newTitleContainer}>
@@ -178,7 +178,7 @@ export default class NewEvent extends React.Component {
                         autoCapitalize="words"
                         autoCorrect={true}
                         style={styles.newEInput}
-                        onChangeText={eventTitle => this.setState({eventTitle})} // gets the trip name
+                        onChangeText={eventTitle => this.setState({ eventTitle })} // gets the trip name
                     />
                     <Text style={styles.textHeader}>Address of the event:</Text>
                     <GooglePlacesAutocomplete
@@ -208,14 +208,14 @@ export default class NewEvent extends React.Component {
                             key: ' AIzaSyAUdubBvZ7sDgU2ye17YHpuJo-OPjM4EzE',
                             language: 'en', // language of the results
                             origin: 'http://mywebsite.com'
-                        
+
                         }}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                        // firebase.database().ref('test/').push(data);
-                        // firebase.database().ref('test/').push(details);
-                        // var temp = {address: data.description, id: data.place_id}
-                        this.setState({eventAddress: details})
-                           
+                            // firebase.database().ref('test/').push(data);
+                            // firebase.database().ref('test/').push(details);
+                            // var temp = {address: data.description, id: data.place_id}
+                            this.setState({ eventAddress: details })
+
                         }}
                     />
                 </View>
@@ -226,7 +226,7 @@ export default class NewEvent extends React.Component {
                             <Text style={styles.textHeader}>Start Date:</Text>
                             <DatePicker
                                 date={this.state.startDate}
-                                style={{backgroundColor: 'white'}}
+                                style={{ backgroundColor: 'white' }}
                                 showIcon={false}
                                 mode="date"
                                 confirmBtnText="Confirm"
@@ -235,7 +235,7 @@ export default class NewEvent extends React.Component {
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
                                 onDateChange={(startdate) => {
-                                    this.setState({startDate: startdate}), this.placeholder = startdate
+                                    this.setState({ startDate: startdate }), this.placeholder = startdate
                                 }}
                             />
                         </View>
@@ -246,7 +246,7 @@ export default class NewEvent extends React.Component {
                             <Text style={styles.textHeader}>End Date:</Text>
                             <DatePicker
                                 date={this.state.endDate}
-                                style={{backgroundColor: 'white'}}
+                                style={{ backgroundColor: 'white' }}
                                 showIcon={false}
                                 mode="date"
                                 confirmBtnText="Confirm"
@@ -255,7 +255,7 @@ export default class NewEvent extends React.Component {
                                 format="YYYY-MM-DD"
                                 customStyles={styles.durationInput}
                                 onDateChange={(enddate) => {
-                                    this.setState({endDate: enddate}), this.placeholder = enddate
+                                    this.setState({ endDate: enddate }), this.placeholder = enddate
                                 }}
                             />
                         </View>
@@ -314,11 +314,11 @@ const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
     },
-    back:{
-      marginLeft: 10,
+    back: {
+        marginLeft: 10,
     },
     backButtonContainer: {
-      height: '5%'
+        height: '5%'
     },
     textHeader: {
         color: 'white',
@@ -383,11 +383,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingLeft: 20,
         paddingTop: 20
-                
+
     },
     newEInput: {
         width: '90%',
-        height: '10%',
+        height: '15%',
         backgroundColor: 'white',
         borderRadius: 30
     },
@@ -444,7 +444,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         width: '50%',
         height: '70%',
-        flex:1,
+        flex: 1,
         backgroundColor: 'rgb(0,25,88)',
         alignItems: 'center',
         justifyContent: 'center',
