@@ -144,9 +144,15 @@ export default class NewTrip extends React.Component {
 
     render() {
         const {navigate} = this.props.navigation;
-
+        const {goBack} = this.props.navigation;
         return (
             <View style={styles.container}>
+   <View style={styles.backButtonContainer}>
+                    <TouchableOpacity onPress={() => goBack()} style={styles.back} >
+                        <Image source={require('../../images/backarrow.png')}/>
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.childContainer}>
                     <View style={styles.tripNameInputContainer}>
                         <View style={styles.tripNameContainer}>
@@ -176,6 +182,8 @@ export default class NewTrip extends React.Component {
                                 date={this.state.startDate}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 value={this.state.startDate}
                                 placeholder="Start Date"
                                 format="YYYY-MM-DD"
@@ -195,6 +203,8 @@ export default class NewTrip extends React.Component {
                                 date={this.state.endDate}
                                 showIcon={false}
                                 mode="date"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
                                 placeholder="End Date"
                                 format="YYYY-MM-DD"
                                 value={this.state.endDate}
@@ -417,7 +427,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     durationChoseContainer: {
-        height: '20%',
+        height: '25%',
         paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
@@ -483,5 +493,13 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    back:{
+        marginLeft: 10,
+        paddingTop: 15
+      },
+      backButtonContainer: {
+        height: '5%'
+      },
 });
+
