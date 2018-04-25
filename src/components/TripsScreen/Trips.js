@@ -68,6 +68,7 @@ export default class Trips extends React.Component {
         )
     }
 
+
     componentWillMount() {
         RevMobManager.showBanner();
         const { navigate } = this.props.navigation;
@@ -96,10 +97,15 @@ export default class Trips extends React.Component {
         RevMobManager.showBanner();
 
         BackHandler.addEventListener('hardwareBackPress', function() {
-            // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
-            // Typically you would use the navigator here to go to the last state.
-            RNExitApp.exitApp();
-            BackHandler.exitApp();
+            Alert.alert(
+                'Exit App',
+                'Do you want to exit the app?',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => RNExitApp.exitApp()},
+                ],
+                { cancelable: false }
+            )
             return true;
         });
     }
