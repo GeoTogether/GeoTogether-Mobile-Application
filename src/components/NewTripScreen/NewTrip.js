@@ -42,6 +42,7 @@ export default class NewTrip extends React.Component {
         modalEvent: false,
         eventTitle: '',
         eventAddress: '',
+        text: '',
     };
     _showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
     _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
@@ -112,7 +113,21 @@ export default class NewTrip extends React.Component {
             events: this.state.events,
             members: this.state.members
         }
-        navigate('NewEvent', {email: this.state.email, trip: tripinfo});
+
+        if(this.state.tripname == '' || this.state.destination1 == null || this.state.destination2 == null || this.state.startDate == null || this.state.endDate == null) {
+            alert("Please fill out all fields in creating the trip before creating an event.");
+        }
+
+        else {
+            if(this.state.startDate <= this.state.endDate) {
+                navigate('NewEvent', {email: this.state.email, trip: tripinfo});
+            }
+            else {
+                alert("Your trip start date must be earlier than your trip end date.");
+            }
+
+        }
+
     }
 
 
@@ -121,30 +136,42 @@ export default class NewTrip extends React.Component {
         const {navigate} = this.props.navigation;
         const {tripname, destination1, destination2, members, email, startDate, endDate, events} = this.state;
 
+        if(tripname == '' || destination1 == null || destination2 == null || startDate == null || endDate == null) {
+            alert("Please fill out all fields.");
+        }
 
-        members.push(email);
-
-
-        // add the the trip to the database
-        firebase.database().ref('trips/').push({
-            tripName: tripname,
-            admin: email,
-            startDate: startDate,
-            endDate: endDate,
-            destination1: destination1,
-            destination2: destination2,
-            members: members,
-            events: events
-        });
+        else {
+            if(startDate <= endDate) {
+                members.push(email);
 
 
-        //after adding the trip go back to trips
-        navigate('Home', {email: this.state.email});
+                // add the the trip to the database
+                firebase.database().ref('trips/').push({
+                    tripName: tripname,
+                    admin: email,
+                    startDate: startDate,
+                    endDate: endDate,
+                    destination1: destination1,
+                    destination2: destination2,
+                    members: members,
+                    events: events
+                });
+
+
+                //after adding the trip go back to trips
+                navigate('Home', {email: this.state.email});
+            }
+            else {
+                alert("Your trip start date must be earlier than your trip end date.");
+            }
+
+        }
     }
 
     render() {
         const {navigate} = this.props.navigation;
         const {goBack} = this.props.navigation;
+
         return (
             <View style={styles.container}>
    <View style={styles.backButtonContainer}>
@@ -270,6 +297,7 @@ export default class NewTrip extends React.Component {
                                 autoFocus={false}
                                 returnKeyType={'default'}
                                 fetchDetails={true}
+                                onChangeText={(text) => this.setState({text})}
                                 styles={{
                                     textInputContainer: {
                                         backgroundColor: 'rgba(0,0,0,0)',
@@ -336,6 +364,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    back:{
+        marginLeft: 20
     },
     childContainer: {
         flex: 1,
