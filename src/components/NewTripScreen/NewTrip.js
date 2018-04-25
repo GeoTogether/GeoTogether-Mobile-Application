@@ -427,7 +427,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     durationChoseContainer: {
-        height: '20%',
+        height: '25%',
         paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
