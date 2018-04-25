@@ -583,10 +583,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '100',
-        paddingTop: 10,
+        //paddingTop: 10,
     },
     infoContainer: {
-        height: '70%',
+        flex: 0,
+        height: '50%',
         width: '100%',
         paddingRight: 40,
         paddingLeft: 40,
@@ -640,6 +641,7 @@ const styles = StyleSheet.create({
     },
 
     modalContainer: {
+        flex: 0,
         position: 'absolute',
         left: 0,
         top: 0,
@@ -650,11 +652,12 @@ const styles = StyleSheet.create({
         // paddingRight: 40,
         // paddingLeft: 40,
     },
-    //
-    // ModalContainer: {
-    //     height: '10%',
-    //     backgroundColor: 'white',
-    //
-    // }
+    infoTextEvent:{
+        color: '#000',
+        fontWeight: 'normal',
+        fontSize: 14,
+        textAlign: 'center',
+
+    }
 
 });

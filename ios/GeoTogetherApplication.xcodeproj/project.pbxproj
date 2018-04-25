@@ -29,8 +29,17 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2C0C40C5208D74E4008F23C7 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0C40C0208D74B9008F23C7 /* libRNMail.a */; };
 		2C2728A02021388E0022416F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C27289F2021388E0022416F /* libc++.tbd */; };
 		2C2728A220213E0C0022416F /* GoogleSdk in Resources */ = {isa = PBXBuildFile; fileRef = 2C2728A120213E0C0022416F /* GoogleSdk */; };
+		2C39A17A208EF773001414A5 /* RevMobAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A179208EF772001414A5 /* RevMobAds.framework */; };
+		2C39A17B208EFCB0001414A5 /* libRCTRevMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A178208EF6EA001414A5 /* libRCTRevMob.a */; };
+		2C39A17D208EFDA2001414A5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A17C208EFDA1001414A5 /* AdSupport.framework */; };
+		2C39A17F208EFDBA001414A5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A17E208EFDBA001414A5 /* MediaPlayer.framework */; };
+		2C39A1D5208F0B5C001414A5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A1A2208F0B5C001414A5 /* AVFoundation.framework */; };
+		2C39A1D7208F0B78001414A5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A1D6208F0B78001414A5 /* CoreFoundation.framework */; };
+		2C39A1D9208F0B96001414A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A1D8208F0B95001414A5 /* Foundation.framework */; };
+		2C39A1DB208F0BF0001414A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C39A1DA208F0BF0001414A5 /* StoreKit.framework */; };
 		2CB3CF5220759B5300ABB989 /* libRNGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB3CEC82075929500ABB989 /* libRNGooglePlaces.a */; };
 		2CB3D0BF2075E7EB00ABB989 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C272892202135BC0022416F /* libRNGoogleSignin.a */; };
 		2CB3D0C62075F5C300ABB989 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB3D0C52075F5A000ABB989 /* libRNGeocoder.a */; };
@@ -141,6 +150,20 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
+		2C0C40BF208D74B9008F23C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
+			remoteInfo = RNMail;
+		};
+		2C0C40C1208D74B9008F23C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
+		};
 		2C272876202135B10022416F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -217,6 +240,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9FD355121D3E4A2900D06170;
 			remoteInfo = RNGoogleSignin;
+		};
+		2C39A177208EF6EA001414A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB0B277E832B4ED2B6A99087 /* RCTRevMob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AF8B75C31CEB61BF00C59F7F;
+			remoteInfo = RCTRevMob;
 		};
 		2C6ED77E2086A4B800212BE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -444,13 +474,22 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GeoTogetherApplication/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1B30984F2531450ABF3845F6 /* libSendSMS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSendSMS.a; sourceTree = "<group>"; };
+		1B40D0F0E0D7428486E07127 /* libRCTRevMob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTRevMob.a; sourceTree = "<group>"; };
 		1D28A9AAFD72445AB8F8D580 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		29696742F3F644529053929D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		2AB764AF5D924DFDA81BCA21 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
+		2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		2C27289F2021388E0022416F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		2C2728A120213E0C0022416F /* GoogleSdk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoogleSdk; path = "../node_modules/react-native-google-signin/ios/GoogleSdk"; sourceTree = "<group>"; };
 		2C2728B920214D480022416F /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = ../../google_signin_sdk_4_1_1/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		2C2728BA20214D480022416F /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = ../../google_signin_sdk_4_1_1/GoogleSignIn.framework; sourceTree = "<group>"; };
+		2C39A179208EF772001414A5 /* RevMobAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevMobAds.framework; sourceTree = "<group>"; };
+		2C39A17C208EFDA1001414A5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		2C39A17E208EFDBA001414A5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		2C39A1A2208F0B5C001414A5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2C39A1D6208F0B78001414A5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		2C39A1D8208F0B95001414A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2C39A1DA208F0BF0001414A5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2CB3D0C02075F59F00ABB989 /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 		2CBAC4962085A2D40033CAF8 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* GeoTogetherApplication-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GeoTogetherApplication-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -479,6 +518,7 @@
 		C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SendSMS.xcodeproj; path = "../node_modules/react-native-sms/SendSMS.xcodeproj"; sourceTree = "<group>"; };
 		C0F227FE79EB49298711EE81 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		C90F777E546E43F79846EFC8 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
+		CB0B277E832B4ED2B6A99087 /* RCTRevMob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTRevMob.xcodeproj; path = "../node_modules/react-native-revmob/ios/RCTRevMob.xcodeproj"; sourceTree = "<group>"; };
 		CDEC5E1849284D14B45C1E41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CEB8517B781901FAF85B30A9 /* libPods-GeoTogetherApplication.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoTogetherApplication.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3061EF55B0F4AB6BBE844AD /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGooglePlaces.xcodeproj; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; };
@@ -500,6 +540,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C39A1DB208F0BF0001414A5 /* StoreKit.framework in Frameworks */,
+				091F9D3408214821BF4E0B65 /* SystemConfiguration.framework in Frameworks */,
+				2C39A1D9208F0B96001414A5 /* Foundation.framework in Frameworks */,
+				2C39A1D7208F0B78001414A5 /* CoreFoundation.framework in Frameworks */,
+				2C39A1D5208F0B5C001414A5 /* AVFoundation.framework in Frameworks */,
+				2C39A17F208EFDBA001414A5 /* MediaPlayer.framework in Frameworks */,
+				2C39A17D208EFDA2001414A5 /* AdSupport.framework in Frameworks */,
+				2C39A17A208EF773001414A5 /* RevMobAds.framework in Frameworks */,
+				2C0C40C5208D74E4008F23C7 /* libRNMail.a in Frameworks */,
 				2CBAC4C92085A3280033CAF8 /* libRCTCameraRoll.a in Frameworks */,
 				2CB3D0C62075F5C300ABB989 /* libRNGeocoder.a in Frameworks */,
 				2CB3D0BF2075E7EB00ABB989 /* libRNGoogleSignin.a in Frameworks */,
@@ -517,6 +566,7 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				2C39A17B208EFCB0001414A5 /* libRCTRevMob.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				11F49D582021BABC00764907 /* FBSDKCoreKit.framework in Frameworks */,
 				11F49D572021BABC00764907 /* Bolts.framework in Frameworks */,
@@ -524,7 +574,6 @@
 				33F2CC4CD381458B8E4DA369 /* libz.tbd in Frameworks */,
 				11F49D592021BABC00764907 /* FBSDKLoginKit.framework in Frameworks */,
 				E0CA254E556640B591637C98 /* SafariServices.framework in Frameworks */,
-				091F9D3408214821BF4E0B65 /* SystemConfiguration.framework in Frameworks */,
 				691244CEBA80423E8EF13951 /* AddressBook.framework in Frameworks */,
 				90ED85F5EA1A4146A9CFD742 /* libBVLinearGradient.a in Frameworks */,
 				4ABE2D7DD582433FACE5B32C /* libRCTFBSDK.a in Frameworks */,
@@ -684,6 +733,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2C0C408E208D74B9008F23C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C40C0208D74B9008F23C7 /* libRNMail.a */,
+				2C0C40C2208D74B9008F23C7 /* RNMailTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2C2728502021357E0022416F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -694,6 +752,7 @@
 				359E945D40144BB28FB4F2D5 /* libRNGooglePlaces.a */,
 				C0F227FE79EB49298711EE81 /* libRNVectorIcons.a */,
 				1B30984F2531450ABF3845F6 /* libSendSMS.a */,
+				1B40D0F0E0D7428486E07127 /* libRCTRevMob.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -711,6 +770,14 @@
 			children = (
 				2C27288D202135BC0022416F /* libBVLinearGradient.a */,
 				2C27288F202135BC0022416F /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C39A174208EF6EA001414A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C39A178208EF6EA001414A5 /* libRCTRevMob.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -766,6 +833,13 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C39A1DA208F0BF0001414A5 /* StoreKit.framework */,
+				2C39A1D8208F0B95001414A5 /* Foundation.framework */,
+				2C39A1D6208F0B78001414A5 /* CoreFoundation.framework */,
+				2C39A1A2208F0B5C001414A5 /* AVFoundation.framework */,
+				2C39A17E208EFDBA001414A5 /* MediaPlayer.framework */,
+				2C39A17C208EFDA1001414A5 /* AdSupport.framework */,
+				2C39A179208EF772001414A5 /* RevMobAds.framework */,
 				11F49D532021BABC00764907 /* Bolts.framework */,
 				11F49D542021BABC00764907 /* FBSDKCoreKit.framework */,
 				11F49D552021BABC00764907 /* FBSDKLoginKit.framework */,
@@ -813,6 +887,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */,
 				2CBAC4962085A2D40033CAF8 /* RCTCameraRoll.xcodeproj */,
 				2CB3D0C02075F59F00ABB989 /* RNGeocoder.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -834,6 +909,7 @@
 				D3061EF55B0F4AB6BBE844AD /* RNGooglePlaces.xcodeproj */,
 				9F2779778D6C4263A16C62B5 /* RNVectorIcons.xcodeproj */,
 				C04867FE5176454E96DA1E35 /* SendSMS.xcodeproj */,
+				CB0B277E832B4ED2B6A99087 /* RCTRevMob.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1064,6 +1140,10 @@
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
+					ProductGroup = 2C39A174208EF6EA001414A5 /* Products */;
+					ProjectRef = CB0B277E832B4ED2B6A99087 /* RCTRevMob.xcodeproj */;
+				},
+				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
 					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
 				},
@@ -1098,6 +1178,10 @@
 				{
 					ProductGroup = 2CB3CEC92075929500ABB989 /* Products */;
 					ProjectRef = B489E05010E5478A95D740F0 /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 2C0C408E208D74B9008F23C7 /* Products */;
+					ProjectRef = 2C0C408D208D74B9008F23C7 /* RNMail.xcodeproj */;
 				},
 				{
 					ProductGroup = 2CB3CECE2075929600ABB989 /* Products */;
@@ -1182,6 +1266,20 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		2C0C40C0208D74B9008F23C7 /* libRNMail.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMail.a;
+			remoteRef = 2C0C40BF208D74B9008F23C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C0C40C2208D74B9008F23C7 /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 2C0C40C1208D74B9008F23C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		2C272877202135B10022416F /* libjsinspector.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1257,6 +1355,13 @@
 			fileType = archive.ar;
 			path = libRNGoogleSignin.a;
 			remoteRef = 2C272891202135BC0022416F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C39A178208EF6EA001414A5 /* libRCTRevMob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTRevMob.a;
+			remoteRef = 2C39A177208EF6EA001414A5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2C6ED77F2086A4B800212BE7 /* libSendSMS.a */ = {
@@ -1667,12 +1772,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
+					"$(SRCROOT)/../node_modules/react-native-revmob/ios/**",
 				);
 				INFOPLIST_FILE = GeoTogetherApplicationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1705,12 +1812,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
+					"$(SRCROOT)/../node_modules/react-native-revmob/ios/**",
 				);
 				INFOPLIST_FILE = GeoTogetherApplicationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1733,6 +1842,7 @@
 			baseConfigurationReference = 0109F4C7ED9EF5866C952608 /* Pods-GeoTogetherApplication.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1759,6 +1869,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
 					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
+					"$(SRCROOT)/../node_modules/react-native-revmob/ios/**",
 				);
 				INFOPLIST_FILE = GeoTogetherApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1767,7 +1878,7 @@
 					"-lc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Khalid.GeoTogetherApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Khalid2.GeoTogetherApplication;
 				PRODUCT_NAME = GeoTogetherApplication;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1779,6 +1890,7 @@
 			baseConfigurationReference = 7AD6DB3A9C18016CB3A691E9 /* Pods-GeoTogetherApplication.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1804,6 +1916,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
 					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
+					"$(SRCROOT)/../node_modules/react-native-revmob/ios/**",
 				);
 				INFOPLIST_FILE = GeoTogetherApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1812,7 +1925,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Khalid.GeoTogetherApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.Khalid2.GeoTogetherApplication;
 				PRODUCT_NAME = GeoTogetherApplication;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1840,11 +1953,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
+					"$(SRCROOT)/../node_modules/react-native-revmob/ios/**",
 				);
 				INFOPLIST_FILE = "GeoTogetherApplication-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1886,11 +2001,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-google-placesios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-smsSendSMS",
+					"$(SRCROOT)/../node_modules/react-native-revmob/ios/**",
 				);
 				INFOPLIST_FILE = "GeoTogetherApplication-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1934,6 +2051,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.GeoTogetherApplication-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1959,6 +2077,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
